@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<body copyright="All data copyright MBTA 2012.">
+<predictions agencyTitle="MBTA" routeTitle="39" routeTag="39" stopTitle="South St @ Rosemary St" stopTag="1936">
+  <direction title="Back Bay Station via Copley Square">
+  <prediction epochTime="1337181721123" seconds="257" minutes="4" isDeparture="false" affectedByLayover="true" dirTag="39_1_var1" vehicle="1041" block="S39_46" tripTag="17300212" />
+  <prediction epochTime="1337182207827" seconds="744" minutes="12" isDeparture="false" affectedByLayover="true" dirTag="39_1_var1" vehicle="1029" block="S39_48" tripTag="17300237" />
+  <prediction epochTime="1337182972815" seconds="1509" minutes="25" isDeparture="false" affectedByLayover="true" dirTag="39_1_var1" vehicle="1025" block="S39_27" tripTag="17300236" />
+  <prediction epochTime="1337183845909" seconds="2382" minutes="39" isDeparture="false" affectedByLayover="true" dirTag="39_1_var1" vehicle="1024" block="S39_31" tripTag="17300214" />
+  <prediction epochTime="1337184584944" seconds="3121" minutes="52" isDeparture="false" affectedByLayover="true" dirTag="39_1_var1" vehicle="1021" block="S39_35" tripTag="17300215" />
+  </direction>
+</predictions>
+</body>

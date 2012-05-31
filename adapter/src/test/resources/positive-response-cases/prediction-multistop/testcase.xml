@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<body copyright="All data copyright MBTA 2012.">
+    <predictions agencyTitle="MBTA" routeTitle="111" routeTag="111" stopTitle="Haymarket Station" stopTag="8310">
+        <direction title="Woodlawn via Tobin">
+            <prediction epochTime="1337639957586" seconds="47" minutes="0" isDeparture="true" affectedByLayover="true" dirTag="111_0_var2" vehicle="0624" block="G111_145" tripTag="17470110"/>
+            <prediction epochTime="1337640000000" seconds="90" minutes="1" isDeparture="true" affectedByLayover="true" dirTag="111_0_var2" vehicle="0634" block="G111_136" tripTag="17470075"/>
+            <prediction epochTime="1337640600000" seconds="690" minutes="11" isDeparture="true" affectedByLayover="true" dirTag="111_0_var2" vehicle="0626" block="G111_142" tripTag="17469858"/>
+            <prediction epochTime="1337640900000" seconds="990" minutes="16" isDeparture="true" affectedByLayover="true" dirTag="111_0_var2" vehicle="0732" block="G111_135" tripTag="17469891"/>
+        </direction>
+        <direction title="Broadway &amp; Park via Tobin">
+            <prediction epochTime="1337641200000" seconds="1290" minutes="21" isDeparture="true" affectedByLayover="true" dirTag="111_0_var0" vehicle="0694" block="G111_120" tripTag="17470046"/>
+            <prediction epochTime="1337641800000" seconds="1890" minutes="31" isDeparture="true" affectedByLayover="true" dirTag="111_0_var0" vehicle="0600" block="G106_80" tripTag="17470015"/>
+            <prediction epochTime="1337642400000" seconds="2490" minutes="41" isDeparture="true" affectedByLayover="true" dirTag="111_0_var0" vehicle="0702" block="G111_140" tripTag="17470146"/>
+            <prediction epochTime="1337643083635" seconds="3173" minutes="52" isDeparture="true" affectedByLayover="true" dirTag="111_0_var0" vehicle="0634" block="G111_136" tripTag="17470085"/>
+            <prediction epochTime="1337643600000" seconds="3690" minutes="61" isDeparture="true" affectedByLayover="true" dirTag="111_0_var0" vehicle="0618" block="G111_126" tripTag="17469910"/>
+        </direction>
+        <message text="Station platform repairs are scheduled for Saturday mornings Summer of 2012."/>
+        <message text="Departures are delayed today until 6:30 PM due to flooding."/>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="110" routeTag="110" stopTitle="Wellington Station Busway" stopTag="5271">
+        <direction title="Wonderland via Woodlawn">
+            <prediction epochTime="1337640600000" seconds="690" minutes="11" isDeparture="true" affectedByLayover="true" dirTag="110_0_var0" vehicle="0332" block="G111_124" tripTag="17469846"/>
+            <prediction epochTime="1337642100000" seconds="2190" minutes="36" isDeparture="true" affectedByLayover="true" dirTag="110_0_var0" vehicle="0608" block="G110_111" tripTag="17469825"/>
+            <prediction epochTime="1337645733823" seconds="5823" minutes="97" isDeparture="true" affectedByLayover="true" dirTag="110_0_var0" vehicle="0608" block="G110_111" tripTag="17469836"/>
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="110" routeTag="110" stopTitle="Wellington Station Busway" stopTag="5271_ar">
+        <direction title="Wellington via Woodlawn">
+            <prediction epochTime="1337640410245" seconds="500" minutes="8" isDeparture="false" dirTag="110_1_var1" vehicle="0332" block="G111_124" tripTag="17469557"/>
+            <prediction epochTime="1337640778872" seconds="868" minutes="14" isDeparture="false" dirTag="110_1_var0" vehicle="0602" block="G99_47" tripTag="17469851"/>
+            <prediction epochTime="1337642096082" seconds="2186" minutes="36" isDeparture="false" affectedByLayover="true" dirTag="110_1_var0" vehicle="0608" block="G110_111" tripTag="17469813"/>
+            <prediction epochTime="1337643111731" seconds="3201" minutes="53" isDeparture="false" affectedByLayover="true" dirTag="110_1_var0" vehicle="0629" block="G112_158" tripTag="17469782"/>
+            <prediction epochTime="1337645733644" seconds="5823" minutes="97" isDeparture="false" affectedByLayover="true" dirTag="110_1_var0" vehicle="0608" block="G110_111" tripTag="17469776"/>
+        </direction>
+    </predictions>
+</body>
