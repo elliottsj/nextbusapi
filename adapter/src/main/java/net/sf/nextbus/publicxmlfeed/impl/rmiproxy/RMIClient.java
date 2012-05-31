@@ -75,7 +75,7 @@ public class RMIClient {
     /**
      * Gets a reference to a NextBus Webservice adapter via RMI on another host.
      *
-     * @return
+     * @return reference to the Adapter Service interface
      * @exception TransientServiceException wraps all underlying checked RMI
      * exception
      */

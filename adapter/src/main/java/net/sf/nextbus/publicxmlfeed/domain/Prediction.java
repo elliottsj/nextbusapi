@@ -149,8 +149,8 @@ public class Prediction extends NextbusValueObject {
     }
 
     /**
-     * The Route to which this prediction estimate belongs.
-     * @return 
+     * 
+     * @return The Route to which this prediction estimate belongs.
      */
     public Route getParent() {
         return parent;

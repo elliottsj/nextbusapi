@@ -61,7 +61,7 @@ public class Path extends NextbusValueObject {
      * grouping, we create a synthetic identifier for them on the fly by means of an
      * incrementing integer.  We use a String rather than an int in the event that they
      * should add this ID attribute to their wire protocol in the fututre. <jrd>
-     * @return 
+     * @return the path Id
      */
     public String getPathId() {
         return pathId;

@@ -172,7 +172,7 @@ public class RouteConfiguration extends NextbusValueObject {
      * Vehicle Location and Prediction service calls.
      *
      * @param stopId
-     * @return
+     * @return Stop
      */
     public Stop getStopById(String stopId) {
         for (Stop s : stops) {
@@ -239,12 +239,13 @@ public class RouteConfiguration extends NextbusValueObject {
     /**
      * Defaults to the #000000 color if unspecified.
      * 
-     * @param hexColor 
+     * @param _hexColor hex color string 
      */
-    public UIColor(String hexColor) {
-            if (hexColor == null || hexColor.isEmpty()) {
+    public UIColor(String _hexColor) {
+            if (_hexColor == null || _hexColor.isEmpty()) {
                 return;
             }
+            this.hexColor=_hexColor;
 
             String r = hexColor.substring(0, 2);
             String g = hexColor.substring(2, 4);
@@ -265,9 +266,8 @@ public class RouteConfiguration extends NextbusValueObject {
         }
 
         /**
-         * Gets the sRGB Color Value.
-         *
-         * @return
+         * 
+         * @return the sRGB Color Value.
          */
         public int getRGBColor() {
             return Integer.parseInt(hexColor);

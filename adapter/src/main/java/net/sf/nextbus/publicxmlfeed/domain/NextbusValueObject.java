@@ -35,7 +35,6 @@ import java.io.Serializable;
  * Base Class for NextBus Value Objects - Temporal, Serializable and must carry Copyright text.
  * 
  * @author jrd
- * @version
  */
 public abstract class NextbusValueObject implements Serializable, TemporalValueObject {
  

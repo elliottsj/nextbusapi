@@ -192,7 +192,7 @@ public class RPCRequest {
     
     /**
      * Returns only the encoded request parameters nugget.
-     * @return0 i.e. "a=1&cz=sdfgdr&tzp=213"
+     * @return example "a=1&cz=sdfgdr&tzp=213"
      */
     public String getRequestParametersString() {
         StringBuilder sb = new StringBuilder();

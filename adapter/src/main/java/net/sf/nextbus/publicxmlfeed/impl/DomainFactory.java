@@ -358,7 +358,7 @@ public class DomainFactory {
     }
 
     /**
-     * @param Route route
+     * @param route route
      * @param xml XML
      * @throws JAXBException Propagates any JAXB Exceptions while attempting to
      * parse XML.

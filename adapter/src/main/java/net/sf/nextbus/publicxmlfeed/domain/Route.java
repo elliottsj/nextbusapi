@@ -38,7 +38,6 @@ package net.sf.nextbus.publicxmlfeed.domain;
  * assigned Vehicles and also have posted Schedules. This class reflects the
  * meta-data conveyed in the various XML Response Streams of NextBus.
  *
- * @see resource/routelist.xsd
  * @author jrd
  */
 public class Route extends NextbusValueObject {
@@ -105,9 +104,6 @@ public class Route extends NextbusValueObject {
 
     /**
      * The identity of this object is a Composite on Agency and tag.
-     *
-     * @param obj
-     * @return
      */
     @Override
     public boolean equals(Object obj) {

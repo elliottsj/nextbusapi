@@ -106,8 +106,8 @@ public class VehicleLocation extends NextbusValueObject {
     }
 
     /**
-     * Last reported time at position in milliSeconds since Jan 1, 1970 UTC.
-     * @return 
+     * 
+     * @return Last reported time at position in milliSeconds since Jan 1, 1970 UTC.
      */
     public long getLastTimeUtc() {
         return super.createTimeUtc;
@@ -130,8 +130,8 @@ public class VehicleLocation extends NextbusValueObject {
     }
 
     /**
-     * The Route identifier for this vehicle.
-     * @return 
+     * 
+     * @return The Route identifier for this vehicle.
      */
     public Route getRoute() {
         return parent;

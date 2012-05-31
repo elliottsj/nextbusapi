@@ -71,7 +71,7 @@ class ScheduleCalendarTranslations {
          * Translates "Mo", "We", "MoTu" etc to an Enum
          *
          * @param arg
-         * @return
+         * @return Internal enum value correpsonding to the NextBus day value.
          */
         public static CalendarDays getFoo(String arg) {
             for (CalendarDays days : CalendarDays.values()) {
@@ -134,7 +134,7 @@ class ScheduleCalendarTranslations {
 
     /**
      *
-     * @return
+     * @return Calendar codes for days of the business week
      */
     static List<Integer> getBusinessDays() {
         return unmod(new Integer[]{Calendar.MONDAY, Calendar.TUESDAY, Calendar.WEDNESDAY, Calendar.THURSDAY, Calendar.FRIDAY});
@@ -142,7 +142,7 @@ class ScheduleCalendarTranslations {
 
     /**
      *
-     * @return
+     * @return Calendar codes for the weekend.
      */
     static List<Integer> getWeekendDays() {
         return unmod(new Integer[]{Calendar.SATURDAY, Calendar.SUNDAY});
