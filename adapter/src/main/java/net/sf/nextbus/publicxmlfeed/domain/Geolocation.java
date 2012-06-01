@@ -49,7 +49,7 @@ public class Geolocation implements Serializable {
      */
     public static final double Re = 6371.009; // mean radius of earth in kilometers
     /**
-     * Constant: Conversion of km to Miles
+     * Constant: Conversion of kilometers to miles
      */
     public static final double km2miles = 0.621371192;
 
@@ -63,18 +63,16 @@ public class Geolocation implements Serializable {
      */
     private static double haversine(Geolocation p1, Geolocation p2) {
         // Convert to Radians and compute differentials
-        double dθ = Math.toRadians(p2.latitude - p1.latitude);
-        double dφ = Math.toRadians(p2.longitude - p1.longitude);
-        double Θ1 = Math.toRadians(p1.latitude);
-        double Θ2 = Math.toRadians(p2.latitude);
+        double dθ = p2.latitudeRadians - p1.latitudeRadians;
+        double dφ = p2.longitudeRadians - p1.longitudeRadians;
+        double Θ1 = p1.latitudeRadians;
+        double Θ2 = p2.latitudeRadians;
         // do the the angular distance magic constrained to the surface a sphere
         double a = Math.sin(dθ / 2) * Math.sin(dθ / 2)
                 + Math.sin(dφ / 2) * Math.sin(dφ / 2) * Math.cos(Θ1) * Math.cos(Θ2);
         // Convert back to an angle
         double θ = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        // compute the arc-length ; s = rθ
-        double distance = Re * θ;
-        return Math.abs(distance);
+        return θ;
     }
 
     /**
@@ -107,11 +105,11 @@ public class Geolocation implements Serializable {
     /**
      * GPS Latitude in Degrees Decimal.
      */
-    protected double latitude;
+    protected double latitude, latitudeRadians;
     /**
      * GPS Longitude in Degrees Decimal.
      */
-    protected double longitude;
+    protected double longitude, longitudeRadians;
 
     /**
      * serialization ctor
@@ -130,6 +128,8 @@ public class Geolocation implements Serializable {
     public Geolocation(double lat, double lon) {
         this.latitude = lat;
         this.longitude = lon;
+        this.latitudeRadians = Math.toRadians(lat);
+        this.longitudeRadians = Math.toRadians(lon);
     }
 
     /**
@@ -204,4 +204,5 @@ public class Geolocation implements Serializable {
         }
         return "Geolocation{" + "latitude=" + latitude + " " + lat + ", longitude=" + longitude + " " + lon + '}';
     }
+    
 }
