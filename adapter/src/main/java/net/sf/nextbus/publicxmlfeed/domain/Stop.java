@@ -40,7 +40,7 @@ package net.sf.nextbus.publicxmlfeed.domain;
  *
  * @author jrd
  */
-public class Stop extends NextbusValueObject {
+public class Stop extends NextbusValueObject implements IGeocoded {
 
     static final long serialVersionUID = -1169784787334878504L;
 
@@ -160,4 +160,6 @@ public class Stop extends NextbusValueObject {
     public String toString() {
         return "Stop{" + "tag=" + tag + ", title=" + title + ", shortTitle=" + shortTitle + ", route=" + route + ", geolocation=" + geolocation + ", stopId=" + alternateStopId + '}';
     }
+    
+    
 }

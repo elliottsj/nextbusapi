@@ -1,4 +1,5 @@
-/*******************************************************************************
+/**
+ * *****************************************************************************
  * Copyright (C) 2011,2012 by James R. Doyle
  *
  * This file is part of the NextBus® Livefeed Java Adapter (nblf4j). See the
@@ -19,17 +20,25 @@
  * along with UJMP; if not, write to the Free Software Foundation, Inc., 51
  * Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  *
- * Usage of the NextBus Web Service and its data is subject to separate
- * Terms and Conditions of Use (License) available at:
- * 
- *      http://www.nextbus.com/xmlFeedDocs/NextBusXMLFeed.pdf
- * 
- * 
+ * Usage of the NextBus Web Service and its data is subject to separate Terms
+ * and Conditions of Use (License) available at:
+ *
+ * http://www.nextbus.com/xmlFeedDocs/NextBusXMLFeed.pdf
+ *
+ *
  * NextBus® is a registered trademark of Webtech Wireless Inc.
  *
- ******************************************************************************/
+ *****************************************************************************
+ */
 package net.sf.nextbus.publicxmlfeed.domain;
+
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Random;
 
 /**
  * NextBus uses GPS locations to designate station Stops as well as current
@@ -204,5 +213,107 @@ public class Geolocation implements Serializable {
         }
         return "Geolocation{" + "latitude=" + latitude + " " + lat + ", longitude=" + longitude + " " + lon + '}';
     }
-    
+
+    /**
+     * Utility finder to get the closest IGeocoded object from any given
+     * Geolocation.
+     *
+     * @param c any non-empty collection
+     * @param myLocation the GPS coords which you want to minimize against
+     * @return The geographically closest object
+     */
+    public static IGeocoded getClosest(Collection<IGeocoded> items, Geolocation refLocation) {
+        if (items == null || items.isEmpty() || refLocation == null) {
+            throw new IllegalArgumentException("Empty or null arguments not acceptable.");
+        }
+        Iterator<IGeocoded> vi = items.iterator();
+
+        // super-simple sort to find the Min(distance) 
+        double closestDistance = Double.MAX_VALUE;
+        IGeocoded closest = vi.next();
+        while (vi.hasNext()) {
+            IGeocoded v = vi.next();
+            double thisDistance = closest.getGeolocation().distanceKm(v.getGeolocation(), refLocation);
+            if (thisDistance < closestDistance) {
+                closest = v;
+                closestDistance = thisDistance;
+            }
+        }
+        return closest;
+    }
+
+    /**
+     * A simple proximity sort implemented using the Geocode metric and a Linked
+     * List. This relies on Generics, and the fact that two of our Domain types,
+     * Stop and VehicleLocation, both confirm to the IGeocoded interface. This
+     * sort will cover collections of both types.
+     *
+     * @param items A Collection of IGeocoded objects to sort by closest
+     * distance to a point.
+     * @param refPoint The reference point to sort closest to
+     * @return A sorted list, from closest, to farthest away - of Geocoded items
+     *
+     * Some great ideas due to this nice article:
+     * http://www.oracle.com/technetwork/articles/javase/generics-136597.html
+     */
+    public static <T extends IGeocoded> List<T> sortedByClosest(List<T> items, final Geolocation refPoint) {
+
+        // An Linked List is used to do the sort ; the add() method get Override with the Distance metric logic
+        List<T> sorted = new java.util.LinkedList<T>() {
+
+            @Override
+            public boolean add(T e) {
+                // for an empty list, just insert the given element at the root
+                if (this.size() == 0) {
+                    super.addFirst(e);
+                    return true;
+                }
+
+                // for the second element added, its a simple test
+                if (this.size() == 1) {
+                    double d0 = this.get(0).getGeolocation().getDistanceInKm(refPoint);
+                    double dn = e.getGeolocation().getDistanceInKm(refPoint);
+                    if (dn < d0) {
+                        this.addFirst(e); // the new element is closer than the first, head of the list
+                    } else {
+                        this.addLast(e); // the new element is further than the first, end of the list
+                    }
+                    return true;
+                }
+
+
+                /*
+                 * For the third, or later elements, we need to walk the list
+                 * and compare the distances fore and aft. There is tricky logic
+                 * here. The Unit Test code insures the behaviour is correct.
+                 */
+                boolean inserted = false;          // if all comparisons fail, slap the new entry on the end.
+                final int range = this.size() - 1; // dont move into the for(...) decl otherwise infinite loop!
+
+                for (int i = 0; i < range; i++) {
+                    IGeocoded thisPosition = this.get(i);
+                    IGeocoded nextPosition = this.get(i + 1);
+                    double thisDistance = thisPosition.getGeolocation().getDistanceInKm(refPoint);
+                    double nextDistance = nextPosition.getGeolocation().getDistanceInKm(refPoint);
+                    double distance = e.getGeolocation().getDistanceInKm(refPoint);
+                    if (thisDistance < distance && distance < nextDistance) {
+                        this.add(i + 1, e);
+                        inserted = true;
+                    }
+                }
+                // If we've search the entire list, and the element still hasnt been inserted
+                // Then, this element must the largest value yet.  Append it to the very end!
+                if (!inserted) {
+                    this.addLast(e);
+                }
+                return true;
+            }
+        };
+
+        // Feed the items into the ordered list, forcing the ordering algorithm to do its thing
+        for (T e : items) {
+            sorted.add(e);
+        }
+        return sorted;
+    }
 }

@@ -29,14 +29,15 @@
  *
  ******************************************************************************/
 package net.sf.nextbus.publicxmlfeed.domain;
-
+import java.util.Collection;
+import java.util.Iterator;
 /**
  * Time and Position snapshot of a Vehicle on a Route and Direction.
  * <vehicle id="2094" routeTag="34" dirTag="34_1_var0" lat="42.2945228" lon="-71.1194256" secsSinceReport="52" predictable="true" heading="39" speedKmHr="0.0"/>
  * <lastTime time="1337181813388"/>
  * @author jrd
  */
-public class VehicleLocation extends NextbusValueObject {
+public class VehicleLocation extends NextbusValueObject implements IGeocoded {
      
     static final long serialVersionUID = -2765729634023519599L;
      
@@ -49,7 +50,7 @@ public class VehicleLocation extends NextbusValueObject {
     /** Are NextBus Predictions currently available for this vehicle? */
     protected boolean predictable;
     /** Position at last time where last time is the NextbusValueObject::createTimeUtc */
-    protected Geolocation locationAtLastTime;
+    protected Geolocation location;
     /** Vehicle speed in km/hr */
     protected double speed;
     /** Vehicle head in Degrees from Magnetic North */
@@ -71,7 +72,7 @@ public class VehicleLocation extends NextbusValueObject {
         this.predictable = _predictable;
         this.speed = _speed;
         this.heading = _hdng;
-        this.locationAtLastTime=position;
+        this.location=position;
     }
     
     /**
@@ -117,8 +118,8 @@ public class VehicleLocation extends NextbusValueObject {
      * 
      * @return  The GPS position of the vehicle at the last reported time.
      */
-    public Geolocation getLocationAtLastTime() {
-        return locationAtLastTime;
+    public Geolocation getGeolocation() {
+        return location;
     }
 
     /**
@@ -172,7 +173,7 @@ public class VehicleLocation extends NextbusValueObject {
         }
         return true;
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 3;
@@ -184,7 +185,7 @@ public class VehicleLocation extends NextbusValueObject {
 
     @Override
     public String toString() {
-        return "VehicleLocation{" + "vehicle=" + vehicle + ", parent=" + parent + ", directionId=" + directionId + ", predictable=" + predictable + ", locationAtLastTime=" + locationAtLastTime + ", speed=" + speed + ", heading=" + heading + '}';
+        return "VehicleLocation{" + "vehicle=" + vehicle + ", parent=" + parent + ", directionId=" + directionId + ", predictable=" + predictable + ", locationAtLastTime=" + location + ", speed=" + speed + ", heading=" + heading + '}';
     }
     
     
