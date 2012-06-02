@@ -1,0 +1,29 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+    <pre>
+    import net.sf.nextbus.publicxmlfeed.impl.SimplestServiceAdapter;
+    import net.sf.nextbus.publicxmlfeed.domain.*;
+                .  .  .
+    Service svc = new SimplestServiceAdapter();
+    Agency mbta = svc.getAgency("mbta");
+    List<Route> mbtaRoutes = svc.getRoutes(mbta);
+    Route route110 = Route.getRoute(mbtaRoutes, "110");
+ 
+    List<VehicleLocation> bussesOnThe110 = svc.getVehicleLocations(route110);
+    System.out.println("There are currently "+bussesOnThe110.size()+" busses running The 110 right now.");
+ 
+    Geolocation myCurrentLocation = new Geolocation(...)  /* Get the current GPS from the phone */
+
+    
+    </pre>
+    </body>
+</html>
