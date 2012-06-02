@@ -218,8 +218,8 @@ public class Geolocation implements Serializable {
      * Utility finder to get the closest IGeocoded object from any given
      * Geolocation.
      *
-     * @param c any non-empty collection
-     * @param myLocation the GPS coords which you want to minimize against
+     * @param items any non-empty collection
+     * @param refLocation the GPS coords which you want to minimize against
      * @return The geographically closest object
      */
     public static IGeocoded getClosest(Collection<IGeocoded> items, Geolocation refLocation) {
@@ -243,20 +243,37 @@ public class Geolocation implements Serializable {
     }
 
     /**
-     * A simple proximity sort implemented using the Geocode metric and a Linked
-     * List. This relies on Generics, and the fact that two of our Domain types,
-     * Stop and VehicleLocation, both confirm to the IGeocoded interface. This
-     * sort will cover collections of both types.
+     * Overloaded method - returns then entire sorted Geocoded set with no
+     * distance or count limits enforced.
      *
+     * @param <T> Any type that implements IGeocoded (Stop, VehicleLocation, ...)
      * @param items A Collection of IGeocoded objects to sort by closest
-     * distance to a point.
-     * @param refPoint The reference point to sort closest to
-     * @return A sorted list, from closest, to farthest away - of Geocoded items
-     *
-     * Some great ideas due to this nice article:
-     * http://www.oracle.com/technetwork/articles/javase/generics-136597.html
+     * distance to a given point.
+     * @param refPoint he reference point to sort closest to.
+     * @return
      */
     public static <T extends IGeocoded> List<T> sortedByClosest(List<T> items, final Geolocation refPoint) {
+        return sortedByClosest(items, refPoint, 0, 0.0);
+    }
+
+    /**
+     * A simple proximity sort implemented using the Geocode metric and a Linked
+     * List. This relies on Generics, and the fact that two of our Domain types,
+     * Stop and VehicleLocation, both conform to the IGeocoded interface. This
+     * sort will cover collections of both types.
+     *
+     * @param <T> Any type that implements IGeocoded (Stop, VehicleLocation,
+     * ...)
+     * @param items A Collection of IGeocoded objects to sort by closest
+     * distance to a given point.
+     * @param refPoint he reference point to sort closest to.
+     * @param limitItems return no more than the closest N items from the sorted
+     * results.
+     * @param limitDistanceKm Ignore any items that are more than Y kilometers
+     * away from the reference point.
+     * @return A sorted list, from closest, to farthest away - of Geocoded items
+     */
+    public static <T extends IGeocoded> List<T> sortedByClosest(List<T> items, final Geolocation refPoint, int limitItems, double limitDistanceKm) {
 
         // An Linked List is used to do the sort ; the add() method get Override with the Distance metric logic
         List<T> sorted = new java.util.LinkedList<T>() {
@@ -311,9 +328,26 @@ public class Geolocation implements Serializable {
         };
 
         // Feed the items into the ordered list, forcing the ordering algorithm to do its thing
+        // While doing do, Enforce the limitDistance constraint while doing this, if distance limits are in place.
+        boolean usingDistanceLimits = limitDistanceKm > 0.0;
         for (T e : items) {
-            sorted.add(e);
+            if (usingDistanceLimits == false) {
+                sorted.add(e);
+                continue;
+            }
+            if (e.getGeolocation().getDistanceInKm(refPoint) <= limitDistanceKm) {
+                sorted.add(e);
+            } else {
+                // Skip this point - it's outside the distance radius requested.
+            }
         }
-        return sorted;
+
+        // Return up no more than 'limitItems' items (if the argument > 0). If limitItems == 0, or less,
+        // return everything.
+        if (limitItems > 0) {
+            return sorted.subList(0, Math.min(limitItems, sorted.size()));
+        } else {
+            return sorted;
+        }
     }
 }
