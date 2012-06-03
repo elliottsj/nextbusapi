@@ -121,7 +121,7 @@ public class Prediction extends NextbusValueObject implements Comparable<Predict
      * @return Seconds until the Arrival (or departure).
      */
     public long getPredictedArrivalOrDepartureSeconds() {
-        return (System.currentTimeMillis()-predictedArrivalOrDepartureTimeUTC)/1000;
+        return (predictedArrivalOrDepartureTimeUTC-System.currentTimeMillis())/1000;
     }
     
     /**
