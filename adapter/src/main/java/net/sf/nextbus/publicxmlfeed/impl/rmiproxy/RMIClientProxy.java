@@ -36,8 +36,8 @@ import net.sf.nextbus.publicxmlfeed.domain.Agency;
 import net.sf.nextbus.publicxmlfeed.domain.Route;
 import net.sf.nextbus.publicxmlfeed.domain.VehicleLocation;
 import net.sf.nextbus.publicxmlfeed.domain.RouteConfiguration;
-import net.sf.nextbus.publicxmlfeed.service.IServiceRemote;
-import net.sf.nextbus.publicxmlfeed.service.IService;
+import net.sf.nextbus.publicxmlfeed.service.INextbusServiceRemote;
+import net.sf.nextbus.publicxmlfeed.service.INextbusService;
 import net.sf.nextbus.publicxmlfeed.service.ServiceException;
 import net.sf.nextbus.publicxmlfeed.service.FatalServiceException;
 import java.util.List;
@@ -51,14 +51,14 @@ import net.sf.nextbus.publicxmlfeed.domain.*;
  *
  * @author jrd
  */
-class RMIClientProxy implements IService {
+class RMIClientProxy implements INextbusService {
 
-    private IServiceRemote remote;
+    private INextbusServiceRemote remote;
 
     /**
      * An instance of the remote object
      */
-    public RMIClientProxy(IServiceRemote _remote) {
+    public RMIClientProxy(INextbusServiceRemote _remote) {
         this.remote = _remote;
 
     }

@@ -47,7 +47,7 @@ import net.sf.nextbus.publicxmlfeed.domain.*;
  * 
  * @author jrd
  */
-public interface IServiceRemote extends Remote {
+public interface INextbusServiceRemote extends Remote {
     
     public List<Agency> getAgencies() throws ServiceException, RemoteException;
     

@@ -3,11 +3,13 @@
  * and open the template in the editor.
  */
 package net.sf.nextbus.publicxmlfeed.impl;
-import net.sf.nextbus.publicxmlfeed.service.IService;
+import net.sf.nextbus.publicxmlfeed.service.INextbusService;
 import net.sf.nextbus.publicxmlfeed.domain.*;
+import net.sf.nextbus.publicxmlfeed.util.TestUtil;
 import org.junit.Assert;
 import org.junit.Test;
 import java.util.*;
+import net.sf.nextbus.publicxmlfeed.impl.rmiproxy.RMIClient;
 
 import org.junit.Before;
 /**
@@ -17,13 +19,28 @@ import org.junit.Before;
  * @author jrd
  */
 public class DemoTest {
-     IService svc;
      
-     @Before
+     
+     INextbusService svc;
+    
+    /** Test Harness for RMI */
+    public INextbusService remoteBinding() {
+        RMIClient rmicli = new RMIClient("192.168.11.2");
+        System.out.println("*>*> Using RMI ");
+        return rmicli.getService();
+    }
+    /** Normal Ordinary Test Harness */
+    public INextbusService localBinding() {
+        return new SimplestNextbusServiceAdapter();
+    }
+    
+    
+    @Before
     public void setup() throws Exception {
          //svc = remoteBinding();
-         svc=new SimplestServiceAdapter();
+         svc=localBinding();
     }
+ 
      
      @Test
      public void testDemoCode() {
@@ -36,16 +53,15 @@ public class DemoTest {
          Route route = Route.find(mbtaRoutes, "110");
          RouteConfiguration routeConf = svc.getRouteConfiguration(route);
          List<Stop> stops = routeConf.getStops();
-         
+       
          // Find the 3 nearest stops from me in under 1/2 mi
          // On a phone, I'd get my current GPS Locn from a Machine register.
          Geolocation here = new Geolocation(42.42121, -71.09336);
          List<Stop> closest2Me = Geolocation.sortedByClosest(stops, here, 10, 45);
-       
+         
          // For those three closest stops, get the current Arrival Predictions
          List<PredictionGroup> pdxns = svc.getPredictions(closest2Me);
-         
-         
+       
          // Report on what we've found
          System.out.println("For Route 101 there are "+closest2Me.size()+" nearby stops");
          System.out.println(" The three closest stop to you are: ");

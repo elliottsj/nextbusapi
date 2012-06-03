@@ -37,7 +37,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import java.util.*;
 import net.sf.nextbus.publicxmlfeed.impl.rmiproxy.RMIClient;
-import net.sf.nextbus.publicxmlfeed.service.IService;
+import net.sf.nextbus.publicxmlfeed.service.INextbusService;
 import org.junit.Before;
 
 /**
@@ -47,16 +47,16 @@ import org.junit.Before;
 public class SimpleServiceTest {
     
     Random random = new Random(System.currentTimeMillis());
-    IService svc;
+    INextbusService svc;
     
     /** Test Harness for RMI */
-    public IService remoteBinding() {
+    public INextbusService remoteBinding() {
         RMIClient rmicli = new RMIClient("192.168.11.2");
         return rmicli.getService();
     }
     /** Normal Ordinary Test Harness */
-    public IService localBinding() {
-        return new SimplestServiceAdapter();
+    public INextbusService localBinding() {
+        return new SimplestNextbusServiceAdapter();
     }
     
     
@@ -65,7 +65,6 @@ public class SimpleServiceTest {
          //svc = remoteBinding();
          svc=localBinding();
     }
-    
     
     //@Test
     public void testAgencyList() throws Exception {

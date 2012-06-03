@@ -36,7 +36,7 @@ import net.sf.nextbus.publicxmlfeed.domain.Route;
 import net.sf.nextbus.publicxmlfeed.domain.VehicleLocation;
 import net.sf.nextbus.publicxmlfeed.domain.Schedule;
 import net.sf.nextbus.publicxmlfeed.domain.RouteConfiguration;
-import net.sf.nextbus.publicxmlfeed.service.IService;
+import net.sf.nextbus.publicxmlfeed.service.INextbusService;
 import java.util.*;
 import net.sf.nextbus.publicxmlfeed.service.FatalServiceException;
 import net.sf.nextbus.publicxmlfeed.service.ServiceException;
@@ -61,17 +61,17 @@ import javax.xml.bind.JAXBException;
  *
  * @author jrd
  */
-public class Service implements IService {
+public class NextbusService implements INextbusService {
 
     
-    private static final Logger logger = Logger.getLogger(net.sf.nextbus.publicxmlfeed.impl.Service.class.getName());
+    private static final Logger logger = Logger.getLogger(net.sf.nextbus.publicxmlfeed.impl.NextbusService.class.getName());
     private DomainFactory pojoMaker;
     private RPCImpl rpc;
 
     /**
      * Ctor.
      */
-    public Service() {
+    public NextbusService() {
         pojoMaker = new DomainFactory();
     }
 
@@ -82,7 +82,7 @@ public class Service implements IService {
      *
      * @param arg
      */
-    public Service(RPCImpl arg) {
+    public NextbusService(RPCImpl arg) {
         this();
         rpc = arg;
     }

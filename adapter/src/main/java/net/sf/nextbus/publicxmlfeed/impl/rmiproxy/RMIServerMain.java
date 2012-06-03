@@ -37,11 +37,13 @@ import java.util.logging.Logger;
  * This is not intended for real-world deployment, rather, it demonstrates the powerful
  * principle of Interface abstraction combined with Remoting.
  * </p>
- * 
- * How to Start and Run the RMI Adapter <p> Start the RMID, Then Start RMI
- * Server. Note, the JAR file contains all the classes you need. It's just a
+ * <p>
+ * How to Start and Run the RMI Adapter :
+ * 1. Start the RMID,
+ * 2. Start RMI Server. Note, the JAR file contains all the classes you need. It's just a
  * matter of setting Classpath and RMI Codebase to the JAR.
  *
+ *</p>
  * <pre>
  * $
  * $ $JDK_HOME/bin/rmid -port 1099 -log /var/run/rmid/log &

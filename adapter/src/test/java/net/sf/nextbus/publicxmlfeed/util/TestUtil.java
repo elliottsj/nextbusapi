@@ -1,4 +1,5 @@
-/*******************************************************************************
+/**
+ * *****************************************************************************
  * Copyright (C) 2011,2012 by James R. Doyle
  *
  * This file is part of the NextBus® Livefeed Java Adapter (nblf4j). See the
@@ -19,15 +20,16 @@
  * along with UJMP; if not, write to the Free Software Foundation, Inc., 51
  * Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  *
- * Usage of the NextBus Web Service and its data is subject to separate
- * Terms and Conditions of Use (License) available at:
- * 
- *      http://www.nextbus.com/xmlFeedDocs/NextBusXMLFeed.pdf
- * 
- * 
+ * Usage of the NextBus Web Service and its data is subject to separate Terms
+ * and Conditions of Use (License) available at:
+ *
+ * http://www.nextbus.com/xmlFeedDocs/NextBusXMLFeed.pdf
+ *
+ *
  * NextBus® is a registered trademark of Webtech Wireless Inc.
  *
- ******************************************************************************/
+ *****************************************************************************
+ */
 package net.sf.nextbus.publicxmlfeed.util;
 
 import java.io.BufferedReader;
@@ -37,19 +39,27 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.io.ObjectOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.FileOutputStream;
+import java.io.ByteArrayOutputStream;
+
 /**
  * Utility for our Junit tests - Load XML files from the test classpath.
- * 
+ *
  * @author jrd
  */
 public class TestUtil {
-    
+
     public static final Random random = new Random(System.currentTimeMillis());
+
     /**
      * Utility to load Sample XML's off the Test run classpath.
+     *
      * @param resourcePath filename to load
      * @return contents of the file
-     * @throws Exception 
+     * @throws Exception
      */
     public static String loadXMLDocumentFromClasspath(String resourcePath) {
         // reads the file off the Test run classpath
@@ -59,7 +69,7 @@ public class TestUtil {
         StringBuilder sb = new StringBuilder();
 
         try {
-        String line;
+            String line;
             while ((line = br.readLine()) != null) {
                 sb.append(line);
             }
@@ -70,17 +80,37 @@ public class TestUtil {
         }
         return sb.toString();
     }
-    
-    
+
     /**
      * Picks size Items randomly from the list arg
      */
     public static List randomPicks(List arg, int size) {
         int s = size;
-        if (arg.size() > size) s = arg.size();
-        
+        if (arg.size() > size) {
+            s = arg.size();
+        }
+
         List tmp = new ArrayList(arg);
         Collections.shuffle(tmp, random);
-        return tmp.subList(size, size);     
+        return tmp.subList(size, size);
+    }
+
+    /**
+     * For testing Serialization
+     * @param arg
+     * @return 
+     */
+    public static boolean serializable(Object arg) {
+        try {
+            ByteArrayOutputStream d = new ByteArrayOutputStream(4096);
+            ObjectOutputStream out =
+                    new ObjectOutputStream(d);
+            out.writeObject(arg);
+            out.close();
+            return (d.size() > 0);
+        } catch (IOException i) {
+            i.printStackTrace();
+            return false;
+        }
     }
 }
