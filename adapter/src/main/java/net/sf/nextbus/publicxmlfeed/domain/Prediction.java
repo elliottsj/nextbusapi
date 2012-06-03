@@ -39,7 +39,7 @@ import java.util.GregorianCalendar;
  *
  * @author jrd
  */
-public class Prediction extends NextbusValueObject {
+public class Prediction extends NextbusValueObject implements Comparable<Prediction> {
     static final long serialVersionUID = 8654557869494108959L;
  
     /** The Route to that owns this Prediction element. */
@@ -212,6 +212,15 @@ public class Prediction extends NextbusValueObject {
     @Override
     public String toString() {
         return "Prediction{" + "parent=" + parent + ", vehicle=" + vehicle + ", directionId=" + directionId + ", predictedArrivalOrDepartureTimeUTC=" + predictedArrivalOrDepartureTimeUTC + ", predictionForDepartureTime=" + predictionForDepartureTime + ", predictionIncludesLayoverEstimate=" + predictionIncludesLayoverEstimate + ", block=" + block + ", tripTag=" + tripTag + ", branch=" + branch + '}';
+    }
+
+    /**
+     * Default Comparable uses the prediction time as the metric
+     * @param that The Prediction element to compare against
+     * @return ordering evaluation for java.lang.Comparable
+     */
+    public int compareTo(Prediction that) {
+        return Long.compare(this.predictedArrivalOrDepartureTimeUTC, that.predictedArrivalOrDepartureTimeUTC);
     }
 
     

@@ -49,7 +49,7 @@ import java.util.List;
  * </prediction>
  * </pre> @author jrd
  */
-public class PredictionGroup extends NextbusValueObject {
+public class PredictionGroup extends NextbusValueObject implements Comparable<PredictionGroup> {
 
     static final long serialVersionUID = -4995003183175237400L;
     
@@ -78,7 +78,7 @@ public class PredictionGroup extends NextbusValueObject {
     /**
      * Multiple Vehicles travel in a route Direction and each of these vehicles holds an arrival prediction.
      */
-    public static class PredictionDirection {
+    public static class PredictionDirection implements Comparable<PredictionDirection> {
         
         public PredictionDirection(String _title, List<Prediction> pdns) {
             this.title=_title;
@@ -97,6 +97,11 @@ public class PredictionGroup extends NextbusValueObject {
         public String getTitle() {
             return title;
         }
+
+        public int compareTo(PredictionDirection o) {
+          return this.title.compareTo(o.title);
+        }
+        
         
     }
 
@@ -136,6 +141,7 @@ public class PredictionGroup extends NextbusValueObject {
         return messages;
     }
 
+    
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -167,4 +173,10 @@ public class PredictionGroup extends NextbusValueObject {
         
         return "PredictionGroup{" + "stop=" + stop + ", createTime=" + super.getObjectTimestamp() + ", directions=" + directions.size() + ", predictions=" + this.getAvailablePredictions() + ", messages=" + messages.size() + '}';
     }
+
+    public int compareTo(PredictionGroup o) {
+        return this.stop.compareTo(o.stop);
+    }
+    
+    
 }

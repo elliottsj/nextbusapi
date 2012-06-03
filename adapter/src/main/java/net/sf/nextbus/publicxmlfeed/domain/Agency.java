@@ -36,7 +36,7 @@ package net.sf.nextbus.publicxmlfeed.domain;
  *
  * @author jrd
  */
-public class Agency extends NextbusValueObject {
+public class Agency extends NextbusValueObject implements Comparable<Agency> {
 
     static final long serialVersionUID = 6744877918139340774L;
     /**
@@ -150,4 +150,9 @@ public class Agency extends NextbusValueObject {
     public String toString() {
         return "Agency{" + "id=" + id + ", title=" + title + ", shortTitle=" + shortTitle + ", regionTitle=" + regionTitle + '}';
     }
+
+    public int compareTo(Agency o) {
+        return this.title.compareTo(o.title);
+    }
+    
 }

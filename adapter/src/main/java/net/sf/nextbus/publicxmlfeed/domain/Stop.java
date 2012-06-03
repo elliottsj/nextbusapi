@@ -40,7 +40,7 @@ package net.sf.nextbus.publicxmlfeed.domain;
  *
  * @author jrd
  */
-public class Stop extends NextbusValueObject implements IGeocoded {
+public class Stop extends NextbusValueObject implements IGeocoded, Comparable<Stop> {
 
     static final long serialVersionUID = -1169784787334878504L;
 
@@ -159,6 +159,10 @@ public class Stop extends NextbusValueObject implements IGeocoded {
     @Override
     public String toString() {
         return "Stop{" + "tag=" + tag + ", title=" + title + ", shortTitle=" + shortTitle + ", route=" + route + ", geolocation=" + geolocation + ", stopId=" + alternateStopId + '}';
+    }
+
+    public int compareTo(Stop o) {
+        return this.title.compareTo(o.title);
     }
     
     

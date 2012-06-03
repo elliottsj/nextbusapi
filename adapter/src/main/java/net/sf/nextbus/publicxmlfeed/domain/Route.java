@@ -29,6 +29,7 @@
  *
  ******************************************************************************/
 package net.sf.nextbus.publicxmlfeed.domain;
+import java.util.List;
 
 /**
  * Routes may have multiple Directions, each which further have Stops that can
@@ -123,6 +124,23 @@ public class Route extends NextbusValueObject {
         return true;
     }
 
+    /**
+     * Utility finder to locate a Route by friendly String is
+     * @param routes List of routes
+     * @param id the route ID to find
+     * @return the Route
+     * @exception IllegalArgumentException if the route cant be found.
+     */
+    public static Route find(List<Route> routes, String id) {
+        if (routes==null || id==null || routes.isEmpty()) {
+            throw new IllegalArgumentException("Illegal arguments, List<Route> is null or empty, or id is null or empty.");
+        }
+        for (Route r : routes) {
+            if (r.getTag().equals(id)) return r;
+        }
+        throw new IllegalArgumentException("No Route object for id="+id+" in List<Route> given");
+    }
+    
     @Override
     public int hashCode() {
         int hash = 5;

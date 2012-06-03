@@ -42,7 +42,7 @@ import java.util.List;
  * </pre>
  * @author jrd
  */
-public class Direction extends NextbusValueObject {
+public class Direction extends NextbusValueObject implements Comparable<Direction> {
     
     static final long serialVersionUID = -3331323894980430611L;
     
@@ -141,4 +141,10 @@ public class Direction extends NextbusValueObject {
         hash = 59 * hash + (this.route != null ? this.route.hashCode() : 0);
         return hash;
     }
+
+    public int compareTo(Direction o) {
+        return o.name.compareTo(o.name);
+    }
+    
+    
 }

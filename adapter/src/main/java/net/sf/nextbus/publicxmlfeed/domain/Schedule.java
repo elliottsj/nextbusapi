@@ -73,7 +73,7 @@ public abstract class Schedule extends NextbusValueObject {
     /**
      * A Schedule Block contains a set of Scheduled Stops
      */
-    public static class Block implements java.io.Serializable {
+    public static class Block implements java.io.Serializable, Comparable<Block> {
         static final long serialVersionUID = -6841575477878963644L;
         protected Block() { }
         public Block(String id, List<StopSchedule> _stops) {
@@ -95,6 +95,11 @@ public abstract class Schedule extends NextbusValueObject {
         public List<StopSchedule> getScheduledStops() {
             return scheduledStops;
         }
+
+        public int compareTo(Block o) {
+            return this.blockId.compareTo(o.blockId);
+        }
+        
         
         
     
@@ -102,7 +107,7 @@ public abstract class Schedule extends NextbusValueObject {
         /**
          * A Stop on a Schedule
          */
-        public abstract static class StopSchedule implements java.io.Serializable{
+        public abstract static class StopSchedule implements java.io.Serializable {
             static final long serialVersionUID = 2644426041838771749L;
             /** The Stop id */
             protected String stopId;
@@ -124,21 +129,27 @@ public abstract class Schedule extends NextbusValueObject {
             public String getStopId() {
                 return stopId;
             }
+
+            
+            
         }
         /**
          * A Skipped stop (i.e. express routes, weekend routes etc)
          */
-        public static class SkippedStop extends StopSchedule {
+        public static class SkippedStop extends StopSchedule implements Comparable<SkippedStop> {
             static final long serialVersionUID = 4893250953683420659L;
             public SkippedStop(String stopId) {
                 super(stopId, true);
+            }
+            public int compareTo(SkippedStop o) {
+                return this.stopId.compareTo(o.stopId);
             }
         }
         
         /**
          * A Scheduled stop.
          */
-        public static class StopScheduleTime extends StopSchedule {
+        public static class StopScheduleTime extends StopSchedule implements Comparable<StopScheduleTime> {
             static final long serialVersionUID = 7293226153133025193L;
             /** Schedule wall-clock time in Hours - in the local time zone where the service occurs. */
             protected Short stopTimeHour;
@@ -171,10 +182,11 @@ public abstract class Schedule extends NextbusValueObject {
             public Short getStopTimeMinutes() {
                 return stopTimeMinutes;
             }
+            public int compareTo(StopScheduleTime o) {
+                return this.stopTimeHour.compareTo(o.stopTimeHour) *60 + this.stopTimeMinutes.compareTo(o.stopTimeMinutes);
+            }   
         }
     }
-    
-    
     
     
     @Override
