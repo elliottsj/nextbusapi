@@ -8,6 +8,6 @@ package net.sf.nextbus.publicxmlfeed.support;
  *
  * @author jrd
  */
-public class CurrentTimeSource {
+public class CurrentTimesource {
     
 }
