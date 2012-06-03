@@ -142,6 +142,12 @@ public class Direction extends NextbusValueObject implements Comparable<Directio
         return hash;
     }
 
+    @Override
+    public String toString() {
+        return "Direction{title=" + title + '}';
+    }
+
+    
     public int compareTo(Direction o) {
         return o.name.compareTo(o.name);
     }
