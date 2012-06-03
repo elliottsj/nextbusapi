@@ -29,13 +29,10 @@
  *
  ******************************************************************************/
 package net.sf.nextbus.publicxmlfeed.impl;
-import net.sf.nextbus.publicxmlfeed.impl.SimplestServiceAdapter;
-import net.sf.nextbus.publicxmlfeed.impl.Service;
 import net.sf.nextbus.publicxmlfeed.domain.VehicleLocation;
 import net.sf.nextbus.publicxmlfeed.domain.Route;
 import net.sf.nextbus.publicxmlfeed.domain.Agency;
 import net.sf.nextbus.publicxmlfeed.domain.RouteConfiguration;
-import net.sf.nextbus.publicxmlfeed.impl.http_rpc.JavaNetRPCImpl;
 import org.junit.Assert;
 import org.junit.Test;
 import java.util.*;
@@ -52,18 +49,12 @@ public class SimpleServiceTest {
     Random random = new Random(System.currentTimeMillis());
     IService svc;
     
-    /**
-     * Test Harness for RMI
-     * @return 
-     */
+    /** Test Harness for RMI */
     public IService remoteBinding() {
         RMIClient rmicli = new RMIClient("192.168.11.2");
         return rmicli.getService();
     }
-    /**
-     * Normal Ordinary Test Harness
-     * @return 
-     */
+    /** Normal Ordinary Test Harness */
     public IService localBinding() {
         return new SimplestServiceAdapter();
     }
@@ -130,17 +121,8 @@ public class SimpleServiceTest {
        List<VehicleLocation> vehicleLocns = svc.getVehicleLocations(randomRoute, 0);
        //Assert.assertTrue(vehicleLocns.size() > 0);
        for (VehicleLocation v : vehicleLocns) {
-           System.out.println(">> "+v);
+           System.out.println("  vehicle: "+v);
        }
         
-    }
-    
-    public List randomPicks(List arg, int size) {
-        int s = size;
-        if (arg.size() > size) s = arg.size();
-        
-        List tmp = new ArrayList(arg);
-        Collections.shuffle(tmp, random);
-        return tmp.subList(size, size);     
     }
 }

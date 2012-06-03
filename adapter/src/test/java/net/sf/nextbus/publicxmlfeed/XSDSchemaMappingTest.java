@@ -30,6 +30,7 @@
  ******************************************************************************/
 package net.sf.nextbus.publicxmlfeed;
 
+import net.sf.nextbus.publicxmlfeed.util.TestUtil;
 import net.sf.nextbus.publicxmlfeed.impl.jaxb.AbstractJAXBeanFactory;
 import java.io.InputStream;
 import java.io.BufferedReader;
@@ -47,7 +48,7 @@ import org.junit.Test;
  *
  * @author jrd
  */
-public class BeanFactoryTest {
+public class XSDSchemaMappingTest {
 
     /**
      * A Test Harness to drive the JAXB Bean Factories.

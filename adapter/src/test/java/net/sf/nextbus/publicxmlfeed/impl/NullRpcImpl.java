@@ -51,28 +51,28 @@ public class NullRpcImpl implements RPCImpl {
     public String call(RPCRequest request) {
        
         if (request.parameters.get("command").equals("agencyList")) {
-            return net.sf.nextbus.publicxmlfeed.TestUtil.loadXMLDocumentFromClasspath("positive-response-cases/agencylist/testcase.xml");
+            return net.sf.nextbus.publicxmlfeed.util.TestUtil.loadXMLDocumentFromClasspath("positive-response-cases/agencylist/testcase.xml");
         }
         if (request.parameters.get("command").equals("routeConfig")) {
-            return net.sf.nextbus.publicxmlfeed.TestUtil.loadXMLDocumentFromClasspath("positive-response-cases/routeconfig/testcase.xml");
+            return net.sf.nextbus.publicxmlfeed.util.TestUtil.loadXMLDocumentFromClasspath("positive-response-cases/routeconfig/testcase.xml");
         }
         if (request.parameters.get("command").equals("routeList")) {
-            return net.sf.nextbus.publicxmlfeed.TestUtil.loadXMLDocumentFromClasspath("positive-response-cases/routelist/testcase.xml");
+            return net.sf.nextbus.publicxmlfeed.util.TestUtil.loadXMLDocumentFromClasspath("positive-response-cases/routelist/testcase.xml");
         }
         if (request.parameters.get("command").equals("vehicleLocation")) {
-            return net.sf.nextbus.publicxmlfeed.TestUtil.loadXMLDocumentFromClasspath("positive-response-cases/vehiclelocation/testcase.xml");
+            return net.sf.nextbus.publicxmlfeed.util.TestUtil.loadXMLDocumentFromClasspath("positive-response-cases/vehiclelocation/testcase.xml");
         }
         if (request.parameters.get("command").equals("predictions")) {
-            return net.sf.nextbus.publicxmlfeed.TestUtil.loadXMLDocumentFromClasspath("positive-response-cases/prediction/testcase.xml");
+            return net.sf.nextbus.publicxmlfeed.util.TestUtil.loadXMLDocumentFromClasspath("positive-response-cases/prediction/testcase.xml");
         }
         if (request.parameters.get("command").equals("predictionsForMultiStops")) {
-             return net.sf.nextbus.publicxmlfeed.TestUtil.loadXMLDocumentFromClasspath("positive-response-cases/prediction-multistop/testcase.xml");
+             return net.sf.nextbus.publicxmlfeed.util.TestUtil.loadXMLDocumentFromClasspath("positive-response-cases/prediction-multistop/testcase.xml");
         }
         if (request.parameters.get("command").equals("predictionsForMultiStops")) {
-             return net.sf.nextbus.publicxmlfeed.TestUtil.loadXMLDocumentFromClasspath("positive-response-cases/prediction-multistop/testcase.xml");
+             return net.sf.nextbus.publicxmlfeed.util.TestUtil.loadXMLDocumentFromClasspath("positive-response-cases/prediction-multistop/testcase.xml");
         }
          if (request.parameters.get("command").equals("schedule")) {
-             return net.sf.nextbus.publicxmlfeed.TestUtil.loadXMLDocumentFromClasspath("positive-response-cases/schedule/testcase.xml");
+             return net.sf.nextbus.publicxmlfeed.util.TestUtil.loadXMLDocumentFromClasspath("positive-response-cases/schedule/testcase.xml");
         }
        
        throw new RuntimeException("Invalid RPC command "+request.parameters.get("command"));

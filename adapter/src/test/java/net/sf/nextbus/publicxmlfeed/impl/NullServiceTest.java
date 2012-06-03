@@ -29,7 +29,6 @@
  *
  ******************************************************************************/
 package net.sf.nextbus.publicxmlfeed.impl;
-import net.sf.nextbus.publicxmlfeed.impl.Service;
 import net.sf.nextbus.publicxmlfeed.domain.PredictionGroup;
 import net.sf.nextbus.publicxmlfeed.domain.Geolocation;
 import net.sf.nextbus.publicxmlfeed.domain.Route;
@@ -43,7 +42,9 @@ import org.junit.Before;
 import java.util.*;
 
 /**
- * Tests the DomainFactory + XSD Mappings with a Stub Network Protocol implementation.
+ * Tests the DomainFactory. Once XSD Mappings work, the next step is the
+ * procedure of mapping attributes to the more narrower Domain classes.
+ * 
  * 
  * @author jrd
  */
@@ -55,6 +56,7 @@ public class NullServiceTest {
     public void setup() throws Exception {
          svc = new Service(new NullRpcImpl());
     }
+    
     
     @Test
     public void testAgencies() throws Exception {
@@ -114,21 +116,21 @@ public class NullServiceTest {
                 Assert.assertTrue(pg.getDirections().size() == 2);
                 Assert.assertTrue(pg.getMessages().size() == 2);
                 gotStop1=true;
-                System.out.println(">>>> 1");
+                System.out.println(">>>> passed prediction group 1");
             }
              if (pg.getStop().equals(s2)) {
                 // Stop 5271 should have 1Directions and Zero Messages
                 Assert.assertTrue(pg.getDirections().size() == 1);
-                Assert.assertTrue(pg.getMessages().size() == 0);
+                Assert.assertTrue(pg.getMessages().isEmpty());
                 gotStop2=true;
-                 System.out.println(">>>> 2");
+                 System.out.println(">>>> passed prediction group 2");
             }
              if (pg.getStop().equals(s3)) {
                 // Stop 5271_ar should have 1Directions and Zero Messages
                 Assert.assertTrue(pg.getDirections().size() == 1);
-                Assert.assertTrue(pg.getMessages().size() == 0);
+                Assert.assertTrue(pg.getMessages().isEmpty());
                 gotStop3=true;
-                 System.out.println(">>>> 3");
+                 System.out.println(">>>> passed prediction group 3");
             }  
         }
     }
@@ -140,7 +142,6 @@ public class NullServiceTest {
         List<Schedule> s = svc.getSchedule(r);
         Assert.assertNotNull(s);
         Assert.assertTrue(s.size()>0);
-        
     }
     
     

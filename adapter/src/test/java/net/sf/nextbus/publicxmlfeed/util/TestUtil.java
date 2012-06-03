@@ -28,18 +28,23 @@
  * NextBus® is a registered trademark of Webtech Wireless Inc.
  *
  ******************************************************************************/
-package net.sf.nextbus.publicxmlfeed;
+package net.sf.nextbus.publicxmlfeed.util;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 /**
  * Utility for our Junit tests - Load XML files from the test classpath.
  * 
  * @author jrd
  */
 public class TestUtil {
+    
+    public static final Random random = new Random(System.currentTimeMillis());
     /**
      * Utility to load Sample XML's off the Test run classpath.
      * @param resourcePath filename to load
@@ -66,4 +71,16 @@ public class TestUtil {
         return sb.toString();
     }
     
+    
+    /**
+     * Picks size Items randomly from the list arg
+     */
+    public static List randomPicks(List arg, int size) {
+        int s = size;
+        if (arg.size() > size) s = arg.size();
+        
+        List tmp = new ArrayList(arg);
+        Collections.shuffle(tmp, random);
+        return tmp.subList(size, size);     
+    }
 }

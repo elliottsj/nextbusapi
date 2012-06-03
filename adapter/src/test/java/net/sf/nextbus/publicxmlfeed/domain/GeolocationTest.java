@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.sf.nextbus.publicxmlfeed.domain;
 
 import java.util.Arrays;
@@ -11,7 +7,8 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- *
+ * The Geolocation domain object needs tests to validate math and Sorts.
+ * 
  * @author jrd
  */
 public class GeolocationTest {
@@ -24,12 +21,14 @@ public class GeolocationTest {
 
     @Test
     public void testHaversineCalculation() {
+        // Test distance using some real world facts
         Assert.assertEquals(p1.getDistanceInMiles(p2), 0.9947951463657195);
         Assert.assertEquals(p2.getDistanceInMiles(p3), 1.0394705150505739);
     }
 
     @Test
     public void basicStuff() {
+        // equals - symmetry of distance operator
         Assert.assertNotSame(p1, p2);
         Assert.assertSame(p1, p1);
         Assert.assertEquals(p1.getDistanceInKm(p2), p2.getDistanceInKm(p1));
@@ -59,6 +58,7 @@ public class GeolocationTest {
         Agency mbta = new Agency("mbta", "Test Agency", "Test Agency", "Test Agency", "Test Agency");
         Route r = new Route(mbta, "route1", "Test Route", "Test Route", "Test Route");
         
+        // Sort the stops by proximity from refPoint
         List<Stop> unsorted = new java.util.ArrayList<Stop>();
         for (Geolocation pt : testPoints) {
             String idVal = UUID.randomUUID().toString();
@@ -69,6 +69,7 @@ public class GeolocationTest {
         List<Stop> sorted = Geolocation.sortedByClosest(unsorted, refPoint);
         printDistances("sorted", sorted, refPoint);
         
+        // Verify that the sort works....
         Assert.assertEquals("The unsorted and sort lists must be identical length ",unsorted.size(), sorted.size());
         // Check that the distances are increasing
         assertMonotoneIncreasing(sorted, refPoint);
