@@ -1,0 +1,69 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <name>NextBus Adapter Beanshell Demo</name>
+    <groupId>net.sf.nextbus</groupId>
+    <artifactId>nextbus-adapter-beanshelled</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <url>http://sourceforge.net/projects/nextbusapi/</url>
+    <description>Packages an Executable Überjar with Nextbus Adapter and Beanshell for demo use of API.</description>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    <developers>
+        <developer>
+            <id>jrd</id>
+            <name>James R. Doyle</name>
+            <email>rockymtnmagic@gmail.com</email>
+        </developer>
+    </developers>
+    <licenses>
+        <license>
+            <name>GNU LESSER GENERAL PUBLIC LICENSE</name>
+            <url>http://www.gnu.org/licenses/lgpl.html</url>
+            <comments>The LGPL Covers the Source Code</comments>
+        </license>
+        <license>
+            <name>Nextbus License Agreement</name>
+            <url>http://www.nextbus.com/xmlFeedDocs/NextBusXMLFeed.pdf</url>
+            <comments>The NextBus license convers the Terms of Use and Indemnities of the Data Feed</comments>
+        </license>
+    </licenses>
+    <dependencies>
+        <dependency>
+            <groupId>net.sf.nextbus.publicxmlfeed</groupId>
+            <artifactId>nextbus-adapter</artifactId>
+            <version>0.9.5-RELEASE</version>
+        </dependency>  
+        <dependency>
+            <groupId>org.beanshell</groupId>
+            <artifactId>bsh</artifactId>
+            <version>1.3.0</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>bsh.Console</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
