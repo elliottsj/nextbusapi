@@ -40,8 +40,9 @@ import java.util.GregorianCalendar;
  * @author jrd
  */
 public class Prediction extends NextbusValueObject implements Comparable<Prediction> {
+    
     static final long serialVersionUID = 8654557869494108959L;
- 
+
     /** The Route to that owns this Prediction element. */
     private Route parent;
     /** The Vehicle for which the time is predicted - see Vehicle Location service as well. */

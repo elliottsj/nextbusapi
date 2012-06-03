@@ -78,7 +78,8 @@ public class PredictionGroup extends NextbusValueObject implements Comparable<Pr
     /**
      * Multiple Vehicles travel in a route Direction and each of these vehicles holds an arrival prediction.
      */
-    public static class PredictionDirection implements Comparable<PredictionDirection> {
+    public static class PredictionDirection implements Comparable<PredictionDirection>, java.io.Serializable {
+        static final long serialVersionUID = -1405165652013067022L;
         
         public PredictionDirection(String _title, List<Prediction> pdns) {
             this.title=_title;

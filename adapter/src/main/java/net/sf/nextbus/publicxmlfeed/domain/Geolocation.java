@@ -343,9 +343,11 @@ public class Geolocation implements Serializable {
         }
 
         // Return up no more than 'limitItems' items (if the argument > 0). If limitItems == 0, or less,
-        // return everything.
+        // return everything. WARNING. Do not use List::subList(..) as the return List IS NOT SERIALIZABLE
         if (limitItems > 0) {
-            return sorted.subList(0, Math.min(limitItems, sorted.size()));
+            List<T> rv = new java.util.ArrayList<T>();
+            rv.addAll(sorted.subList(0, Math.min(limitItems, sorted.size())));
+            return rv;
         } else {
             return sorted;
         }
