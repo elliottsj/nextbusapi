@@ -7,10 +7,12 @@
     <version>0.9.5-RELEASE</version>
     <name>NextBus XML Feed Adapter</name>
     <url>http://sourceforge.net/projects/nextbusapi/</url>
+    <description>A Java Domain Class Hierarchy and RESTful Webservice Adapter for NextBus</description>
     <developers>
         <developer>
             <id>jrd</id>
             <name>James R. Doyle</name>
+            <email>rockymtnmagic@gmail.com</email>
         </developer>
     </developers>
     <licenses>
