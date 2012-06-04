@@ -30,6 +30,8 @@
  ******************************************************************************/
 package net.sf.nextbus.publicxmlfeed.domain;
 
+import java.util.List;
+
 /**
  * A stop has a specific name and GPS location ; Keep in mind that a Stop can
  * serve multiple Routes
@@ -126,6 +128,23 @@ public class Stop extends NextbusValueObject implements IGeocoded, Comparable<St
         return title;
     }
 
+    /**
+     * Utility finder to locate a Stop by friendly String is
+     * @param stops List of stops
+     * @param id the stop ID to find
+     * @return the Stop
+     * @exception IllegalArgumentException if the stop cant be found.
+     */
+    public static Stop find(List<Stop> stops, String id) {
+        if (stops==null || id==null || stops.isEmpty()) {
+            throw new IllegalArgumentException("Illegal arguments, List<Stop> is null or empty, or id is null or empty.");
+        }
+        for (Stop s : stops) {
+            if (s.getTag().equals(id)) return s;
+        }
+        throw new IllegalArgumentException("No Stop object for id="+id+" in List<Stop> given");
+    }
+    
     /**
      * The Composite of Route and tag define the unique identity for objects of
      * this class.
