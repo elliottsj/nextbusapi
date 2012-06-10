@@ -50,7 +50,7 @@ public class Prediction extends NextbusValueObject implements Comparable<Predict
     /** The ID of the Direction element this Vehicle is traveling */
     private String directionId;
     /** The Arrival of Departure time in UTC (Zulu) time - NOT the Local Timezone! */
-    private long predictedArrivalOrDepartureTimeUTC;
+    private Long predictedArrivalOrDepartureTimeUTC;
     /** Is the predicted time for a bus Departure (true) or an Arrival (false)? */
     private boolean predictionForDepartureTime;
     /** Does the prediction estimate include time alloted for Station layover ? */
@@ -221,7 +221,7 @@ public class Prediction extends NextbusValueObject implements Comparable<Predict
      * @return ordering evaluation for java.lang.Comparable
      */
     public int compareTo(Prediction that) {
-        return Long.compare(this.predictedArrivalOrDepartureTimeUTC, that.predictedArrivalOrDepartureTimeUTC);
+        return this.predictedArrivalOrDepartureTimeUTC.compareTo(that.predictedArrivalOrDepartureTimeUTC);
     }
 
     
