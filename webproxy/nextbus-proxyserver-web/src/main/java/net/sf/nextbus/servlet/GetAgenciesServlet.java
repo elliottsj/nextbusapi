@@ -40,7 +40,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 import javax.ejb.EJB;
-import flexjson.JSONSerializer;
+import com.google.gson.Gson;
 import net.sf.nextbus.proxy.ejb.NextbusFeedServiceLocal;
 import net.sf.nextbus.publicxmlfeed.domain.*;
 import net.sf.nextbus.publicxmlfeed.service.*;
@@ -53,10 +53,10 @@ import net.sf.nextbus.publicxmlfeed.service.*;
 public class GetAgenciesServlet extends HttpServlet {
 
     private @EJB NextbusFeedServiceLocal nextbus;
-    private JSONSerializer json;
+    private Gson gson;
 
     public GetAgenciesServlet() {
-        this.json = new JSONSerializer();
+        this.gson = new Gson();
     }
     
     @Override
@@ -64,7 +64,7 @@ public class GetAgenciesServlet extends HttpServlet {
        
         try {
             List<Agency> agencies = nextbus.getAgencies();
-            String result = json.deepSerialize(nextbus.getAgencies());
+            String result = gson.toJson(agencies);
             resp.setStatus(HttpServletResponse.SC_OK);
             resp.setContentType("application/json");
             resp.setCharacterEncoding("utf-8");
