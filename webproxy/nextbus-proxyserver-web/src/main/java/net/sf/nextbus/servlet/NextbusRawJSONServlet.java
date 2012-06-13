@@ -77,7 +77,6 @@ public class NextbusRawJSONServlet extends HttpServlet {
 
     public NextbusRawJSONServlet() {
         gson = new Gson();
-
     }
 
     @Override
@@ -88,7 +87,7 @@ public class NextbusRawJSONServlet extends HttpServlet {
 
         if (Arrays.asList(methods).contains(method) == false) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resp.setContentType("texy");
+            resp.setContentType("text");
             resp.setCharacterEncoding("utf-8");
             resp.getWriter().print("Invalid value for post parameter 'method' = "+method);
             return;
