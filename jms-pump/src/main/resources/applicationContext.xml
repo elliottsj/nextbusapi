@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:si="http://www.springframework.org/schema/integration"
+       xmlns:si-file="http://www.springframework.org/schema/integration/file"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+       http://www.springframework.org/schema/integration/file http://www.springframework.org/schema/integration/file/spring-integration-file.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+
+
+    <context:property-placeholder location="classpath*:*.properties"/>
+    
+    
+
+    <!-- the XML Web Service Adapter -->
+    <bean id="nextbusProtocolAdapter" class="net.sf.nextbus.publicxmlfeed.impl.SimplestNextbusServiceAdapter"/>
+    
+    <!-- the Harvester bean -->
+    <bean id="nextBusHarvester" class="net.sf.nextbus.jmspump.sender.Task">
+        <constructor-arg  ref="nextbusProtocolAdapter"/>
+        <constructor-arg value="mbta"/>
+        <property name="cacheExpiration" value="60000"/>
+    </bean>
+    
+    <!-- Create a local scheduler and executor so that we can periodically poll the input channel -->
+    <task:scheduler id="scheduler" pool-size="10"/>
+    <task:executor id="dfltExecutor" pool-size="10"/>
+    <!-- The input channel is simply a POJO adapter that talks to the NextBus XML harvester. We poll it every second, but fresh
+         data might only come every 5 minutes on particular bus routes as we dont want to clobber the upstream (Nextbus) provider.
+    -->
+    <si:inbound-channel-adapter id="ca1" ref="nextBusHarvester" method="execute" channel="jmstopic">
+        <si:poller fixed-rate="1000" task-executor="dfltExecutor"/>
+    </si:inbound-channel-adapter> 
+   
+    <si-file:outbound-channel-adapter id="filesOut" 
+                                      directory="file:/C:/Windows/Temp/foo"
+                                      delete-source-files="false"/>
+             
+             
+   <!-- The output channel is a JMS Topic, doesn't matter which Vendor either.  The specific JMS provisioning is in SADASD.xml -->
+    <si:channel id="jmstopic">
+        <si:queue/>
+    </si:channel>
+
+    <bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="tcp://localhost:61616" />
+    </bean>
+    <bean id="outTopic" class="org.apache.activemq.command.ActiveMQTopic"> 
+        <constructor-arg index="0" value="sample.topic"/> 
+    </bean> 
+   
+  
+</beans>
