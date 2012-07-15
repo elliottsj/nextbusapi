@@ -39,7 +39,10 @@ public class Main {
     {
         // Bootstrap Spring
          ClassPathXmlApplicationContext springCtx;
-         springCtx = new ClassPathXmlApplicationContext(new String[]{"applicationContext.xml"});
+         springCtx = new ClassPathXmlApplicationContext(new String[]{
+             "applicationContext.xml",
+             "activemq-jms-config.xml"
+         });
        
          // Wait for Spring to Terminate.
                  

@@ -62,8 +62,8 @@ public class Task {
     private Set<Agency> agencies = new HashSet<Agency>();
     /** The Work schedule of Bus Routes */
     private Map<Route, Work> routesToWork = new HashMap();
-    private Integer successfulRuns;
-    private Integer failedRuns;
+    private int successfulRuns;
+    private int failedRuns;
     
     public void setCacheExpiration(long arg) { 
         cacheExpiration=arg;
@@ -133,11 +133,11 @@ public class Task {
         for (Route r : routesToWork.keySet()) {
             Work work = routesToWork.get(r);
             if (work.isOld()) {
-                done++;
                 doVehicleLocations(worklist, work, r);
+                done++;
             }
         }
-        System.out.println("Execute replenished "+done);
+        log.info("Task::execute() replenished "+done);
         return worklist;
     }
 
@@ -155,7 +155,7 @@ public class Task {
             successfulRuns++;
         } catch (net.sf.nextbus.publicxmlfeed.service.ServiceException se) {
             work.errors++;
-            log.warn("While harvesting NextBus::VehicleLocations from ", se);
+            log.warn("While harvesting NextBus::VehicleLocations ", se);
             failedRuns++;
         }
     }
@@ -177,7 +177,7 @@ public class Task {
                 }
             }
         }
-        System.out.println("Added "+routesToWork.size()+" routes to worklist. ");
+        log.info("Added "+routesToWork.size()+" routes to worklist. ");
     }
 
     public Integer getFailedRuns() {

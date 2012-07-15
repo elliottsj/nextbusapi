@@ -21,7 +21,7 @@ public class TaskTest {
         svc = new SimplestNextbusServiceAdapter();
     }
     
-    
+    @Test
     public void TestTaskExecute() throws Exception {
         Task t = new Task(svc, "mbta");
         t.setCacheExpiration(1000*60);
