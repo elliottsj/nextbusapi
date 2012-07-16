@@ -30,27 +30,37 @@
  *
  *****************************************************************************
  */
-package net.sf.nextbus.jmspump.sender;
+package net.sf.nextbus.jmspump.msgtools;
 
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import net.sf.nextbus.publicxmlfeed.domain.VehicleLocation;
+import org.springframework.integration.Message;
 
 /**
- * Bootstrap class for a Monojar-based Spring Integration Daemon
+ * A Message Enricher to support the VehicleLocation object.
+ *
+ * @author jrd
  */
-public class Main {
+public class VLMessageHeaderEnricher {
 
-    public static void main(String[] args) throws Exception {
-        org.apache.log4j.BasicConfigurator.configure();
-        Logger log = LoggerFactory.getLogger(Main.class);
-        // Bootstrap Spring
-        ClassPathXmlApplicationContext springCtx;
-        springCtx = new ClassPathXmlApplicationContext(new String[]{
-                    "applicationContext.xml",
-                    "activemq-jms-config.xml"
-                });
-        log.info("started... main thread waiting for termination (signal or CTRL-C) ");
-        // When Spring's scheduler thread exits, this task will terminate as well
+    protected VehicleLocation vl(Message m) {
+        return (VehicleLocation) m.getPayload();
+    }
+    public String getAgencyId(Message m) {
+        return vl(m).getRoute().getAgency().getId();
+    }
+    public String getRouteId(Message m) {
+        return vl(m).getRoute().getTag();
+    }
+    public String getVehicleId(Message m) {
+        return vl(m).getVehicle().getId();
+    }
+    public Double getLatitude(Message m) {
+        return vl(m).getGeolocation().getLatitude();
+    }
+    public Double getLongitude(Message m) {
+        return vl(m).getGeolocation().getLongitude();
+    }
+    public Long getTimestamp(Message m) {
+        return vl(m).getLastTimeUtc();
     }
 }

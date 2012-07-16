@@ -16,7 +16,7 @@
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
 
-    <!-- boilerplate to permit for a configuration properties file -->
+    <!-- bootstrap stuff-->
     <context:property-placeholder location="classpath*:*.properties"/>
     <bean id="container" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="location" value="file:nbpumper.properties"/>
@@ -26,47 +26,55 @@
     <task:scheduler id="scheduler" pool-size="10"/>
     <task:executor id="dfltExecutor" pool-size="10"/>
 
-    <!-- This web service adapter kit for Nextbus -->
+    <!-- This is the web service adapter kit for Nextbus, it's imported in the POM as a dependency -->
     <bean id="nextbusProtocolAdapter" class="net.sf.nextbus.publicxmlfeed.impl.SimplestNextbusServiceAdapter"/>
     
-    <!-- the Harvester bean uses the generic NextBus adapter to scan for events on the horizon and sweep them into a channel -->
+    <!-- the Harvester uses the generic NextBus adapter to scan for events on the horizon and sweep them into a channel -->
     <bean id="nextBusHarvester" class="net.sf.nextbus.jmspump.sender.Task">
         <constructor-arg  ref="nextbusProtocolAdapter"/>
         <constructor-arg value="mbta"/>
         <property name="cacheExpiration" value="60000"/>
     </bean>
     
-    
-    <!-- The cached connection factory improves client send performance by avoiding JMS Connection setup/teardown for each connection. -->
-    <bean id="cachedJmsConnectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory" >
-        <property name="sessionCacheSize" value="1"/> 
-        <property name="targetConnectionFactory" ref="amq_connectionFactory" /> <!-- Change here to glassfish, amq, jboss, etc -->
-    </bean>
-    
-
+   
     <!-- The input channel us driven by a generic Spring POJO adapter that drives the NextBus XML harvester on a schedule. 
          We poll it every second, but fresh data might only come every 5 minutes on particular bus routes. 
          Why the 5 minute delay?  We dont want to clobber the NextBus service endpoint with tons of frequent requests.
     -->
-    <si:channel id="nextbus"/>
+    <si:channel id="nextbus"/> 
+    
+    
     <si:inbound-channel-adapter id="adapter1" ref="nextBusHarvester" method="execute" channel="nextbus">
         <si:poller fixed-rate="1000" task-executor="dfltExecutor"/>
     </si:inbound-channel-adapter>  
     
-    
-    <si:header-enricher input-channel="nextbus" output-channel="nextbus">
-        <si:header name="route" value="LOCAL" />
-        <si:header name="vehicle" value="LOCAL" />
-        <si:header name="latitude" value="LOCAL" />
-        <si:header name="longitude" value="LOCAL" />
-        <si:header name="agency" expression="payload.route.agency.id" />
+    <!-- The Harvester produces a Message with a List<Veh..Loc8n> - we need to split this List into indiv. objects! -->
+    <si:channel id="nextbus-split" datatype="net.sf.nextbus.publicxmlfeed.domain.VehicleLocation" />
+    <bean id="vlsplitter" class="org.springframework.integration.splitter.DefaultMessageSplitter"/>
+    <si:splitter input-channel="nextbus" output-channel="nextbus-split"/>
+       
+    <!-- The header enricher simply extracts some facts from the Location POJO that is useful to JMS Message Selection.. -->
+    <!-- Attemps to use Spring Expr. Language to manipulate more than 1 payload property caused problems... Resorted to a helper bean.-->
+    <bean id="vlheaderenricher" class="net.sf.nextbus.jmspump.msgtools.VLMessageHeaderEnricher"/>
+    <si:header-enricher input-channel="nextbus-split" output-channel="nextbus-split">
+        <si:header name="JMSType" value="VehicleLocation" />
+        <si:header name="agencyId" ref="vlheaderenricher" method="getAgencyId" />
+        <si:header name="routeId" ref="vlheaderenricher" method="getRouteId" />
+        <si:header name="vehicleId" ref="vlheaderenricher" method="getVehicleId" />
+        <si:header name="longitude" ref="vlheaderenricher" method="getLongitude" />
+        <si:header name="latitude" ref="vlheaderenricher" method="getLatitude" />
+        <si:header name="timestamp" ref="vlheaderenricher" method="getTimestamp" />
     </si:header-enricher>
+   
     
-    <!-- The output channel is a JMS Topic, doesn't matter which Vendor either.  The specific provisioning is in 
-         a /resources/$vendor-jms-config.xml file. 
+    <!-- 
+        The output channel is a JMS Topic, doesn't matter which Vendor either.  The specific provisioning is in a /resources/$vendor-jms-config.xml file. 
     -->
+    <jms:outbound-channel-adapter id="adapter2" channel="nextbus-split" destination="amq_queue" connection-factory="cachedJmsConnectionFactory" />
     
-    
-    <jms:outbound-channel-adapter id="adapter2" channel="nextbus" destination="amq_queue" connection-factory="cachedJmsConnectionFactory" />
-    
+    <!-- boilerplate: The cached connection factory improves client send performance by avoiding JMS Connection setup/teardown for each connection. -->
+    <bean id="cachedJmsConnectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory" >
+        <property name="sessionCacheSize" value="1"/> 
+        <property name="targetConnectionFactory" ref="amq_connectionFactory" /> <!-- Change here to glassfish, amq, jboss, etc -->
+    </bean>
 </beans>
