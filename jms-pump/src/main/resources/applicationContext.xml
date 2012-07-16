@@ -1,79 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:util="http://www.springframework.org/schema/util"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns:si="http://www.springframework.org/schema/integration"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"     
+       xmlns:int="http://www.springframework.org/schema/integration"
        xmlns:jms="http://www.springframework.org/schema/integration/jms"  
        xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:bean="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="
-       http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+       http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-2.1.xsd
        http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd
-       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
-       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
-       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
 
     <!-- bootstrap stuff-->
-    <context:property-placeholder location="classpath*:*.properties"/>
-    <bean id="container" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <bean id="nbpumper" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="location" value="file:nbpumper.properties"/>
     </bean>
     
     <!-- Create a local task scheduler and executor so that we can periodically poll the input channel -->
-    <task:scheduler id="scheduler" pool-size="10"/>
-    <task:executor id="dfltExecutor" pool-size="10"/>
+    <task:scheduler id="scheduler" pool-size="2"/>
+    <task:executor id="dfltExecutor" pool-size="2"/>
 
     <!-- This is the web service adapter kit for Nextbus, it's imported in the POM as a dependency -->
-    <bean id="nextbusProtocolAdapter" class="net.sf.nextbus.publicxmlfeed.impl.SimplestNextbusServiceAdapter"/>
+    <bean id="nextbusProtocolAdapter" class="net.sf.nextbus.publicxmlfeed.impl.SimplestNextbusServiceAdapter" lazy-init="false"/>
     
     <!-- the Harvester uses the generic NextBus adapter to scan for events on the horizon and sweep them into a channel -->
     <bean id="nextBusHarvester" class="net.sf.nextbus.jmspump.sender.Task">
         <constructor-arg  ref="nextbusProtocolAdapter"/>
-        <constructor-arg value="mbta"/>
-        <property name="cacheExpiration" value="60000"/>
+        <constructor-arg value="${nbpumper.agency}"/>
+        <constructor-arg value="${nbpumper.routes}"/>
+        <property name="cacheExpiration" value="${nbpumper.cachetime}"/>
     </bean>
     
-   
-    <!-- The input channel us driven by a generic Spring POJO adapter that drives the NextBus XML harvester on a schedule. 
+    <!-- 
+        The input channel us driven by a generic Spring POJO adapter that drives the NextBus XML harvester on a schedule. 
          We poll it every second, but fresh data might only come every 5 minutes on particular bus routes. 
          Why the 5 minute delay?  We dont want to clobber the NextBus service endpoint with tons of frequent requests.
     -->
-    <si:channel id="nextbus"/> 
+    <int:channel id="nextbus"/> 
     
-    
-    <si:inbound-channel-adapter id="adapter1" ref="nextBusHarvester" method="execute" channel="nextbus">
-        <si:poller fixed-rate="1000" task-executor="dfltExecutor"/>
-    </si:inbound-channel-adapter>  
+    <int:inbound-channel-adapter id="adapter1" ref="nextBusHarvester" method="execute" channel="nextbus">
+        <int:poller fixed-rate="1000" task-executor="dfltExecutor"/>
+    </int:inbound-channel-adapter>  
     
     <!-- The Harvester produces a Message with a List<Veh..Loc8n> - we need to split this List into indiv. objects! -->
-    <si:channel id="nextbus-split" datatype="net.sf.nextbus.publicxmlfeed.domain.VehicleLocation" />
+    <int:channel id="nextbus-split" datatype="net.sf.nextbus.publicxmlfeed.domain.VehicleLocation" />
     <bean id="vlsplitter" class="org.springframework.integration.splitter.DefaultMessageSplitter"/>
-    <si:splitter input-channel="nextbus" output-channel="nextbus-split"/>
+    <int:splitter input-channel="nextbus" output-channel="nextbus-split"/>
        
     <!-- The header enricher simply extracts some facts from the Location POJO that is useful to JMS Message Selection.. -->
     <!-- Attemps to use Spring Expr. Language to manipulate more than 1 payload property caused problems... Resorted to a helper bean.-->
     <bean id="vlheaderenricher" class="net.sf.nextbus.jmspump.msgtools.VLMessageHeaderEnricher"/>
-    <si:header-enricher input-channel="nextbus-split" output-channel="nextbus-split">
-        <si:header name="JMSType" value="VehicleLocation" />
-        <si:header name="agencyId" ref="vlheaderenricher" method="getAgencyId" />
-        <si:header name="routeId" ref="vlheaderenricher" method="getRouteId" />
-        <si:header name="vehicleId" ref="vlheaderenricher" method="getVehicleId" />
-        <si:header name="longitude" ref="vlheaderenricher" method="getLongitude" />
-        <si:header name="latitude" ref="vlheaderenricher" method="getLatitude" />
-        <si:header name="timestamp" ref="vlheaderenricher" method="getTimestamp" />
-    </si:header-enricher>
+    <int:header-enricher input-channel="nextbus-split" output-channel="nextbus-split">
+        <int:header name="JMSType" value="VehicleLocation" />
+        <int:header name="agencyId" ref="vlheaderenricher" method="getAgencyId" />
+        <int:header name="routeId" ref="vlheaderenricher" method="getRouteId" />
+        <int:header name="vehicleId" ref="vlheaderenricher" method="getVehicleId" />
+        <int:header name="longitude" ref="vlheaderenricher" method="getLongitude" />
+        <int:header name="latitude" ref="vlheaderenricher" method="getLatitude" />
+        <int:header name="timestamp" ref="vlheaderenricher" method="getTimestamp" />
+    </int:header-enricher>
    
-    
     <!-- 
         The output channel is a JMS Topic, doesn't matter which Vendor either.  The specific provisioning is in a /resources/$vendor-jms-config.xml file. 
     -->
-    <jms:outbound-channel-adapter id="adapter2" channel="nextbus-split" destination="amq_queue" connection-factory="cachedJmsConnectionFactory" />
+    <jms:outbound-channel-adapter id="adapter2" channel="nextbus-split" destination="${nbpumper.sender_type}" connection-factory="cachedJmsConnectionFactory" />
+       
+
     
     <!-- boilerplate: The cached connection factory improves client send performance by avoiding JMS Connection setup/teardown for each connection. -->
-    <bean id="cachedJmsConnectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory" >
+    <bean id="cachedJmsConnectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory" lazy-init="false">
         <property name="sessionCacheSize" value="1"/> 
         <property name="targetConnectionFactory" ref="amq_connectionFactory" /> <!-- Change here to glassfish, amq, jboss, etc -->
     </bean>

@@ -50,11 +50,6 @@ public class Task {
 
     final Logger log = LoggerFactory.getLogger(Task.class);
     
-    // one or more agencies, by name
-    // one or more routes, by id
-    // Route, Timestamp last acquired
-    private boolean sendPredictions;
-    private boolean sendVehicleLocations;
     /** The refresh interval in milliseconds, defaults to 60 seconds */
     private Long cacheExpiration = 60*1000L;
     /** Nextbus service adapter */
@@ -96,24 +91,29 @@ public class Task {
      * Ctor to configure worker to poll a selected set of routes for a given
      * agency
      *
-     * @param agency
-     * @param routes
+     * @param agency the agency to work, i.e. MBTA
+     * @param routes the specific routes to work as a CSV string of Route tags, i.e. "110, 111"
      */
-    public Task(INextbusService svc, String agency, String[] routes) {
+    public Task(INextbusService svc, String agency, String routes) {
         nb=svc;
         Agency a = nb.getAgency(agency);
         agencies.add(a);
-        configureRoutes(a, routes);
+        if (routes == null || routes.isEmpty()) {
+          configureRoutes(a, null);  
+        }
+        String [] rs = routes.split(",");
+        configureRoutes(a, rs);
     }
 
     /**
      * Ctor to configure worker to poll all routes for a group of agencies -
      * Warning this will create a substantial burder on the NextBus Service.
      *
-     * @param agcs Agencies to poll
+     * @param agcs Agencies to poll, as a CSV String i.e. "brooklyn, staten-island,"
      */
-    public Task(String[] agcs) {
-        for (String a : agcs) {
+    public Task(String agcs) {
+        String [] _agencies = agcs.split(",");
+        for (String a : _agencies) {
             Agency agency = nb.getAgency(a);
             agencies.add(agency);
         }

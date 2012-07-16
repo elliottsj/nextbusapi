@@ -36,7 +36,10 @@ import net.sf.nextbus.publicxmlfeed.domain.VehicleLocation;
 import org.springframework.integration.Message;
 
 /**
- * A Message Enricher to support the VehicleLocation object.
+ * A Message Enricher to support the VehicleLocation object. Despite attemps
+ * to get SPeL Expression based enrichment to work, it seemed to be buggy and
+ * would only work for a single enricher expression. The alternate mechanism,
+ * using this bean, seems to be OK in Spring Int 2.1.2
  *
  * @author jrd
  */

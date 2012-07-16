@@ -33,24 +33,50 @@
 package net.sf.nextbus.jmspump.sender;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextClosedEvent;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Bootstrap class for a Monojar-based Spring Integration Daemon
+ * Bootstrap for a String Integration based standalone daemon program. In this
+ * case Spring wires up POJOs from the top down using whatever we tell it in
+ * applicationContext.xml
  */
 public class Main {
 
+    static final Logger log = LoggerFactory.getLogger(Main.class);
+    
     public static void main(String[] args) throws Exception {
         org.apache.log4j.BasicConfigurator.configure();
-        Logger log = LoggerFactory.getLogger(Main.class);
+        
         // Bootstrap Spring
         ClassPathXmlApplicationContext springCtx;
         springCtx = new ClassPathXmlApplicationContext(new String[]{
                     "applicationContext.xml",
                     "activemq-jms-config.xml"
                 });
+        springCtx.addApplicationListener(new TaskSchedulerShutdownHandler());
         log.info("started... main thread waiting for termination (signal or CTRL-C) ");
         // When Spring's scheduler thread exits, this task will terminate as well
+    }
+
+    /**
+     * Shutdown hook to passivate the Spring scheduler and executor. In a real JMS implementation,
+     * you'd want to wait for any inflight message traffic trapped inside of Spring Integ's
+     * internal queues to be flushed to their output channels before terminating the daemon.
+     */
+    static class TaskSchedulerShutdownHandler implements ApplicationListener<ContextClosedEvent> {
+
+        ThreadPoolTaskExecutor executor;
+        ThreadPoolTaskScheduler scheduler;
+
+        public void onApplicationEvent(ContextClosedEvent event) {
+            scheduler.shutdown();
+            executor.shutdown();
+            log.info("passivated Spring scheduler.");
+        }
     }
 }
