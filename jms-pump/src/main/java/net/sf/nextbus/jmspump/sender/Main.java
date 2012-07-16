@@ -30,6 +30,8 @@
  ******************************************************************************/
 package net.sf.nextbus.jmspump.sender;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Bootstrap class for a Monojar-based Spring Integration Daemon
@@ -37,14 +39,16 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class Main {
     public static void main( String[] args ) throws Exception
     {
+        org.apache.log4j.BasicConfigurator.configure();
+        Logger log = LoggerFactory.getLogger(Main.class);
         // Bootstrap Spring
          ClassPathXmlApplicationContext springCtx;
          springCtx = new ClassPathXmlApplicationContext(new String[]{
              "applicationContext.xml",
              "activemq-jms-config.xml"
          });
-       
-         // Wait for Spring to Terminate.
-                 
+         log.info("started... main thread waiting for termination (signal or CTRL-C) ");
+         // When Spring's scheduler thread exits, this task will terminate as well
+         System.out.println("foo");
     }
 }

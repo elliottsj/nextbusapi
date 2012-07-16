@@ -36,6 +36,14 @@
         <property name="cacheExpiration" value="60000"/>
     </bean>
     
+    
+    <!-- The cached connection factory improves client send performance by avoiding JMS Connection setup/teardown for each connection. -->
+    <bean id="cachedJmsConnectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory" >
+        <property name="sessionCacheSize" value="1"/> 
+        <property name="targetConnectionFactory" ref="amq_connectionFactory" /> <!-- Change here to glassfish, amq, jboss, etc -->
+    </bean>
+    
+
     <!-- The input channel us driven by a generic Spring POJO adapter that drives the NextBus XML harvester on a schedule. 
          We poll it every second, but fresh data might only come every 5 minutes on particular bus routes. 
          Why the 5 minute delay?  We dont want to clobber the NextBus service endpoint with tons of frequent requests.
@@ -44,9 +52,21 @@
     <si:inbound-channel-adapter id="adapter1" ref="nextBusHarvester" method="execute" channel="nextbus">
         <si:poller fixed-rate="1000" task-executor="dfltExecutor"/>
     </si:inbound-channel-adapter>  
+    
+    
+    <si:header-enricher input-channel="nextbus" output-channel="nextbus">
+        <si:header name="route" value="LOCAL" />
+        <si:header name="vehicle" value="LOCAL" />
+        <si:header name="latitude" value="LOCAL" />
+        <si:header name="longitude" value="LOCAL" />
+        <si:header name="agency" expression="payload.route.agency.id" />
+    </si:header-enricher>
+    
     <!-- The output channel is a JMS Topic, doesn't matter which Vendor either.  The specific provisioning is in 
          a /resources/$vendor-jms-config.xml file. 
     -->
-    <jms:outbound-channel-adapter id="adapter2" channel="nextbus" destination="amq_queue" connection-factory="amq_connectionFactory" />
-  
+    
+    
+    <jms:outbound-channel-adapter id="adapter2" channel="nextbus" destination="amq_queue" connection-factory="cachedJmsConnectionFactory" />
+    
 </beans>

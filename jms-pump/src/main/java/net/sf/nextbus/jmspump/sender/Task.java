@@ -32,6 +32,7 @@ package net.sf.nextbus.jmspump.sender;
 
 import net.sf.nextbus.publicxmlfeed.domain.Agency;
 import net.sf.nextbus.publicxmlfeed.domain.Route;
+import net.sf.nextbus.publicxmlfeed.domain.VehicleLocation;
 import net.sf.nextbus.publicxmlfeed.service.INextbusService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,9 +41,9 @@ import java.util.*;
 /**
  * Worker Task is responsible for preparing and gathering work to stream to JMS.
  * It needs a simple table of work done in the past, with timestamps, to
- * determine when it's time to replenish JMS with fresh Nextbus state.
- *
- *
+ * determine when it's time to replenish JMS with fresh Nextbus state. This insures
+ * that we dont excessively probe NextBus.
+ * 
  * @author jrd
  */
 public class Task {
@@ -106,7 +107,8 @@ public class Task {
     }
 
     /**
-     * Ctor to configure worker to poll all routes for a group of agencies
+     * Ctor to configure worker to poll all routes for a group of agencies -
+     * Warning this will create a substantial burder on the NextBus Service.
      *
      * @param agcs Agencies to poll
      */
@@ -137,7 +139,7 @@ public class Task {
                 done++;
             }
         }
-        log.info("Task::execute() replenished "+done);
+        if (done > 0) log.info("nextbus task::execute() replenished state for "+done+" routes with "+worklist.size()+" vehicles found.");
         return worklist;
     }
 
@@ -148,14 +150,17 @@ public class Task {
      */
     private void doVehicleLocations(List worklist, Work work, Route r) {
         try {
-            Object vl = nb.getVehicleLocations(r, 0);
+            List<VehicleLocation> vl = nb.getVehicleLocations(r, 0);
+            
             work.lastTime = System.currentTimeMillis();
             work.success++;
-            worklist.add(vl);
+            // Cant have a list of lists.. Unpack the VehicleLocations and add to the work done list
+            for (VehicleLocation v: vl) worklist.add(v);
             successfulRuns++;
+            log.debug("got update for "+r.toString()+" with "+vl.size()+" vehicle locations.");
         } catch (net.sf.nextbus.publicxmlfeed.service.ServiceException se) {
             work.errors++;
-            log.warn("While harvesting NextBus::VehicleLocations ", se);
+            log.warn("Fault while obtaining update for "+r, se);
             failedRuns++;
         }
     }

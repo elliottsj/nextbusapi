@@ -13,11 +13,13 @@ import org.slf4j.LoggerFactory;
  */
 public class TaskTest {
     
+    
     final Logger log = LoggerFactory.getLogger(TaskTest.class);
     
     private INextbusService svc ;
     @Before
     public void setup() {
+        org.apache.log4j.BasicConfigurator.configure();
         svc = new SimplestNextbusServiceAdapter();
     }
     

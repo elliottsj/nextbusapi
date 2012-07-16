@@ -38,7 +38,7 @@ import javax.jms.Session;
 import java.util.*;
 
 /**
- * Construct a JMS Message, and Message Header - from a VehicleLocationObject
+ * A Message Enricher to support the VehicleLocation object.
  * @author jrd
  */
 public class VehicleLocationMessage {
@@ -62,6 +62,7 @@ public class VehicleLocationMessage {
         m.setDoubleProperty("latitude", vl.getGeolocation().getLatitude());
         m.setDoubleProperty("longitude", vl.getGeolocation().getLongitude());
         m.setObject(vl);
+        
         return m;
     }
     

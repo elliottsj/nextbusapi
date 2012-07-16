@@ -1,4 +1,4 @@
-
+<?xml version="1.0"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -9,7 +9,7 @@
     <packaging>jar</packaging>
     
     <name>nextbus-jms-pump</name>
-    <url>http://maven.apache.org</url>
+    <url>http://sourceforge.net/projects/nextbusapi/</url>
     <description>
         The Pumper is an Executable JAR that relies on the Nextbus Service Adapter to acquire 
         Bus data and drive it into an Apache ActiveMQ.
@@ -20,13 +20,20 @@
         Use  Spring Integration as the JMS glue.
       
     </description>    
-
+    <developers>
+        <developer>
+            <id>jrd</id>
+            <name>James R. Doyle</name>
+            <email>rockymtnmagic@gmail.com</email>
+        </developer>
+    </developers>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
         <!-- Minimum Footprint for Spring Integration for this projects needs -->
+        <!-- Spring 3.0.7 + Integration 2.1.0 -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
@@ -38,7 +45,12 @@
             <artifactId>spring-context-support</artifactId>
             <version>3.0.7.RELEASE</version>
         </dependency>
-       
+         
+         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jms</artifactId>
+            <version>3.0.7.RELEASE</version>
+        </dependency>
        
         <dependency>
             <groupId>org.springframework.integration</groupId>
@@ -66,23 +78,23 @@
             <artifactId>activemq-all</artifactId>
             <version>5.5.1</version>
         </dependency>
-        
-        
-        
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.8.2</version>
             <scope>test</scope>
-        </dependency>
-        
-       
+        </dependency>   
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.5.10</version>
         </dependency>
-
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+        
         <!-- Compile-only dependencies -->
         <dependency>
             <groupId>javax.jms</groupId>
@@ -90,10 +102,10 @@
             <version>1.1-rev-1</version>
             <scope>compile</scope>
         </dependency>
-         <dependency>
+        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.6.6</version>
+            <version>1.6.1</version>
             <scope>compile</scope>
         </dependency>
         
