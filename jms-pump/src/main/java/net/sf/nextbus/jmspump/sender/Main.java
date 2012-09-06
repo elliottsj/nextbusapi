@@ -32,6 +32,10 @@
  */
 package net.sf.nextbus.jmspump.sender;
 
+import java.util.Arrays;
+import org.apache.commons.daemon.Daemon;
+import org.apache.commons.daemon.DaemonContext;
+import org.apache.commons.daemon.DaemonInitException;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextClosedEvent;
@@ -45,38 +49,84 @@ import org.slf4j.LoggerFactory;
  * case Spring wires up POJOs from the top down using whatever we tell it in
  * applicationContext.xml
  */
-public class Main {
+public class Main implements Daemon {
 
     static final Logger log = LoggerFactory.getLogger(Main.class);
-    
+    static ClassPathXmlApplicationContext springCtx;
+    static Task task;
+    static boolean jsvcDaemonMode = true;
+
     public static void main(String[] args) throws Exception {
-        org.apache.log4j.BasicConfigurator.configure();
+       
+        if (args != null) {
+           
+            for (String arg : args) if (arg.equals("-stdalone")) jsvcDaemonMode=false;
+        }
         
-        // Bootstrap Spring
-        ClassPathXmlApplicationContext springCtx;
+        System.out.println("*** NextBus ActiveMQ Pump Daemon *** ");
+        // Bootstrap Spring Framework...
         springCtx = new ClassPathXmlApplicationContext(new String[]{
                     "applicationContext.xml",
                     "activemq-jms-config.xml"
                 });
+        
+        // Get the task object, so we can turn it on in the start() method.
+        task = springCtx.getBean(Task.class);
+        
+        // Register a shutdown handler (CTRL-C or SIGTERM will start the daemon shutdown)
         springCtx.addApplicationListener(new TaskSchedulerShutdownHandler());
+        //
+        if (jsvcDaemonMode) new Main().start();
+       
+
         log.info("started... main thread waiting for termination (signal or CTRL-C) ");
         // When Spring's scheduler thread exits, this task will terminate as well
+        // Encountered a JMSException - resetting the underlying JMS Connection
     }
 
     /**
-     * Shutdown hook to passivate the Spring scheduler and executor. In a real JMS implementation,
-     * you'd want to wait for any inflight message traffic trapped inside of Spring Integ's
-     * internal queues to be flushed to their output channels before terminating the daemon.
+     * Shutdown hook to passivate the Spring scheduler and executor. In a real
+     * JMS implementation, you'd want to wait for any inflight message traffic
+     * trapped inside of Spring Integ's internal queues to be flushed to their
+     * output channels before terminating the daemon.
      */
     static class TaskSchedulerShutdownHandler implements ApplicationListener<ContextClosedEvent> {
 
-        ThreadPoolTaskExecutor executor;
-        ThreadPoolTaskScheduler scheduler;
-
         public void onApplicationEvent(ContextClosedEvent event) {
-            scheduler.shutdown();
-            executor.shutdown();
-            log.info("passivated Spring scheduler.");
+            log.info("*** Shutdown Spring scheduler/executor.");
         }
+    }
+
+    /**
+     * Apache Commons Daemon (jsvc) lifecycle callback.
+     */
+    public void destroy() {
+        ThreadPoolTaskExecutor executor = springCtx.getBean(ThreadPoolTaskExecutor.class);
+        ThreadPoolTaskScheduler scheduler = springCtx.getBean(ThreadPoolTaskScheduler.class);
+        if (scheduler != null) scheduler.shutdown();
+        if (executor != null) executor.shutdown();
+       
+        springCtx.close();
+    }
+
+    /**
+     * Apache Commons Daemon (jsvc) lifecycle callback.
+     */
+    public void init(DaemonContext dc) throws DaemonInitException, Exception {
+        springCtx.start();;
+    }
+
+    /**
+     * Apache Commons Daemon (jsvc) lifecycle callback.
+     */
+    public void start() throws Exception {
+        task.setPaused(false);
+    }
+
+    /**
+     * Apache Commons Daemon (jsvc) lifecycle callback.
+     */
+    public void stop() throws Exception {
+        task.setPaused(true);
     }
 }
