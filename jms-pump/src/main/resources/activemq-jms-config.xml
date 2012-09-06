@@ -9,6 +9,10 @@
     <!-- JMS Client setup for ActiveMQ 5.5 -->
     <bean id="amq_connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory" lazy-init="true">
         <property name="brokerURL" value="${nbpumper.activemq.endpoint}" />
+        <property name="userName" value="${nbpumper.activemq.username}" />
+        <property name="password" value="${nbpumper.activemq.password}" />
+        <!-- the clientID helps us see who's who in the ActiveMQ management console, under active connections -->
+        <property name="clientID" value="nextbus-daemon"/>
     </bean>
    
     <bean id="amq_queue" class="org.apache.activemq.command.ActiveMQQueue" lazy-init="true">

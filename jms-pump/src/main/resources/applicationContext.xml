@@ -17,9 +17,10 @@
     </bean>
     
     <!-- Create a local task scheduler and executor so that we can periodically poll the input channel -->
-    <task:scheduler id="scheduler" pool-size="2"/>
-    <task:executor id="dfltExecutor" pool-size="2"/>
+    <task:scheduler id="taskScheduler" pool-size="1"/>
+    <task:executor id="dfltExecutor" pool-size="1"/>
 
+    
     <!-- This is the web service adapter kit for Nextbus, it's imported in the POM as a dependency -->
     <bean id="nextbusProtocolAdapter" class="net.sf.nextbus.publicxmlfeed.impl.SimplestNextbusServiceAdapter" lazy-init="false"/>
     
@@ -28,7 +29,7 @@
         <constructor-arg  ref="nextbusProtocolAdapter"/>
         <constructor-arg value="${nbpumper.agency}"/>
         <constructor-arg value="${nbpumper.routes}"/>
-        <property name="cacheExpiration" value="${nbpumper.cachetime}"/>
+        <property name="refreshInterval" value="${nbpumper.refreshtime}"/>
     </bean>
     
     <!-- 
@@ -36,6 +37,7 @@
          We poll it every second, but fresh data might only come every 5 minutes on particular bus routes. 
          Why the 5 minute delay?  We dont want to clobber the NextBus service endpoint with tons of frequent requests.
     -->
+    <int:channel id="errorChannel" />
     <int:channel id="nextbus"/> 
     
     <int:inbound-channel-adapter id="adapter1" ref="nextBusHarvester" method="execute" channel="nextbus">
@@ -65,8 +67,11 @@
     -->
     <jms:outbound-channel-adapter id="adapter2" channel="nextbus-split" destination="${nbpumper.sender_type}" connection-factory="cachedJmsConnectionFactory" />
        
-
-    
+    <!--
+        And finally, a log4j adapter so we can send messages there.
+    -->   
+       <int:logging-channel-adapter id="logger" log-full-message="true" level="INFO"/>
+       
     <!-- boilerplate: The cached connection factory improves client send performance by avoiding JMS Connection setup/teardown for each connection. -->
     <bean id="cachedJmsConnectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory" lazy-init="false">
         <property name="sessionCacheSize" value="1"/> 
