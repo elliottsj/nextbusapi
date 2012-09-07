@@ -6,25 +6,35 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
              
-             
-     <bean id="jmsExceptionListener" class="net.sf.nextbus.jmspump.sender.JmsExceptionListener"/>
+    <!--   ************** Setup for ActiveMQ  **************
+           1.  These beans are lazy-init=true precisely so we can do the switching of queue or topic from a properties file.
+           2.  All the config params are also properties files injected.
+           jrd 08/24/2012
+    -->
+    <!-- Configuration for everything comes from a Properties file in the run classpath -->
+    <bean id="nbpumper" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="file:nbpumper.properties"/>
+    </bean>
+    
+    <!-- The connection factory needs an Exception Listener so that we can send any Exception to the logger for diagnosis. -->         
+    <bean id="jmsExceptionListener" class="net.sf.nextbus.jmspump.sender.JmsExceptionListener"/>
     <!-- JMS Client setup for ActiveMQ 5.5 -->
     <bean id="amq_connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory" lazy-init="true">
         <property name="brokerURL" value="${nbpumper.activemq.endpoint}" /> 
         <property name="userName" value="${nbpumper.activemq.username}" />
         <property name="password" value="${nbpumper.activemq.password}" />
-       
         <!-- the clientID helps us see who's who in the ActiveMQ management console, under active connections -->
-        <property name="clientID" value="nextbus-daemon"/>
-         <property name="exceptionListener" ref="jmsExceptionListener"/>
+        <property name="clientIDPrefix" value="nextbus-pumper"/>
+        <property name="exceptionListener" ref="jmsExceptionListener"/>
+        
     </bean>
    
     <bean id="amq_queue" class="org.apache.activemq.command.ActiveMQQueue" lazy-init="true">
-        <constructor-arg value="${nbpumper.activemq.destination}" />
+        <constructor-arg value="${nbpumper.jms.destination}" />
         
     </bean>
     <bean id="amq_topic" class="org.apache.activemq.command.ActiveMQTopic" lazy-init="true">
-        <constructor-arg value="${nbpumper.activemq.destination}" />
+        <constructor-arg value="${nbpumper.jms.destination}" />
     </bean>
     
 </beans>

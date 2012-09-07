@@ -13,20 +13,19 @@
        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
        http://www.springframework.org/schema/integration/stream http://www.springframework.org/schema/integration/stream/spring-integration-stream-1.0.xsd">
 
-    <!-- Configuration for everything comes from a Properties file in the run classpath f-->
+    <!-- Configuration for everything comes from a Properties file in the run classpath -->
     <bean id="nbpumper" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="location" value="file:nbpumper.properties"/>
     </bean>
     
-    <!-- Spring Integration wants a Task Schedule/Runner for to execute our timed task... -->
-    <task:scheduler id="taskScheduler" pool-size="1"/>
+    <!-- Spring Integration wants a Task Schedule/Runner to execute our timed task... -->
+    <task:scheduler id="taskScheduler"  pool-size="1" />
     <task:executor id="dfltExecutor" pool-size="1"/>
-
-    
+       
     <!-- This is the generic NextBus XML Adapter -->
     <bean id="nextbusProtocolAdapter" class="net.sf.nextbus.publicxmlfeed.impl.SimplestNextbusServiceAdapter" lazy-init="false"/>
     
-    <!-- This is the Task Master, it gets called by the Spring Schedule to sweep new information from NextBus -->
+    <!-- This is the Task Master, it gets called by the Spring Scheduler to sweep new information from NextBus -->
     <bean id="nextBusHarvester" class="net.sf.nextbus.jmspump.sender.Task">
         <constructor-arg  ref="nextbusProtocolAdapter"/>
         <constructor-arg value="${nbpumper.agency}"/>
@@ -34,27 +33,29 @@
         <property name="refreshInterval" value="${nbpumper.refreshtime}"/>
     </bean>
     
-    <!-- Spring Integration: Declare an errorChannel and simple sent it out to log4j -->
-     <int:channel id="errorChannel" /> 
-     <int:logging-channel-adapter channel="errorChannel"  id="logger" log-full-message="true" level="ERROR"/>
+    <!-- **************** Spring Integration Section **************** -->
+    <!-- Declare an Error Channel and simply sent all events to log4j -->
+    <int:channel id="errorChannel" /> 
+    <int:logging-channel-adapter channel="errorChannel"  id="logger" log-full-message="true" level="ERROR"/>
       
     <!-- 
-        The input channel is driven by a generic Spring POJO adapter that drives the NextBus XML harvester on a schedule. 
-         We poll it every second, but fresh data might only come every 5 minutes on particular bus routes. 
-         Why the 5 minute delay?  We dont want to clobber the NextBus service endpoint with tons of frequent requests.
+        Declare an Input Channel sourced from a Generic POJO adapter and driven by a Time Task. 
     -->
     <int:channel id="nextbus"/> 
-    
     <int:inbound-channel-adapter id="adapter1" ref="nextBusHarvester" method="execute" channel="nextbus">
         <int:poller fixed-rate="1000" task-executor="dfltExecutor"/>
     </int:inbound-channel-adapter>  
     
-    <!-- The Harvester produces a Message with a List<Veh..Loc8n> - we need to split this List into indiv. objects! -->
+    <!-- 
+        Use a Splitter to disassemble a Message containing List<VehLocn> into N atomic messages of VehLocn
+     -->
     <int:channel id="nextbus-split" datatype="net.sf.nextbus.publicxmlfeed.domain.VehicleLocation" />
     <bean id="vlsplitter" class="org.springframework.integration.splitter.DefaultMessageSplitter"/>
     <int:splitter input-channel="nextbus" output-channel="nextbus-split"/>
        
-    <!-- The header enricher simply extracts some facts from the Location POJO that is useful to JMS Message Selection.. -->
+    <!--
+        Use a Header Enricher to set JMS Header Values so that Subscriber can use Message Selection criteria
+    -->
     <!-- Attemps to use Spring Expr. Language to manipulate more than 1 payload property caused problems... Resorted to a helper bean.-->
     <bean id="vlheaderenricher" class="net.sf.nextbus.jmspump.msgtools.VLMessageHeaderEnricher"/>
     <int:header-enricher input-channel="nextbus-split" output-channel="nextbus-split">
@@ -68,18 +69,21 @@
     </int:header-enricher>
    
     <!-- 
-        The output channel is a JMS Topic, doesn't matter which Vendor either.  The specific provisioning is in a /resources/$vendor-jms-config.xml file. 
+        Create an Output Channel that simply feeds a JMS Queue or Topic
     -->
     <jms:outbound-channel-adapter id="adapter2" channel="nextbus-split" 
-         destination="${nbpumper.sender_type}" 
-         connection-factory="amq_connectionFactory" 
-         time-to-live="${nbpumper.jms.ttl}" />
+                                  destination="${nbpumper.sender_type}" 
+                                  connection-factory="cachedJmsConnectionFactory" 
+                                  time-to-live="${nbpumper.jms.ttl}" />
     
-    <!-- The cached connection factory improves client send performance by avoiding JMS Connection setup/teardown for each connection. -->
+    <!-- 
+        The cached connection factory improves client send performance by avoiding JMS Connection setup/teardown for each connection.
+        This simply layers ontop of an ActiveMQ Connection Factory - see activemq-jms_config.xml for more details
+     -->
+        
     <bean id="cachedJmsConnectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory" lazy-init="false">
         <property name="sessionCacheSize" value="1"/> 
         <property name="reconnectOnException" value="true"/>
-        <property name="targetConnectionFactory" ref="amq_connectionFactory" /> <!-- Change here to glassfish, amq, jboss, etc -->
-       
-   </bean>
+        <property name="targetConnectionFactory" ref="amq_connectionFactory" /> <!-- Change here to glassfish, amq, jboss, etc -->   
+    </bean>
 </beans>
