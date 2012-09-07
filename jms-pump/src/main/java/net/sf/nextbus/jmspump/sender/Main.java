@@ -44,43 +44,84 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Bootstrap for a String Integration based standalone daemon program. In this
- * case Spring wires up POJOs from the top down using whatever we tell it in
- * applicationContext.xml
+ * Bootstrap for a String Integration based standalone daemon program. This has
+ * to support Standalone/IDE mode as well as JSVC daemon mode, hence the
+ * complexity with some static attributes, and various callback methods.
  */
 public class Main implements Daemon {
 
-    static final Logger log = LoggerFactory.getLogger(Main.class);
-    static ClassPathXmlApplicationContext springCtx;
-    static Task task;
-    static boolean jsvcDaemonMode = false;
-
-    public static void main(String[] args) throws Exception {
-        System.out.println("*** NextBus ActiveMQ Pump Daemon *** ");
-        if (args != null) {
-            for (String arg : args) if (arg.equals("-daemon")) jsvcDaemonMode=true;
-            if (jsvcDaemonMode) System.out.println("      -- daemon mode");
-        }
-        
-       
-        // Bootstrap Spring Framework...
+    private static final Logger log = LoggerFactory.getLogger(Main.class);
+    private static ClassPathXmlApplicationContext springCtx;
+    private static Task task;
+    private static boolean jsvcDaemonMode = false;
+    private static String greeting=
+    "**********************************************************\n"+
+    "****** NextBus Pump Adapter for JMS/ActiveMQ\n"+
+    "****** $Id$ \n"+
+    "****** http://sourceforge.net/projects/nextbusapi/ \n"+
+    "**********************************************************";
+    
+    /**
+     * Universal init(), for both jsvc and standalone mode.
+     */
+    public static void init() {
+        if (springCtx != null) {
+            return;  // at most once!
+        }        // Bootstrap Spring Framework...
         springCtx = new ClassPathXmlApplicationContext(new String[]{
-                    "applicationContext.xml",
+                    "nbpump-spring-context.xml",
                     "activemq-jms-config.xml"
                 });
-        
-        // Get the task object, so we can turn it on in the start() method.
+
+        // Get a reference task object, so we can turn it on in the start() method.
         task = springCtx.getBean(Task.class);
         
-        // Register a shutdown handler (CTRL-C or SIGTERM will start the daemon shutdown)
+        // Create a shutdown handler to gracefully halt in-flight work...
         springCtx.addApplicationListener(new TaskSchedulerShutdownHandler());
-        //
-        if (! jsvcDaemonMode) new Main().start();
-       
+    }
 
+    /**
+     * main() is never invoked by Commons Daemon (jsvc), but we do need an
+     * implementation that supports command line operation and IDE testing
+     * outside of jsvc.
+     *
+     * @param args
+     * @throws Exception
+     */
+    public static void main(String[] args) throws Exception {
+        System.out.println(greeting);
+        
+        // Register a Shutdown Hook to deal with CTRL-C or SIGTERM, on shutdown
+        // we'll close Spring. Spring can then let it's own event listeners know.
+        // In JSVC daemon mode, the destroy() callback does the same thing 
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            public void run() {
+                if (springCtx != null) {
+                    springCtx.close();
+                }
+                log.info("*** Started Spring shutdown...");
+            }
+        });
+        
+        // cmd line args ; search for only one, -daemon, for jsvc mode.
+        if (args != null) {
+            for (String arg : args) {
+                if (arg.equals("-daemon")) {
+                    jsvcDaemonMode = true;
+                }
+            }
+            if (jsvcDaemonMode) {
+                System.out.println("      -- jsvc daemon mode");
+            }
+        }
+        
+   
+        init();
+        // Finally, invoke the start method
+        if (!jsvcDaemonMode) {
+            new Main().start();
+        }
         log.info("started... main thread waiting for termination (signal or CTRL-C) ");
-        // When Spring's scheduler thread exits, this task will terminate as well
-        // Encountered a JMSException - resetting the underlying JMS Connection
     }
 
     /**
@@ -90,9 +131,16 @@ public class Main implements Daemon {
      * output channels before terminating the daemon.
      */
     static class TaskSchedulerShutdownHandler implements ApplicationListener<ContextClosedEvent> {
-
         public void onApplicationEvent(ContextClosedEvent event) {
-            log.info("*** Shutdown Spring scheduler/executor.");
+            ThreadPoolTaskExecutor executor = springCtx.getBean(ThreadPoolTaskExecutor.class);
+            ThreadPoolTaskScheduler scheduler = springCtx.getBean(ThreadPoolTaskScheduler.class);
+            if (executor != null) {
+                executor.shutdown();
+            }
+            if (scheduler != null) {
+                scheduler.shutdown();
+            }
+            log.info("*** Shutdown Spring scheduler and executor...");
         }
     }
 
@@ -100,11 +148,6 @@ public class Main implements Daemon {
      * Apache Commons Daemon (jsvc) lifecycle callback.
      */
     public void destroy() {
-        ThreadPoolTaskExecutor executor = springCtx.getBean(ThreadPoolTaskExecutor.class);
-        ThreadPoolTaskScheduler scheduler = springCtx.getBean(ThreadPoolTaskScheduler.class);
-        if (scheduler != null) scheduler.shutdown();
-        if (executor != null) executor.shutdown();
-       
         springCtx.close();
     }
 
@@ -112,7 +155,7 @@ public class Main implements Daemon {
      * Apache Commons Daemon (jsvc) lifecycle callback.
      */
     public void init(DaemonContext dc) throws DaemonInitException, Exception {
-        springCtx.start();
+        init();
     }
 
     /**
