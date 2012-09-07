@@ -4,15 +4,15 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.sf.nextbus</groupId>
     <artifactId>nextbus-jms-pump</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.1-RELEASE</version>
     <packaging>jar</packaging>
     <name>nextbus-jms-pump</name>
     <url>http://sourceforge.net/projects/nextbusapi/</url>
     <description>
         The Pumper is an Executable JAR that relies on the Nextbus Service Adapter to acquire 
-        Bus data and drive it into an Apache ActiveMQ using the Spring Integration framework.
-        The Pumper will periodically track and sweep VehicleLocation data into JMS based. This
-        kit relies on a Spring Scheduler to drive the sweep, the fundamental Spring Integration
+        transit data and drive it into an Apache ActiveMQ using the Spring Integration framework.
+        The Pumper will periodically track and sweep VehicleLocation data into a JMS topic or queue.
+        This kit relies on a Spring Scheduler to drive the sweep, the fundamental Spring Integration
         facilities such as Adapter, Splitter, Enricher to perform the Messaging glue and also
         the NextBus XML Adapter JAR project. JMS Headers are set with attribute properties to permit
         Topic Subscribes to tune into a narrow band of traffic they are interested in.
@@ -26,9 +26,14 @@
     </developers>
     <licenses>
         <license>
-            <name>GNU LESSER GENERAL PUBLIC LICENSE</name>
-            <url>http://www.gnu.org/licenses/lgpl.html</url>
-            <comments>The LGPL Covers the Source Code</comments>
+            <name>GNU GENERAL PUBLIC LICENSE</name>
+            <url>http://www.gnu.org/licenses/gpl.html</url>
+            <comments>The GPL Covers the Source Code</comments>
+        </license>
+        <license>
+            <name>Nextbus License Agreement</name>
+            <url>http://www.nextbus.com/xmlFeedDocs/NextBusXMLFeed.pdf</url>
+            <comments>The NextBus license covers the Terms of Use and Indemnities of the Data Feed</comments>
         </license>
     </licenses>
     <properties>
@@ -36,11 +41,6 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-daemon</artifactId>
-            <version>1.0.9</version>
-        </dependency>
         <!-- Minimum Footprint for Spring Integration for this projects needs -->
         <!-- Spring 3.0.7 + Integration 2.1.0 -->
         <dependency>
@@ -98,13 +98,12 @@
             <version>1.2.16</version>
         </dependency>
         
+        <!-- Apache Daemon -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.8.2</version>
-            <scope>test</scope>
-        </dependency>   
-        
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-daemon</artifactId>
+            <version>1.0.9</version>
+        </dependency>
         
         <!-- Compile-only dependencies -->
         <dependency>
