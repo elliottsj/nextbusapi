@@ -65,6 +65,10 @@ public class Task {
      */
     private Long refreshInterval = 60 * 1000L;
     /**
+     * Max number of NextBus HTTP calls to make per Scheduler pass
+     */
+    private Integer maxNextbusCallsPerExecution = 5;
+    /**
      * Nextbus service adapter
      */
     private INextbusService nextbus;
@@ -82,6 +86,7 @@ public class Task {
     private boolean paused = true;
 
     public void setRefreshInterval(long arg) {
+        if (arg<=0) return;
         refreshInterval = arg;
     }
 
@@ -166,6 +171,7 @@ public class Task {
      * Channel.
      */
     public List execute() {
+        int nextbusCalls = 0;
         List workproducts = new ArrayList();
         if (paused) {
             log.info("Task is paused...");
@@ -175,9 +181,14 @@ public class Task {
         
         int done = 0;
         for (Work work : routesToWork) {
+            if (nextbusCalls+1 > maxNextbusCallsPerExecution) {
+                log.debug("Limiting NextBus XML RPCs on this pass to maintain service level agreement upper threshhold.");
+                break;
+            }
             if (work.isOld()) {
                 doVehicleLocations(workproducts, work);
                 done++;
+                nextbusCalls++;
             } else {
                 log.trace("skipping "+work.route+ " ; still recent. ");
             }
@@ -228,6 +239,7 @@ public class Task {
         // Configured for all routes?  That's the common use case.
         //   Just create a work element for each discovered route
         if (routes == null || routes.length == 0) {
+            System.out.print("Using all routes for agency: "+agency);
             for (Route r : rs) {
                 routesToWork.add(new Work(r));
                 System.out.print(r.getTag()+",");
@@ -249,8 +261,14 @@ public class Task {
             if (route != null) {
                 routesToWork.add(new Work(route));
             } else {
-                log.warn("route " + route + " not found is authoritative list of routes for agency " + agency);
+                log.warn("route " + r + " not found is authoritative list of routes for agency " + agency);
             }
+        }
+        
+        // what if there is no work to do?
+        if (routesToWork.size() == 0) {
+            log.error("*** There are no available routes to work. Terminating.");
+            paused=true;
         }
         log.info("Added " + routesToWork.size() + " routes to worklist. ");
     }
@@ -270,4 +288,11 @@ public class Task {
     public void setPaused(boolean arg) { 
         paused=arg;
     }
+
+    public void setMaxNextbusCallsPerExecution(Integer arg) {
+        if (arg<=0) return;
+        this.maxNextbusCallsPerExecution = arg;
+    }
+    
+    
 }
