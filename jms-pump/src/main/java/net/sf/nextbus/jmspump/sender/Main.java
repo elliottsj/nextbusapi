@@ -32,7 +32,6 @@
  */
 package net.sf.nextbus.jmspump.sender;
 
-import java.util.Arrays;
 import org.apache.commons.daemon.Daemon;
 import org.apache.commons.daemon.DaemonContext;
 import org.apache.commons.daemon.DaemonInitException;
@@ -54,16 +53,16 @@ public class Main implements Daemon {
     static final Logger log = LoggerFactory.getLogger(Main.class);
     static ClassPathXmlApplicationContext springCtx;
     static Task task;
-    static boolean jsvcDaemonMode = true;
+    static boolean jsvcDaemonMode = false;
 
     public static void main(String[] args) throws Exception {
-       
+        System.out.println("*** NextBus ActiveMQ Pump Daemon *** ");
         if (args != null) {
-           
-            for (String arg : args) if (arg.equals("-stdalone")) jsvcDaemonMode=false;
+            for (String arg : args) if (arg.equals("-daemon")) jsvcDaemonMode=true;
+            if (jsvcDaemonMode) System.out.println("      -- daemon mode");
         }
         
-        System.out.println("*** NextBus ActiveMQ Pump Daemon *** ");
+       
         // Bootstrap Spring Framework...
         springCtx = new ClassPathXmlApplicationContext(new String[]{
                     "applicationContext.xml",
@@ -76,7 +75,7 @@ public class Main implements Daemon {
         // Register a shutdown handler (CTRL-C or SIGTERM will start the daemon shutdown)
         springCtx.addApplicationListener(new TaskSchedulerShutdownHandler());
         //
-        if (jsvcDaemonMode) new Main().start();
+        if (! jsvcDaemonMode) new Main().start();
        
 
         log.info("started... main thread waiting for termination (signal or CTRL-C) ");
@@ -113,7 +112,7 @@ public class Main implements Daemon {
      * Apache Commons Daemon (jsvc) lifecycle callback.
      */
     public void init(DaemonContext dc) throws DaemonInitException, Exception {
-        springCtx.start();;
+        springCtx.start();
     }
 
     /**
