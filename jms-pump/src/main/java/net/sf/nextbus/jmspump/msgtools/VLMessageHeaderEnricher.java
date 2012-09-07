@@ -66,4 +66,7 @@ public class VLMessageHeaderEnricher {
     public Long getTimestamp(Message m) {
         return vl(m).getLastTimeUtc();
     }
+    public String getCopyrightNotice(Message m) {
+        return vl(m).getCopyrightNotice();
+    }
 }

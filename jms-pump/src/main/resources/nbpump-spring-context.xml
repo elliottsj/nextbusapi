@@ -66,6 +66,7 @@
         <int:header name="longitude" ref="vlheaderenricher" method="getLongitude" />
         <int:header name="latitude" ref="vlheaderenricher" method="getLatitude" />
         <int:header name="timestamp" ref="vlheaderenricher" method="getTimestamp" />
+        <int:header name="copyrightNotice" ref="vlheaderenricher" method="getCopyrightNotice" />
     </int:header-enricher>
    
     <!-- 
