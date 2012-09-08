@@ -103,7 +103,7 @@ public class VehicleLocation extends NextbusValueObject implements IGeocoded {
      * @return true if getHeading() will provide an accurate heading. 
      */
     public boolean isHeadingAvailable() {
-        return heading < 0.0;
+        return heading >= 0.0;
     }
 
     /**
