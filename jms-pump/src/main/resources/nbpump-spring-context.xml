@@ -66,7 +66,15 @@
         <int:header name="vehicleId" ref="vlheaderenricher" method="getVehicleId" />
         <int:header name="longitude" ref="vlheaderenricher" method="getLongitude" />
         <int:header name="latitude" ref="vlheaderenricher" method="getLatitude" />
+        <int:header name="heading" ref="vlheaderenricher" method="getHeading" />
+        <int:header name="speedKmHr" ref="vlheaderenricher" method="getSpeedKmHr" />
+        <int:header name="speedMPH" ref="vlheaderenricher" method="getSpeedMPH" />
         <int:header name="timestamp" ref="vlheaderenricher" method="getTimestamp" />
+        <int:header name="lastReportedTimeAtPosition" ref="vlheaderenricher" method="getLastReportedTimeAtPosition" />
+        <int:header name="timeSkew" ref="vlheaderenricher" method="getTimeSkew" />
+        <int:header name="isHeadingAvailable" ref="vlheaderenricher" method="isHeadingAvailable" />
+        <int:header name="isPredictable" ref="vlheaderenricher" method="isPredictable" />
+        
         <int:header name="copyrightNotice" ref="vlheaderenricher" method="getCopyrightNotice" />
     </int:header-enricher>
    

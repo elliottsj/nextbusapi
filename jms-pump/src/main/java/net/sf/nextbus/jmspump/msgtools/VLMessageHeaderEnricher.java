@@ -54,6 +54,9 @@ public class VLMessageHeaderEnricher {
     public String getRouteId(Message m) {
         return vl(m).getRoute().getTag();
     }
+     public String getDirectionId(Message m) {
+        return vl(m).getDirectionId();
+    }
     public String getVehicleId(Message m) {
         return vl(m).getVehicle().getId();
     }
@@ -63,8 +66,31 @@ public class VLMessageHeaderEnricher {
     public Double getLongitude(Message m) {
         return vl(m).getGeolocation().getLongitude();
     }
+    
     public Long getTimestamp(Message m) {
+        return vl(m).getObjectTimestamp();
+    }
+    public Long getLastReportedTimeAtPosition(Message m) {
         return vl(m).getLastTimeUtc();
+    }
+    public Long getTimeSkew(Message m) {
+        return getTimestamp(m) - getLastReportedTimeAtPosition(m);
+    }
+    public Boolean isPredictable(Message m) {
+        return vl(m).isPredictable();
+    }
+    public Double getHeading(Message m) {
+        return vl(m).getHeading();
+    }
+    public Double getSpeedKmHr(Message m) {
+        return vl(m).getSpeed();
+    }
+    public Double getSpeedMPH(Message m) {
+        return vl(m).getSpeedMPH();
+    }
+    public Boolean isHeadingAvailable(Message m) {
+        return vl(m).isHeadingAvailable();
+       
     }
     public String getCopyrightNotice(Message m) {
         return vl(m).getCopyrightNotice();
