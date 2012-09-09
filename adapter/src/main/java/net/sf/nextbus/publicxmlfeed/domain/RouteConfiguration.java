@@ -164,7 +164,7 @@ public class RouteConfiguration extends NextbusValueObject {
                 return d;
             }
         }
-        throw new IllegalArgumentException("Direction instance for id=" + directionId + "not found in this RouteConfiguration instance");
+        throw new IllegalArgumentException("Direction instance for id=" + directionId + " not found in this RouteConfiguration instance");
     }
 
     /**
