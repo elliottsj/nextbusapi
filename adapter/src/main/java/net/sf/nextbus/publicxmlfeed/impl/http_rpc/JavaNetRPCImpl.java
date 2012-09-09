@@ -58,7 +58,16 @@ public class JavaNetRPCImpl implements RPCImpl {
     private boolean useGzipCompression;
     private long lastSuccessfulCallTimeUTC;
     private long totalRPCCalls;
+    private long bytesReceived;
 
+    // Enforces advisory warnings on bandwidth use - NextBus spec says 2MB/2 mins Max
+    private long bandwidthLimitIntervalMilliseconds = 2*60*1000;  // 2 minutes
+    private long bandwidthLimitIntervalBytes = 2^21;              // 2 megabytes
+    
+    // State machine values for Sliding bandwidth monitor
+    private long bwLimitIntervalStartTime;
+    private long bwLimitIntervalStartBytes;
+    
     public JavaNetRPCImpl() {
     }
 
@@ -112,8 +121,10 @@ public class JavaNetRPCImpl implements RPCImpl {
             rd = new BufferedReader(new InputStreamReader(is));
             sb = new StringBuilder();
             while ((line = rd.readLine()) != null) {
+                bytesReceived += line.length();
                 sb.append(line);
                 logger.log(Level.FINEST, "read "+line.length()+" bytes from the HTTP input buffer");
+                checkBandwidthLimits();
             }
             
             /* Done! Cleanup and return to the caller */
@@ -151,6 +162,46 @@ public class JavaNetRPCImpl implements RPCImpl {
      */
     public long getTotalRPCCalls() {
         return totalRPCCalls;
+    }
+
+    /**
+     * Sets the Bandwidth Monitor Limit Byte Limit for the corresponding Time Interval ; defaults to 2MB every 2 minutes
+     * @param arg bytes allowed per time interval
+     */
+    public void setBandwidthLimitIntervalBytes(long arg) {
+        if (arg<=0) return;
+        this.bandwidthLimitIntervalBytes = arg;
+    }
+
+    /**
+     * Sets the Bandwidth Monitor Limit Time Interval ; defaults to 2 minutes
+     * @param arg time interval of the bandwidth limit monitor 
+     */
+    public void setBandwidthLimitIntervalMilliseconds(long arg) {
+        if (arg<=0) return;
+        this.bandwidthLimitIntervalMilliseconds = arg;
+    }
+    
+    
+    /**
+     * Implements a simple Bandwidth limit check.
+     * When b/w is exceeded, a WARN Advisory is posted to the logger.
+     * Tests whether more than N bytes are sent within an M second interval
+     */
+    private void checkBandwidthLimits() {
+        
+        // Reset the observation time window if needed
+        if (bwLimitIntervalStartTime == 0 || (System.currentTimeMillis()-bwLimitIntervalStartBytes) > this.bandwidthLimitIntervalMilliseconds) {
+            bwLimitIntervalStartTime = System.currentTimeMillis();
+            bwLimitIntervalStartBytes += bytesReceived;
+        }
+        
+        // Check the total byte count inside the observation window
+        long bytesRecvInLimitWindow = bytesReceived - bwLimitIntervalStartBytes;
+        if ((bytesRecvInLimitWindow ) > this.bandwidthLimitIntervalBytes) {
+            // The bandwidth limit has been exceeded!
+            logger.warning("Bandwidth advisory limit exceeded by "+bytesRecvInLimitWindow+" bytes!");
+        }
     }
     
     public void activate() { }
