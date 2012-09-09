@@ -61,9 +61,13 @@ public class Task {
 
     final Logger log = LoggerFactory.getLogger(Task.class);
     /**
-     * The freshness limit in milliseconds, defaults to 60 seconds
+     * The freshness limit in milliseconds, defaults to 5 min for VehLocn, 10 min for Predictions
      */
-    private Long refreshInterval = 60 * 1000L;
+    private long refreshIntervalVehicleLocations = 60 * 1000L;
+    private long refreshIntervalPredictions = 10 * 60 * 1000L;
+    private boolean enableVehicleLocations = true;
+    private boolean enablePredictions = true;
+    
     /**
      * Max number of NextBus HTTP calls to make per Scheduler pass
      */
@@ -83,12 +87,8 @@ public class Task {
     private int successfulRuns;
     private int failedRuns;
     
+    /** Inhibits the execute() method from doing work */
     private boolean paused = true;
-
-    public void setRefreshInterval(long arg) {
-        if (arg<=0) return;
-        refreshInterval = arg;
-    }
 
     /**
      * Tracks work done against a Route by the sweep Task. Timestamp is used
@@ -105,7 +105,7 @@ public class Task {
         int success;
 
         boolean isOld() {
-            return System.currentTimeMillis() - lastTime >= refreshInterval;
+            return System.currentTimeMillis() - lastTime >= refreshIntervalVehicleLocations;
         }
     }
 
@@ -292,6 +292,22 @@ public class Task {
     public void setMaxNextbusCallsPerExecution(Integer arg) {
         if (arg<=0) return;
         this.maxNextbusCallsPerExecution = arg;
+    }
+
+    public void setEnablePredictions(boolean enablePredictions) {
+        this.enablePredictions = enablePredictions;
+    }
+
+    public void setEnableVehicleLocations(boolean enableVehicleLocations) {
+        this.enableVehicleLocations = enableVehicleLocations;
+    }
+
+    public void setRefreshIntervalPredictions(Long refreshIntervalPredictions) {
+        this.refreshIntervalPredictions = refreshIntervalPredictions;
+    }
+
+    public void setRefreshIntervalVehicleLocations(Long refreshIntervalVehicleLocations) {
+        this.refreshIntervalVehicleLocations = refreshIntervalVehicleLocations;
     }
     
     

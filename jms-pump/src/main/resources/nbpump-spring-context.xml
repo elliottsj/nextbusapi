@@ -30,7 +30,10 @@
         <constructor-arg  ref="nextbusProtocolAdapter"/>
         <constructor-arg value="${nbpumper.agency}"/>
         <constructor-arg value="${nbpumper.routes}"/>
-        <property name="refreshInterval" value="${nbpumper.refreshtime}"/>
+        <property name="enableVehicleLocations" value="true"/>
+        <property name="enablePredictions" value="false"/>
+        <property name="refreshIntervalVehicleLocations" value="${nbpumper.refreshtime.vehiclelocations}"/>
+        <property name="refreshIntervalPredictions" value="${nbpumper.refreshtime.predictions}"/>
         <property name="maxNextbusCallsPerExecution" value="${nbpumper.maxrpcs-per-poll}"/>
     </bean>
     
