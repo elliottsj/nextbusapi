@@ -36,6 +36,7 @@ import net.sf.nextbus.publicxmlfeed.domain.Stop;
 import net.sf.nextbus.publicxmlfeed.domain.Agency;
 import net.sf.nextbus.publicxmlfeed.domain.Route;
 import net.sf.nextbus.publicxmlfeed.service.FatalServiceException;
+import net.sf.nextbus.publicxmlfeed.service.ServiceException;
 import java.util.*;
 import java.util.Iterator;
 import java.net.URLEncoder;
@@ -183,6 +184,11 @@ public class RPCRequest {
      * @return params to invoke 'predictionsForMultiStops' web service method
      */
     public static RPCRequest newPredictionsCommand(Collection<Stop> stops, boolean useShortTitles) {
+        
+        // NextBus spec document 1.19 limits the size of this request (page 6)
+        if (stops.size() > 150) {
+            throw new ServiceException(new IllegalArgumentException("Maximum 150 Stops allowed for a predictionsForMultiStops. "+stops.size()+" was given in call parameters."));
+        }
         Agency a = stops.iterator().next().getRoute().getAgency();
 
         RPCRequest rq = new RPCRequest();
