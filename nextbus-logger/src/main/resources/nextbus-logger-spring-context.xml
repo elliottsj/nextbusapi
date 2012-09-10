@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"     
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xmlns:int-jdbc="http://www.springframework.org/schema/integration/jdbc"
+       xmlns:jms="http://www.springframework.org/schema/integration/jms"  
+       xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:bean="http://www.springframework.org/schema/beans"
+       xmlns:stream="http://www.springframework.org/schema/integration/stream"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-2.1.xsd
+       http://www.springframework.org/schema/integration/jdbc http://www.springframework.org/schema/integration/jdbc/spring-integration-jdbc-2.0.xsd
+       http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+       http://www.springframework.org/schema/integration/stream http://www.springframework.org/schema/integration/stream/spring-integration-stream-1.0.xsd">  
+          
+          
+    <!--      ***********************************************************************
+                A Nextbus Vehicle Location Recorder using the ESB Approach.
+                  Implementation using Spring Integration and ActiveMQ.
+                  This standalone program will work in conjunction with the NextBus Pumper. 
+                
+                Note that while this is a functioning implementation of a JMS->JDBC feed,
+                it is NOT A RELIABLE IMPLEMENTATION. It is possible for messages to be
+                eaten but not persisted to database in certain failure modes. In other 
+                words, this is not a Two Phase Commit Strict solution!
+                ***********************************************************************
+    -->
+    
+    <!-- Configuration for everything comes from a Properties file in the run classpath -->
+    <bean id="nblogger" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="file:nblogger.properties"/>
+    </bean>
+    
+    <!-- A JDBC DataSource to record VehicleLocation events -->
+     <bean id="dataSource" class="${nblogger.jdbc.dataSourceClass}">
+        <property name="user" value="${nblogger.jdbc.userName}"/>
+        <property name="password" value="${nblogger.jdbc.password}"/>
+        <property name="serverName" value="${nblogger.jdbc.serverName}"/>
+        <property name="portNumber" value="${nblogger.jdbc.port}"/>
+        <property name="databaseName" value="${nblogger.jdbc.databaseName}"/>
+    </bean>
+    
+    <!-- A Connection Factory for your JMS Provider - in this case, ActiveMQ -->   
+    <bean id="amq_connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="${nblogger.activemq.brokerURL}" /> 
+        <property name="userName" value="${nblogger.activemq.username}" />
+        <property name="password" value="${nblogger.activemq.password}" />
+        <!-- the clientID helps us see who's who in the ActiveMQ management console, under active connections -->
+        <property name="clientIDPrefix" value="nextbus-logger"/>
+    </bean>
+    
+    <!-- ***** And now the Spring Integration wiring. ***** -->
+    <!-- Declare an Error Channel and simply sent all events to log4j -->
+    <int:channel id="errorChannel" /> 
+    <int:logging-channel-adapter channel="errorChannel"  id="logger" log-full-message="true" level="ERROR"/>
+      
+    <!-- only for XA -->
+    <bean id="txManager" class="org.springframework.jms.connection.JmsTransactionManager">
+        <property name="connectionFactory" ref="amq_connectionFactory"/>
+    </bean>
+        
+    <bean id="amq_topic" class="org.apache.activemq.command.ActiveMQTopic" lazy-init="true">
+        <constructor-arg value="${nblogger.activemq.destination}" />
+    </bean>
+    <bean id="amq_queue" class="org.apache.activemq.command.ActiveMQQueue" lazy-init="true">
+        <constructor-arg value="${nblogger.activemq.destination}" />
+    </bean>
+
+    <!-- 
+        Declare an Input Channel sourced from a Generic POJO adapter and driven by a Time Task. 
+    -->
+    <int:channel id="nextbus"/> 
+    <!-- transaction-manager="txManager" -->
+    <jms:message-driven-channel-adapter id="adapter1" 
+                                        channel="nextbus" 
+                                        acknowledge="auto"
+                                        destination="${nblogger.activemq.destination_type}" 
+                                        connection-factory="amq_connectionFactory"
+                                        extract-payload="false"/>
+      
+   <!-- 
+    An output channel adapter to insert to the database. Note how we rely entirely on
+    Message Headers and not Payload to do the job.
+   -->
+    <int-jdbc:outbound-channel-adapter channel="nextbus" data-source="dataSource" keys-generated="false"
+       query="INSERT INTO NEXTBUS.VEHLCN (AGENCY, ROUTE, VEHICLE, LONGITUDE, LATITUDE, HEADING, LASTREPORT, TS, TSKEW) values 
+           (:headers[agencyId], :headers[routeId], :headers[vehicleId], :headers[longitude], :headers[latitude], :headers[heading], :headers[lastReportedTimeAtPosition], :headers[timestamp], :headers[timeSkew])"
+    />
+   
+   <!-- This will also print each message to STDOUT. -->
+    <stream:stdout-channel-adapter id="foo" channel="nextbus" append-newline="true"  />
+      
+</beans>
