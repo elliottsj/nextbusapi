@@ -5,7 +5,7 @@ public class Main
     private static ClassPathXmlApplicationContext springCtx;
     public static void main( String[] args )
     {
-        System.out.println("*** NextBus Vehicle Locations Logger Demo ***");
+        System.out.println("*** NextBus VehicleLocation Logger Demo ***");
         springCtx = new ClassPathXmlApplicationContext(new String[]{              
                     "nextbus-logger-spring-context.xml"
                 });
