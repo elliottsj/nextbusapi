@@ -3,13 +3,15 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"     
        xmlns:int="http://www.springframework.org/schema/integration"
        xmlns:int-jdbc="http://www.springframework.org/schema/integration/jdbc"
-       xmlns:jms="http://www.springframework.org/schema/integration/jms"  
+       xmlns:int-file="http://www.springframework.org/schema/integration/file"
+       xmlns:int-jms="http://www.springframework.org/schema/integration/jms"  
        xmlns:task="http://www.springframework.org/schema/task"
        xmlns:bean="http://www.springframework.org/schema/beans"
-       xmlns:stream="http://www.springframework.org/schema/integration/stream"
+       xmlns:int-stream="http://www.springframework.org/schema/integration/stream"
        xsi:schemaLocation="
        http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-2.1.xsd
        http://www.springframework.org/schema/integration/jdbc http://www.springframework.org/schema/integration/jdbc/spring-integration-jdbc-2.0.xsd
+       http://www.springframework.org/schema/integration/file http://www.springframework.org/schema/integration/file/spring-integration-file-2.0.xsd
        http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
@@ -26,6 +28,8 @@
                 eaten but not persisted to database in certain failure modes. In other 
                 words, this is not a Two Phase Commit Strict solution!
                 ***********************************************************************
+                
+                http://sourceforge.net/projects/nextbusapi/
     -->
     
     <!-- Configuration for everything comes from a Properties file in the run classpath -->
@@ -34,7 +38,7 @@
     </bean>
     
     <!-- A JDBC DataSource to record VehicleLocation events -->
-     <bean id="dataSource" class="${nblogger.jdbc.dataSourceClass}">
+    <bean id="dataSource" class="${nblogger.jdbc.dataSourceClass}">
         <property name="user" value="${nblogger.jdbc.userName}"/>
         <property name="password" value="${nblogger.jdbc.password}"/>
         <property name="serverName" value="${nblogger.jdbc.serverName}"/>
@@ -56,11 +60,6 @@
     <int:channel id="errorChannel" /> 
     <int:logging-channel-adapter channel="errorChannel"  id="logger" log-full-message="true" level="ERROR"/>
       
-    <!-- only for XA -->
-    <bean id="txManager" class="org.springframework.jms.connection.JmsTransactionManager">
-        <property name="connectionFactory" ref="amq_connectionFactory"/>
-    </bean>
-        
     <bean id="amq_topic" class="org.apache.activemq.command.ActiveMQTopic" lazy-init="true">
         <constructor-arg value="${nblogger.activemq.destination}" />
     </bean>
@@ -68,28 +67,37 @@
         <constructor-arg value="${nblogger.activemq.destination}" />
     </bean>
 
-    <!-- 
-        Declare an Input Channel sourced from a Generic POJO adapter and driven by a Time Task. 
-    -->
+    <!-- Declare a Channel that is fed by a JMS Message Drive Bean -->
     <int:channel id="nextbus"/> 
-    <!-- transaction-manager="txManager" -->
-    <jms:message-driven-channel-adapter id="adapter1" 
-                                        channel="nextbus" 
-                                        acknowledge="auto"
-                                        destination="${nblogger.activemq.destination_type}" 
-                                        connection-factory="amq_connectionFactory"
-                                        extract-payload="false"/>
-      
+    <int-jms:message-driven-channel-adapter id="jms" 
+                                            channel="nextbus" 
+                                            acknowledge="auto"
+                                            destination="${nblogger.activemq.destination_type}" 
+                                            connection-factory="amq_connectionFactory"
+                                            extract-payload="true"/>
+       
    <!-- 
     An output channel adapter to insert to the database. Note how we rely entirely on
-    Message Headers and not Payload to do the job.
+    Message Headers and not Payload to do the job. You can use the Payload, which in
+    out case is a Java POJO of type VehicleLocation, but everything we need is in the headers.
    -->
-    <int-jdbc:outbound-channel-adapter channel="nextbus" data-source="dataSource" keys-generated="false"
-       query="INSERT INTO NEXTBUS.VEHLCN (AGENCY, ROUTE, VEHICLE, LONGITUDE, LATITUDE, HEADING, LASTREPORT, TS, TSKEW) values 
-           (:headers[agencyId], :headers[routeId], :headers[vehicleId], :headers[longitude], :headers[latitude], :headers[heading], :headers[lastReportedTimeAtPosition], :headers[timestamp], :headers[timeSkew])"
-    />
+    <int:channel id="logger-jdbc"/>
+    <int:filter input-channel="nextbus" output-channel="logger-jdbc" expression="${nblogger.sendto.jdbc}"/>
+    <int-jdbc:outbound-channel-adapter  id="sql-logger" channel="logger-jdbc" data-source="dataSource" keys-generated="false"
+      query="INSERT INTO NEXTBUS.VEHLCN (AGENCY, ROUTE, VEHICLE, LONGITUDE, LATITUDE, HEADING, LASTREPORT, TS, TSKEW) values 
+           (:headers[agencyId], :headers[routeId], :headers[vehicleId], :headers[longitude], :headers[latitude], :headers[heading], :headers[lastReportedTimeAtPosition], :headers[timestamp], :headers[timeSkew])"/>
+  
    
-   <!-- This will also print each message to STDOUT. -->
-    <stream:stdout-channel-adapter id="foo" channel="nextbus" append-newline="true"  />
-      
+    <!-- A channel for printing to STDOUT -->
+    <int:channel id="logger-stdout"/>
+    <int:filter input-channel="nextbus" output-channel="logger-stdout" expression="${nblogger.sendto.stdout}"/>
+    <int-stream:stdout-channel-adapter id="stdout" channel="logger-stdout"  append-newline="true"  />
+     
+    <!-- A channel that sends the Payload, a Serialized POJO - to the filesystem -->
+    <int:channel id="logger-filesystem"/>
+    <int:filter input-channel="nextbus" output-channel="logger-filesystem" expression="${nblogger.sendto.filesystem}"/>
+    <int:payload-serializing-transformer  input-channel="nextbus" output-channel="logger-filesystem"/>    
+    <int-file:outbound-channel-adapter channel="logger-filesystem" directory="${nblogger.filesystem.directory}" />
+  
+  
 </beans>
