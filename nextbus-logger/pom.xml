@@ -33,6 +33,12 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <dependencies>
+        
+        <dependency>
+            <groupId>net.sf.nextbus.publicxmlfeed</groupId>
+            <artifactId>nextbus-adapter</artifactId>
+            <version>0.9.5-RELEASE</version>
+        </dependency>
       <!-- Minimum Footprint for Spring Integration for this projects needs -->
         <!-- Spring 3.0.7 + Integration 2.1.0 -->
         <dependency>
@@ -68,6 +74,11 @@
         <dependency>
             <groupId>org.springframework.integration</groupId>
             <artifactId>spring-integration-jdbc</artifactId>
+            <version>2.1.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-file</artifactId>
             <version>2.1.0.RELEASE</version>
         </dependency>
         <!-- Change this if using a different Messaging provider (i.e. Rabbit, JBoss, etc)-->
