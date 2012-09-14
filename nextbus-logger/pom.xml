@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.sf.nextbus</groupId>
     <artifactId>nextbus-logger</artifactId>
-    <version>1.0.0-RELEASE</version>
+    <version>1.0.1-RELEASE</version>
     <packaging>jar</packaging>
     <name>nextbus-logger-demo</name>
     <url>http://sourceforge.net/projects/nextbusapi/</url>
@@ -99,10 +99,9 @@
             <version>1.2.16</version>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.1</version>
-            <scope>test</scope>
+            <groupId>net.sf.nextbus</groupId>
+            <artifactId>nextbus-jms-pump</artifactId>
+            <version>1.0.1-RELEASE</version>
         </dependency>
     </dependencies>
     <build>

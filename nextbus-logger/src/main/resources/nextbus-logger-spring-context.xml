@@ -67,13 +67,17 @@
         <constructor-arg value="${nblogger.activemq.destination}" />
     </bean>
 
-    <!-- Declare a Channel that is fed by a JMS Message Drive Bean -->
-    <int:channel id="nextbus"/> 
+
+    <!-- 
+        Declare a new channel and feed it with a JMS Message Driven Bean 
+    -->
+    <int:channel id="nextbus"/>
     <int-jms:message-driven-channel-adapter id="jms" 
                                             channel="nextbus" 
                                             acknowledge="auto"
                                             destination="${nblogger.activemq.destination_type}" 
                                             connection-factory="amq_connectionFactory"
+                                            selector="${nblogger.activemq.message_selector}"
                                             extract-payload="true"/>
        
    <!-- 
