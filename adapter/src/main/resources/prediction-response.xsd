@@ -40,6 +40,8 @@
                     <xsd:attribute name="vehicle" type="xsd:string"/>
                     <xsd:attribute name="block" type="xsd:string"/>
                     <xsd:attribute name="tripTag" type="xsd:string"/>
+                    <xsd:attribute name="isScheduleBased" type="xsd:boolean"/>
+                    <xsd:attribute name="delayed" type="xsd:boolean"/>
                 </xsd:complexType>
             </xsd:element>
         </xsd:sequence>

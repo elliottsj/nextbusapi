@@ -319,11 +319,21 @@ public class DomainFactory {
 
                     boolean layover = false;
                     if (p.isAffectedByLayover() != null) {
-                        layover = p.isAffectedByLayover().booleanValue();
+                        layover = p.isAffectedByLayover();
                     }
+                    boolean delayed = false;
+                    if (p.isDelayed() != null) {
+                        delayed = p.isDelayed();
+                    }
+                    boolean schedBased = false;
+                    if (p.isIsScheduleBased() != null) {
+                        schedBased = p.isIsScheduleBased();
+                    }
+                            
 
+                    
                     // build a new Prediction POJO
-                    Prediction pn = new Prediction(s.getRoute(),
+                    Prediction pn = new Prediction(s,
                             p.getVehicle(),
                             p.getDirTag(),
                             p.isIsDeparture().booleanValue(),
@@ -331,7 +341,10 @@ public class DomainFactory {
                             p.getTripTag(),
                             p.getBlock(),
                             p.getEpochTime(),
-                            cpyRt);
+                            cpyRt,
+                            delayed,
+                            schedBased
+                            );
                     // Add the Prediction POJO to the Direction list
                     pdns4Dirn.add(pn);
                 }

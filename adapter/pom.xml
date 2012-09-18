@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.sf.nextbus.publicxmlfeed</groupId>
     <artifactId>nextbus-adapter</artifactId>
-    <version>0.9.5-RELEASE</version>
+    <version>0.9.6-RELEASE</version>
     <name>NextBus XML Feed Adapter</name>
     <url>http://sourceforge.net/projects/nextbusapi/</url>
     <description>A Java Domain Class Hierarchy and RESTful Webservice Adapter for NextBus</description>
@@ -24,7 +24,7 @@
         <license>
             <name>Nextbus License Agreement</name>
             <url>http://www.nextbus.com/xmlFeedDocs/NextBusXMLFeed.pdf</url>
-            <comments>The NextBus license convers the Terms of Use and Indemnities of the Data Feed</comments>
+            <comments>The NextBus license covers the Terms of Use and Indemnities of the Data Feed</comments>
         </license>
     </licenses>
     <properties>
