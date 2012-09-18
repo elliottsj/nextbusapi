@@ -42,7 +42,7 @@
         <dependency>
             <groupId>net.sf.nextbus.publicxmlfeed</groupId>
             <artifactId>nextbus-adapter</artifactId>
-            <version>0.9.5-RELEASE</version>
+            <version>0.9.6-RELEASE</version>
         </dependency>    
         
         <dependency>
