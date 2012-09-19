@@ -16,6 +16,16 @@
         <property name="location" value="file:nbpumper.properties"/>
     </bean>
     
+    <!-- 
+        The cached connection factory improves client send performance by avoiding JMS Connection setup/teardown for each connection.
+        This simply layers ontop of an ActiveMQ Connection Factory - see activemq-jms_config.xml for more details
+     -->  
+    <bean id="jmsConnectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory" lazy-init="false">
+        <property name="sessionCacheSize" value="1"/> 
+        <property name="reconnectOnException" value="true"/>
+        <property name="targetConnectionFactory" ref="amq_connectionFactory" /> <!-- Change here to glassfish, amq, jboss, etc -->   
+    </bean>
+    
     <!-- The connection factory needs an Exception Listener so that we can send any Exception to the logger for diagnosis. -->         
     <bean id="jmsExceptionListener" class="net.sf.nextbus.jmspump.sender.JmsExceptionListener"/>
     <!-- JMS Client setup for ActiveMQ 5.5 -->

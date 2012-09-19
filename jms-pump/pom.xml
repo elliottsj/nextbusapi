@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.sf.nextbus</groupId>
     <artifactId>nextbus-jms-pump</artifactId>
-    <version>1.0.1-RELEASE</version>
+    <version>1.0.2-RELEASE</version>
     <packaging>jar</packaging>
     <name>nextbus-jms-pump</name>
     <url>http://sourceforge.net/projects/nextbusapi/</url>
@@ -73,7 +73,7 @@
         <dependency>
             <groupId>net.sf.nextbus.publicxmlfeed</groupId>
             <artifactId>nextbus-adapter</artifactId>
-            <version>0.9.5-RELEASE</version>
+            <version>0.9.6-RELEASE</version>
         </dependency>
         
         

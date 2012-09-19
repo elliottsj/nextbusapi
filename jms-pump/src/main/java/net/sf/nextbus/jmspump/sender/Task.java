@@ -34,7 +34,8 @@ package net.sf.nextbus.jmspump.sender;
 
 import net.sf.nextbus.publicxmlfeed.domain.Agency;
 import net.sf.nextbus.publicxmlfeed.domain.Route;
-import net.sf.nextbus.publicxmlfeed.domain.VehicleLocation;
+import net.sf.nextbus.publicxmlfeed.domain.Stop;
+import net.sf.nextbus.publicxmlfeed.domain.RouteConfiguration;
 import net.sf.nextbus.publicxmlfeed.service.INextbusService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,7 +66,7 @@ public class Task {
      */
     private long refreshIntervalVehicleLocations = 60 * 1000L;
     private long refreshIntervalPredictions = 10 * 60 * 1000L;
-    private boolean enableVehicleLocations = true;
+    private boolean enableVehicleLocations = false;
     private boolean enablePredictions = true;
     
     /**
@@ -83,31 +84,14 @@ public class Task {
     /**
      * The Work schedule of Bus Routes
      */
-    private Set<Work> routesToWork = new HashSet<Work>();
+    private Set<Route> routes = new HashSet<Route>();
+    private Set<TaskWorker> work = new HashSet<TaskWorker>();
     private int successfulRuns;
     private int failedRuns;
     
     /** Inhibits the execute() method from doing work */
     private boolean paused = true;
 
-    /**
-     * Tracks work done against a Route by the sweep Task. Timestamp is used
-     * to sense when update/refresh needs to be done.
-     */
-    private class Work {
-
-        Work(Route r) {
-            route = r;
-        }
-        Route route;
-        long lastTime;
-        int errors;
-        int success;
-
-        boolean isOld() {
-            return System.currentTimeMillis() - lastTime >= refreshIntervalVehicleLocations;
-        }
-    }
 
     /**
      * Ctor to configure task to poll all routes for a given agency
@@ -118,7 +102,7 @@ public class Task {
         nextbus = svc;
         Agency a = nextbus.getAgency(agency);
         agencies.add(a);
-        configureRoutes(a, null);
+        setupRoutes(a, null);
     }
 
     /**
@@ -134,10 +118,10 @@ public class Task {
         Agency a = nextbus.getAgency(agency);
         agencies.add(a);
         if (routes == null || routes.isEmpty()) {
-            configureRoutes(a, null);
+            setupRoutes(a, null);
         } else {
             String[] rs = routes.trim().split(",");
-            configureRoutes(a, rs);
+            setupRoutes(a, rs);
         }
     }
 
@@ -157,6 +141,20 @@ public class Task {
     }
 
     /**
+     * Post-construct init ; mandatory
+     */
+    public void init() {
+        if (enablePredictions) setupStopPredictionTasks();
+        if (enableVehicleLocations) setupVehicleLocationTasks();
+        
+        // what if there is no work to do?
+        if (work.size() == 0) {
+            log.error("*** There are no available routes to work. Terminating.");
+            paused=true;
+        }
+    }
+    
+    /**
      * Task Executor, should be called periodically as a Scheduled Task by
      * Spring Integration. The executor sweeps the Work table, finds things that
      * are stale, and then tries to refresh them by delegating to an appropriate
@@ -164,9 +162,7 @@ public class Task {
      * are logged, silently counted - but do not interfere with the harvesting
      * job. Thus, this message pumper is safe against transient nextbus
      * failures.
-     */
-    /**
-     *
+
      * @return A collection of POJOs to insert into a Spring Integration
      * Channel.
      */
@@ -178,70 +174,62 @@ public class Task {
             return workproducts;
         }
         
-        
         int done = 0;
-        for (Work work : routesToWork) {
+        for (TaskWorker workItem : this.work) {
+            // throttle
             if (nextbusCalls+1 > maxNextbusCallsPerExecution) {
                 log.debug("Limiting NextBus XML RPCs on this pass to maintain service level agreement upper threshhold.");
                 break;
             }
-            if (work.isOld()) {
-                doVehicleLocations(workproducts, work);
+            
+            if (workItem.isOld()) {
+                workproducts.addAll(workItem.execute());
                 done++;
                 nextbusCalls++;
             } else {
-                log.trace("skipping "+work.route+ " ; still recent. ");
+                log.trace("skipping; not time to do "+work);
             }
         }
         if (done > 0) {
-            log.info("obtained refresh from NextBus for " + done + " routes with a total of " + workproducts.size() + " vehicles in service.");
+            log.info("obtained refresh from NextBus for " + done + " work items with a total of " + workproducts.size() + " objects.");
         }
         return workproducts;
     }
 
-    /**
-     * Refreshes a work item for a Routes VehicleLocations
-     *
-     * @param work item to do
-     * @param r
-     */
-    private void doVehicleLocations(List workproducts, Work work) {
-        try {
-            List<VehicleLocation> vl = nextbus.getVehicleLocations(work.route, 0);
-
-            work.lastTime = System.currentTimeMillis();
-            work.success++;
-            // Cant have a list of containing nested lists.. Unpack the 
-            // VehicleLocations and add to the work done list
-            for (VehicleLocation v : vl) {
-                workproducts.add(v);
-            }
-            successfulRuns++;
-            log.debug("got update for " + work.route + " with " + vl.size() + " vehicle locations.");
-        } catch (net.sf.nextbus.publicxmlfeed.service.ServiceException se) {
-            work.errors++;
-            log.warn("Fault while obtaining update for " + work.route, se);
-            failedRuns++;
+    
+    private void setupVehicleLocationTasks() {
+        for (Route route: routes) {
+            work.add(new VehicleLocationTaskWorker(nextbus,route,refreshIntervalVehicleLocations));
         }
+        log.info("Setup Vehicle Location Tasks on "+routes.size()+" routes.");
     }
-
+    private void setupStopPredictionTasks() {
+        // for each Route, get the stops list
+        int totalStops = 0;
+        for (Route route: routes) {
+            RouteConfiguration routeConfig = nextbus.getRouteConfiguration(route);
+            List<Stop> stops = routeConfig.getStops();
+            work.add(new PredictionTaskWorker(nextbus, stops, refreshIntervalPredictions));
+            totalStops += stops.size();
+        }
+        log.info("Setup Prediction Tasks on "+routes.size()+" routes with "+totalStops+" stops.");
+    }
     /**
-     * Configure the worker schedule for a set of routes, or all routes, for the
-     * given agency.
+     * Determine the set of Routes to work for an agency
      *
      * @param agency
      * @param routes
      */
-    private void configureRoutes(Agency agency, String[] routes) {
+    private void setupRoutes(Agency agency, String[] routes) {
         // get all the routes for this agency
         List<Route> rs = nextbus.getRoutes(agency);
 
         // Configured for all routes?  That's the common use case.
         //   Just create a work element for each discovered route
         if (routes == null || routes.length == 0) {
-            System.out.print("Using all routes for agency: "+agency);
+            System.out.print("Using all routes for agency: "+agency.getId()+", total of "+rs.size()+" :");
             for (Route r : rs) {
-                routesToWork.add(new Work(r));
+                this.routes.add(r);
                 System.out.print(r.getTag()+",");
             }
             System.out.println();
@@ -259,24 +247,17 @@ public class Task {
                 }
             }
             if (route != null) {
-                routesToWork.add(new Work(route));
+                this.routes.add(route);
             } else {
                 log.warn("route " + r + " not found is authoritative list of routes for agency " + agency);
             }
         }
         
-        // what if there is no work to do?
-        if (routesToWork.size() == 0) {
-            log.error("*** There are no available routes to work. Terminating.");
-            paused=true;
-        }
-        log.info("Added " + routesToWork.size() + " routes to worklist. ");
+        
     }
-
     public Integer getFailedRuns() {
         return failedRuns;
     }
-
     public Integer getSuccessfulRuns() {
         return successfulRuns;
     }
@@ -289,25 +270,44 @@ public class Task {
         paused=arg;
     }
 
+    /*
+     * Sets max number RPCs per pass of the execute() method - for bandwidth levelling
+     */
     public void setMaxNextbusCallsPerExecution(Integer arg) {
         if (arg<=0) return;
         this.maxNextbusCallsPerExecution = arg;
     }
 
-    public void setEnablePredictions(boolean enablePredictions) {
-        this.enablePredictions = enablePredictions;
+    /**
+     * Sweep Predictions
+     * @param enablePredictions 
+     */
+    public void setEnablePredictions(boolean arg) {
+        this.enablePredictions = arg;
     }
 
-    public void setEnableVehicleLocations(boolean enableVehicleLocations) {
-        this.enableVehicleLocations = enableVehicleLocations;
+    /**
+     * Sweep Locations
+     * @param enableVehicleLocations 
+     */
+    public void setEnableVehicleLocations(boolean arg) {
+        this.enableVehicleLocations = arg;
     }
 
-    public void setRefreshIntervalPredictions(Long refreshIntervalPredictions) {
-        this.refreshIntervalPredictions = refreshIntervalPredictions;
+    /**
+     * Sets the holding time of Predictions
+     * @param refreshIntervalPredictions 
+     */
+    public void setRefreshIntervalPredictions(Long arg) {
+        this.refreshIntervalPredictions = arg;
     }
 
-    public void setRefreshIntervalVehicleLocations(Long refreshIntervalVehicleLocations) {
-        this.refreshIntervalVehicleLocations = refreshIntervalVehicleLocations;
+    /**
+     * sets the holding time of Locations
+     * @param refreshIntervalVehicleLocations 
+     */
+    public void setRefreshIntervalVehicleLocations(Long arg) {
+        this.refreshIntervalVehicleLocations = arg;
     }
     
     
