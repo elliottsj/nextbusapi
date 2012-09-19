@@ -40,6 +40,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 import java.util.Collection;
+import java.util.Map;
 import net.sf.nextbus.publicxmlfeed.domain.*;
 
 /**
@@ -61,7 +62,11 @@ public interface INextbusServiceRemote extends Remote {
 
     public PredictionGroup getPredictions(Stop s) throws ServiceException, RemoteException;
    
-    public List<PredictionGroup> getPredictions(Collection<Stop> stops) throws ServiceException, RemoteException;
+    public PredictionGroup getPredictions(Route r, Stop s) throws ServiceException, RemoteException;
+   
+    public List<PredictionGroup> getPredictions(Route route, Collection<Stop> stops) throws ServiceException, RemoteException;
+    
+    public List<PredictionGroup> getPredictions(Map<Route, Stop> stops) throws ServiceException, RemoteException;
     
     public List<Schedule> getSchedule(Route route) throws ServiceException, RemoteException;
     

@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.sf.nextbus.publicxmlfeed</groupId>
     <artifactId>nextbus-adapter</artifactId>
-    <version>0.9.6-RELEASE</version>
+    <version>1.0.0-RELEASE</version>
     <name>NextBus XML Feed Adapter</name>
     <url>http://sourceforge.net/projects/nextbusapi/</url>
     <description>A Java Domain Class Hierarchy and RESTful Webservice Adapter for NextBus</description>

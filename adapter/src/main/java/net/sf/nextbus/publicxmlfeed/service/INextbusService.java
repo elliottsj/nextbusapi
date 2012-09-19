@@ -38,6 +38,7 @@ import net.sf.nextbus.publicxmlfeed.domain.VehicleLocation;
 import net.sf.nextbus.publicxmlfeed.domain.RouteConfiguration;
 import java.util.List;
 import java.util.Collection;
+import java.util.Map;
 import net.sf.nextbus.publicxmlfeed.domain.*;
 
 /**
@@ -102,14 +103,31 @@ public interface INextbusService {
     public PredictionGroup getPredictions(Stop s) throws ServiceException;
 
     /**
-     * Get Arrival and Departure Predicted Future time for Stops.
+     * Get Arrival and Departure Predicted Future time for a Single Route and Stop Pair.
+     * @param r
+     * @param s
+     * @return
+     * @throws ServiceException 
+     */
+    public PredictionGroup getPredictions(Route r, Stop s) throws ServiceException;
+    
+    /**
+     * Get Arrival and Departure Predictions for a set of Stops on a fixed route. This is a 
+     * specific bulk-fetch utility method to support ESB adapters that need an efficient way to source updates.
+     * @param route
      * @param stops
      * @return predictions
      * @throws ServiceException Wraps all XML parse, I/O and data conversion faults detected from implementation classes.
      */
-    public List<PredictionGroup> getPredictions(Collection<Stop> stops) throws ServiceException;
+    public List<PredictionGroup> getPredictions(Route route, Collection<Stop> stops) throws ServiceException;
     
-   
+    /**
+     * Get Arrival and Departure Predicted Future time for a specific Route Stop Pairs.
+     * @param stops
+     * @return
+     * @throws ServiceException 
+     */
+    public List<PredictionGroup> getPredictions(Map<Route, Stop> stops) throws ServiceException;
     /**
      * Get the nested Schedule elements for a given Route
      * @param route

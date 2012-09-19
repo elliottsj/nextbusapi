@@ -46,6 +46,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.rmi.server.UnicastRemoteObject;
 import java.rmi.RemoteException;
+import java.util.Map;
 import net.sf.nextbus.publicxmlfeed.domain.*;
 
 /**
@@ -78,11 +79,22 @@ public class RMIServerStub extends UnicastRemoteObject implements INextbusServic
         return svc.getPredictions(s);
     }
 
-    public List<PredictionGroup> getPredictions(Collection<Stop> stops) throws ServiceException, RemoteException {
+    public List<PredictionGroup> getPredictions(Route route, Collection<Stop> stops) throws ServiceException, RemoteException {
+        logger.info("getPredictions()");
+        return svc.getPredictions(route, stops);
+    }
+
+    public PredictionGroup getPredictions(Route r, Stop s) throws ServiceException {
+        logger.info("getPredictions()");
+       return svc.getPredictions(r, s);
+    }
+
+    public List<PredictionGroup> getPredictions(Map<Route, Stop> stops) throws ServiceException {
         logger.info("getPredictions()");
         return svc.getPredictions(stops);
     }
 
+    
     public RouteConfiguration getRouteConfiguration(Route route) throws ServiceException, RemoteException {
         logger.info("getRouteConfiguration()");
         return svc.getRouteConfiguration(route);

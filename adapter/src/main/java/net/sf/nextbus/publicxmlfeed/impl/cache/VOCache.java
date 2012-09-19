@@ -14,6 +14,7 @@ import net.sf.nextbus.publicxmlfeed.domain.RouteConfiguration;
 import net.sf.nextbus.publicxmlfeed.domain.Schedule;
 import java.util.List;
 import java.util.Collection;
+import java.util.Map;
 import java.util.logging.Logger;
 /**
  * A Stackable Value Object Cache - To be Finished
@@ -56,7 +57,15 @@ public class VOCache implements INextbusService {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public List<PredictionGroup> getPredictions(Collection<Stop> stops) throws ServiceException {
+    public List<PredictionGroup> getPredictions(Route route, Collection<Stop> stops) throws ServiceException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public PredictionGroup getPredictions(Route r, Stop s) throws ServiceException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public List<PredictionGroup> getPredictions(Map<Route, Stop> stops) throws ServiceException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

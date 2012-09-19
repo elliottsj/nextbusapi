@@ -1,4 +1,5 @@
-/*******************************************************************************
+/**
+ * *****************************************************************************
  * Copyright (C) 2011,2012 by James R. Doyle
  *
  * This file is part of the NextBus® Livefeed Java Adapter (nblf4j). See the
@@ -19,15 +20,16 @@
  * along with UJMP; if not, write to the Free Software Foundation, Inc., 51
  * Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  *
- * Usage of the NextBus Web Service and its data is subject to separate
- * Terms and Conditions of Use (License) available at:
- * 
- *      http://www.nextbus.com/xmlFeedDocs/NextBusXMLFeed.pdf
- * 
- * 
+ * Usage of the NextBus Web Service and its data is subject to separate Terms
+ * and Conditions of Use (License) available at:
+ *
+ * http://www.nextbus.com/xmlFeedDocs/NextBusXMLFeed.pdf
+ *
+ *
  * NextBus® is a registered trademark of Webtech Wireless Inc.
  *
- ******************************************************************************/
+ *****************************************************************************
+ */
 package net.sf.nextbus.publicxmlfeed.impl.rmiproxy;
 
 import net.sf.nextbus.publicxmlfeed.domain.Stop;
@@ -43,6 +45,7 @@ import net.sf.nextbus.publicxmlfeed.service.FatalServiceException;
 import java.util.List;
 import java.util.Collection;
 import java.rmi.RemoteException;
+import java.util.Map;
 import net.sf.nextbus.publicxmlfeed.domain.*;
 
 /**
@@ -87,7 +90,23 @@ class RMIClientProxy implements INextbusService {
         }
     }
 
-    public List<PredictionGroup> getPredictions(Collection<Stop> stops) throws ServiceException {
+    public List<PredictionGroup> getPredictions(Route route, Collection<Stop> stops) throws ServiceException {
+        try {
+            return remote.getPredictions(route, stops);
+        } catch (RemoteException rmie) {
+            throw new FatalServiceException(rmie);
+        }
+    }
+
+    public PredictionGroup getPredictions(Route r, Stop s) throws ServiceException {
+        try {
+            return remote.getPredictions(r, s);
+        } catch (RemoteException rmie) {
+            throw new FatalServiceException(rmie);
+        }
+    }
+
+    public List<PredictionGroup> getPredictions(Map<Route, Stop> stops) throws ServiceException {
         try {
             return remote.getPredictions(stops);
         } catch (RemoteException rmie) {
@@ -118,6 +137,7 @@ class RMIClientProxy implements INextbusService {
             throw new FatalServiceException(rmie);
         }
     }
+
     public List<Schedule> getSchedule(Route route) throws ServiceException {
         try {
             return remote.getSchedule(route);
