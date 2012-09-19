@@ -42,6 +42,7 @@
                     <xsd:attribute name="tripTag" type="xsd:string"/>
                     <xsd:attribute name="isScheduleBased" type="xsd:boolean"/>
                     <xsd:attribute name="delayed" type="xsd:boolean"/>
+                    <xsd:attribute name="slowness" type="xsd:string"/>
                 </xsd:complexType>
             </xsd:element>
         </xsd:sequence>
