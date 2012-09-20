@@ -174,7 +174,7 @@ public class DomainFactory {
         // Unpack the 0..n Stops
         for (net.sf.nextbus.publicxmlfeed.xjcgenerated.routeconfig.Stop s : response.getRoute().getStop()) {
             Geolocation gps = new Geolocation(s.getLat().doubleValue(), s.getLon().doubleValue());
-            Stop stop = new Stop(parent, s.getStopId(), s.getTag(), s.getTitle(), s.getShortTitle(), gps, cpyRt);
+            Stop stop = new Stop(parent.getAgency(), s.getStopId(), s.getTag(), s.getTitle(), s.getShortTitle(), gps, cpyRt);
             stops.add(stop);
             stopById.put(s.getStopId(), stop);
         }
@@ -270,9 +270,12 @@ public class DomainFactory {
     public List<PredictionGroup> getPredictions(Collection<Stop> stops, String xml) throws JAXBException {
 
         // create a lookup table by Stop tag
+        Agency a = null;
         Map<String, Stop> stopsByTag = new HashMap<String, Stop>();
         for (Stop stop : stops) {
             stopsByTag.put(stop.getTag(), stop);
+            if (a==null) a=stop.getAgency();
+            assert(stop.getAgency().equals(a)); // XXX throw exception
         }
 
         // parse the response XML
@@ -293,7 +296,10 @@ public class DomainFactory {
 
         // For each of the Predictions nodes (there are multiple for the predictionsMultiStop RPC.
         for (net.sf.nextbus.publicxmlfeed.xjcgenerated.prediction.Predictions pns : response.getPredictions()) {
+            // each <predictions> group has a Route and Stop associated with it...
+            Route r = new Route(a, pns.getRouteTag(), pns.getRouteTitle(), response.getCopyright());
 
+               
             List<Prediction> predictions = new ArrayList<Prediction>();
             List<String> messages = new ArrayList<String>();
 
@@ -330,10 +336,8 @@ public class DomainFactory {
                         schedBased = p.isIsScheduleBased();
                     }
                             
-
-                    
                     // build a new Prediction POJO
-                    Prediction pn = new Prediction(s,
+                    Prediction pn = new Prediction(r, s,
                             p.getVehicle(),
                             p.getDirTag(),
                             p.isIsDeparture().booleanValue(),
@@ -351,14 +355,15 @@ public class DomainFactory {
 
                 // We now have have to constuct an immutable PredictionGroup::Direction POJO, do so...
                 PredictionGroup.PredictionDirection pd = new PredictionGroup.PredictionDirection(d.getTitle(), Collections.unmodifiableList(pdns4Dirn));
+                
                 // Add the PredictionGroup::Direction POJO to the List of Directions
                 dns.add(pd);
             }
 
             // Done - now build the outermost enclosing POJO - the Prediction Group
             Stop s = stopsByTag.get(pns.getStopTag());
-            // Now constuct the enclosing object...
-            PredictionGroup pg = new PredictionGroup(s,
+           
+            PredictionGroup pg = new PredictionGroup(r, s,
                     Collections.unmodifiableList(dns),
                     cpyRt,
                     Collections.unmodifiableList(msgs));
