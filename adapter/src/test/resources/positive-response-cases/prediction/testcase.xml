@@ -1,776 +1,518 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8" ?> 
 <body copyright="All data copyright MBTA 2012.">
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Forest Hills Station Upper Busway" stopTag="10642" dirTitleBecauseNoPredictions="Walpole Center via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="3867 Washington St opp Tollgate Way" stopTag="596" dirTitleBecauseNoPredictions="Walpole Center via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Lochdale Rd" stopTag="597" dirTitleBecauseNoPredictions="Walpole Center via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Archdale Rd" stopTag="598" dirTitleBecauseNoPredictions="Walpole Center via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Mosgrove Ave" stopTag="599" dirTitleBecauseNoPredictions="Walpole Center via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St opp Granfield  Ave" stopTag="600" dirTitleBecauseNoPredictions="Walpole Center via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ South St" stopTag="601" dirTitleBecauseNoPredictions="Walpole Center via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Poplar St @ Washington St" stopTag="6022" dirTitleBecauseNoPredictions="Walpole Center via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Albano St" stopTag="603" dirTitleBecauseNoPredictions="Walpole Center via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Durnell Ave" stopTag="10603" dirTitleBecauseNoPredictions="Walpole Center via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Metropolitan Ave" stopTag="604" dirTitleBecauseNoPredictions="Walpole Center via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Cornell St" stopTag="605" dirTitleBecauseNoPredictions="Walpole Center via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Beech St" stopTag="606" dirTitleBecauseNoPredictions="Walpole Center via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Brahms St" stopTag="607" dirTitleBecauseNoPredictions="Walpole Center via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ W Roxbury Pkwy" stopTag="608" dirTitleBecauseNoPredictions="Walpole Center via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Lagrange St" stopTag="609" dirTitleBecauseNoPredictions="Walpole Center via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Cowing St" stopTag="610" dirTitleBecauseNoPredictions="Walpole Center via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Maplewood St" stopTag="611" dirTitleBecauseNoPredictions="Walpole Center via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Heron St" stopTag="612" dirTitleBecauseNoPredictions="Walpole Center via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St opp W Boundary Rd" stopTag="10612" dirTitleBecauseNoPredictions="Walpole Center via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Weymouth Ave" stopTag="613" dirTitleBecauseNoPredictions="Walpole Center via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Rockingham Ave" stopTag="614" dirTitleBecauseNoPredictions="Walpole Center via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St opp Desoto Rd" stopTag="615" dirTitleBecauseNoPredictions="Walpole Center via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Grove St" stopTag="616" dirTitleBecauseNoPredictions="Walpole Center via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Tobin Rd" stopTag="618" dirTitleBecauseNoPredictions="Walpole Center via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Sumner St" stopTag="10618" dirTitleBecauseNoPredictions="Walpole Center via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Incinerator Rd" stopTag="24619" dirTitleBecauseNoPredictions="Walpole Center via Washington St."></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="245 Washington St" stopTag="99832" dirTitleBecauseNoPredictions="Walpole Center via Washington St."></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St opp Harris St" stopTag="12618">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347826010384" seconds="339" minutes="5" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ School St" stopTag="13618">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347826042257" seconds="371" minutes="6" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="445 Washington St @ Worthington St." stopTag="14618">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347826077136" seconds="406" minutes="6" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="525 Washington St opp Marion St" stopTag="15618">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347826105335" seconds="434" minutes="7" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Richards St" stopTag="16618">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347826115195" seconds="444" minutes="7" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St opp Dedham Plaza" stopTag="22628">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347826140765" seconds="470" minutes="7" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Sylvia Ln" stopTag="18618">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347826193104" seconds="522" minutes="8" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Harmony Hill Way" stopTag="19618">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347826259823" seconds="589" minutes="9" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St opp Holiday Inn" stopTag="20618">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347826309263" seconds="638" minutes="10" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Chickering Rd" stopTag="21618">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347826339102" seconds="668" minutes="11" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Gay St" stopTag="20619">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347826354582" seconds="684" minutes="11" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Croft Regis Rd" stopTag="30619">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347826385130" seconds="714" minutes="11" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Hooper St" stopTag="40619">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347826411440" seconds="740" minutes="12" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St opp Waldo Way" stopTag="20620">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347826450529" seconds="779" minutes="12" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Dean St" stopTag="30620">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347826468119" seconds="797" minutes="13" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ School St" stopTag="90620">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347826501888" seconds="831" minutes="13" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Marshall St" stopTag="90621">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347826571497" seconds="900" minutes="15" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Opp 20 Washington St - Norwood Line" stopTag="31619">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347826583076" seconds="912" minutes="15" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="83 Washington St opp Ellis Ave" stopTag="32619">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347826637976" seconds="967" minutes="16" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="169 Washington St opp Neponset St" stopTag="33619">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347826682655" seconds="1012" minutes="16" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St opp Hill St" stopTag="34619">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347826729964" seconds="1059" minutes="17" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="317 Washington St @ Fulton St" stopTag="22618">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347826760494" seconds="1089" minutes="18" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="361 Washington St @ Aldaen Pk" stopTag="23618">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347826791113" seconds="1120" minutes="18" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Granite St" stopTag="24618">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347826824882" seconds="1154" minutes="19" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ George St" stopTag="24628">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347826833302" seconds="1162" minutes="19" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Railroad Ave" stopTag="25618">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347826875802" seconds="1205" minutes="20" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Cottage St" stopTag="26618">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347826914301" seconds="1243" minutes="20" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Guild St" stopTag="27618">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347826958819" seconds="1288" minutes="21" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="785 Washington St @ Norwood Hospital" stopTag="28618">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347826984618" seconds="1313" minutes="21" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="863 Washington St @ Douglas Ave" stopTag="29618">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347827025578" seconds="1354" minutes="22" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Walnut St" stopTag="30618">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347827059637" seconds="1389" minutes="23" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="929 Washington St" stopTag="31618">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347827074462" seconds="1403" minutes="23" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St opp Dean St" stopTag="31628">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347827123166" seconds="1452" minutes="24" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Oolah Ave" stopTag="32628">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347827144815" seconds="1474" minutes="24" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Weld Ave" stopTag="32638">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347827166135" seconds="1495" minutes="24" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Austin St" stopTag="33618">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347827185845" seconds="1515" minutes="25" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Concord Ave" stopTag="34618">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347827206644" seconds="1536" minutes="25" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Alandale Pkwy" stopTag="35618">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347827223154" seconds="1552" minutes="25" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="1297 Washington St opp. Morse St." stopTag="36618">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347827271844" seconds="1601" minutes="26" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="1375 Washington St opp Jacobs Rd" stopTag="37618">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347827320312" seconds="1649" minutes="27" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="1407 Washington St @ DPW Yard" stopTag="38618">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347827330132" seconds="1659" minutes="27" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="9 Washington St - Walpole Line" stopTag="39618">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347827345311" seconds="1674" minutes="27" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="67 Washington St" stopTag="40618">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347827383081" seconds="1712" minutes="28" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="123 Washington St" stopTag="41618">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347827420160" seconds="1749" minutes="29" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St opp Chestnut St" stopTag="61842">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347827431229" seconds="1760" minutes="29" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ East St" stopTag="73618">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347827442979" seconds="1772" minutes="29" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="205 Washington St @ East Walpole Loop" stopTag="73619" dirTitleBecauseNoPredictions="Walpole Center via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Washington Green" stopTag="75618" dirTitleBecauseNoPredictions="Walpole Center via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Short St" stopTag="76618" dirTitleBecauseNoPredictions="Walpole Center via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Laffayette Dr" stopTag="77618" dirTitleBecauseNoPredictions="Walpole Center via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Lewis Park Dr" stopTag="78618" dirTitleBecauseNoPredictions="Walpole Center via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="625 Washington St" stopTag="79618" dirTitleBecauseNoPredictions="Walpole Center via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="High Plain St opp Peach St" stopTag="80618" dirTitleBecauseNoPredictions="Walpole Center via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="East St @ Kendall St" stopTag="81618" dirTitleBecauseNoPredictions="Walpole Center via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="777 East St opp. Eastover Rd." stopTag="82618" dirTitleBecauseNoPredictions="Walpole Center via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="East St @ Hartshorn Ave" stopTag="83618" dirTitleBecauseNoPredictions="Walpole Center via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="East St @ School St" stopTag="84618" dirTitleBecauseNoPredictions="Walpole Center via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="935 East St" stopTag="85618" dirTitleBecauseNoPredictions="Walpole Center via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Main St @ Glenwood St" stopTag="86618" dirTitleBecauseNoPredictions="Walpole Center via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Walpole Station Elm St Lot" stopTag="87618_ar" dirTitleBecauseNoPredictions="Walpole Center via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Dedham Mall" stopTag="10832_0">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347825737410" seconds="66" minutes="1" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Dedham Mall @ Stop &amp; Shop" stopTag="10833_0">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347825818969" seconds="148" minutes="2" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Upland Woods" stopTag="91619" dirTitleBecauseNoPredictions="Walpole Center via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Walpole St @ Elliot St" stopTag="26619" dirTitleBecauseNoPredictions="Walpole Center via Walpole St."></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Walpole St opp Hillshire Ln" stopTag="26620" dirTitleBecauseNoPredictions="Walpole Center via Walpole St."></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="445 Walpole St @ Wilson St" stopTag="26621" dirTitleBecauseNoPredictions="Walpole Center via Walpole St."></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Walpole St @ Olde Derby Rd" stopTag="26622" dirTitleBecauseNoPredictions="Walpole Center via Walpole St."></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Walpole St @ Garden Pkwy" stopTag="26623" dirTitleBecauseNoPredictions="Walpole Center via Walpole St."></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Opp 177 Main St @ New Pond Village" stopTag="26624" dirTitleBecauseNoPredictions="Walpole Center via Walpole St."></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Main St @ Gay Ave" stopTag="26625" dirTitleBecauseNoPredictions="Walpole Center via Walpole St."></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Main St opp Chapman St" stopTag="26626" dirTitleBecauseNoPredictions="Walpole Center via Walpole St."></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Main St @ Sherwood Dr." stopTag="26627" dirTitleBecauseNoPredictions="Walpole Center via Walpole St."></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Main St @ Spear Ave" stopTag="26628" dirTitleBecauseNoPredictions="Walpole Center via Walpole St."></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Main St @ Neponset View Terr" stopTag="26629" dirTitleBecauseNoPredictions="Walpole Center via Walpole St."></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Xaverian Brothers HS" stopTag="90622" dirTitleBecauseNoPredictions="Walpole Center via Washington St."></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="205 Washington St @ East Walpole Loop" stopTag="73619_ar">  
-        <direction title="East Walpole via Dedham Mall">  
-            <prediction epochTime="1347827481578" seconds="1810" minutes="30" isDeparture="false" dirTag="34E_0_var10" vehicle="2118" block="B34E_64" tripTag="18396818" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Walpole Station Elm St Lot" stopTag="87619" dirTitleBecauseNoPredictions="Forest Hills Station via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Main St @ Stone St" stopTag="98618" dirTitleBecauseNoPredictions="Forest Hills Station via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Main St @ Hanson Ave" stopTag="26630" dirTitleBecauseNoPredictions="Forest Hills via Mall &amp; Walpole St."></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="745 Main St" stopTag="26631" dirTitleBecauseNoPredictions="Forest Hills via Mall &amp; Walpole St."></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="565 Main St @ Stop &amp; Shop Plaza" stopTag="26632" dirTitleBecauseNoPredictions="Forest Hills via Mall &amp; Walpole St."></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Main St @ Davis St" stopTag="26633" dirTitleBecauseNoPredictions="Forest Hills via Mall &amp; Walpole St."></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="283 Main St" stopTag="26634" dirTitleBecauseNoPredictions="Forest Hills via Mall &amp; Walpole St."></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Main St @ Mylod St" stopTag="26635" dirTitleBecauseNoPredictions="Forest Hills via Mall &amp; Walpole St."></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Walpole St opp Garden Pkwy" stopTag="26636" dirTitleBecauseNoPredictions="Forest Hills via Mall &amp; Walpole St."></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="508 Walpole St opp Old Derby Rd" stopTag="26637" dirTitleBecauseNoPredictions="Forest Hills via Mall &amp; Walpole St."></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Opp 445 Walpole St @ Victory Plaza" stopTag="26638" dirTitleBecauseNoPredictions="Forest Hills via Mall &amp; Walpole St."></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Walpole St @ Hillshire Ln" stopTag="26639" dirTitleBecauseNoPredictions="Forest Hills via Mall &amp; Walpole St."></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Walpole St @ Brookfield Rd" stopTag="26640" dirTitleBecauseNoPredictions="Forest Hills via Mall &amp; Walpole St."></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Day St" stopTag="58618">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347829449935" seconds="3779" minutes="62" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Cottage St" stopTag="59618">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347829473893" seconds="3803" minutes="63" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Railroad Ave" stopTag="60618">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347829511903" seconds="3841" minutes="64" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="460 Washington St opp George St" stopTag="61618">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347829547422" seconds="3876" minutes="64" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Granite St" stopTag="61861">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347829563371" seconds="3892" minutes="64" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Philbrick St" stopTag="62618">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347829581891" seconds="3910" minutes="65" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="356 Washington St" stopTag="63618">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347829596830" seconds="3925" minutes="65" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Hill St" stopTag="46619">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347829658340" seconds="3987" minutes="66" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Neponset St" stopTag="47619">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347829705289" seconds="4034" minutes="67" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Ellis Ave" stopTag="47620">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347829750329" seconds="4079" minutes="67" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="20 Washington St - Westwood Line" stopTag="48619">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347829805508" seconds="4134" minutes="68" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St opp Marshall St" stopTag="49619">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347829818868" seconds="4147" minutes="69" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ East St" stopTag="50619">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347825733412" seconds="62" minutes="1" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347829883168" seconds="4212" minutes="70" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Dean Ave" stopTag="70619">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347825771440" seconds="100" minutes="1" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347829921196" seconds="4250" minutes="70" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Waldo Way" stopTag="80619">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347825788470" seconds="117" minutes="1" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347829938226" seconds="4267" minutes="71" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Alcott Ln" stopTag="50620">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347825813289" seconds="142" minutes="2" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347829963045" seconds="4292" minutes="71" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Curtis St" stopTag="60620">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347825831539" seconds="160" minutes="2" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347829981295" seconds="4310" minutes="71" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Loring St" stopTag="70620">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347825858358" seconds="187" minutes="3" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347830008114" seconds="4337" minutes="72" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="14 Washington St opp Gay St" stopTag="80620">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347825885378" seconds="214" minutes="3" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347830035134" seconds="4364" minutes="72" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="960 Washington St opp Carmichael Cir" stopTag="64618">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347825910457" seconds="239" minutes="3" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347830060213" seconds="4389" minutes="73" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Holiday Inn" stopTag="65618">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347825932207" seconds="261" minutes="4" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347830081963" seconds="4411" minutes="73" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St opp Fay Rd" stopTag="66618">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347825955297" seconds="284" minutes="4" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347830105053" seconds="4434" minutes="73" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Montague Rd" stopTag="67618">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347826043926" seconds="373" minutes="6" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347830193682" seconds="4522" minutes="75" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Dedham Plaza" stopTag="61866">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347826108846" seconds="437" minutes="7" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347830258602" seconds="4587" minutes="76" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Metcalf St" stopTag="61867">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347826125004" seconds="454" minutes="7" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347830274760" seconds="4603" minutes="76" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="450 Washington St" stopTag="68618">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347826166004" seconds="495" minutes="8" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347830315760" seconds="4644" minutes="77" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ High St" stopTag="69618">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347826208704" seconds="537" minutes="8" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347830358460" seconds="4687" minutes="78" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Dedham Mall @ Stop &amp; Shop" stopTag="10833">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347826426032" seconds="755" minutes="12" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347830575788" seconds="4904" minutes="81" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Dedham Mall" stopTag="10832">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347826344453" seconds="673" minutes="11" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347830494209" seconds="4823" minutes="80" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="106 Washington St (on bridge)" stopTag="61871">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347826556521" seconds="885" minutes="14" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347830706277" seconds="5035" minutes="83" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="38 Washington St opp Sumner St" stopTag="71618">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347826587049" seconds="916" minutes="15" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347830736805" seconds="5065" minutes="84" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Oak St" stopTag="61872">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347826605049" seconds="934" minutes="15" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347830754805" seconds="5083" minutes="84" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Meshaka St" stopTag="619">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347826626709" seconds="955" minutes="15" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347830776465" seconds="5105" minutes="85" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Birchwood St" stopTag="620">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347826646519" seconds="975" minutes="16" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347830796275" seconds="5125" minutes="85" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Grove St" stopTag="621">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347826683398" seconds="1012" minutes="16" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347830833154" seconds="5162" minutes="86" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Desoto Rd" stopTag="622">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347826714636" seconds="1043" minutes="17" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347830864392" seconds="5193" minutes="86" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St opp Rockingham Ave" stopTag="623">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347826738886" seconds="1067" minutes="17" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347830888642" seconds="5217" minutes="86" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Woodley Ave" stopTag="624">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347826776936" seconds="1105" minutes="18" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347830926692" seconds="5255" minutes="87" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ W Boundary Rd" stopTag="625">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347826818455" seconds="1147" minutes="19" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347830968211" seconds="5297" minutes="88" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St opp Heron St" stopTag="10625">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347826833304" seconds="1162" minutes="19" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347830983060" seconds="5312" minutes="88" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St opp Maplewood St" stopTag="626">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347826857543" seconds="1186" minutes="19" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347831007299" seconds="5336" minutes="88" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St opp Cowing St" stopTag="627">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347826890612" seconds="1219" minutes="20" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347831040368" seconds="5369" minutes="89" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Lagrange St" stopTag="628">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347826915662" seconds="1244" minutes="20" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347831065418" seconds="5394" minutes="89" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St opp Schubert St" stopTag="629">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347826977630" seconds="1306" minutes="21" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347831127386" seconds="5456" minutes="90" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Blue Ledge Dr" stopTag="630">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347826992320" seconds="1321" minutes="22" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347831142076" seconds="5471" minutes="91" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Beech St" stopTag="631">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347827021269" seconds="1350" minutes="22" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347831171025" seconds="5500" minutes="91" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Cornell St" stopTag="632">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347827045659" seconds="1374" minutes="22" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347831195415" seconds="5524" minutes="92" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Metropolitan Ave" stopTag="633">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347827081068" seconds="1410" minutes="23" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347831230824" seconds="5559" minutes="92" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Rosecliff St" stopTag="10633">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347827096607" seconds="1425" minutes="23" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347831246363" seconds="5575" minutes="92" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Albano St" stopTag="634">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347827119446" seconds="1448" minutes="24" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347831269202" seconds="5598" minutes="93" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Poplar St." stopTag="635">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347827162156" seconds="1491" minutes="24" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347831311912" seconds="5640" minutes="94" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Cummins Hwy" stopTag="636">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347827180935" seconds="1509" minutes="25" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347831330691" seconds="5659" minutes="94" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Firth Rd" stopTag="637">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347827222173" seconds="1551" minutes="25" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347831371929" seconds="5700" minutes="95" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Granfield Ave" stopTag="638">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347827248643" seconds="1577" minutes="26" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347831398399" seconds="5727" minutes="95" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Whipple Ave" stopTag="639">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347827277883" seconds="1606" minutes="26" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347831427639" seconds="5756" minutes="95" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Archdale Rd" stopTag="640">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347827298191" seconds="1627" minutes="27" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347831447947" seconds="5776" minutes="96" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Aldwin Rd" stopTag="641">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347827336500" seconds="1665" minutes="27" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347831486256" seconds="5815" minutes="96" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Tollgate Way" stopTag="642">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347827365580" seconds="1694" minutes="28" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347831515336" seconds="5844" minutes="97" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Forest Hills Station Upper Busway" stopTag="10642_ar">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347827445869" seconds="1774" minutes="29" isDeparture="false" dirTag="34E_1_var7" vehicle="2074" block="B34E_70" tripTag="18396824" />  
-            <prediction epochTime="1347831595625" seconds="5924" minutes="98" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="East St @ Main St" stopTag="97618" dirTitleBecauseNoPredictions="Forest Hills Station via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="East St @ School St" stopTag="96618" dirTitleBecauseNoPredictions="Forest Hills Station via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="East St @ Diamond St" stopTag="95618" dirTitleBecauseNoPredictions="Forest Hills Station via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="East St @ Eastover Rd" stopTag="94618" dirTitleBecauseNoPredictions="Forest Hills Station via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="710 East St opp Kendall St" stopTag="93618" dirTitleBecauseNoPredictions="Forest Hills Station via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="High Plain St @ Peach St" stopTag="92618" dirTitleBecauseNoPredictions="Forest Hills Station via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="624 Washington St opp Bird Middle School" stopTag="91618" dirTitleBecauseNoPredictions="Forest Hills Station via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Morse St" stopTag="90618" dirTitleBecauseNoPredictions="Forest Hills Station via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Pilgrim Way" stopTag="89618" dirTitleBecauseNoPredictions="Forest Hills Station via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Polley Ln" stopTag="88618" dirTitleBecauseNoPredictions="Forest Hills Station via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St opp Washington Green" stopTag="89619" dirTitleBecauseNoPredictions="Forest Hills Station via Dedham Mall"></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="238 Washington St opp May St" stopTag="89617">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347828900000" seconds="3228" minutes="53" isDeparture="true" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Rhoades Ave" stopTag="42618">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347828927508" seconds="3256" minutes="54" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Chestnut St" stopTag="43618">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347828951077" seconds="3280" minutes="54" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Opp 123 Washington St" stopTag="44618">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347828965827" seconds="3294" minutes="54" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Opp 67 Washington St" stopTag="45618">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347829007826" seconds="3336" minutes="55" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Opp 9 Washington St - Norwood Line" stopTag="61847">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347829037276" seconds="3366" minutes="56" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St opp Rockhill St" stopTag="46618">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347829058036" seconds="3386" minutes="56" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Jacobs Rd" stopTag="47618">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347829065775" seconds="3394" minutes="56" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St opp Mylod St" stopTag="48618">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347829088084" seconds="3417" minutes="56" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Morse St" stopTag="61848">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347829111334" seconds="3440" minutes="57" isDeparture="false" affectedByLayover="true" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Short St" stopTag="49618">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347829141612" seconds="3470" minutes="57" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.466" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Saint John Ave" stopTag="50618">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347829182002" seconds="3510" minutes="58" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.466" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="1182 Washington St @ Balch School" stopTag="51618">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347829196731" seconds="3525" minutes="58" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.466" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Saint George Ave" stopTag="61851">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347829217651" seconds="3546" minutes="59" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.466" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Heaton Ave" stopTag="52618">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347829238120" seconds="3567" minutes="59" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.466" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Dean St" stopTag="53618">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347829259650" seconds="3588" minutes="59" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.462" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Lenox St" stopTag="54618">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347829289679" seconds="3618" minutes="60" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.350" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="930 Washington St opp Walnut Ave" stopTag="55618">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347829328268" seconds="3657" minutes="60" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.350" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ East Hoyle St" stopTag="56618">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347829372528" seconds="3701" minutes="61" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.362" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Norwood Hospital" stopTag="57618">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347829401537" seconds="3730" minutes="62" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.362" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Washington St @ Guild St" stopTag="61857">  
-        <direction title="Forest Hills Station via Dedham Mall">  
-            <prediction epochTime="1347829427986" seconds="3756" minutes="62" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.480" dirTag="34E_1_var7" vehicle="2118" block="B34E_64" tripTag="18396823" />  
-        </direction>
-    </predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="272 Washington St" stopTag="70618" dirTitleBecauseNoPredictions="Forest Hills Station via Washington St."></predictions>
-    <predictions agencyTitle="MBTA" routeTitle="34E" routeTag="34E" stopTitle="Upland Woods" stopTag="91619_1" dirTitleBecauseNoPredictions="Forest Hills Station via Dedham Mall"></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Ruggles Station - Lane 2" stopTag="17863">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091280000" seconds="355" minutes="5" isDeparture="true" affectedByLayover="true" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348092000000" seconds="1075" minutes="17" isDeparture="true" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348092900000" seconds="1975" minutes="32" isDeparture="true" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+            <prediction epochTime="1348093800000" seconds="2875" minutes="47" isDeparture="true" affectedByLayover="true" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643523" />  
+            <prediction epochTime="1348094700000" seconds="3775" minutes="62" isDeparture="true" affectedByLayover="true" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643524" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Malcolm X Blvd @ King St" stopTag="11257">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091552369" seconds="627" minutes="10" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348092272369" seconds="1347" minutes="22" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348093172369" seconds="2247" minutes="37" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+            <prediction epochTime="1348094072369" seconds="3147" minutes="52" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643523" />  
+            <prediction epochTime="1348094972369" seconds="4047" minutes="67" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643524" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Malcolm X Blvd opp Madison Park HS" stopTag="1259">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091591437" seconds="667" minutes="11" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348092311437" seconds="1387" minutes="23" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348093211437" seconds="2287" minutes="38" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+            <prediction epochTime="1348094111437" seconds="3187" minutes="53" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643523" />  
+            <prediction epochTime="1348095011437" seconds="4087" minutes="68" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643524" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Malcolm X Blvd opp O&apos;Bryant HS" stopTag="11323">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091609896" seconds="685" minutes="11" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348092329896" seconds="1405" minutes="23" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348093229896" seconds="2305" minutes="38" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+            <prediction epochTime="1348094129896" seconds="3205" minutes="53" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643523" />  
+            <prediction epochTime="1348095029896" seconds="4105" minutes="68" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643524" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Malcolm X Blvd @ Shawmut Ave" stopTag="11259">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091642296" seconds="717" minutes="11" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348092362296" seconds="1437" minutes="23" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348093262296" seconds="2337" minutes="38" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+            <prediction epochTime="1348094162296" seconds="3237" minutes="53" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643523" />  
+            <prediction epochTime="1348095062296" seconds="4137" minutes="68" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643524" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Dudley Station" stopTag="64000">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348090939684" seconds="15" minutes="0" isDeparture="false" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643519" />  
+            <prediction epochTime="1348091768895" seconds="844" minutes="14" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348092488895" seconds="1564" minutes="26" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348093388895" seconds="2464" minutes="41" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+            <prediction epochTime="1348094288895" seconds="3364" minutes="56" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643523" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Dudley St @ Greenville St" stopTag="1493">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091071203" seconds="146" minutes="2" isDeparture="false" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643519" />  
+            <prediction epochTime="1348091900414" seconds="975" minutes="16" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348092620414" seconds="1695" minutes="28" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348093520414" seconds="2595" minutes="43" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+            <prediction epochTime="1348094420414" seconds="3495" minutes="58" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643523" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Dudley St @ Mt Pleasant Ave" stopTag="1494">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091101311" seconds="176" minutes="2" isDeparture="false" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643519" />  
+            <prediction epochTime="1348091930522" seconds="1006" minutes="16" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348092650522" seconds="1726" minutes="28" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348093550522" seconds="2626" minutes="43" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+            <prediction epochTime="1348094450522" seconds="3526" minutes="58" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643523" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Dudley St @ Adams St" stopTag="1495">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348090941961" seconds="17" minutes="0" isDeparture="false" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643518" />  
+            <prediction epochTime="1348091136621" seconds="212" minutes="3" isDeparture="false" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643519" />  
+            <prediction epochTime="1348091965832" seconds="1041" minutes="17" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348092685832" seconds="1761" minutes="29" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348093585832" seconds="2661" minutes="44" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="381 Dudley St opp Hampden St" stopTag="1496">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091012601" seconds="88" minutes="1" isDeparture="false" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643518" />  
+            <prediction epochTime="1348091207261" seconds="282" minutes="4" isDeparture="false" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643519" />  
+            <prediction epochTime="1348092036472" seconds="1112" minutes="18" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348092756472" seconds="1832" minutes="30" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348093656472" seconds="2732" minutes="45" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Mt Pleasant Ave" stopTag="1577">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091066630" seconds="142" minutes="2" isDeparture="false" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643518" />  
+            <prediction epochTime="1348091261290" seconds="336" minutes="5" isDeparture="false" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643519" />  
+            <prediction epochTime="1348092090501" seconds="1166" minutes="19" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348092810501" seconds="1886" minutes="31" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348093710501" seconds="2786" minutes="46" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Winthrop St" stopTag="1578">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091118949" seconds="194" minutes="3" isDeparture="false" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643518" />  
+            <prediction epochTime="1348091313609" seconds="389" minutes="6" isDeparture="false" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643519" />  
+            <prediction epochTime="1348092142820" seconds="1218" minutes="20" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348092862820" seconds="1938" minutes="32" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348093762820" seconds="2838" minutes="47" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave opp Stafford St" stopTag="1579">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091155237" seconds="230" minutes="3" isDeparture="false" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643518" />  
+            <prediction epochTime="1348091349897" seconds="425" minutes="7" isDeparture="false" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643519" />  
+            <prediction epochTime="1348092179108" seconds="1254" minutes="20" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348092899108" seconds="1974" minutes="32" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348093799108" seconds="2874" minutes="47" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Irwin St" stopTag="1580">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091191086" seconds="266" minutes="4" isDeparture="false" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643518" />  
+            <prediction epochTime="1348091385746" seconds="461" minutes="7" isDeparture="false" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643519" />  
+            <prediction epochTime="1348092214957" seconds="1290" minutes="21" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348092934957" seconds="2010" minutes="33" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348093834957" seconds="2910" minutes="48" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Clifford St" stopTag="1581">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091255317" seconds="330" minutes="5" isDeparture="false" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643518" />  
+            <prediction epochTime="1348091449977" seconds="525" minutes="8" isDeparture="false" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643519" />  
+            <prediction epochTime="1348092279188" seconds="1354" minutes="22" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348092999188" seconds="2074" minutes="34" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348093899188" seconds="2974" minutes="49" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Edgewood St" stopTag="1582">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091299028" seconds="374" minutes="6" isDeparture="false" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643518" />  
+            <prediction epochTime="1348091493688" seconds="569" minutes="9" isDeparture="false" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643519" />  
+            <prediction epochTime="1348092322899" seconds="1398" minutes="23" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348093042899" seconds="2118" minutes="35" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348093942899" seconds="3018" minutes="50" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Maywood St" stopTag="15820">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091333327" seconds="408" minutes="6" isDeparture="false" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643518" />  
+            <prediction epochTime="1348091527987" seconds="603" minutes="10" isDeparture="false" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643519" />  
+            <prediction epochTime="1348092357198" seconds="1432" minutes="23" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348093077198" seconds="2152" minutes="35" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348093977198" seconds="3052" minutes="50" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Quincy St" stopTag="1583">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091373766" seconds="449" minutes="7" isDeparture="false" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643518" />  
+            <prediction epochTime="1348091568426" seconds="643" minutes="10" isDeparture="false" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643519" />  
+            <prediction epochTime="1348092397637" seconds="1473" minutes="24" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348093117637" seconds="2193" minutes="36" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348094017637" seconds="3093" minutes="51" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Gaston St" stopTag="1584">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091423624" seconds="499" minutes="8" isDeparture="false" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643518" />  
+            <prediction epochTime="1348091618284" seconds="693" minutes="11" isDeparture="false" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643519" />  
+            <prediction epochTime="1348092447495" seconds="1522" minutes="25" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348093167495" seconds="2242" minutes="37" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348094067495" seconds="3142" minutes="52" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Brunswick St" stopTag="1585">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091472714" seconds="548" minutes="9" isDeparture="false" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643518" />  
+            <prediction epochTime="1348091667374" seconds="742" minutes="12" isDeparture="false" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643519" />  
+            <prediction epochTime="1348092496585" seconds="1572" minutes="26" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348093216585" seconds="2292" minutes="38" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348094116585" seconds="3192" minutes="53" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Av @ Stanwood St" stopTag="1586">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091514364" seconds="589" minutes="9" isDeparture="false" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643518" />  
+            <prediction epochTime="1348091709024" seconds="784" minutes="13" isDeparture="false" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643519" />  
+            <prediction epochTime="1348092538235" seconds="1613" minutes="26" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348093258235" seconds="2333" minutes="38" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348094158235" seconds="3233" minutes="53" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Wayne St" stopTag="413">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091642593" seconds="717" minutes="11" isDeparture="false" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643518" />  
+            <prediction epochTime="1348091837253" seconds="912" minutes="15" isDeparture="false" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643519" />  
+            <prediction epochTime="1348092666464" seconds="1741" minutes="29" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348093386464" seconds="2461" minutes="41" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348094286464" seconds="3361" minutes="56" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Seaver St" stopTag="414">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091674082" seconds="749" minutes="12" isDeparture="false" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643518" />  
+            <prediction epochTime="1348091868742" seconds="944" minutes="15" isDeparture="false" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643519" />  
+            <prediction epochTime="1348092697953" seconds="1773" minutes="29" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348093417953" seconds="2493" minutes="41" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348094317953" seconds="3393" minutes="56" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave opp Columbia Rd - Franklin Park Zoo" stopTag="415" dirTitleBecauseNoPredictions="Ashmont Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave opp Charlotte St" stopTag="416" dirTitleBecauseNoPredictions="Ashmont Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ American Legion Hwy" stopTag="417" dirTitleBecauseNoPredictions="Ashmont Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Calder St" stopTag="418" dirTitleBecauseNoPredictions="Ashmont Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Angell St" stopTag="419" dirTitleBecauseNoPredictions="Ashmont Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot Ave @ Franklin Field" stopTag="9412" dirTitleBecauseNoPredictions="Ashmont Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Opp 70 Talbot Ave" stopTag="420" dirTitleBecauseNoPredictions="Ashmont Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot Ave opp Kerwin St" stopTag="421" dirTitleBecauseNoPredictions="Ashmont Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot Ave @ Bernard St" stopTag="422" dirTitleBecauseNoPredictions="Ashmont Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot Ave @ New England Ave" stopTag="423" dirTitleBecauseNoPredictions="Ashmont Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot Ave @ Colonial Ave" stopTag="424" dirTitleBecauseNoPredictions="Ashmont Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot Ave @ Norfolk St" stopTag="425" dirTitleBecauseNoPredictions="Ashmont Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot Ave @ Lithgow St" stopTag="426" dirTitleBecauseNoPredictions="Ashmont Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot Ave @ Brent St" stopTag="427" dirTitleBecauseNoPredictions="Ashmont Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot Ave @ Welles Ave" stopTag="428" dirTitleBecauseNoPredictions="Ashmont Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="493 Talbot Ave opp Argyle St" stopTag="429" dirTitleBecauseNoPredictions="Ashmont Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot Ave @ Dorchester Ave" stopTag="430" dirTitleBecauseNoPredictions="Ashmont Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Ashmont Station" stopTag="334_ar" dirTitleBecauseNoPredictions="Ashmont Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Franklin Park Zoo @ Entrance" stopTag="1587">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091760372" seconds="835" minutes="13" isDeparture="false" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643518" />  
+            <prediction epochTime="1348091955032" seconds="1030" minutes="17" isDeparture="false" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643519" />  
+            <prediction epochTime="1348092784243" seconds="1859" minutes="30" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348093504243" seconds="2579" minutes="42" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348094404243" seconds="3479" minutes="57" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Franklin Park Loop @ Zoo entrance" stopTag="1565_ar">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348090926353" seconds="1" minutes="0" isDeparture="false" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643517" />  
+            <prediction epochTime="1348091795880" seconds="870" minutes="14" isDeparture="false" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643518" />  
+            <prediction epochTime="1348091990540" seconds="1065" minutes="17" isDeparture="false" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643519" />  
+            <prediction epochTime="1348092819751" seconds="1894" minutes="31" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348093539751" seconds="2614" minutes="43" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="205 Roxbury St" stopTag="1149" dirTitleBecauseNoPredictions="Franklin Park via Blue Hill Ave"></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="42 Dudley St" stopTag="1146" dirTitleBecauseNoPredictions="Franklin Park via Blue Hill Ave"></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Dudley St @ Shawmut Ave" stopTag="1147" dirTitleBecauseNoPredictions="Franklin Park via Blue Hill Ave"></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Franklin Park Loop @ Zoo entrance" stopTag="1565">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091340000" seconds="415" minutes="6" isDeparture="true" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092060000" seconds="1135" minutes="18" isDeparture="true" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348092900000" seconds="1975" minutes="32" isDeparture="true" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+            <prediction epochTime="1348093800000" seconds="2875" minutes="47" isDeparture="true" affectedByLayover="true" dirTag="45_1_var0" vehicle="2270" block="C45_230" tripTag="18643530" />  
+            <prediction epochTime="1348094700000" seconds="3775" minutes="62" isDeparture="true" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643529" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Ellington St - Franklin Park Zoo" stopTag="383">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091399698" seconds="474" minutes="7" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092119698" seconds="1194" minutes="19" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348092959698" seconds="2034" minutes="33" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+            <prediction epochTime="1348093859698" seconds="2934" minutes="48" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2270" block="C45_230" tripTag="18643530" />  
+            <prediction epochTime="1348094759698" seconds="3834" minutes="63" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643529" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Pasadena Rd" stopTag="384">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091456589" seconds="531" minutes="8" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092176589" seconds="1251" minutes="20" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093016589" seconds="2091" minutes="34" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+            <prediction epochTime="1348093916589" seconds="2991" minutes="49" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_1_var0" vehicle="2270" block="C45_230" tripTag="18643530" />  
+            <prediction epochTime="1348094816589" seconds="3891" minutes="64" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643529" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Castlegate Rd" stopTag="385">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091487187" seconds="562" minutes="9" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092207187" seconds="1282" minutes="21" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093047187" seconds="2122" minutes="35" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+            <prediction epochTime="1348093947187" seconds="3022" minutes="50" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_1_var0" vehicle="2270" block="C45_230" tripTag="18643530" />  
+            <prediction epochTime="1348094847187" seconds="3922" minutes="65" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643529" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave opp Warren St" stopTag="1566">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348090940135" seconds="15" minutes="0" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348091578468" seconds="653" minutes="10" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092298468" seconds="1373" minutes="22" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093138468" seconds="2213" minutes="36" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+            <prediction epochTime="1348094038468" seconds="3113" minutes="51" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_1_var0" vehicle="2270" block="C45_230" tripTag="18643530" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Devon St" stopTag="15660">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348090970953" seconds="45" minutes="0" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348091609286" seconds="684" minutes="11" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092329286" seconds="1404" minutes="23" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093169286" seconds="2244" minutes="37" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+            <prediction epochTime="1348094069286" seconds="3144" minutes="52" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_1_var0" vehicle="2270" block="C45_230" tripTag="18643530" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Intervale St" stopTag="1567">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348090997592" seconds="72" minutes="1" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348091635925" seconds="710" minutes="11" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092355925" seconds="1430" minutes="23" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093195925" seconds="2270" minutes="37" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+            <prediction epochTime="1348094095925" seconds="3170" minutes="52" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_1_var0" vehicle="2270" block="C45_230" tripTag="18643530" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Lawrence Ave" stopTag="15661">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091039893" seconds="114" minutes="1" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348091678226" seconds="753" minutes="12" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092398226" seconds="1473" minutes="24" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093238226" seconds="2313" minutes="38" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+            <prediction epochTime="1348094138226" seconds="3213" minutes="53" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_1_var0" vehicle="2270" block="C45_230" tripTag="18643530" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Quincy St" stopTag="1569">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091074561" seconds="149" minutes="2" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348091712894" seconds="787" minutes="13" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092432894" seconds="1507" minutes="25" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093272894" seconds="2347" minutes="39" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+            <prediction epochTime="1348094172894" seconds="3247" minutes="54" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_1_var0" vehicle="2270" block="C45_230" tripTag="18643530" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Woodcliff St" stopTag="1570">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348090934750" seconds="9" minutes="0" isDeparture="false" dirTag="45_1_var0" vehicle="2145" block="C45_231" tripTag="18643535" />  
+            <prediction epochTime="1348091114280" seconds="189" minutes="3" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348091752613" seconds="827" minutes="13" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092472613" seconds="1547" minutes="25" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093312613" seconds="2387" minutes="39" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Ingleside St" stopTag="1571">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348090956069" seconds="31" minutes="0" isDeparture="false" dirTag="45_1_var0" vehicle="2145" block="C45_231" tripTag="18643535" />  
+            <prediction epochTime="1348091135599" seconds="210" minutes="3" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348091773932" seconds="848" minutes="14" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092493932" seconds="1568" minutes="26" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093333932" seconds="2408" minutes="40" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Julian St" stopTag="1572">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348090990578" seconds="65" minutes="1" isDeparture="false" dirTag="45_1_var0" vehicle="2145" block="C45_231" tripTag="18643535" />  
+            <prediction epochTime="1348091170108" seconds="245" minutes="4" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348091808441" seconds="883" minutes="14" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092528441" seconds="1603" minutes="26" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093368441" seconds="2443" minutes="40" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ W Cottage St" stopTag="1573">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091012728" seconds="87" minutes="1" isDeparture="false" dirTag="45_1_var0" vehicle="2145" block="C45_231" tripTag="18643535" />  
+            <prediction epochTime="1348091192258" seconds="267" minutes="4" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348091830591" seconds="905" minutes="15" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092550591" seconds="1625" minutes="27" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093390591" seconds="2465" minutes="41" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Moreland St" stopTag="1574">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091066818" seconds="141" minutes="2" isDeparture="false" dirTag="45_1_var0" vehicle="2145" block="C45_231" tripTag="18643535" />  
+            <prediction epochTime="1348091246348" seconds="321" minutes="5" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348091884681" seconds="959" minutes="15" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092604681" seconds="1679" minutes="27" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093444681" seconds="2519" minutes="41" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Winthrop St" stopTag="1575">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091094456" seconds="169" minutes="2" isDeparture="false" dirTag="45_1_var0" vehicle="2145" block="C45_231" tripTag="18643535" />  
+            <prediction epochTime="1348091273986" seconds="348" minutes="5" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348091912319" seconds="987" minutes="16" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092632319" seconds="1707" minutes="28" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093472319" seconds="2547" minutes="42" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Dudley St" stopTag="1576">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091180676" seconds="255" minutes="4" isDeparture="false" dirTag="45_1_var0" vehicle="2145" block="C45_231" tripTag="18643535" />  
+            <prediction epochTime="1348091360206" seconds="435" minutes="7" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348091998539" seconds="1073" minutes="17" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092718539" seconds="1793" minutes="29" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093558539" seconds="2633" minutes="43" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Dudley St @ Hampden St" stopTag="1487">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091229375" seconds="304" minutes="5" isDeparture="false" dirTag="45_1_var0" vehicle="2145" block="C45_231" tripTag="18643535" />  
+            <prediction epochTime="1348091408905" seconds="483" minutes="8" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348092047238" seconds="1122" minutes="18" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092767238" seconds="1842" minutes="30" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093607238" seconds="2682" minutes="44" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Dudley St @ Adams St" stopTag="1488">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091267804" seconds="342" minutes="5" isDeparture="false" dirTag="45_1_var0" vehicle="2145" block="C45_231" tripTag="18643535" />  
+            <prediction epochTime="1348091447334" seconds="522" minutes="8" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348092085667" seconds="1160" minutes="19" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092805667" seconds="1880" minutes="31" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093645667" seconds="2720" minutes="45" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Dudley St @ Dearborn St" stopTag="1489">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091298152" seconds="373" minutes="6" isDeparture="false" dirTag="45_1_var0" vehicle="2145" block="C45_231" tripTag="18643535" />  
+            <prediction epochTime="1348091477682" seconds="552" minutes="9" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348092116015" seconds="1191" minutes="19" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092836015" seconds="1911" minutes="31" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093676015" seconds="2751" minutes="45" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Dudley St @ Winslow St" stopTag="1490">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091353022" seconds="428" minutes="7" isDeparture="false" dirTag="45_1_var0" vehicle="2145" block="C45_231" tripTag="18643535" />  
+            <prediction epochTime="1348091532552" seconds="607" minutes="10" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348092170885" seconds="1245" minutes="20" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092890885" seconds="1965" minutes="32" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093730885" seconds="2805" minutes="46" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Dudley St @ Warren St" stopTag="1491">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091430953" seconds="505" minutes="8" isDeparture="false" dirTag="45_1_var0" vehicle="2145" block="C45_231" tripTag="18643535" />  
+            <prediction epochTime="1348091610483" seconds="685" minutes="11" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348092248816" seconds="1323" minutes="22" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092968816" seconds="2043" minutes="34" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093808816" seconds="2883" minutes="48" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Dudley Station" stopTag="64000_1">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091487691" seconds="562" minutes="9" isDeparture="false" dirTag="45_1_var0" vehicle="2145" block="C45_231" tripTag="18643535" />  
+            <prediction epochTime="1348091667221" seconds="742" minutes="12" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348092305554" seconds="1380" minutes="23" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348093025554" seconds="2100" minutes="35" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093865554" seconds="2940" minutes="49" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Malcolm X Blvd @ Shawmut Ave" stopTag="1148">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091570910" seconds="645" minutes="10" isDeparture="false" dirTag="45_1_var0" vehicle="2145" block="C45_231" tripTag="18643535" />  
+            <prediction epochTime="1348091750440" seconds="825" minutes="13" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348092388773" seconds="1463" minutes="24" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348093108773" seconds="2183" minutes="36" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093948773" seconds="3023" minutes="50" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Malcolm X Blvd @ O&apos;Bryant HS" stopTag="11149">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091596499" seconds="671" minutes="11" isDeparture="false" dirTag="45_1_var0" vehicle="2145" block="C45_231" tripTag="18643535" />  
+            <prediction epochTime="1348091776029" seconds="851" minutes="14" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348092414362" seconds="1489" minutes="24" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348093134362" seconds="2209" minutes="36" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093974362" seconds="3049" minutes="50" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Malcolm X Blvd @ Madison Park HS" stopTag="11148">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091614739" seconds="689" minutes="11" isDeparture="false" dirTag="45_1_var0" vehicle="2145" block="C45_231" tripTag="18643535" />  
+            <prediction epochTime="1348091794269" seconds="869" minutes="14" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348092432602" seconds="1507" minutes="25" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348093152602" seconds="2227" minutes="37" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093992602" seconds="3067" minutes="51" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Malcolm X Blvd @ Tremont St" stopTag="21148">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091648928" seconds="723" minutes="12" isDeparture="false" dirTag="45_1_var0" vehicle="2145" block="C45_231" tripTag="18643535" />  
+            <prediction epochTime="1348091828458" seconds="903" minutes="15" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348092466791" seconds="1541" minutes="25" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348093186791" seconds="2261" minutes="37" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348094026791" seconds="3101" minutes="51" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Tremont St opp Prentiss St" stopTag="1224">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348090947155" seconds="22" minutes="0" isDeparture="false" delayed="true" slowness="0.461" dirTag="45_1_var0" vehicle="2270" block="C45_230" tripTag="18643536" />  
+            <prediction epochTime="1348091696207" seconds="771" minutes="12" isDeparture="false" dirTag="45_1_var0" vehicle="2145" block="C45_231" tripTag="18643535" />  
+            <prediction epochTime="1348091875737" seconds="950" minutes="15" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348092514070" seconds="1589" minutes="26" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348093234070" seconds="2309" minutes="38" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Ruggles Sta - upper level" stopTag="17861_ar">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091105984" seconds="180" minutes="3" isDeparture="false" delayed="true" slowness="0.461" dirTag="45_1_var0" vehicle="2270" block="C45_230" tripTag="18643536" />  
+            <prediction epochTime="1348091855036" seconds="930" minutes="15" isDeparture="false" dirTag="45_1_var0" vehicle="2145" block="C45_231" tripTag="18643535" />  
+            <prediction epochTime="1348092034566" seconds="1109" minutes="18" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348092672899" seconds="1747" minutes="29" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348093392899" seconds="2467" minutes="41" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Dudley Station" stopTag="64000_ar" dirTitleBecauseNoPredictions="Malcolm X Blvd. via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Ashmont Station" stopTag="334" dirTitleBecauseNoPredictions="Ruggles Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot Ave @ Dorchester Ave" stopTag="367" dirTitleBecauseNoPredictions="Ruggles Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot Ave @ Argyle St" stopTag="368" dirTitleBecauseNoPredictions="Ruggles Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot Ave @ Welles Ave" stopTag="369" dirTitleBecauseNoPredictions="Ruggles Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot Ave @ Brent St" stopTag="370" dirTitleBecauseNoPredictions="Ruggles Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot Ave @ Centre St" stopTag="371" dirTitleBecauseNoPredictions="Ruggles Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot Ave @ Southern Ave" stopTag="372" dirTitleBecauseNoPredictions="Ruggles Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot Ave @ Spencer St" stopTag="373" dirTitleBecauseNoPredictions="Ruggles Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot Ave @ Norwell St" stopTag="374" dirTitleBecauseNoPredictions="Ruggles Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot Ave @ Bernard St" stopTag="375" dirTitleBecauseNoPredictions="Ruggles Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot Ave @ Kerwin St" stopTag="376" dirTitleBecauseNoPredictions="Ruggles Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot ave @ Nightingale St" stopTag="378" dirTitleBecauseNoPredictions="Ruggles Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Talbot Ave" stopTag="1737" dirTitleBecauseNoPredictions="Ruggles Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Vesta St" stopTag="380" dirTitleBecauseNoPredictions="Ruggles Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Wales St" stopTag="381" dirTitleBecauseNoPredictions="Ruggles Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Charlotte St" stopTag="382" dirTitleBecauseNoPredictions="Ruggles Station via Blue Hill Ave."></predictions>
 </body>
