@@ -52,7 +52,7 @@ public interface INextbusService {
     /**
      * Indicates the corresponding Document version from NextBus that this adapter was tested against.
      */
-    public final String specVersion = "1.18";
+    public final String specVersion = "1.20";
     
     /**
      * Get all Transit Agencies currently served by NextBus.
