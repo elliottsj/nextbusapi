@@ -43,11 +43,9 @@ import java.util.List;
  * @author jrd
  */
 public class Stop extends NextbusValueObject implements IGeocoded, Comparable<Stop> {
-
-    static final long serialVersionUID = -1169784787334878504L;
-
-    /** Route containing this Stop*/
-    protected Route route;   
+    static final long serialVersionUID = 5552263607403529166L;
+    /** Agency owning this stop*/
+    protected Agency agency;   
     /** The Key Identifier for this Id - example, 10642*/
     protected String tag;
     /** Full title of the stop - example, Forest Hills Station Upper Busway */
@@ -67,13 +65,13 @@ public class Stop extends NextbusValueObject implements IGeocoded, Comparable<St
     /**
      * Domain factory ctor.
      */
-    public Stop(Route parent, String id, String _tag, String _title, String _shortTitle, Geolocation gps, String copyrttext) {
+    public Stop(Agency _agency, String id, String _tag, String _title, String _shortTitle, Geolocation gps, String copyrttext) {
         super(copyrttext);
         shortTitle = "";
         if (_shortTitle != null) {
             shortTitle = _shortTitle;
         }
-        route = parent;
+        agency = _agency;
         alternateStopId = id;
         tag = _tag;
         title = _title;
@@ -93,8 +91,8 @@ public class Stop extends NextbusValueObject implements IGeocoded, Comparable<St
      * @return The parent Route that this Stop is bound on. Note that a
      * particular Physical stop may sit on multiple routes.
      */
-    public Route getRoute() {
-        return route;
+    public Agency getAgency() {
+        return agency;
     }
 
     /**
@@ -161,7 +159,7 @@ public class Stop extends NextbusValueObject implements IGeocoded, Comparable<St
         if ((this.tag == null) ? (other.tag != null) : !this.tag.equals(other.tag)) {
             return false;
         }
-        if (this.route != other.route && (this.route == null || !this.route.equals(other.route))) {
+        if (this.agency != other.agency && (this.agency == null || !this.agency.equals(other.agency))) {
             return false;
         }
         return true;
@@ -171,13 +169,13 @@ public class Stop extends NextbusValueObject implements IGeocoded, Comparable<St
     public int hashCode() {
         int hash = 7;
         hash = 17 * hash + (this.tag != null ? this.tag.hashCode() : 0);
-        hash = 17 * hash + (this.route != null ? this.route.hashCode() : 0);
+        hash = 17 * hash + (this.agency != null ? this.agency.hashCode() : 0);
         return hash;
     }
 
     @Override
     public String toString() {
-        return "Stop{" + "tag=" + tag + ", title=" + title + ", shortTitle=" + shortTitle + ", route=" + route + ", geolocation=" + geolocation + ", stopId=" + alternateStopId + '}';
+        return "Stop{" + "tag=" + tag + ", title=" + title + ", shortTitle=" + shortTitle + ", agency=" + agency + ", geolocation=" + geolocation + ", stopId=" + alternateStopId + '}';
     }
 
     public int compareTo(Stop o) {

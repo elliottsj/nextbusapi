@@ -44,13 +44,16 @@ import java.util.GregorianCalendar;
  * @author jrd
  */
 public class Prediction extends NextbusValueObject implements Comparable<Prediction> {
-
     static final long serialVersionUID = 8892241960475516950L;
-    
+  
+    /**
+     * The route that owns this prediction element.
+     */
+    private Route route;
     /**
      * The Stop to that owns this Prediction element.
      */
-    private Stop parent;
+    private Stop stop;
     /**
      * The Vehicle for which the time is predicted - see Vehicle Location
      * service as well.
@@ -105,9 +108,10 @@ public class Prediction extends NextbusValueObject implements Comparable<Predict
     /**
      * Domain factory ctor.
      */
-    public Prediction(Stop stop, String _vehId, String _dirnId, boolean _departure, boolean _layover, String _tripTag, String _block, long predictedTime, String copyright, boolean _delayed, boolean _scheduleBased) {
+    public Prediction(Route _route, Stop _stop, String _vehId, String _dirnId, boolean _departure, boolean _layover, String _tripTag, String _block, long predictedTime, String copyright, boolean _delayed, boolean _scheduleBased) {
         super(copyright);
-        this.parent = stop;
+        this.route = _route;
+        this.stop = _stop;
         this.vehicle = new Vehicle(_vehId);
         this.directionId = _dirnId;
         this.block = _block;
@@ -227,8 +231,16 @@ public class Prediction extends NextbusValueObject implements Comparable<Predict
      *
      * @return The Stop to which this prediction estimate belongs.
      */
-    public Stop getParent() {
-        return parent;
+    public Stop getStop() {
+        return stop;
+    }
+    
+    /**
+     * 
+     * @return The Route to which this estimate belongs
+     */
+    public Route getRoute() {
+        return route;
     }
 
     /**
@@ -264,7 +276,10 @@ public class Prediction extends NextbusValueObject implements Comparable<Predict
             return false;
         }
         final Prediction other = (Prediction) obj;
-        if (this.parent != other.parent && (this.parent == null || !this.parent.equals(other.parent))) {
+        if (this.route != other.route && (this.route == null || !this.route.equals(other.route))) {
+            return false;
+        }
+        if (this.stop != other.stop && (this.stop == null || !this.stop.equals(other.stop))) {
             return false;
         }
         if (this.vehicle != other.vehicle && (this.vehicle == null || !this.vehicle.equals(other.vehicle))) {
@@ -279,14 +294,18 @@ public class Prediction extends NextbusValueObject implements Comparable<Predict
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 41 * hash + (this.parent != null ? this.parent.hashCode() : 0);
-        hash = 41 * hash + (this.directionId != null ? this.directionId.hashCode() : 0);
+        hash = 97 * hash + (this.route != null ? this.route.hashCode() : 0);
+        hash = 97 * hash + (this.stop != null ? this.stop.hashCode() : 0);
+        hash = 97 * hash + (this.vehicle != null ? this.vehicle.hashCode() : 0);
+        hash = 97 * hash + (this.directionId != null ? this.directionId.hashCode() : 0);
         return hash;
     }
 
+    
+
     @Override
     public String toString() {
-        return "Prediction{" + "parent=" + parent + ", vehicle=" + vehicle + ", directionId=" + directionId + ", predictedArrivalOrDepartureTimeUTC=" + predictedArrivalOrDepartureTimeUTC + ", predictionForDepartureTime=" + predictionForDepartureTime + ", predictionIncludesLayoverEstimate=" + predictionIncludesLayoverEstimate + ", block=" + block + ", tripTag=" + tripTag + ", branch=" + branch + ",delayed=" + delayed + " ,scheduleBased=" + scheduleBasedPrediction + "'}";
+        return "Prediction{ route=" + route + ",stop=" + stop + ", vehicle=" + vehicle + ", directionId=" + directionId + ", predictedArrivalOrDepartureTimeUTC=" + predictedArrivalOrDepartureTimeUTC + ", predictionForDepartureTime=" + predictionForDepartureTime + ", predictionIncludesLayoverEstimate=" + predictionIncludesLayoverEstimate + ", block=" + block + ", tripTag=" + tripTag + ", branch=" + branch + ",delayed=" + delayed + " ,scheduleBased=" + scheduleBasedPrediction + "'}";
     }
 
     /**

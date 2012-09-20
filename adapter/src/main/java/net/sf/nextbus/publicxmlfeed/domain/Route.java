@@ -42,8 +42,7 @@ import java.util.List;
  * @author jrd
  */
 public class Route extends NextbusValueObject {
-
-    static final long serialVersionUID = -3258970231092816300L;
+    static final long serialVersionUID= 6552147390257067172L;
     /** Transit agency that runs this route. */
     protected Agency agency;
     /** Route identifier */
@@ -69,6 +68,10 @@ public class Route extends NextbusValueObject {
         this.tag = _tag;
         if (_title != null) this.title = _title;
         if (_shortTitle != null) this.shortTitle = _shortTitle;
+    }
+    
+    public Route(Agency a, String _tag, String _title, String copyrighttext) {
+        this(a, _tag, _title, null, copyrighttext);
     }
 
     /**

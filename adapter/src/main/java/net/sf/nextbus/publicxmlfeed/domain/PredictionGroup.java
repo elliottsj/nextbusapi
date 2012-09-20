@@ -50,9 +50,7 @@ import java.util.List;
  * </pre> @author jrd
  */
 public class PredictionGroup extends NextbusValueObject implements Comparable<PredictionGroup> {
-
-    static final long serialVersionUID = -4995003183175237400L;
-    
+    static final long serialVersionUID = 4961855382838833913L;
     /**
      * serialization ctor.
      */
@@ -61,13 +59,16 @@ public class PredictionGroup extends NextbusValueObject implements Comparable<Pr
     /**
      * Domain factory ctor.
      */
-    public PredictionGroup(Stop _stop, List<PredictionDirection> drns, String copyright, List<String> msgs) {
+    public PredictionGroup(Route _rte, Stop _stop, List<PredictionDirection> drns, String copyright, List<String> msgs) {
         super(copyright);
         this.directions = drns;
+        this.route = _rte;
         this.stop = _stop;
         this.messages = msgs;
     }
     
+    /** The Route for which this sequence of Predictions applies */
+    protected Route route;
     /** The Stop for which the sequence of Predictions apply. */
     protected Stop stop;
     /** The scheduled Directions currently available from this Stop */
@@ -102,8 +103,6 @@ public class PredictionGroup extends NextbusValueObject implements Comparable<Pr
         public int compareTo(PredictionDirection o) {
           return this.title.compareTo(o.title);
         }
-        
-        
     }
 
     /**
@@ -134,6 +133,10 @@ public class PredictionGroup extends NextbusValueObject implements Comparable<Pr
         return stop;
     }
 
+    public Route getRoute() {
+        return route;
+    }
+
     /**
      *
      * @return Messages connected to this Prediction set.
@@ -142,7 +145,6 @@ public class PredictionGroup extends NextbusValueObject implements Comparable<Pr
         return messages;
     }
 
-    
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -152,10 +154,10 @@ public class PredictionGroup extends NextbusValueObject implements Comparable<Pr
             return false;
         }
         final PredictionGroup other = (PredictionGroup) obj;
-        if (this.stop != other.stop && (this.stop == null || !this.stop.equals(other.stop))) {
+        if (this.route != other.route && (this.route == null || !this.route.equals(other.route))) {
             return false;
         }
-        if (this.createTimeUtc != other.createTimeUtc) {
+        if (this.stop != other.stop && (this.stop == null || !this.stop.equals(other.stop))) {
             return false;
         }
         return true;
@@ -164,15 +166,15 @@ public class PredictionGroup extends NextbusValueObject implements Comparable<Pr
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 31 * hash + (this.stop != null ? this.stop.hashCode() : 0);
-        hash = 31 * hash + super.createTimeUtc.hashCode();
+        hash = 67 * hash + (this.route != null ? this.route.hashCode() : 0);
+        hash = 67 * hash + (this.stop != null ? this.stop.hashCode() : 0);
         return hash;
     }
-
+    
     @Override
     public String toString() {
         
-        return "PredictionGroup{" + "stop=" + stop + ", createTime=" + super.getObjectTimestamp() + ", directions=" + directions.size() + ", predictions=" + this.getAvailablePredictions() + ", messages=" + messages.size() + '}';
+        return "PredictionGroup{" + "route="+route+", stop=" + stop + ", createTime=" + super.getObjectTimestamp() + ", directions=" + directions.size() + ", predictions=" + this.getAvailablePredictions() + ", messages=" + messages.size() + '}';
     }
 
     public int compareTo(PredictionGroup o) {
