@@ -82,7 +82,7 @@ class RMIClientProxy implements INextbusService {
         }
     }
 
-    public PredictionGroup getPredictions(Stop s) throws ServiceException {
+    public List<PredictionGroup> getPredictions(Stop s) throws ServiceException {
         try {
             return remote.getPredictions(s);
         } catch (RemoteException rmie) {

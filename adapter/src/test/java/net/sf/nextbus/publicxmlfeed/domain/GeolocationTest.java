@@ -62,7 +62,7 @@ public class GeolocationTest {
         List<Stop> unsorted = new java.util.ArrayList<Stop>();
         for (Geolocation pt : testPoints) {
             String idVal = UUID.randomUUID().toString();
-            unsorted.add(new Stop(r, idVal, idVal, idVal, idVal, pt, ""));
+            unsorted.add(new Stop(mbta, idVal, idVal, idVal, idVal, pt, ""));
         }
        
         printDistances("unsorted", unsorted, refPoint);

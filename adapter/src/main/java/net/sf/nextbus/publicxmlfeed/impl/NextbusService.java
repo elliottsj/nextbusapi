@@ -163,7 +163,7 @@ public class NextbusService implements INextbusService {
         }
     }
 
-    public PredictionGroup getPredictions(Stop s) throws ServiceException {
+    public List<PredictionGroup> getPredictions(Stop s) throws ServiceException {
         String responseXml = "";
         // construct the wire protocol command
         RPCRequest rq = RPCRequest.newPredictionsCommand(s, false);
@@ -175,17 +175,52 @@ public class NextbusService implements INextbusService {
             responseXml = rpc.call(rq);
             logger.log(Level.FINEST, "got XML response ", responseXml);
             List<PredictionGroup> pg = pojoMaker.getPredictions(stops, responseXml);
-            return pg.get(0);
+            return pg;
         } catch (JAXBException jbe) {
             logger.log(Level.SEVERE, "while parsing response Xml " + responseXml, jbe);
             throw new FatalServiceException("RPC Call <predictions>", jbe);
         }
     }
 
-    public List<PredictionGroup> getPredictions(Collection<Stop> s) throws ServiceException {
+    public PredictionGroup getPredictions(Route r, Stop s) throws ServiceException {
+       String responseXml = "";
+        // construct the wire protocol command
+        RPCRequest rq = RPCRequest.newPredictionCommand(r, s, false);
+        logger.log(Level.FINEST, "sending RPC ", rq.getFullHttpRequest());
+        try {
+            // invoke the RPC
+            responseXml = rpc.call(rq);
+            logger.log(Level.FINEST, "got XML response ", responseXml);
+            Collection<Stop> _s = new HashSet<Stop>(); _s.add(s);
+            return pojoMaker.getPredictions(_s, responseXml).get(0);
+        } catch (JAXBException jbe) {
+            logger.log(Level.SEVERE, "while parsing response Xml " + responseXml, jbe);
+            throw new FatalServiceException("RPC Call <prediction>", jbe);
+        }
+    }
+
+    public List<PredictionGroup> getPredictions(Map<Route, Stop> stops) throws ServiceException {
         String responseXml = "";
         // construct the wire protocol command
-        RPCRequest rq = RPCRequest.newPredictionsCommand(s, false);
+        RPCRequest rq = RPCRequest.newPredictionsForMultistopsCommand(stops, false);
+        logger.log(Level.FINEST, "sending RPC ", rq.getFullHttpRequest());
+        try {
+            // invoke the RPC
+            responseXml = rpc.call(rq);
+            logger.log(Level.FINEST, "got XML response ", responseXml);
+            
+            return pojoMaker.getPredictions(stops.values(), responseXml);
+        } catch (JAXBException jbe) {
+            logger.log(Level.SEVERE, "while parsing response Xml " + responseXml, jbe);
+            throw new FatalServiceException("RPC Call <multiStopPredictions>", jbe);
+        }
+    }
+
+    
+    public List<PredictionGroup> getPredictions(Route route, Collection<Stop> s) throws ServiceException {
+        String responseXml = "";
+        // construct the wire protocol command
+        RPCRequest rq = RPCRequest.newPredictionsCommand(route, s, false);
         logger.log(Level.FINEST, "sending RPC ", rq.getFullHttpRequest());
         try {
             // invoke the RPC

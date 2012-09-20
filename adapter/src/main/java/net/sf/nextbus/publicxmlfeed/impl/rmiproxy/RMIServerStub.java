@@ -74,7 +74,7 @@ public class RMIServerStub extends UnicastRemoteObject implements INextbusServic
         return svc.getAgency(id);
     }
 
-    public PredictionGroup getPredictions(Stop s) throws ServiceException, RemoteException {
+    public List<PredictionGroup> getPredictions(Stop s) throws ServiceException, RemoteException {
         logger.info("getPredictions()");
         return svc.getPredictions(s);
     }

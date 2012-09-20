@@ -53,7 +53,7 @@ public class VOCache implements INextbusService {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public PredictionGroup getPredictions(Stop s) throws ServiceException {
+    public List<PredictionGroup> getPredictions(Stop s) throws ServiceException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

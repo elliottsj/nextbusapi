@@ -100,7 +100,7 @@ public interface INextbusService {
      * @return A set of Predictions for all of the Vehicles deployed scheduled to serve the given stop.
      * @throws ServiceException Wraps all XML parse, I/O and data conversion faults detected from implementation classes.
      */
-    public PredictionGroup getPredictions(Stop s) throws ServiceException;
+    public List<PredictionGroup> getPredictions(Stop s) throws ServiceException;
 
     /**
      * Get Arrival and Departure Predicted Future time for a Single Route and Stop Pair.

@@ -88,10 +88,11 @@ public class NullServiceTest {
     public void testPrediction() throws Exception {
         Agency mbta = new Agency("mbta", "Test Agency", "Test Agency", "Test Agency", "Test Agency");
         Route r = new Route(mbta, "route1", "Test Route", "Test Route", "Test Route");
-        Stop s = new Stop(r, "1936", "1936", "1936", "1936", new Geolocation(0.0, 0.0), "");
-        PredictionGroup pg = svc.getPredictions(s);
-        Assert.assertTrue(pg.getDirections().size() == 1);
-        Assert.assertTrue(pg.getAvailablePredictions() == 5);
+        Stop s = new Stop(mbta, "1936", "1936", "1936", "1936", new Geolocation(0.0, 0.0), "");
+        List<PredictionGroup> pg = svc.getPredictions(s);
+      
+        Assert.assertTrue(pg.get(0).getDirections().size() == 1);
+        Assert.assertTrue(pg.get(0).getAvailablePredictions() == 5);
         System.out.println(pg);
     }
     
@@ -99,13 +100,13 @@ public class NullServiceTest {
     public void testMultiPrediction() throws Exception {
         Agency mbta = new Agency("mbta", "Test Agency", "Test Agency", "Test Agency", "Test Agency");
         Route r = new Route(mbta, "route1", "Test Route", "Test Route", "Test Route");
-        Stop s1 = new Stop(r, "8310", "8310", "8310", "8310", new Geolocation(0.0, 0.0), "");
-         Stop s2 = new Stop(r, "5271", "5271", "5271", "5271", new Geolocation(0.0, 0.0), "");
-         Stop s3 = new Stop(r, "5271_ar", "5271_ar", "5271_ar", "5271_ar", new Geolocation(0.0, 0.0), "");
+        Stop s1 = new Stop(mbta, "8310", "8310", "8310", "8310", new Geolocation(0.0, 0.0), "");
+         Stop s2 = new Stop(mbta, "5271", "5271", "5271", "5271", new Geolocation(0.0, 0.0), "");
+         Stop s3 = new Stop(mbta, "5271_ar", "5271_ar", "5271_ar", "5271_ar", new Geolocation(0.0, 0.0), "");
          List<Stop> stops =    Arrays.asList(new Stop[] { s1, s2, s3});
        
                
-        List<PredictionGroup> pgs = svc.getPredictions(stops);
+        List<PredictionGroup> pgs = svc.getPredictions(r, stops);
         Assert.assertTrue(pgs.size() == stops.size()); // should be a predictions block for each request parameter
         
         boolean gotStop1 = false, gotStop2 = false, gotStop3 = false;

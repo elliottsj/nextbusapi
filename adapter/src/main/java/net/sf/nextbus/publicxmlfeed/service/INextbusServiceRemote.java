@@ -60,7 +60,7 @@ public interface INextbusServiceRemote extends Remote {
    
     public List<VehicleLocation> getVehicleLocations(Route route, long deltaT) throws ServiceException, RemoteException;
 
-    public PredictionGroup getPredictions(Stop s) throws ServiceException, RemoteException;
+    public List<PredictionGroup> getPredictions(Stop s) throws ServiceException, RemoteException;
    
     public PredictionGroup getPredictions(Route r, Stop s) throws ServiceException, RemoteException;
    
