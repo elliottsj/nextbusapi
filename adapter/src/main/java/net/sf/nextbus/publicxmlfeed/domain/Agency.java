@@ -38,7 +38,7 @@ package net.sf.nextbus.publicxmlfeed.domain;
  */
 public class Agency extends NextbusValueObject implements Comparable<Agency> {
 
-    static final long serialVersionUID = 6744877918139340774L;
+    static final long serialVersionUID = -3914701507430700194L;
     /**
      * Key identifier - example rutgers
      */
@@ -132,9 +132,6 @@ public class Agency extends NextbusValueObject implements Comparable<Agency> {
         if ((this.id == null) ? (other.id != null) : !this.id.equals(other.id)) {
             return false;
         }
-        if ((this.title == null) ? (other.title != null) : !this.title.equals(other.title)) {
-            return false;
-        }
         return true;
     }
 
@@ -142,7 +139,6 @@ public class Agency extends NextbusValueObject implements Comparable<Agency> {
     public int hashCode() {
         int hash = 7;
         hash = 59 * hash + (this.id != null ? this.id.hashCode() : 0);
-        hash = 59 * hash + (this.title != null ? this.title.hashCode() : 0);
         return hash;
     }
 
