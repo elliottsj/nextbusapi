@@ -29,6 +29,7 @@
  *
  ******************************************************************************/
 package net.sf.nextbus.publicxmlfeed.domain;
+import java.util.Date;
 
 /**
  * In real-time systems, value objects have an additional property of a birthday. Once objects
@@ -50,6 +51,11 @@ public interface TemporalValueObject {
       * @return birthdate from the Unix epoch.
       */
      public long getObjectTimestamp();
+     /**
+      * Gets the creation timestamp of the object since 1 January 1970 00:00:00 UTC
+      * @return 
+      */
+     public Date getTimestamp();
      
      /**
       * Gets the current age of the object in Seconds.

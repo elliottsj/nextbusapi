@@ -31,6 +31,7 @@
 package net.sf.nextbus.publicxmlfeed.domain;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Date;
 /**
  * Time and Position snapshot of a Vehicle on a Route and Direction.
  * <vehicle id="2094" routeTag="34" dirTag="34_1_var0" lat="42.2945228" lon="-71.1194256" secsSinceReport="52" predictable="true" heading="39" speedKmHr="0.0"/>
@@ -38,9 +39,8 @@ import java.util.Iterator;
  * @author jrd
  */
 public class VehicleLocation extends NextbusValueObject implements IGeocoded {
-     
-    static final long serialVersionUID = -2765729634023519599L;
-     
+    static final long serialVersionUID = 6693216783001986829L;
+
     /** Vehicle identifier */
     protected Vehicle vehicle;
     /** The Route the vehicle is assigned to. */
@@ -112,6 +112,15 @@ public class VehicleLocation extends NextbusValueObject implements IGeocoded {
      */
     public long getLastTimeUtc() {
         return super.createTimeUtc;
+    }
+    /**
+     * Last reported time at position since Jan 1, 1970 UTC.
+     */
+    public Date getLastTime() {
+        return new java.sql.Date(super.createTimeUtc);
+    }
+    public java.sql.Timestamp getFoo() {
+        return new java.sql.Timestamp(super.createTimeUtc);
     }
 
     /**

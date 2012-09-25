@@ -31,8 +31,7 @@
  *****************************************************************************
  */
 package net.sf.nextbus.publicxmlfeed.domain;
-
-import java.util.GregorianCalendar;
+import java.util.Date;
 
 /**
  * A NextBus Arrival/Departure Time Prediction element for a Stop.
@@ -44,7 +43,7 @@ import java.util.GregorianCalendar;
  * @author jrd
  */
 public class Prediction extends NextbusValueObject implements Comparable<Prediction> {
-    static final long serialVersionUID = 8892241960475516950L;
+    static final long serialVersionUID = 2345027968761350604L;  
   
     /**
      * The route that owns this prediction element.
@@ -67,7 +66,7 @@ public class Prediction extends NextbusValueObject implements Comparable<Predict
      * The Arrival of Departure time in UTC (Zulu) time - NOT the Local
      * Timezone!
      */
-    private Long predictedArrivalOrDepartureTimeUTC;
+    private Date predictedArrivalOrDepartureTimeUTC;
     /**
      * Is the predicted time for a bus Departure (true) or an Arrival (false)?
      */
@@ -118,7 +117,7 @@ public class Prediction extends NextbusValueObject implements Comparable<Predict
         this.tripTag = _tripTag;
         this.predictionForDepartureTime = _departure;
         this.predictionIncludesLayoverEstimate = _layover;
-        this.predictedArrivalOrDepartureTimeUTC = predictedTime;
+        this.predictedArrivalOrDepartureTimeUTC = new java.util.Date(predictedTime);
         this.delayed = _delayed;
         this.scheduleBasedPrediction = _scheduleBased;
     }
@@ -186,20 +185,29 @@ public class Prediction extends NextbusValueObject implements Comparable<Predict
 
     /**
      *
-     * @return The predicted Arrival or Depature time in milliseconds since 1
+     * @return The predicted Arrival or Depature time since 1
      * Jan 1970 00:00 UTC.
      */
-    public long getPredictedArrivalOrDepartureTimeUTC() {
+    public Date getPredictedArrivalOrDepartureTimeUTC() {
         return predictedArrivalOrDepartureTimeUTC;
     }
 
+    /**
+     * @return The predicted Arrival or Depature time in milliseconds since 1
+     * Jan 1970 00:00 UTC.
+     * @return 
+     */
+    public Long getPredictedArrivalOrDepartureTimeUTCMilliseconds() {
+        return predictedArrivalOrDepartureTimeUTC.getTime();
+    }
+    
     /**
      * Derived value:
      *
      * @return Seconds until the Arrival (or departure).
      */
-    public long getPredictedArrivalOrDepartureSeconds() {
-        return (predictedArrivalOrDepartureTimeUTC - System.currentTimeMillis()) / 1000;
+    public Long getPredictedArrivalOrDepartureSeconds() {
+        return (predictedArrivalOrDepartureTimeUTC.getTime() - System.currentTimeMillis()) / 1000;
     }
 
     /**

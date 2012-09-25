@@ -30,6 +30,7 @@
  ******************************************************************************/
 package net.sf.nextbus.publicxmlfeed.domain;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Base Class for NextBus Value Objects - Temporal, Serializable and must carry Copyright text.
@@ -37,9 +38,8 @@ import java.io.Serializable;
  * @author jrd
  */
 public abstract class NextbusValueObject implements Serializable, TemporalValueObject {
- 
+    static final long serialVersionUID = 2379203632011394940L;
     
-    static final long serialVersionUID = -2133869814808339041L;
     /** Timestamp to implement TemporalValueObject */ 
     protected final Long createTimeUtc;
     /** Copyright notice for Value object payload - assigned by either the Transit Agency or NextBus, or both. */
@@ -96,6 +96,10 @@ public abstract class NextbusValueObject implements Serializable, TemporalValueO
 
     public final long getObjectTimestamp() {
         return createTimeUtc;
+    }
+    
+    public Date getTimestamp() {
+       return new Date(createTimeUtc);
     }
 
     public final boolean isObjectOlderThan(long seconds) {

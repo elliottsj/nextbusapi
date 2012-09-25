@@ -104,7 +104,6 @@ public class NullServiceTest {
          Stop s2 = new Stop(mbta, "5271", "5271", "5271", "5271", new Geolocation(0.0, 0.0), "");
          Stop s3 = new Stop(mbta, "5271_ar", "5271_ar", "5271_ar", "5271_ar", new Geolocation(0.0, 0.0), "");
          List<Stop> stops =    Arrays.asList(new Stop[] { s1, s2, s3});
-       
                
         List<PredictionGroup> pgs = svc.getPredictions(r, stops);
         Assert.assertTrue(pgs.size() == stops.size()); // should be a predictions block for each request parameter
