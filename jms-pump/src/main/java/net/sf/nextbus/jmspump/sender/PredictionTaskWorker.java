@@ -34,6 +34,7 @@ package net.sf.nextbus.jmspump.sender;
 
 import java.util.Collection;
 import net.sf.nextbus.publicxmlfeed.service.INextbusService;
+import net.sf.nextbus.publicxmlfeed.domain.Route;
 import net.sf.nextbus.publicxmlfeed.domain.Stop;
 import net.sf.nextbus.publicxmlfeed.domain.PredictionGroup;
 import net.sf.nextbus.publicxmlfeed.domain.Prediction;
@@ -50,11 +51,13 @@ public class PredictionTaskWorker extends TaskWorker {
 
     final Logger log = LoggerFactory.getLogger(PredictionTaskWorker.class);
     private INextbusService nextbus;
+    private Route route;
     private List<Stop> stops;
 
-    public PredictionTaskWorker(INextbusService serviceEndpoint, List<Stop> stops, Long refresh) {
+    public PredictionTaskWorker(INextbusService serviceEndpoint, Route rte, List<Stop> stops, Long refresh) {
         super.limit = refresh;
         nextbus = serviceEndpoint;
+        this.route = rte;
         this.stops = stops;
     }
 
@@ -63,7 +66,7 @@ public class PredictionTaskWorker extends TaskWorker {
         try {
             List<Prediction> rv = new java.util.ArrayList<Prediction>();
             long last = System.currentTimeMillis();
-            List<PredictionGroup> predictionGroups = nextbus.getPredictions(stops);
+            List<PredictionGroup> predictionGroups = nextbus.getPredictions(route, stops);
             for (PredictionGroup pg : predictionGroups) {
                 log.trace(predictionGroups.size() + " prediction groups obtained for multistop call.");
                 // For each group - usually corresponding to a stop
