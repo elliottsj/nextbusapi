@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
  * *****************************************************************************
  * Copyright (C) 2011,2012 by James R. Doyle
@@ -49,30 +45,26 @@ public class PNMessageHeaderEnricher {
     }
 
     public String getAgencyId(Message m) {
-        return pn(m).getParent().getRoute().getAgency().getId();
+        return pn(m).getRoute().getAgency().getId();
     }
 
+    // the prediction needs the route
     public String getRouteId(Message m) {
-        return pn(m).getParent().getRoute().getTag();
+         return pn(m).getRoute().getTag();
     }
 
     public String getRouteName(Message m) {
-        return pn(m).getParent().getRoute().getTitle();
+        return pn(m).getRoute().getTitle();
     }
 
     public String getStopId(Message m) {
-        return pn(m).getParent().getTag();
+        return pn(m).getStop().getTag();
     }
 
     public String getStopName(Message m) {
-        return pn(m).getParent().getTitle();
+        return pn(m).getStop().getTitle();
     }
 
-    public String getShortStopName(Message m) {
-        return pn(m).getParent().getShortTitle();
-    }
-
-    // todo- Alternate stop names and attributes?
     public String getDirectionId(Message m) {
         return pn(m).getDirectionId();
     }
@@ -93,10 +85,9 @@ public class PNMessageHeaderEnricher {
         return pn(m).getBlock();
     }
 
-    public Long getPredictedArrivalOrDepartureTimeUTC(Message m) {
-        return pn(m).getPredictedArrivalOrDepartureTimeUTC();
+    public Long getPredictedArrivalOrDepartureTimeUTCMilliseconds(Message m) {
+        return pn(m).getPredictedArrivalOrDepartureTimeUTCMilliseconds();
     }
-
     public boolean isArrivalTimePrediction(Message m) {
         return pn(m).isArrivalTimePrediction();
     }
@@ -121,5 +112,7 @@ public class PNMessageHeaderEnricher {
     public String getCopyrightNotice(Message m) {
         return pn(m).getCopyrightNotice();
     }
-    // XXX TODO return pn(m).getObjectTimestamp();
+    public long getTimestamp(Message m){
+        return pn(m).getObjectTimestamp();
+    }
 }
