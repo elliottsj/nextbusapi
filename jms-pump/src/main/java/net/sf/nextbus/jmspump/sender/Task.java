@@ -62,13 +62,13 @@ public class Task {
 
     final Logger log = LoggerFactory.getLogger(Task.class);
     /**
-     * The freshness limit in milliseconds, defaults to 5 min for VehLocn, 10 min for Predictions
+     * The freshness limit in milliseconds, defaults to 5 min for VehLocn, 10
+     * min for Predictions
      */
     private long refreshIntervalVehicleLocations = 60 * 1000L;
     private long refreshIntervalPredictions = 10 * 60 * 1000L;
-    private boolean enableVehicleLocations = false;
-    private boolean enablePredictions = true;
-    
+    private boolean enableVehicleLocations;
+    private boolean enablePredictions;
     /**
      * Max number of NextBus HTTP calls to make per Scheduler pass
      */
@@ -88,10 +88,10 @@ public class Task {
     private Set<TaskWorker> work = new HashSet<TaskWorker>();
     private int successfulRuns;
     private int failedRuns;
-    
-    /** Inhibits the execute() method from doing work */
+    /**
+     * Inhibits the execute() method from doing work
+     */
     private boolean paused = true;
-
 
     /**
      * Ctor to configure task to poll all routes for a given agency
@@ -144,16 +144,20 @@ public class Task {
      * Post-construct init ; mandatory
      */
     public void init() {
-        if (enablePredictions) setupStopPredictionTasks();
-        if (enableVehicleLocations) setupVehicleLocationTasks();
-        
+        if (enablePredictions) {
+            setupStopPredictionTasks();
+        }
+        if (enableVehicleLocations) {
+            setupVehicleLocationTasks();
+        }
+
         // what if there is no work to do?
         if (work.size() == 0) {
             log.error("*** There are no available routes to work. Terminating.");
-            paused=true;
+            paused = true;
         }
     }
-    
+
     /**
      * Task Executor, should be called periodically as a Scheduled Task by
      * Spring Integration. The executor sweeps the Work table, finds things that
@@ -162,7 +166,7 @@ public class Task {
      * are logged, silently counted - but do not interfere with the harvesting
      * job. Thus, this message pumper is safe against transient nextbus
      * failures.
-
+     *
      * @return A collection of POJOs to insert into a Spring Integration
      * Channel.
      */
@@ -173,21 +177,21 @@ public class Task {
             log.info("Task is paused...");
             return workproducts;
         }
-        
+
         int done = 0;
         for (TaskWorker workItem : this.work) {
             // throttle
-            if (nextbusCalls+1 > maxNextbusCallsPerExecution) {
+            if (nextbusCalls + 1 > maxNextbusCallsPerExecution) {
                 log.debug("Limiting NextBus XML RPCs on this pass to maintain service level agreement upper threshhold.");
                 break;
             }
-            
+
             if (workItem.isOld()) {
                 workproducts.addAll(workItem.execute());
                 done++;
                 nextbusCalls++;
             } else {
-                log.trace("skipping; not time to do "+work);
+                log.trace("skipping; not time to do " + work);
             }
         }
         if (done > 0) {
@@ -196,27 +200,47 @@ public class Task {
         return workproducts;
     }
 
-    
+    /**
+     * Configures the Vehicle Locations task workers for each route.
+     */
     private void setupVehicleLocationTasks() {
-        for (Route route: routes) {
-            work.add(new VehicleLocationTaskWorker(nextbus,route,refreshIntervalVehicleLocations));
+        for (Route route : routes) {
+            work.add(new VehicleLocationTaskWorker(nextbus, route, refreshIntervalVehicleLocations));
         }
-        log.info("Setup Vehicle Location Tasks on "+routes.size()+" routes.");
+        log.info("Setup Vehicle Location Tasks on " + routes.size() + " routes.");
     }
+
+    /**
+     * Configures the Prediction tasks
+     */
     private void setupStopPredictionTasks() {
         // for each Route, get the stops list
+        System.out.println("Setting up Predictions Tasks on "+routes.size()+" routes ; this make take several minutes on large transit systems.");
         int totalStops = 0;
-        for (Route route: routes) {
+        int tasksConfigured = 0;
+        for (Route route : routes) {
             RouteConfiguration routeConfig = nextbus.getRouteConfiguration(route);
             List<Stop> stops = routeConfig.getStops();
-            work.add(new PredictionTaskWorker(nextbus, stops, refreshIntervalPredictions));
+            pause();
+            // The Service only permits up to 150 Stops per call ; on large transit systems its
+            // possible to encounter >150 Stops per route. So, carve up this list of stops into
+            // batches of 149 stops and feed these cut up peices with their own task worker.
+            int i = 0;
+            while (i<stops.size()) {
+                List<Stop> s = stops.subList(i, Math.min(i+149, stops.size()));
+                work.add(new PredictionTaskWorker(nextbus, route, s, refreshIntervalPredictions));
+                log.trace("added PredictionTaskWorker");
+                i=i+149;
+                tasksConfigured++;
+            }
             totalStops += stops.size();
         }
-        log.info("Setup Prediction Tasks on "+routes.size()+" routes with "+totalStops+" stops.");
+        
+        log.info("Setup "+totalStops+" prediction tasks covering " + totalStops + " stops.");
     }
+
     /**
-     * Determine the set of Routes to work for an agency
-     *
+     * Determine the set of Routes to work for an transit agency
      * @param agency
      * @param routes
      */
@@ -227,10 +251,10 @@ public class Task {
         // Configured for all routes?  That's the common use case.
         //   Just create a work element for each discovered route
         if (routes == null || routes.length == 0) {
-            System.out.print("Using all routes for agency: "+agency.getId()+", total of "+rs.size()+" :");
+            System.out.print("Using all routes for agency: " + agency.getId() + ", total of " + rs.size() + " :");
             for (Route r : rs) {
                 this.routes.add(r);
-                System.out.print(r.getTag()+",");
+                System.out.print(r.getTag() + ",");
             }
             System.out.println();
             return;
@@ -252,35 +276,43 @@ public class Task {
                 log.warn("route " + r + " not found is authoritative list of routes for agency " + agency);
             }
         }
-        
-        
+
+
     }
+
     public Integer getFailedRuns() {
         return failedRuns;
     }
+
     public Integer getSuccessfulRuns() {
         return successfulRuns;
     }
-    
+
     /**
-     * Pauses the sweeper task ; needed to support daemonization of the Main program.
-     * @param arg 
+     * Pauses the sweeper task ; needed to support daemonization of the Main
+     * program.
+     *
+     * @param arg
      */
-    public void setPaused(boolean arg) { 
-        paused=arg;
+    public void setPaused(boolean arg) {
+        paused = arg;
     }
 
     /*
-     * Sets max number RPCs per pass of the execute() method - for bandwidth levelling
+     * Sets max number RPCs per pass of the execute() method - for bandwidth
+     * levelling
      */
     public void setMaxNextbusCallsPerExecution(Integer arg) {
-        if (arg<=0) return;
+        if (arg <= 0) {
+            return;
+        }
         this.maxNextbusCallsPerExecution = arg;
     }
 
     /**
      * Sweep Predictions
-     * @param enablePredictions 
+     *
+     * @param enablePredictions
      */
     public void setEnablePredictions(boolean arg) {
         this.enablePredictions = arg;
@@ -288,7 +320,8 @@ public class Task {
 
     /**
      * Sweep Locations
-     * @param enableVehicleLocations 
+     *
+     * @param enableVehicleLocations
      */
     public void setEnableVehicleLocations(boolean arg) {
         this.enableVehicleLocations = arg;
@@ -296,7 +329,8 @@ public class Task {
 
     /**
      * Sets the holding time of Predictions
-     * @param refreshIntervalPredictions 
+     *
+     * @param refreshIntervalPredictions
      */
     public void setRefreshIntervalPredictions(Long arg) {
         this.refreshIntervalPredictions = arg;
@@ -304,11 +338,23 @@ public class Task {
 
     /**
      * sets the holding time of Locations
-     * @param refreshIntervalVehicleLocations 
+     *
+     * @param refreshIntervalVehicleLocations
      */
     public void setRefreshIntervalVehicleLocations(Long arg) {
         this.refreshIntervalVehicleLocations = arg;
     }
-    
-    
+
+    /**
+     * This is a hack to easy the bandwidth limit excesses during setup phase
+     * of Predictions on a large transit route, such as the MBTA.
+     */
+    private long setupPauseMilliseconds = 200L;
+    void pause() {
+        try {
+            Thread.sleep(setupPauseMilliseconds);
+        } catch (InterruptedException ie) {
+        }
+
+    }
 }
