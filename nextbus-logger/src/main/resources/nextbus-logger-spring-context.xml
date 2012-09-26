@@ -29,6 +29,7 @@
                 words, this is not a Two Phase Commit Strict solution!
                 ***********************************************************************
                 
+                author:   Jim Doyle,  Sept 2012
                 http://sourceforge.net/projects/nextbusapi/
     -->
     
@@ -36,17 +37,23 @@
     <bean id="nblogger" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="location" value="file:nblogger.properties"/>
     </bean>
-    
-    <!-- A JDBC DataSource to record VehicleLocation events -->
-    <bean id="dataSource" class="${nblogger.jdbc.dataSourceClass}">
-        <property name="user" value="${nblogger.jdbc.userName}"/>
-        <property name="password" value="${nblogger.jdbc.password}"/>
-        <property name="serverName" value="${nblogger.jdbc.serverName}"/>
-        <property name="portNumber" value="${nblogger.jdbc.port}"/>
-        <property name="databaseName" value="${nblogger.jdbc.databaseName}"/>
+     
+     <!-- This spring datasource impl is not suitable for production apps, but is fine for fooling around.... -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver" />
+        <property name="url" value="${nblogger.jdbc.url}" />
+        <property name="username" value="${nblogger.jdbc.userName}" />
+        <property name="password" value="${nblogger.jdbc.password}" />
+       
     </bean>
-    
-    <!-- A Connection Factory for your JMS Provider - in this case, ActiveMQ -->   
+    <bean id="jdbcExceptionTranslator" class="org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="databaseProductName" value="Apache Derby"/>
+        <property name="sqlErrorCodes" ref="derbySqlExceptionCodes"/>
+    </bean>
+
+    <!-- A Connection Factory for your JMS Provider - in this case, ActiveMQ -->
+    <!-- Topic vs. Queue is selected dynamically from Properties file values, rather than hardwired. -->
     <bean id="amq_connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
         <property name="brokerURL" value="${nblogger.activemq.brokerURL}" /> 
         <property name="userName" value="${nblogger.activemq.username}" />
@@ -54,54 +61,139 @@
         <!-- the clientID helps us see who's who in the ActiveMQ management console, under active connections -->
         <property name="clientIDPrefix" value="nextbus-logger"/>
     </bean>
-    
-    <!-- ***** And now the Spring Integration wiring. ***** -->
-    <!-- Declare an Error Channel and simply sent all events to log4j -->
-    <int:channel id="errorChannel" /> 
-    <int:logging-channel-adapter channel="errorChannel"  id="logger" log-full-message="true" level="ERROR"/>
-      
     <bean id="amq_topic" class="org.apache.activemq.command.ActiveMQTopic" lazy-init="true">
         <constructor-arg value="${nblogger.activemq.destination}" />
     </bean>
     <bean id="amq_queue" class="org.apache.activemq.command.ActiveMQQueue" lazy-init="true">
         <constructor-arg value="${nblogger.activemq.destination}" />
     </bean>
+    
+    <!-- ***** And now the Spring Integration wiring. ***** -->
+    <!-- Declare an Error Channel and simply sent all events to log4j -->
+    <int:channel id="errorChannel" /> 
+    <int:logging-channel-adapter channel="errorChannel" id="logger" log-full-message="true" level="ERROR"/>      
+    
 
 
     <!-- 
         Declare a new channel and feed it with a JMS Message Driven Bean 
     -->
     <int:channel id="nextbus"/>
-    <int-jms:message-driven-channel-adapter id="jms" 
+    <int-jms:message-driven-channel-adapter id="jms-in" 
                                             channel="nextbus" 
                                             acknowledge="auto"
                                             destination="${nblogger.activemq.destination_type}" 
                                             connection-factory="amq_connectionFactory"
                                             selector="${nblogger.activemq.message_selector}"
                                             extract-payload="true"/>
-       
-   <!-- 
-    An output channel adapter to insert to the database. Note how we rely entirely on
-    Message Headers and not Payload to do the job. You can use the Payload, which in
-    out case is a Java POJO of type VehicleLocation, but everything we need is in the headers.
-   -->
+    <int:channel id="nextbus-unmarshalled"/>
+    <!--
+        Use a Filter to switch traffic when JDBC is enabled. 
+        Further use a Router to segregate different Message Types to different JDBC handlers.
+    -->
     <int:channel id="logger-jdbc"/>
-    <int:filter input-channel="nextbus" output-channel="logger-jdbc" expression="${nblogger.sendto.jdbc}"/>
-    <int-jdbc:outbound-channel-adapter  id="sql-logger" channel="logger-jdbc" data-source="dataSource" keys-generated="false"
-      query="INSERT INTO NEXTBUS.VEHLCN (AGENCY, ROUTE, VEHICLE, LONGITUDE, LATITUDE, HEADING, LASTREPORT, TS, TSKEW) values 
-           (:headers[agencyId], :headers[routeId], :headers[vehicleId], :headers[longitude], :headers[latitude], :headers[heading], :headers[lastReportedTimeAtPosition], :headers[timestamp], :headers[timeSkew])"/>
-  
+    <int:channel id="logger-jdbc-vehlcn"/>
+    <int:channel id="logger-jdbc-prediction"/>
+    <int:channel id="logger-unrouteable"/>
+    <int:filter input-channel="nextbus" output-channel="logger-jdbc" expression="${nblogger.enable.jdbc}"/>
+    <int:payload-type-router input-channel="logger-jdbc" default-output-channel="logger-unrouteable">
+        <int:mapping channel="logger-jdbc-vehlcn" type="net.sf.nextbus.publicxmlfeed.domain.VehicleLocation"/>
+        <int:mapping channel="logger-jdbc-prediction" type="net.sf.nextbus.publicxmlfeed.domain.Prediction"/>    
+    </int:payload-type-router>
+    <int:logging-channel-adapter id="unrlog" channel="logger-unrouteable" level="ERROR" expression="'unroutable message type....'" />
+   <!-- 
+    An output channel adapter to insert to the database. Note how we use a SqlParamaterFactory helper bean
+    to ready the parameters for the SQL PreparedStatement. We do this so we can access the Header Map, using SpEL,
+    as well as directly access the accessor methods on the POJO payload.
+   -->
+    
+    <int-jdbc:outbound-channel-adapter  id="sql-logger-1" channel="logger-jdbc-vehlcn" data-source="dataSource" keys-generated="false" 
+                                        query="INSERT INTO NEXTBUS.VEHLCN (AGENCY, ROUTE, VEHICLE, LONGITUDE, LATITUDE, HEADING, LASTREPORT, TIMESKEW, SPEEDMPH) values 
+           (:agencyId, :routeId, :vehicleId, :longitude, :latitude, :heading, :lastReport, :timeSkew, :speed  )"
+                                        sql-parameter-source-factory="pf1"/>
+    <bean id="pf1" class="org.springframework.integration.jdbc.ExpressionEvaluatingSqlParameterSourceFactory">
+        <property name="parameterExpressions">
+            <map>
+                <entry key="agencyId"     value="headers['agencyId']"/>
+                <entry key="routeId"      value="headers['routeId']"/>
+                <entry key="vehicleId"    value="headers['vehicleId']"/>
+                <entry key="longitude"    value="headers['longitude']"/>
+                <entry key="latitude"     value="headers['latitude']"/>
+                <entry key="heading"      value="headers['heading']"/>
+                <entry key="speed"        value="headers['speedMPH']"/>
+                <entry key="timeSkew"     value="headers['timeSkew']"/>
+                <entry key="lastReport"   value="new java.sql.Timestamp(payload.getLastTime().getTime())"/>
+            </map>
+        </property>
+    </bean>
+ 
+ 
+ 
+    
+    <int-jdbc:outbound-channel-adapter  id="sql-logger-2" channel="logger-jdbc-prediction" data-source="dataSource" keys-generated="false"
+                                        query="INSERT INTO NEXTBUS.PREDXN (AGENCY, ROUTEID, STOPID, DIRECTIONID, VEHICLE, BLOCK, BRANCH, TRIP, ARRIVAL, DEPARTURE, SCHEDULEPDN, HEURISTICPDN, DELAYED, PREDICTION, CRTIME) values 
+           (:agencyId, :routeId, :stopId, :directionId, :vehicleId, :block, :branch, :tripTag, :arrivalPrediction, :departurePrediction, :schedPrediction, :heuristicPrediction, :delayed, :prednTime, :crTime )"
+                                        sql-parameter-source-factory="pf2"/>
+    <bean id="pf2" class="org.springframework.integration.jdbc.ExpressionEvaluatingSqlParameterSourceFactory">
+        <property name="parameterExpressions">
+            <map>
+                <entry key="agencyId"            value="headers['agencyId']"/>
+                <entry key="routeId"             value="headers['routeId']"/>
+                <entry key="stopId"              value="headers['stopId']"/>
+                <entry key="directionId"         value="headers['directionId']"/>
+                <entry key="vehicleId"           value="headers['vehicleId']"/>
+                <entry key="block"               value="headers['block']"/>
+                <entry key="branch"              value="headers['branch']"/>
+                <entry key="tripTag"             value="headers['tripTag']"/>
+                <entry key="arrivalPrediction"   value="headers['isArrivalTimePrediction']"/>  
+                <entry key="departurePrediction" value="headers['isDepartureTimePrediction']"/>
+                <entry key="schedPrediction"     value="headers['isScheduleBasedPrediction']"/>
+                <entry key="heuristicPrediction" value="headers['isHeuristicBasedPrediction']"/>
+                <entry key="delayed"             value="headers['isDelayed']"/>
+                <entry key="prednTime"           value="new java.sql.Timestamp(payload.getPredictedArrivalOrDepartureTimeUTC().getTime())"/>
+                <entry key="crTime"              value="new java.sql.Timestamp(payload.getTimestamp().getTime())"/>
+            </map>
+        </property>
+    </bean>
+    
+  <!--
+    An output channel adapter to write Serialized JAVA POJOs into a Database table. This is an alternate
+    to logging classes to the filesystem. It can be a useful way to tap payload traffic to an archive, an
+    audit log, or just to generate a working data set for driving future simulations or unit tests.
+    
+    We do some tricks here: For one, extract the Classname using a Header Enricher.  SPeL protects access to getClass()
+    to avoid reaching the underlying Classloader - which would be a security hole. So, we have to use some tricks to
+    simply get the classname. Second,, we use a Serializing transformer to marshall the Payload back to a byte-stream
+    so that we can persist it to a BLOB column.
+   -->
+    <int:channel id="logger-serialized-pojos"/>
+    <int:filter input-channel="logger-jdbc" output-channel="logger-serialized-pojos" expression="${nblogger.enable.jdbc-serialized}"/>
+    <int:header-enricher id="enr1" input-channel="logger-serialized-pojos" output-channel="logger-serialized-pojos">
+        <int:header name="payloadClassname" expression="payload.getClass()+''" />
+    </int:header-enricher>
+    <int:payload-serializing-transformer  input-channel="logger-serialized-pojos" output-channel="logger-serialized-pojos"/>  
+    <int-jdbc:outbound-channel-adapter  id="sql-serialized-logger" channel="logger-serialized-pojos" data-source="dataSource" keys-generated="false"
+                                        query="INSERT INTO NEXTBUS.SERIALIZED (SERIALIZED, CLASS) values (:pojo, :classname )"
+                                        sql-parameter-source-factory="pf3"                                />
+    <bean id="pf3" class="org.springframework.integration.jdbc.ExpressionEvaluatingSqlParameterSourceFactory">
+        <property name="parameterExpressions">
+            <map>
+                <entry key="pojo"       value="payload"/>
+                <entry key="classname"  value="headers['payloadClassname']"/>
+            </map>
+        </property>
+    </bean>
    
-    <!-- A channel for printing to STDOUT -->
+    <!-- A channel adapter for printing to STDOUT ; enabled by properties file value -->
     <int:channel id="logger-stdout"/>
-    <int:filter input-channel="nextbus" output-channel="logger-stdout" expression="${nblogger.sendto.stdout}"/>
+    <int:filter input-channel="nextbus" output-channel="logger-stdout" expression="${nblogger.enable.stdout}"/>
     <int-stream:stdout-channel-adapter id="stdout" channel="logger-stdout"  append-newline="true"  />
      
-    <!-- A channel that sends the Payload, a Serialized POJO - to the filesystem -->
+       
+    <!-- A channel that sends the the serialized POJO payload to the filesystem ; enabled by properties file value -->
     <int:channel id="logger-filesystem"/>
-    <int:filter input-channel="nextbus" output-channel="logger-filesystem" expression="${nblogger.sendto.filesystem}"/>
-    <int:payload-serializing-transformer  input-channel="nextbus" output-channel="logger-filesystem"/>    
+    <int:filter input-channel="nextbus" output-channel="logger-filesystem" expression="${nblogger.enable.filesystem}"/>
+    <int:payload-serializing-transformer  input-channel="logger-filesystem" output-channel="logger-filesystem"/>    
     <int-file:outbound-channel-adapter channel="logger-filesystem" directory="${nblogger.filesystem.directory}" />
-  
   
 </beans>

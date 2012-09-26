@@ -37,7 +37,7 @@
         <dependency>
             <groupId>net.sf.nextbus.publicxmlfeed</groupId>
             <artifactId>nextbus-adapter</artifactId>
-            <version>0.9.5-RELEASE</version>
+            <version>1.0.1-RELEASE</version>
         </dependency>
       <!-- Minimum Footprint for Spring Integration for this projects needs -->
         <!-- Spring 3.0.7 + Integration 2.1.0 -->
@@ -97,11 +97,6 @@
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.16</version>
-        </dependency>
-        <dependency>
-            <groupId>net.sf.nextbus</groupId>
-            <artifactId>nextbus-jms-pump</artifactId>
-            <version>1.0.1-RELEASE</version>
         </dependency>
     </dependencies>
     <build>
