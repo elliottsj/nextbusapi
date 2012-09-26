@@ -73,7 +73,7 @@
         <dependency>
             <groupId>net.sf.nextbus.publicxmlfeed</groupId>
             <artifactId>nextbus-adapter</artifactId>
-            <version>0.9.6-RELEASE</version>
+            <version>1.0.1-RELEASE</version>
         </dependency>
         
         

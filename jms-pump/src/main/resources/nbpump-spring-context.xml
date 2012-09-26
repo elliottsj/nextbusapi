@@ -91,7 +91,7 @@
         <int:header name="speedKmHr" ref="enr1" method="getSpeedKmHr" />
         <int:header name="speedMPH" ref="enr1" method="getSpeedMPH" />
         <int:header name="timestamp" ref="enr1" method="getTimestamp" />
-        <int:header name="lastReportedTimeAtPosition" ref="enr1" method="getLastReportedTimeAtPosition" />
+        <int:header name="lastReportedTimeAtPosition" ref="enr1" method="getLastReportedTimeAtPosition" />     
         <int:header name="timeSkew" ref="enr1" method="getTimeSkew" />
         <int:header name="isHeadingAvailable" ref="enr1" method="isHeadingAvailable" />
         <int:header name="isPredictable" ref="enr1" method="isPredictable" />
@@ -104,14 +104,13 @@
         <int:header name="routeId" ref="enr2" method="getRouteId" />
         <int:header name="routeName" ref="enr2" method="getRouteName" />
         <int:header name="stopId" ref="enr2" method="getStopId" />
-        <int:header name="stopShortName" ref="enr2" method="getShortStopName"/>
         <int:header name="stopName" ref="enr2" method="getStopName"/>
         <int:header name="directionId" ref="enr2" method="getDirectionId" />
         <int:header name="vehicleId" ref="enr2" method="getVehicleId" />
         <int:header name="tripTag" ref="enr2" method="getTripTag" />
         <int:header name="block" ref="enr2" method="getBlock" />
         <int:header name="branch" ref="enr2" method="getBranch" />
-        <int:header name="predictedTime" ref="enr2" method="getPredictedArrivalOrDepartureTimeUTC" />
+        <int:header name="predictedTime" ref="enr2" method="getPredictedArrivalOrDepartureTimeUTCMilliseconds" />
         <int:header name="isArrivalTimePrediction" ref="enr2" method="isArrivalTimePrediction"/>
         <int:header name="isDepartureTimePrediction" ref="enr2" method="isDepartureTimePrediction"/>
         <int:header name="isPredictionIncludesLayoverEstimate" ref="enr2" method="isPredictionIncludesLayoverEstimate"/>
@@ -119,6 +118,7 @@
         <int:header name="isScheduleBasedPrediction" ref="enr2" method="isScheduleBasedPrediction" />
         <int:header name="isHeuristicBasedPrediction" ref="enr2" method="isHeuristicBasedPrediction" />
         <int:header name="copyright" ref="enr2" method="getCopyrightNotice" />
+        <int:header name="timestamp" ref="enr2" method="getTimestamp" />
     </int:header-enricher>
     <!-- 
         Combine the subchannels for VehLocn and Prediction. Send this merged message stream to
