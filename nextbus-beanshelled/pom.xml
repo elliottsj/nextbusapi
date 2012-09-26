@@ -4,7 +4,7 @@
     <name>NextBus Adapter Beanshell Demo</name>
     <groupId>net.sf.nextbus</groupId>
     <artifactId>nextbus-adapter-beanshelled</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.1-RELEASE</version>
     <packaging>jar</packaging>
     <url>http://sourceforge.net/projects/nextbusapi/</url>
     <description>Packages an Executable Überjar with Nextbus Adapter and Beanshell for demo use of API.</description>
@@ -34,7 +34,7 @@
         <dependency>
             <groupId>net.sf.nextbus.publicxmlfeed</groupId>
             <artifactId>nextbus-adapter</artifactId>
-            <version>0.9.6-RELEASE</version>
+            <version>1.0.1-RELEASE</version>
         </dependency>  
         <dependency>
             <groupId>org.beanshell</groupId>
