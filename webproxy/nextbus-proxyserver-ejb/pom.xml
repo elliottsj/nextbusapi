@@ -6,7 +6,6 @@
         <groupId>net.sf.nextbus.</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-
     <groupId>net.sf.nextbus.</groupId>
     <artifactId>nextbus-proxyserver-ejb</artifactId>
     <version>1.0-SNAPSHOT</version>
@@ -42,7 +41,7 @@
         <dependency>
             <groupId>net.sf.nextbus.publicxmlfeed</groupId>
             <artifactId>nextbus-adapter</artifactId>
-            <version>0.9.6-RELEASE</version>
+            <version>1.0.1-RELEASE</version>
         </dependency>    
         
         <dependency>
