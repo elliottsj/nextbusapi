@@ -253,7 +253,7 @@ public class DomainFactory {
             long lastTime = System.currentTimeMillis() - v.getSecsSinceReport() * 1000;
 
             VehicleLocation vehLcn = new VehicleLocation(route, v.getId(), v.getDirTag(),
-                    v.isPredictable().booleanValue(), lastPosition, lastTime, v.getSpeedKmHr().doubleValue(), v.getHeading().doubleValue(), cpyRt);
+                    v.isPredictable().booleanValue(), lastPosition, lastTime, v.getSpeedKmHr(), v.getHeading(), cpyRt);
             returnValue.add(vehLcn);
         }
         return returnValue;

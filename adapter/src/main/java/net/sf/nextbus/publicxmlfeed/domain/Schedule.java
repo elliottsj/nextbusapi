@@ -157,6 +157,14 @@ public abstract class Schedule extends NextbusValueObject {
             protected Short stopTimeMinutes;
             
             protected StopScheduleTime() {} 
+            /**
+             * Ctor for DomainFactory.
+             * TODO:  This element is constructed from data like this: <stop tag="61871" epochTime="65700000">18:15:00</stop>
+             * 
+             * @param id
+             * @param hour local timezone hour
+             * @param minutes local timezone minutes
+             */
             public StopScheduleTime(String id, Short hour, Short minutes) {
                 super(id,false);
                 stopId=id;  
@@ -186,6 +194,10 @@ public abstract class Schedule extends NextbusValueObject {
                 return this.stopTimeHour.compareTo(o.stopTimeHour) *60 + this.stopTimeMinutes.compareTo(o.stopTimeMinutes);
             }   
         }
+    }
+
+    public List<Block> getScheduleBlocks() {
+        return scheduleBlocks;
     }
     
     
