@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+    <display-name>JMS MDB + HTML 5 POC</display-name>
+    <description></description>
+    <welcome-file-list>
+        <welcome-file>
+            /index.jsp
+        </welcome-file>
+    </welcome-file-list>
+        
+     <error-page>
+       <location>/error.jsp</location>
+     </error-page>
+     
+    <servlet>
+        <servlet-name>locationView</servlet-name>
+        <jsp-file>/WEB-INF/jsp/location.jsp</jsp-file>
+    </servlet>
+    <servlet>
+        <servlet-name>eventstreamView</servlet-name>
+        <jsp-file>/WEB-INF/jsp/events.jsp</jsp-file>
+    </servlet>
+    <servlet>
+        <servlet-name>infoView</servlet-name>
+        <jsp-file>/WEB-INF/jsp/info.jsp</jsp-file>
+    </servlet>
+    
+    <servlet-mapping>
+          <servlet-name>locationView</servlet-name>
+          <url-pattern>/location/view</url-pattern>
+    </servlet-mapping>
+     <servlet-mapping>
+          <servlet-name>eventstreamView</servlet-name>
+          <url-pattern>/eventstream/view</url-pattern>
+    </servlet-mapping>
+     <servlet-mapping>
+          <servlet-name>infoView</servlet-name>
+          <url-pattern>/info/view</url-pattern>
+    </servlet-mapping>
+   
+</web-app>
+

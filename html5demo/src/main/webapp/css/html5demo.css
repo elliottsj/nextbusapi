@@ -1,0 +1,27 @@
+/* 
+    Document   : html5demo
+    Created on : Nov 24, 2013, 3:55:00 PM
+    Author     : jrd
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+#warnings {
+    border-color: crimson;
+    border: crimson;
+    text-decoration-color: crimson;
+}
+
+label, input {
+    text-align: center;
+}
+
+label {
+    text-align: center;
+}
+
+
