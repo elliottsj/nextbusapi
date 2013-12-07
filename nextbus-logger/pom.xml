@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.sf.nextbus</groupId>
     <artifactId>nextbus-logger</artifactId>
-    <version>1.0.1-RELEASE</version>
+    <version>1.0.2-RELEASE</version>
     <packaging>jar</packaging>
     <name>nextbus-logger-demo</name>
     <url>http://sourceforge.net/projects/nextbusapi/</url>
@@ -31,61 +31,64 @@
     </licenses>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring-version>3.1.4.RELEASE</spring-version>
+        <spring-integration-version>2.2.5.RELEASE</spring-integration-version>
     </properties>
+    
     <dependencies>
         
         <dependency>
             <groupId>net.sf.nextbus.publicxmlfeed</groupId>
             <artifactId>nextbus-adapter</artifactId>
-            <version>1.0.1-RELEASE</version>
+            <version>1.0.2-RELEASE</version>
         </dependency>
       <!-- Minimum Footprint for Spring Integration for this projects needs -->
         <!-- Spring 3.0.7 + Integration 2.1.0 -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-            <version>3.0.7.RELEASE</version>
+            <version>${spring-version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
-            <version>3.0.7.RELEASE</version>
+            <version>${spring-version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jms</artifactId>
-            <version>3.0.7.RELEASE</version>
+            <version>${spring-version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.integration</groupId>
             <artifactId>spring-integration-core</artifactId>
-            <version>2.1.2.RELEASE</version>
+            <version>${spring-integration-version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.integration</groupId>
             <artifactId>spring-integration-jms</artifactId>
-            <version>2.1.2.RELEASE</version>
+            <version>${spring-integration-version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.integration</groupId>
             <artifactId>spring-integration-stream</artifactId>
-            <version>2.1.2.RELEASE</version>
+            <version>${spring-integration-version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.integration</groupId>
             <artifactId>spring-integration-jdbc</artifactId>
-            <version>2.1.0.RELEASE</version>
+            <version>${spring-integration-version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.integration</groupId>
             <artifactId>spring-integration-file</artifactId>
-            <version>2.1.0.RELEASE</version>
+            <version>${spring-integration-version}</version>
         </dependency>
         <!-- Change this if using a different Messaging provider (i.e. Rabbit, JBoss, etc)-->
         <dependency>
             <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-all</artifactId>
-            <version>5.6.0</version>
+            <artifactId>activemq-client</artifactId>
+            <version>5.9.0</version>
         </dependency>
         <!-- Change this id using a different Database Vendor -->
         <dependency>
@@ -93,6 +96,9 @@
             <artifactId>derbyclient</artifactId>
             <version>10.4.2.0</version>
         </dependency>
+        
+        
+    
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
