@@ -7,7 +7,7 @@
        xmlns:bean="http://www.springframework.org/schema/beans"
        xmlns:stream="http://www.springframework.org/schema/integration/stream"
        xsi:schemaLocation="
-       http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-2.1.xsd
+       http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-2.2.xsd
        http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
@@ -131,5 +131,5 @@
     <jms:outbound-channel-adapter id="adapter2" channel="nextbus-pumped" 
                                   destination="${nbpumper.sender_type}" 
                                   connection-factory="jmsConnectionFactory" 
-                                  time-to-live="${nbpumper.jms.ttl}"/>
+                                  />
 </beans>
