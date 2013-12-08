@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>net.sf.nextbus</groupId>
+    <artifactId>nextbus-logger</artifactId>
+    <version>1.0.2-RELEASE</version>
+    <packaging>jar</packaging>
+    <name>nextbus-logger-demo</name>
+    <url>http://sourceforge.net/projects/nextbusapi/</url>
+    <description>
+        The Logger Demo is a Companion to the Nextbus JMS Pump Daemon. It demonstrates
+        the flexibility and power of Spring Integration and JMS when using the
+        asynchronous, message-driven strategy for application integration.  The Logger
+        observed VehicleLocation events on that arrive on the ESB and records them to 
+        a database table. 
+    </description>    
+    <developers>
+        <developer>
+            <id>jrd</id>
+            <name>James R. Doyle</name>
+            <email>rockymtnmagic@gmail.com</email>
+        </developer>
+    </developers>
+    <licenses>
+        <license>
+            <name>GNU LESSER GENERAL PUBLIC LICENSE</name>
+            <url>http://www.gnu.org/licenses/lgpl.html</url>
+            <comments>The LGPL Covers the Source Code</comments>
+        </license>
+    </licenses>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring-version>3.1.4.RELEASE</spring-version>
+        <spring-integration-version>2.2.5.RELEASE</spring-integration-version>
+    </properties>
+    
+    <dependencies>
+        
+        <dependency>
+            <groupId>net.sf.nextbus.publicxmlfeed</groupId>
+            <artifactId>nextbus-adapter</artifactId>
+            <version>1.0.2-RELEASE</version>
+        </dependency>
+      <!-- Minimum Footprint for Spring Integration for this projects needs -->
+        <!-- Spring 3.0.7 + Integration 2.1.0 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${spring-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jms</artifactId>
+            <version>${spring-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-core</artifactId>
+            <version>${spring-integration-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-jms</artifactId>
+            <version>${spring-integration-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-stream</artifactId>
+            <version>${spring-integration-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-jdbc</artifactId>
+            <version>${spring-integration-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-file</artifactId>
+            <version>${spring-integration-version}</version>
+        </dependency>
+        <!-- Change this if using a different Messaging provider (i.e. Rabbit, JBoss, etc)-->
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-client</artifactId>
+            <version>5.9.0</version>
+        </dependency>
+        <!-- Change this id using a different Database Vendor -->
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derbyclient</artifactId>
+            <version>10.4.2.0</version>
+        </dependency>
+        
+        
+    
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.16</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <!-- Shade Plugin is used to Build the Uberjar -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <manifestEntries>
+                                        <Main-Class>net.sf.nextbus.nextbuslogger.Main</Main-Class>
+                                        <Class-Path>.</Class-Path>
+                                    </manifestEntries>
+                                </transformer>
+                                <transformer
+                                    implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                    <resource>META-INF/spring.handlers</resource>
+                                </transformer>
+                                <transformer
+                                    implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                    <resource>META-INF/spring.schemas</resource>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin> 
+        </plugins>
+    </build>
+</project>

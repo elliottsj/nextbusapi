@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<body copyright="All data copyright MBTA 2012.">
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Ruggles Station - Lane 2" stopTag="17863">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091280000" seconds="355" minutes="5" isDeparture="true" affectedByLayover="true" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348092000000" seconds="1075" minutes="17" isDeparture="true" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348092900000" seconds="1975" minutes="32" isDeparture="true" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+            <prediction epochTime="1348093800000" seconds="2875" minutes="47" isDeparture="true" affectedByLayover="true" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643523" />  
+            <prediction epochTime="1348094700000" seconds="3775" minutes="62" isDeparture="true" affectedByLayover="true" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643524" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Malcolm X Blvd @ King St" stopTag="11257">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091552369" seconds="627" minutes="10" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348092272369" seconds="1347" minutes="22" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348093172369" seconds="2247" minutes="37" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+            <prediction epochTime="1348094072369" seconds="3147" minutes="52" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643523" />  
+            <prediction epochTime="1348094972369" seconds="4047" minutes="67" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643524" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Malcolm X Blvd opp Madison Park HS" stopTag="1259">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091591437" seconds="667" minutes="11" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348092311437" seconds="1387" minutes="23" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348093211437" seconds="2287" minutes="38" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+            <prediction epochTime="1348094111437" seconds="3187" minutes="53" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643523" />  
+            <prediction epochTime="1348095011437" seconds="4087" minutes="68" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643524" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Malcolm X Blvd opp O&apos;Bryant HS" stopTag="11323">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091609896" seconds="685" minutes="11" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348092329896" seconds="1405" minutes="23" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348093229896" seconds="2305" minutes="38" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+            <prediction epochTime="1348094129896" seconds="3205" minutes="53" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643523" />  
+            <prediction epochTime="1348095029896" seconds="4105" minutes="68" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643524" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Malcolm X Blvd @ Shawmut Ave" stopTag="11259">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091642296" seconds="717" minutes="11" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348092362296" seconds="1437" minutes="23" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348093262296" seconds="2337" minutes="38" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+            <prediction epochTime="1348094162296" seconds="3237" minutes="53" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643523" />  
+            <prediction epochTime="1348095062296" seconds="4137" minutes="68" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643524" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Dudley Station" stopTag="64000">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348090939684" seconds="15" minutes="0" isDeparture="false" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643519" />  
+            <prediction epochTime="1348091768895" seconds="844" minutes="14" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348092488895" seconds="1564" minutes="26" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348093388895" seconds="2464" minutes="41" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+            <prediction epochTime="1348094288895" seconds="3364" minutes="56" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643523" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Dudley St @ Greenville St" stopTag="1493">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091071203" seconds="146" minutes="2" isDeparture="false" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643519" />  
+            <prediction epochTime="1348091900414" seconds="975" minutes="16" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348092620414" seconds="1695" minutes="28" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348093520414" seconds="2595" minutes="43" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+            <prediction epochTime="1348094420414" seconds="3495" minutes="58" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643523" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Dudley St @ Mt Pleasant Ave" stopTag="1494">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091101311" seconds="176" minutes="2" isDeparture="false" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643519" />  
+            <prediction epochTime="1348091930522" seconds="1006" minutes="16" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348092650522" seconds="1726" minutes="28" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348093550522" seconds="2626" minutes="43" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+            <prediction epochTime="1348094450522" seconds="3526" minutes="58" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643523" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Dudley St @ Adams St" stopTag="1495">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348090941961" seconds="17" minutes="0" isDeparture="false" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643518" />  
+            <prediction epochTime="1348091136621" seconds="212" minutes="3" isDeparture="false" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643519" />  
+            <prediction epochTime="1348091965832" seconds="1041" minutes="17" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348092685832" seconds="1761" minutes="29" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348093585832" seconds="2661" minutes="44" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="381 Dudley St opp Hampden St" stopTag="1496">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091012601" seconds="88" minutes="1" isDeparture="false" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643518" />  
+            <prediction epochTime="1348091207261" seconds="282" minutes="4" isDeparture="false" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643519" />  
+            <prediction epochTime="1348092036472" seconds="1112" minutes="18" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348092756472" seconds="1832" minutes="30" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348093656472" seconds="2732" minutes="45" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Mt Pleasant Ave" stopTag="1577">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091066630" seconds="142" minutes="2" isDeparture="false" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643518" />  
+            <prediction epochTime="1348091261290" seconds="336" minutes="5" isDeparture="false" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643519" />  
+            <prediction epochTime="1348092090501" seconds="1166" minutes="19" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348092810501" seconds="1886" minutes="31" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348093710501" seconds="2786" minutes="46" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Winthrop St" stopTag="1578">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091118949" seconds="194" minutes="3" isDeparture="false" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643518" />  
+            <prediction epochTime="1348091313609" seconds="389" minutes="6" isDeparture="false" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643519" />  
+            <prediction epochTime="1348092142820" seconds="1218" minutes="20" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348092862820" seconds="1938" minutes="32" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348093762820" seconds="2838" minutes="47" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave opp Stafford St" stopTag="1579">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091155237" seconds="230" minutes="3" isDeparture="false" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643518" />  
+            <prediction epochTime="1348091349897" seconds="425" minutes="7" isDeparture="false" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643519" />  
+            <prediction epochTime="1348092179108" seconds="1254" minutes="20" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348092899108" seconds="1974" minutes="32" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348093799108" seconds="2874" minutes="47" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Irwin St" stopTag="1580">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091191086" seconds="266" minutes="4" isDeparture="false" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643518" />  
+            <prediction epochTime="1348091385746" seconds="461" minutes="7" isDeparture="false" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643519" />  
+            <prediction epochTime="1348092214957" seconds="1290" minutes="21" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348092934957" seconds="2010" minutes="33" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348093834957" seconds="2910" minutes="48" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Clifford St" stopTag="1581">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091255317" seconds="330" minutes="5" isDeparture="false" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643518" />  
+            <prediction epochTime="1348091449977" seconds="525" minutes="8" isDeparture="false" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643519" />  
+            <prediction epochTime="1348092279188" seconds="1354" minutes="22" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348092999188" seconds="2074" minutes="34" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348093899188" seconds="2974" minutes="49" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Edgewood St" stopTag="1582">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091299028" seconds="374" minutes="6" isDeparture="false" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643518" />  
+            <prediction epochTime="1348091493688" seconds="569" minutes="9" isDeparture="false" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643519" />  
+            <prediction epochTime="1348092322899" seconds="1398" minutes="23" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348093042899" seconds="2118" minutes="35" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348093942899" seconds="3018" minutes="50" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Maywood St" stopTag="15820">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091333327" seconds="408" minutes="6" isDeparture="false" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643518" />  
+            <prediction epochTime="1348091527987" seconds="603" minutes="10" isDeparture="false" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643519" />  
+            <prediction epochTime="1348092357198" seconds="1432" minutes="23" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348093077198" seconds="2152" minutes="35" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348093977198" seconds="3052" minutes="50" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Quincy St" stopTag="1583">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091373766" seconds="449" minutes="7" isDeparture="false" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643518" />  
+            <prediction epochTime="1348091568426" seconds="643" minutes="10" isDeparture="false" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643519" />  
+            <prediction epochTime="1348092397637" seconds="1473" minutes="24" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348093117637" seconds="2193" minutes="36" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348094017637" seconds="3093" minutes="51" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Gaston St" stopTag="1584">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091423624" seconds="499" minutes="8" isDeparture="false" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643518" />  
+            <prediction epochTime="1348091618284" seconds="693" minutes="11" isDeparture="false" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643519" />  
+            <prediction epochTime="1348092447495" seconds="1522" minutes="25" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348093167495" seconds="2242" minutes="37" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348094067495" seconds="3142" minutes="52" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Brunswick St" stopTag="1585">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091472714" seconds="548" minutes="9" isDeparture="false" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643518" />  
+            <prediction epochTime="1348091667374" seconds="742" minutes="12" isDeparture="false" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643519" />  
+            <prediction epochTime="1348092496585" seconds="1572" minutes="26" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348093216585" seconds="2292" minutes="38" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348094116585" seconds="3192" minutes="53" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Av @ Stanwood St" stopTag="1586">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091514364" seconds="589" minutes="9" isDeparture="false" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643518" />  
+            <prediction epochTime="1348091709024" seconds="784" minutes="13" isDeparture="false" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643519" />  
+            <prediction epochTime="1348092538235" seconds="1613" minutes="26" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348093258235" seconds="2333" minutes="38" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348094158235" seconds="3233" minutes="53" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Wayne St" stopTag="413">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091642593" seconds="717" minutes="11" isDeparture="false" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643518" />  
+            <prediction epochTime="1348091837253" seconds="912" minutes="15" isDeparture="false" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643519" />  
+            <prediction epochTime="1348092666464" seconds="1741" minutes="29" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348093386464" seconds="2461" minutes="41" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348094286464" seconds="3361" minutes="56" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Seaver St" stopTag="414">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091674082" seconds="749" minutes="12" isDeparture="false" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643518" />  
+            <prediction epochTime="1348091868742" seconds="944" minutes="15" isDeparture="false" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643519" />  
+            <prediction epochTime="1348092697953" seconds="1773" minutes="29" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348093417953" seconds="2493" minutes="41" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348094317953" seconds="3393" minutes="56" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave opp Columbia Rd - Franklin Park Zoo" stopTag="415" dirTitleBecauseNoPredictions="Ashmont Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave opp Charlotte St" stopTag="416" dirTitleBecauseNoPredictions="Ashmont Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ American Legion Hwy" stopTag="417" dirTitleBecauseNoPredictions="Ashmont Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Calder St" stopTag="418" dirTitleBecauseNoPredictions="Ashmont Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Angell St" stopTag="419" dirTitleBecauseNoPredictions="Ashmont Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot Ave @ Franklin Field" stopTag="9412" dirTitleBecauseNoPredictions="Ashmont Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Opp 70 Talbot Ave" stopTag="420" dirTitleBecauseNoPredictions="Ashmont Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot Ave opp Kerwin St" stopTag="421" dirTitleBecauseNoPredictions="Ashmont Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot Ave @ Bernard St" stopTag="422" dirTitleBecauseNoPredictions="Ashmont Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot Ave @ New England Ave" stopTag="423" dirTitleBecauseNoPredictions="Ashmont Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot Ave @ Colonial Ave" stopTag="424" dirTitleBecauseNoPredictions="Ashmont Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot Ave @ Norfolk St" stopTag="425" dirTitleBecauseNoPredictions="Ashmont Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot Ave @ Lithgow St" stopTag="426" dirTitleBecauseNoPredictions="Ashmont Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot Ave @ Brent St" stopTag="427" dirTitleBecauseNoPredictions="Ashmont Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot Ave @ Welles Ave" stopTag="428" dirTitleBecauseNoPredictions="Ashmont Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="493 Talbot Ave opp Argyle St" stopTag="429" dirTitleBecauseNoPredictions="Ashmont Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot Ave @ Dorchester Ave" stopTag="430" dirTitleBecauseNoPredictions="Ashmont Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Ashmont Station" stopTag="334_ar" dirTitleBecauseNoPredictions="Ashmont Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Franklin Park Zoo @ Entrance" stopTag="1587">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348091760372" seconds="835" minutes="13" isDeparture="false" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643518" />  
+            <prediction epochTime="1348091955032" seconds="1030" minutes="17" isDeparture="false" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643519" />  
+            <prediction epochTime="1348092784243" seconds="1859" minutes="30" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348093504243" seconds="2579" minutes="42" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+            <prediction epochTime="1348094404243" seconds="3479" minutes="57" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643522" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Franklin Park Loop @ Zoo entrance" stopTag="1565_ar">  
+        <direction title="Franklin Park via Blue Hill Ave.">  
+            <prediction epochTime="1348090926353" seconds="1" minutes="0" isDeparture="false" dirTag="45_0_var1" vehicle="2258" block="C45_224" tripTag="18643517" />  
+            <prediction epochTime="1348091795880" seconds="870" minutes="14" isDeparture="false" dirTag="45_0_var1" vehicle="2268" block="C45_226" tripTag="18643518" />  
+            <prediction epochTime="1348091990540" seconds="1065" minutes="17" isDeparture="false" dirTag="45_0_var1" vehicle="2239" block="C45_227" tripTag="18643519" />  
+            <prediction epochTime="1348092819751" seconds="1894" minutes="31" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_0_var1" vehicle="2270" block="C45_230" tripTag="18643520" />  
+            <prediction epochTime="1348093539751" seconds="2614" minutes="43" isDeparture="false" affectedByLayover="true" dirTag="45_0_var1" vehicle="2145" block="C45_231" tripTag="18643521" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="205 Roxbury St" stopTag="1149" dirTitleBecauseNoPredictions="Franklin Park via Blue Hill Ave"></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="42 Dudley St" stopTag="1146" dirTitleBecauseNoPredictions="Franklin Park via Blue Hill Ave"></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Dudley St @ Shawmut Ave" stopTag="1147" dirTitleBecauseNoPredictions="Franklin Park via Blue Hill Ave"></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Franklin Park Loop @ Zoo entrance" stopTag="1565">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091340000" seconds="415" minutes="6" isDeparture="true" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092060000" seconds="1135" minutes="18" isDeparture="true" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348092900000" seconds="1975" minutes="32" isDeparture="true" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+            <prediction epochTime="1348093800000" seconds="2875" minutes="47" isDeparture="true" affectedByLayover="true" dirTag="45_1_var0" vehicle="2270" block="C45_230" tripTag="18643530" />  
+            <prediction epochTime="1348094700000" seconds="3775" minutes="62" isDeparture="true" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643529" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Ellington St - Franklin Park Zoo" stopTag="383">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091399698" seconds="474" minutes="7" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092119698" seconds="1194" minutes="19" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348092959698" seconds="2034" minutes="33" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+            <prediction epochTime="1348093859698" seconds="2934" minutes="48" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2270" block="C45_230" tripTag="18643530" />  
+            <prediction epochTime="1348094759698" seconds="3834" minutes="63" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643529" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Pasadena Rd" stopTag="384">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091456589" seconds="531" minutes="8" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092176589" seconds="1251" minutes="20" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093016589" seconds="2091" minutes="34" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+            <prediction epochTime="1348093916589" seconds="2991" minutes="49" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_1_var0" vehicle="2270" block="C45_230" tripTag="18643530" />  
+            <prediction epochTime="1348094816589" seconds="3891" minutes="64" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643529" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Castlegate Rd" stopTag="385">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091487187" seconds="562" minutes="9" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092207187" seconds="1282" minutes="21" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093047187" seconds="2122" minutes="35" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+            <prediction epochTime="1348093947187" seconds="3022" minutes="50" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_1_var0" vehicle="2270" block="C45_230" tripTag="18643530" />  
+            <prediction epochTime="1348094847187" seconds="3922" minutes="65" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643529" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave opp Warren St" stopTag="1566">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348090940135" seconds="15" minutes="0" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348091578468" seconds="653" minutes="10" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092298468" seconds="1373" minutes="22" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093138468" seconds="2213" minutes="36" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+            <prediction epochTime="1348094038468" seconds="3113" minutes="51" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_1_var0" vehicle="2270" block="C45_230" tripTag="18643530" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Devon St" stopTag="15660">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348090970953" seconds="45" minutes="0" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348091609286" seconds="684" minutes="11" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092329286" seconds="1404" minutes="23" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093169286" seconds="2244" minutes="37" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+            <prediction epochTime="1348094069286" seconds="3144" minutes="52" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_1_var0" vehicle="2270" block="C45_230" tripTag="18643530" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Intervale St" stopTag="1567">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348090997592" seconds="72" minutes="1" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348091635925" seconds="710" minutes="11" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092355925" seconds="1430" minutes="23" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093195925" seconds="2270" minutes="37" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+            <prediction epochTime="1348094095925" seconds="3170" minutes="52" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_1_var0" vehicle="2270" block="C45_230" tripTag="18643530" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Lawrence Ave" stopTag="15661">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091039893" seconds="114" minutes="1" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348091678226" seconds="753" minutes="12" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092398226" seconds="1473" minutes="24" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093238226" seconds="2313" minutes="38" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+            <prediction epochTime="1348094138226" seconds="3213" minutes="53" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_1_var0" vehicle="2270" block="C45_230" tripTag="18643530" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Quincy St" stopTag="1569">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091074561" seconds="149" minutes="2" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348091712894" seconds="787" minutes="13" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092432894" seconds="1507" minutes="25" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093272894" seconds="2347" minutes="39" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+            <prediction epochTime="1348094172894" seconds="3247" minutes="54" isDeparture="false" affectedByLayover="true" delayed="true" slowness="0.461" dirTag="45_1_var0" vehicle="2270" block="C45_230" tripTag="18643530" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Woodcliff St" stopTag="1570">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348090934750" seconds="9" minutes="0" isDeparture="false" dirTag="45_1_var0" vehicle="2145" block="C45_231" tripTag="18643535" />  
+            <prediction epochTime="1348091114280" seconds="189" minutes="3" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348091752613" seconds="827" minutes="13" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092472613" seconds="1547" minutes="25" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093312613" seconds="2387" minutes="39" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Ingleside St" stopTag="1571">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348090956069" seconds="31" minutes="0" isDeparture="false" dirTag="45_1_var0" vehicle="2145" block="C45_231" tripTag="18643535" />  
+            <prediction epochTime="1348091135599" seconds="210" minutes="3" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348091773932" seconds="848" minutes="14" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092493932" seconds="1568" minutes="26" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093333932" seconds="2408" minutes="40" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Julian St" stopTag="1572">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348090990578" seconds="65" minutes="1" isDeparture="false" dirTag="45_1_var0" vehicle="2145" block="C45_231" tripTag="18643535" />  
+            <prediction epochTime="1348091170108" seconds="245" minutes="4" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348091808441" seconds="883" minutes="14" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092528441" seconds="1603" minutes="26" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093368441" seconds="2443" minutes="40" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ W Cottage St" stopTag="1573">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091012728" seconds="87" minutes="1" isDeparture="false" dirTag="45_1_var0" vehicle="2145" block="C45_231" tripTag="18643535" />  
+            <prediction epochTime="1348091192258" seconds="267" minutes="4" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348091830591" seconds="905" minutes="15" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092550591" seconds="1625" minutes="27" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093390591" seconds="2465" minutes="41" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Moreland St" stopTag="1574">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091066818" seconds="141" minutes="2" isDeparture="false" dirTag="45_1_var0" vehicle="2145" block="C45_231" tripTag="18643535" />  
+            <prediction epochTime="1348091246348" seconds="321" minutes="5" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348091884681" seconds="959" minutes="15" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092604681" seconds="1679" minutes="27" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093444681" seconds="2519" minutes="41" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Winthrop St" stopTag="1575">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091094456" seconds="169" minutes="2" isDeparture="false" dirTag="45_1_var0" vehicle="2145" block="C45_231" tripTag="18643535" />  
+            <prediction epochTime="1348091273986" seconds="348" minutes="5" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348091912319" seconds="987" minutes="16" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092632319" seconds="1707" minutes="28" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093472319" seconds="2547" minutes="42" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Dudley St" stopTag="1576">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091180676" seconds="255" minutes="4" isDeparture="false" dirTag="45_1_var0" vehicle="2145" block="C45_231" tripTag="18643535" />  
+            <prediction epochTime="1348091360206" seconds="435" minutes="7" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348091998539" seconds="1073" minutes="17" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092718539" seconds="1793" minutes="29" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093558539" seconds="2633" minutes="43" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Dudley St @ Hampden St" stopTag="1487">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091229375" seconds="304" minutes="5" isDeparture="false" dirTag="45_1_var0" vehicle="2145" block="C45_231" tripTag="18643535" />  
+            <prediction epochTime="1348091408905" seconds="483" minutes="8" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348092047238" seconds="1122" minutes="18" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092767238" seconds="1842" minutes="30" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093607238" seconds="2682" minutes="44" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Dudley St @ Adams St" stopTag="1488">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091267804" seconds="342" minutes="5" isDeparture="false" dirTag="45_1_var0" vehicle="2145" block="C45_231" tripTag="18643535" />  
+            <prediction epochTime="1348091447334" seconds="522" minutes="8" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348092085667" seconds="1160" minutes="19" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092805667" seconds="1880" minutes="31" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093645667" seconds="2720" minutes="45" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Dudley St @ Dearborn St" stopTag="1489">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091298152" seconds="373" minutes="6" isDeparture="false" dirTag="45_1_var0" vehicle="2145" block="C45_231" tripTag="18643535" />  
+            <prediction epochTime="1348091477682" seconds="552" minutes="9" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348092116015" seconds="1191" minutes="19" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092836015" seconds="1911" minutes="31" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093676015" seconds="2751" minutes="45" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Dudley St @ Winslow St" stopTag="1490">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091353022" seconds="428" minutes="7" isDeparture="false" dirTag="45_1_var0" vehicle="2145" block="C45_231" tripTag="18643535" />  
+            <prediction epochTime="1348091532552" seconds="607" minutes="10" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348092170885" seconds="1245" minutes="20" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092890885" seconds="1965" minutes="32" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093730885" seconds="2805" minutes="46" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Dudley St @ Warren St" stopTag="1491">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091430953" seconds="505" minutes="8" isDeparture="false" dirTag="45_1_var0" vehicle="2145" block="C45_231" tripTag="18643535" />  
+            <prediction epochTime="1348091610483" seconds="685" minutes="11" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348092248816" seconds="1323" minutes="22" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348092968816" seconds="2043" minutes="34" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093808816" seconds="2883" minutes="48" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Dudley Station" stopTag="64000_1">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091487691" seconds="562" minutes="9" isDeparture="false" dirTag="45_1_var0" vehicle="2145" block="C45_231" tripTag="18643535" />  
+            <prediction epochTime="1348091667221" seconds="742" minutes="12" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348092305554" seconds="1380" minutes="23" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348093025554" seconds="2100" minutes="35" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093865554" seconds="2940" minutes="49" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Malcolm X Blvd @ Shawmut Ave" stopTag="1148">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091570910" seconds="645" minutes="10" isDeparture="false" dirTag="45_1_var0" vehicle="2145" block="C45_231" tripTag="18643535" />  
+            <prediction epochTime="1348091750440" seconds="825" minutes="13" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348092388773" seconds="1463" minutes="24" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348093108773" seconds="2183" minutes="36" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093948773" seconds="3023" minutes="50" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Malcolm X Blvd @ O&apos;Bryant HS" stopTag="11149">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091596499" seconds="671" minutes="11" isDeparture="false" dirTag="45_1_var0" vehicle="2145" block="C45_231" tripTag="18643535" />  
+            <prediction epochTime="1348091776029" seconds="851" minutes="14" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348092414362" seconds="1489" minutes="24" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348093134362" seconds="2209" minutes="36" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093974362" seconds="3049" minutes="50" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Malcolm X Blvd @ Madison Park HS" stopTag="11148">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091614739" seconds="689" minutes="11" isDeparture="false" dirTag="45_1_var0" vehicle="2145" block="C45_231" tripTag="18643535" />  
+            <prediction epochTime="1348091794269" seconds="869" minutes="14" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348092432602" seconds="1507" minutes="25" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348093152602" seconds="2227" minutes="37" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348093992602" seconds="3067" minutes="51" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Malcolm X Blvd @ Tremont St" stopTag="21148">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091648928" seconds="723" minutes="12" isDeparture="false" dirTag="45_1_var0" vehicle="2145" block="C45_231" tripTag="18643535" />  
+            <prediction epochTime="1348091828458" seconds="903" minutes="15" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348092466791" seconds="1541" minutes="25" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348093186791" seconds="2261" minutes="37" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+            <prediction epochTime="1348094026791" seconds="3101" minutes="51" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2239" block="C45_227" tripTag="18643531" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Tremont St opp Prentiss St" stopTag="1224">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348090947155" seconds="22" minutes="0" isDeparture="false" delayed="true" slowness="0.461" dirTag="45_1_var0" vehicle="2270" block="C45_230" tripTag="18643536" />  
+            <prediction epochTime="1348091696207" seconds="771" minutes="12" isDeparture="false" dirTag="45_1_var0" vehicle="2145" block="C45_231" tripTag="18643535" />  
+            <prediction epochTime="1348091875737" seconds="950" minutes="15" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348092514070" seconds="1589" minutes="26" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348093234070" seconds="2309" minutes="38" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Ruggles Sta - upper level" stopTag="17861_ar">  
+        <direction title="Ruggles Station via Blue Hill Ave.">  
+            <prediction epochTime="1348091105984" seconds="180" minutes="3" isDeparture="false" delayed="true" slowness="0.461" dirTag="45_1_var0" vehicle="2270" block="C45_230" tripTag="18643536" />  
+            <prediction epochTime="1348091855036" seconds="930" minutes="15" isDeparture="false" dirTag="45_1_var0" vehicle="2145" block="C45_231" tripTag="18643535" />  
+            <prediction epochTime="1348092034566" seconds="1109" minutes="18" isDeparture="false" dirTag="45_1_var0" vehicle="2141" block="C45_222" tripTag="18643534" />  
+            <prediction epochTime="1348092672899" seconds="1747" minutes="29" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2258" block="C45_224" tripTag="18643533" />  
+            <prediction epochTime="1348093392899" seconds="2467" minutes="41" isDeparture="false" affectedByLayover="true" dirTag="45_1_var0" vehicle="2268" block="C45_226" tripTag="18643532" />  
+        </direction>
+    </predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Dudley Station" stopTag="64000_ar" dirTitleBecauseNoPredictions="Malcolm X Blvd. via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Ashmont Station" stopTag="334" dirTitleBecauseNoPredictions="Ruggles Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot Ave @ Dorchester Ave" stopTag="367" dirTitleBecauseNoPredictions="Ruggles Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot Ave @ Argyle St" stopTag="368" dirTitleBecauseNoPredictions="Ruggles Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot Ave @ Welles Ave" stopTag="369" dirTitleBecauseNoPredictions="Ruggles Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot Ave @ Brent St" stopTag="370" dirTitleBecauseNoPredictions="Ruggles Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot Ave @ Centre St" stopTag="371" dirTitleBecauseNoPredictions="Ruggles Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot Ave @ Southern Ave" stopTag="372" dirTitleBecauseNoPredictions="Ruggles Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot Ave @ Spencer St" stopTag="373" dirTitleBecauseNoPredictions="Ruggles Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot Ave @ Norwell St" stopTag="374" dirTitleBecauseNoPredictions="Ruggles Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot Ave @ Bernard St" stopTag="375" dirTitleBecauseNoPredictions="Ruggles Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot Ave @ Kerwin St" stopTag="376" dirTitleBecauseNoPredictions="Ruggles Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Talbot ave @ Nightingale St" stopTag="378" dirTitleBecauseNoPredictions="Ruggles Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Talbot Ave" stopTag="1737" dirTitleBecauseNoPredictions="Ruggles Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Vesta St" stopTag="380" dirTitleBecauseNoPredictions="Ruggles Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Wales St" stopTag="381" dirTitleBecauseNoPredictions="Ruggles Station via Blue Hill Ave."></predictions>
+    <predictions agencyTitle="MBTA" routeTitle="45" routeTag="45" stopTitle="Blue Hill Ave @ Charlotte St" stopTag="382" dirTitleBecauseNoPredictions="Ruggles Station via Blue Hill Ave."></predictions>
+</body>

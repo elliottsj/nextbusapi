@@ -1,0 +1,191 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>net.sf.nextbus.publicxmlfeed</groupId>
+    <artifactId>nextbus-adapter</artifactId>
+    <version>1.0.2-RELEASE</version>
+    <name>NextBus XML Feed Adapter</name>
+    <url>http://sourceforge.net/projects/nextbusapi/</url>
+    <description>A Java Domain Class Hierarchy and RESTful Webservice Adapter for NextBus</description>
+    <developers>
+        <developer>
+            <id>jrd</id>
+            <name>James R. Doyle</name>
+            <email>rockymtnmagic@gmail.com</email>
+        </developer>
+    </developers>
+    <licenses>
+        <license>
+            <name>GNU LESSER GENERAL PUBLIC LICENSE</name>
+            <url>http://www.gnu.org/licenses/lgpl.html</url>
+            <comments>The LGPL Covers the Source Code</comments>
+        </license>
+        <license>
+            <name>Nextbus License Agreement</name>
+            <url>http://www.nextbus.com/xmlFeedDocs/NextBusXMLFeed.pdf</url>
+            <comments>The NextBus license covers the Terms of Use and Indemnities of the Data Feed</comments>
+        </license>
+    </licenses>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+ 
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.0</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+  
+    <!--
+        Each of the XSDs need to be compiled separately, otherwise there will be collisions on common protocol sections
+        like body or header.  You could fix this by combining all the XSD elements into a huge single schema, but that
+        I think would make it harder to maintain each service. 
+        
+        Credit to this article for getting the XJC plugin to do multiple, isolated passes:
+        
+        http://stackoverflow.com/questions/2857081/how-can-i-tell-jaxb-maven-to-genereate-multiple-schema-packages  
+    -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.8.1</version>
+                <configuration>
+                    <show>private</show>
+                    <nohelp>true</nohelp>
+                    <excludePackageNames>
+                        net.sf.nextbus.publicxmlfeed.xjcgenerated.agencylist:net.sf.nextbus.publicxmlfeed.xjcgenerated.prediction:net.sf.nextbus.publicxmlfeed.xjcgenerated.routeconfig:net.sf.nextbus.publicxmlfeed.xjcgenerated.routelist:net.sf.nextbus.publicxmlfeed.xjcgenerated.schedule:net.sf.nextbus.publicxmlfeed.xjcgenerated.messages:net.sf.nextbus.publicxmlfeed.xjcgenerated.vehiclelocation:net.sf.nextbus.publicxmlfeed.xjcgenerated.servicemessages
+                    </excludePackageNames>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jvnet.jaxb2.maven2</groupId>
+                <artifactId>maven-jaxb2-plugin</artifactId>
+                <version>0.8.1</version>   
+                <executions>
+                    <execution>
+                        <id>agencylist</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources</schemaDirectory>
+                            <schemaIncludes>
+                                <include>agencylist-response.xsd</include>
+                            </schemaIncludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc1</generateDirectory>
+                        </configuration>
+                    </execution>   
+                    <execution>
+                        <id>routeconfig</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources</schemaDirectory>
+                            <schemaIncludes>
+                                <include>routeconfig-response.xsd</include>
+                            </schemaIncludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc2</generateDirectory>
+                        </configuration>
+                    </execution>    
+                    <execution>
+                        <id>routelist</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources</schemaDirectory>
+                            <schemaIncludes>
+                                <include>routelist-response.xsd</include>
+                            </schemaIncludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc3</generateDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>vehiclelocations</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources</schemaDirectory>
+                            <schemaIncludes>
+                                <include>vehiclelocations-response.xsd</include>
+                            </schemaIncludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc4</generateDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>predictions</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources</schemaDirectory>
+                            <schemaIncludes>
+                                <include>prediction-response.xsd</include>
+                            </schemaIncludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc5</generateDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>schedules</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources</schemaDirectory>
+                            <schemaIncludes>
+                                <include>schedule-response.xsd</include>
+                            </schemaIncludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc6</generateDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>alerts</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources</schemaDirectory>
+                            <schemaIncludes>
+                                <include>messages-response.xsd</include>
+                            </schemaIncludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc7</generateDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>rmic-maven-plugin</artifactId>
+                <version>1.1</version>
+                <configuration>
+                    <idl>true</idl>
+                    <iiop>true</iiop>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>rmi compilation</id>
+                        <goals>
+                            <goal>rmic</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

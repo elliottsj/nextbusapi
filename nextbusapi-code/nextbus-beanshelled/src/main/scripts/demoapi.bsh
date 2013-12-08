@@ -1,0 +1,81 @@
+//////////////////////////////////////////////////////////////////
+//  This is a set of suggestions to feed the Nextbus Beanshell Demo JAR
+// ---------------------------------------------------------------
+// This will give you some ideas on how to use the API
+// interactively using beanshell. Cut and Paste the parts
+// in peice by peice and explore the API.  BeanShell is cool!
+// ---------------------------------------------------------------
+// First Step:  Type in these import statements.
+// Notice that as you type, hit TAB on the '.' to see Beanshell
+// complete the package path
+import net.sf.nextbus.publicxmlfeed.domain.*;
+import net.sf.nextbus.publicxmlfeed.service.*;
+//
+// OK... Now instantiate the Adapter!
+//
+INextbusService svc = new net.sf.nextbus.publicxmlfeed.impl.SimplestNextbusServiceAdapter();
+//
+// Now get the list of agencies, and print them:
+agencies = svc.getAgencies();
+print(agencies);
+//
+// Pick and agency... I'll pick MBTA since I know it.
+mbta = svc.getAgency("mbta");
+//
+// Get all the routes for this agency.. .Print them - there's alot of them!
+routes4mbta = svc.getRoutes(mbta);
+print(routes4mbta);
+//
+// You can retrieve the route config for any of these routes...
+// Notice how the 'Route' class has a finder for working with the List<Route>
+// You can use this in BeanShell to get the Route for 101
+route101 = Route.find(routes4mbta, "101");
+//
+// Now, get the Route Config object - it's big and has lots of attrs!
+//
+route101Conf = svc.getRouteConfiguration(route101);
+print(route101Conf);
+print(route101Conf.directions);
+print(route101Conf.stops);
+//
+// Now, pick a stop - for the 101.
+// When I printed the stops, I saw this at the end Stop{tag=5333_1 ....
+//
+// You can use the finder on class Stop to get this stop
+//
+stop1 = Stop.find(route101Conf.stops, "5333_1");
+print(stop1);
+//
+// Now, you can learn how to use the Geolocation class.
+// Let's pretend you've asked your Phone for current GPS points
+// and got this as your current location:
+Geolocation here = new Geolocation(42.42121, -71.09336);
+//
+// How far away is stop1 ?
+print(stop1.geolocation.getDistanceInMiles(here));
+//
+// There are also Sort methods to order Lists of Stops and Vehicles...
+// Heres how to find all the Stops on Route 101 within a mile from here.
+//
+closest2Me = Geolocation.sortedByClosest(route101Conf.stops, here);
+print(closest2Me);
+//
+// OK, What about Predictions... Well, we have a Stop chosen, stop1,
+// Get the prediction for it and just print it!
+print(svc.getPredictions(stop1));
+//
+// And what about VehicleLocations?
+//
+print (svc.getVehicleLocations(route101, 0));
+//
+// And how about Schedules? 
+//
+print( svc.getSchedule(route101) );
+//
+//
+// There you go!   I hope you like the design of boundary classes..
+// By that, I mean the Domain model plus the Service interface.
+// And, I also hope you enjoyed using the BeanShell to explore the 
+// the Adapter JAR.   If you want to see how amazingly simple it is
+// to build an Executable JAR using BeanShell, have a look at the 
+// pom file in the source tree.. The Maven Shade plugin does the magic.

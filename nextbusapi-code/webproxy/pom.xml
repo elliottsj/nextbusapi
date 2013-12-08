@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>net.sf.nextbus.</groupId>
+  <artifactId>nextbus-proxyserver</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>nextbus-proxyserver</name>
+  <description>A Simple JSON-based Proxyserver to NextBus using Java EE 6 Packaging Style</description>
+  <developers>
+        <developer>
+            <id>jrd</id>
+            <name>James R. Doyle</name>
+            <email>rockymtnmagic@gmail.com</email>
+        </developer>
+    </developers>
+    <licenses>
+        <license>
+            <name>GNU LESSER GENERAL PUBLIC LICENSE</name>
+            <url>http://www.gnu.org/licenses/lgpl.html</url>
+            <comments>The LGPL Covers the Source Code</comments>
+        </license>
+        <license>
+            <name>Nextbus License Agreement</name>
+            <url>http://www.nextbus.com/xmlFeedDocs/NextBusXMLFeed.pdf</url>
+            <comments>The NextBus license convers the Terms of Use and Indemnities of the Data Feed</comments>
+        </license>
+    </licenses>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <modules>
+    <module>nextbus-proxyserver-ear</module>
+    <module>nextbus-proxyserver-web</module>
+    <module>nextbus-proxyserver-ejb</module>
+  </modules>
+</project>

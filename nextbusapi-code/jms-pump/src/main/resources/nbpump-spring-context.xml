@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"     
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xmlns:jms="http://www.springframework.org/schema/integration/jms"  
+       xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:bean="http://www.springframework.org/schema/beans"
+       xmlns:stream="http://www.springframework.org/schema/integration/stream"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-2.2.xsd
+       http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+       http://www.springframework.org/schema/integration/stream http://www.springframework.org/schema/integration/stream/spring-integration-stream-1.0.xsd">
+
+    <!-- Configuration for everything comes from a Properties file in the run classpath -->
+    <bean id="nbpumper" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="file:nbpumper.properties"/>
+    </bean>
+    
+    <!-- Spring Integration wants a Task Schedule/Runner to execute our timed task... -->
+    <task:scheduler id="taskScheduler"  pool-size="1" />
+    <task:executor id="taskExecutor" pool-size="1"/>
+       
+    <!-- This is the generic NextBus XML Adapter -->
+    <bean id="nextbusProtocolAdapter" class="net.sf.nextbus.publicxmlfeed.impl.SimplestNextbusServiceAdapter" lazy-init="false"/>
+    
+    <!-- This is the Task Master, it gets called by the Spring Scheduler to sweep new information from NextBus -->
+    <!-- Notice it has a post-construct init() method ; the bean configures itself after setter injection of parameters. -->
+    <bean id="nextBusHarvester" class="net.sf.nextbus.jmspump.sender.Task" init-method="init">
+        <constructor-arg  ref="nextbusProtocolAdapter"/>
+        <constructor-arg value="${nbpumper.agency}"/>
+        <constructor-arg value="${nbpumper.routes}"/>
+        <property name="enableVehicleLocations" value="${nbpumper.enable.vehiclelocations}"/>
+        <property name="enablePredictions" value="${nbpumper.enable.predictions}"/>
+        <property name="refreshIntervalVehicleLocations" value="${nbpumper.refreshtime.vehiclelocations}"/>
+        <property name="refreshIntervalPredictions" value="${nbpumper.refreshtime.predictions}"/>
+        <property name="maxNextbusCallsPerExecution" value="${nbpumper.maxrpcs-per-poll}"/>
+    </bean>
+    
+    <!--
+        ****************************************************************
+        **         Spring Integration Section                         **
+        ****************************************************************
+     -->
+    <!-- Declare an Error Channel and simply sent all events to log4j -->
+    <int:channel id="errorChannel" /> 
+    <int:logging-channel-adapter channel="errorChannel"  id="logger" log-full-message="true" level="ERROR"/>
+    <!-- 
+        Declare an Input Channel sourced from a Generic POJO adapter and driven by a Time Task. 
+    -->
+    <int:channel id="nextbus-bulk-messages"/> 
+    <int:inbound-channel-adapter id="adapter1" ref="nextBusHarvester" method="execute" channel="nextbus-bulk-messages">
+        <int:poller fixed-rate="${nbpumper.pollrate}" task-executor="taskExecutor"/>
+    </int:inbound-channel-adapter>  
+   
+    <!-- 
+        Use a Splitter. The inbound channel adapter delivers a List<POJOs> as a message.  A default-splitter
+        will fragment this up into N smaller messages, that we then subsequently handle.
+     -->
+    <int:channel id="nextbus-split-messages" />
+    <bean id="splitter" class="org.springframework.integration.splitter.DefaultMessageSplitter"/>
+    <int:splitter ref="splitter" input-channel="nextbus-bulk-messages" output-channel="nextbus-split-messages"  />
+    <!--
+        Use a Payload router to sift different POJOs (i.e. VehLocn versus Prediction) to subchannels where
+        they will be handled separately. Messages that cant be sorted, i.e. an unanticipated object class,
+        will be routed to an unrouted channel where they are logged to STDOUT
+    -->
+    <int:channel id="nextbus-vehlocn" datatype="net.sf.nextbus.publicxmlfeed.domain.VehicleLocation"/>
+    <int:channel id="nextbus-predxns" datatype="net.sf.nextbus.publicxmlfeed.domain.Prediction"/>
+    <int:channel id="nextbus-unrouted"/>
+    <int:payload-type-router input-channel="nextbus-split-messages" default-output-channel="nextbus-unrouted">
+        <int:mapping channel="nextbus-vehlocn" type="net.sf.nextbus.publicxmlfeed.domain.VehicleLocation"/>
+        <int:mapping channel="nextbus-predxns" type="net.sf.nextbus.publicxmlfeed.domain.Prediction"/>    
+    </int:payload-type-router>
+    <int:logging-channel-adapter id="foo" channel="nextbus-unrouted" level="ERROR" expression="payload.getClass()" />
+    <!--
+        Use a Header Enricher to set JMS Header Values. This permits Message Selection by clients.
+        It also provides for "free" support to non-Java clients (i.e. PHP/JavaScript/Ruby) when using STOMP protocol.
+    -->
+    <!-- Attempts to use Spring Expr. Language to manipulate more than 1 payload property caused problems... Resorted to a helper bean.-->
+    <bean id="enr1" class="net.sf.nextbus.jmspump.msgtools.VLMessageHeaderEnricher"/>
+    <int:header-enricher id="e1" input-channel="nextbus-vehlocn" output-channel="nextbus-vehlocn">
+        <int:header name="JMSType" value="VehicleLocation"/>
+        <int:header name="agencyId" ref="enr1" method="getAgencyId" />
+        <int:header name="routeId" ref="enr1" method="getRouteId" />
+        <int:header name="vehicleId" ref="enr1" method="getVehicleId" />
+        <int:header name="longitude" ref="enr1" method="getLongitude" />
+        <int:header name="latitude" ref="enr1" method="getLatitude" />
+        <int:header name="heading" ref="enr1" method="getHeading" />
+        <int:header name="speedKmHr" ref="enr1" method="getSpeedKmHr" />
+        <int:header name="speedMPH" ref="enr1" method="getSpeedMPH" />
+        <int:header name="timestamp" ref="enr1" method="getTimestamp" />
+        <int:header name="lastReportedTimeAtPosition" ref="enr1" method="getLastReportedTimeAtPosition" />     
+        <int:header name="timeSkew" ref="enr1" method="getTimeSkew" />
+        <int:header name="isHeadingAvailable" ref="enr1" method="isHeadingAvailable" />
+        <int:header name="isPredictable" ref="enr1" method="isPredictable" />
+        <int:header name="copyrightNotice" ref="enr1" method="getCopyrightNotice" />
+    </int:header-enricher>
+    <bean id="enr2" class="net.sf.nextbus.jmspump.msgtools.PNMessageHeaderEnricher"/>
+    <int:header-enricher id="e2" input-channel="nextbus-predxns" output-channel="nextbus-predxns">
+        <int:header name="JMSType" value="Prediction" />
+        <int:header name="agencyId" ref="enr2" method="getAgencyId" />
+        <int:header name="routeId" ref="enr2" method="getRouteId" />
+        <int:header name="routeName" ref="enr2" method="getRouteName" />
+        <int:header name="stopId" ref="enr2" method="getStopId" />
+        <int:header name="stopName" ref="enr2" method="getStopName"/>
+        <int:header name="directionId" ref="enr2" method="getDirectionId" />
+        <int:header name="vehicleId" ref="enr2" method="getVehicleId" />
+        <int:header name="tripTag" ref="enr2" method="getTripTag" />
+        <int:header name="block" ref="enr2" method="getBlock" />
+        <int:header name="branch" ref="enr2" method="getBranch" />
+        <int:header name="predictedTime" ref="enr2" method="getPredictedArrivalOrDepartureTimeUTCMilliseconds" />
+        <int:header name="isArrivalTimePrediction" ref="enr2" method="isArrivalTimePrediction"/>
+        <int:header name="isDepartureTimePrediction" ref="enr2" method="isDepartureTimePrediction"/>
+        <int:header name="isPredictionIncludesLayoverEstimate" ref="enr2" method="isPredictionIncludesLayoverEstimate"/>
+        <int:header name="isDelayed" ref="enr2" method="isDelayed" />
+        <int:header name="isScheduleBasedPrediction" ref="enr2" method="isScheduleBasedPrediction" />
+        <int:header name="isHeuristicBasedPrediction" ref="enr2" method="isHeuristicBasedPrediction" />
+        <int:header name="copyright" ref="enr2" method="getCopyrightNotice" />
+        <int:header name="timestamp" ref="enr2" method="getTimestamp" />
+    </int:header-enricher>
+    <!-- 
+        Combine the subchannels for VehLocn and Prediction. Send this merged message stream to
+        an channel adapter that is bound to JMS - where they fed off to ActiveMQ or some other JMS provider.
+        Create an Output Channel that simply feeds a JMS Queue or Topic
+    -->
+    <int:channel id="nextbus-pumped"/>
+    <int:bridge input-channel="nextbus-vehlocn" output-channel="nextbus-pumped"/> 
+    <int:bridge input-channel="nextbus-predxns" output-channel="nextbus-pumped"/> 
+    <jms:outbound-channel-adapter id="adapter2" channel="nextbus-pumped" 
+                                  destination="${nbpumper.sender_type}" 
+                                  connection-factory="jmsConnectionFactory" 
+                                  />
+</beans>
