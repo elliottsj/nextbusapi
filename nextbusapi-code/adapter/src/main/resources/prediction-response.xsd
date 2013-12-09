@@ -37,7 +37,6 @@
                     <xsd:attribute name="isDeparture" type="xsd:boolean"/>
                     <xsd:attribute name="affectedByLayover" type="xsd:boolean"/>
                     <xsd:attribute name="dirTag" type="xsd:string"/>
-                    <xsd:attribute name="dirTitleBecauseNoPredictions" type="xsd:string"/>
                     <xsd:attribute name="vehicle" type="xsd:string"/>
                     <xsd:attribute name="block" type="xsd:string"/>
                     <xsd:attribute name="tripTag" type="xsd:string"/>

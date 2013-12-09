@@ -23,7 +23,7 @@
     <task:executor id="taskExecutor" pool-size="1"/>
        
     <!-- This is the generic NextBus XML Adapter -->
-    <bean id="nextbusProtocolAdapter" class="net.sf.nextbus.publicxmlfeed.impl.SimplestNextbusServiceAdapter" lazy-init="false"/>
+    <bean id="nextbusProtocolAdapter" class="net.sf.nextbus.publicxmlfeed.impl.SimplestNextBusServiceAdapter" lazy-init="false"/>
     
     <!-- This is the Task Master, it gets called by the Spring Scheduler to sweep new information from NextBus -->
     <!-- Notice it has a post-construct init() method ; the bean configures itself after setter injection of parameters. -->

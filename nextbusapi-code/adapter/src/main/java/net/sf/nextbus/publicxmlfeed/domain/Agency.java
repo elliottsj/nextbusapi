@@ -30,72 +30,43 @@
  ******************************************************************************/
 package net.sf.nextbus.publicxmlfeed.domain;
 
+import org.simpleframework.xml.Attribute;
+
 /**
  * A Transit agency whom has route, schedule, vehicle location and prediction
  * data served by NextBus.
- *
- * @author jrd
  */
-public class Agency extends NextbusValueObject implements Comparable<Agency> {
+public class Agency extends NextBusValueObject implements Comparable<Agency> {
 
-    static final long serialVersionUID = -3914701507430700194L;
-    /**
-     * Key identifier - example rutgers
-     */
-    private String id;
-    /**
-     * Full display title - example Rutgers University
-     */
+    /** Key identifier; example: "ttc" */
+    @Attribute
+    private String tag;
+
+    /** Full display title; example: "Toronto Transit Commission" */
+    @Attribute
     private String title;
-    /**
-     * Short display title - example Rutgers
-     */
-    private String shortTitle = "";
-    /**
-     * Region value example New Jersey
-     */
-    private String regionTitle = "";
+
+    /** Short display title (optional); example: "Toronto TTC" */
+    @Attribute(required = false)
+    private String shortTitle;
+
+    /** Region value; example: "Ontario" */
+    @Attribute
+    private String regionTitle;
 
     /**
-     * Serialization ctor.
-     */
-    protected Agency() {
-    }
-
-    /**
-     * Immutable domain class constructor.
+     * Get the unique tag.
      *
-     * @param _id
-     * @param _title
-     * @param _shortTitle
-     * @param _regionTitle
-     * @param copyRighttext
+     * @return example "ttc"
      */
-    public Agency(String _id, String _title, String _shortTitle, String _regionTitle, String copyRighttext) {
-        super(copyRighttext);
-        id = _id;
-        title = _title;
-        if (_shortTitle != null) {
-            shortTitle = _shortTitle;
-        }
-        if (_regionTitle != null) {
-            regionTitle = _regionTitle;
-        }
-    }
-
-    /**
-     * Get the unique ID (example tag value)
-     *
-     * @return example 'mbta'
-     */
-    public String getId() {
-        return id;
+    public String getTag() {
+        return tag;
     }
 
     /**
      * Get the full display title.
      *
-     * @return example 'Massachusetts Bay Transit Authority'
+     * @return example "Toronto Transit Commission"
      */
     public String getTitle() {
         return title;
@@ -104,14 +75,14 @@ public class Agency extends NextbusValueObject implements Comparable<Agency> {
     /**
      * Get the region served for the transit agency.
      *
-     * @return example Massachusetts
+     * @return example "Ontario"
      */
     public String getRegionTitle() {
         return regionTitle;
     }
 
     /**
-     * Get the short title, if any ; This attribute is often an empty string.
+     * Get the short title, if any; This attribute is often an empty string.
      *
      * @return The NextBus spec recommends "If no shortTitle element is
      * provided, simply use the standard title element" (page 8)
@@ -129,7 +100,7 @@ public class Agency extends NextbusValueObject implements Comparable<Agency> {
             return false;
         }
         final Agency other = (Agency) obj;
-        if ((this.id == null) ? (other.id != null) : !this.id.equals(other.id)) {
+        if ((this.tag == null) ? (other.tag != null) : !this.tag.equals(other.tag)) {
             return false;
         }
         return true;
@@ -138,17 +109,17 @@ public class Agency extends NextbusValueObject implements Comparable<Agency> {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 59 * hash + (this.id != null ? this.id.hashCode() : 0);
+        hash = 59 * hash + (this.tag != null ? this.tag.hashCode() : 0);
         return hash;
     }
 
     @Override
     public String toString() {
-        return "Agency{" + "id=" + id + ", title=" + title + ", shortTitle=" + shortTitle + ", regionTitle=" + regionTitle + '}';
+        return "Agency{" + "tag=" + tag + ", title=" + title + ", shortTitle=" + shortTitle + ", regionTitle=" + regionTitle + '}';
     }
 
     public int compareTo(Agency o) {
-        return this.title.compareTo(o.title);
+        return title.compareTo(o.title);
     }
     
 }

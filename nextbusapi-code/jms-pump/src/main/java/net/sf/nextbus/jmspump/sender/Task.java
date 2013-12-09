@@ -36,7 +36,7 @@ import net.sf.nextbus.publicxmlfeed.domain.Agency;
 import net.sf.nextbus.publicxmlfeed.domain.Route;
 import net.sf.nextbus.publicxmlfeed.domain.Stop;
 import net.sf.nextbus.publicxmlfeed.domain.RouteConfiguration;
-import net.sf.nextbus.publicxmlfeed.service.INextbusService;
+import net.sf.nextbus.publicxmlfeed.service.INextBusService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.*;
@@ -76,7 +76,7 @@ public class Task {
     /**
      * Nextbus service adapter
      */
-    private INextbusService nextbus;
+    private INextBusService nextbus;
     /**
      * The Nextbus agencies to work on.
      */
@@ -98,7 +98,7 @@ public class Task {
      *
      * @param agency
      */
-    public Task(INextbusService svc, String agency) {
+    public Task(INextBusService svc, String agency) {
         nextbus = svc;
         Agency a = nextbus.getAgency(agency);
         agencies.add(a);
@@ -113,7 +113,7 @@ public class Task {
      * @param routes the specific routes to work as a CSV string of Route tags,
      * i.e. "110, 111"
      */
-    public Task(INextbusService svc, String agency, String routes) {
+    public Task(INextBusService svc, String agency, String routes) {
         nextbus = svc;
         Agency a = nextbus.getAgency(agency);
         agencies.add(a);

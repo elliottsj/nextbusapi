@@ -47,7 +47,7 @@ import net.sf.nextbus.publicxmlfeed.domain.*;
  *
  * @author jrd
  */
-public interface INextbusService {
+public interface INextBusService {
     
     /**
      * Indicates the corresponding Document version from NextBus that this adapter was tested against.

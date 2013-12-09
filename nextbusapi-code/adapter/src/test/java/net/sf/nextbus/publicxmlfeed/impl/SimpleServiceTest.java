@@ -29,16 +29,18 @@
  *
  ******************************************************************************/
 package net.sf.nextbus.publicxmlfeed.impl;
-import net.sf.nextbus.publicxmlfeed.domain.VehicleLocation;
-import net.sf.nextbus.publicxmlfeed.domain.Route;
 import net.sf.nextbus.publicxmlfeed.domain.Agency;
+import net.sf.nextbus.publicxmlfeed.domain.Route;
 import net.sf.nextbus.publicxmlfeed.domain.RouteConfiguration;
-import org.junit.Assert;
-import org.junit.Test;
-import java.util.*;
+import net.sf.nextbus.publicxmlfeed.domain.VehicleLocation;
 import net.sf.nextbus.publicxmlfeed.impl.rmiproxy.RMIClient;
-import net.sf.nextbus.publicxmlfeed.service.INextbusService;
+import net.sf.nextbus.publicxmlfeed.service.INextBusService;
+import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Test;
+
+import java.util.List;
+import java.util.Random;
 
 /**
  *
@@ -47,18 +49,17 @@ import org.junit.Before;
 public class SimpleServiceTest {
     
     Random random = new Random(System.currentTimeMillis());
-    INextbusService svc;
+    INextBusService svc;
     
     /** Test Harness for RMI */
-    public INextbusService remoteBinding() {
+    public INextBusService remoteBinding() {
         RMIClient rmicli = new RMIClient("192.168.11.2");
         return rmicli.getService();
     }
     /** Normal Ordinary Test Harness */
-    public INextbusService localBinding() {
-        return new SimplestNextbusServiceAdapter();
+    public INextBusService localBinding() {
+        return new SimplestNextBusServiceAdapter();
     }
-    
     
     @Before
     public void setup() throws Exception {
@@ -72,7 +73,7 @@ public class SimpleServiceTest {
         List<Agency> agencies = svc.getAgencies();
         Assert.assertTrue(agencies.size() != 0);
         for (Agency a : agencies) {
-            Assert.assertNotNull(a.getId());
+            Assert.assertNotNull(a.getTag());
             Assert.assertNotNull(a.getTitle());
             Assert.assertNotNull(a.getShortTitle());
             Assert.assertNotNull(a.getRegionTitle());

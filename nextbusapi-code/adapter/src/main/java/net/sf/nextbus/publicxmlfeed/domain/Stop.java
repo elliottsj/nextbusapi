@@ -42,7 +42,7 @@ import java.util.List;
  *
  * @author jrd
  */
-public class Stop extends NextbusValueObject implements IGeocoded, Comparable<Stop> {
+public class Stop extends NextBusValueObject implements IGeocoded, Comparable<Stop> {
     static final long serialVersionUID = 5552263607403529166L;
     /** Agency owning this stop*/
     protected Agency agency;   

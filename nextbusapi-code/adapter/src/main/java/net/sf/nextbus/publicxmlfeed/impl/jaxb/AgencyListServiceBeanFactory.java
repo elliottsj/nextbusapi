@@ -41,7 +41,7 @@ import org.xml.sax.SAXException;
  */
 public class AgencyListServiceBeanFactory extends AbstractJAXBeanFactory {
     
-    public AgencyListServiceBeanFactory()  throws SAXException, JAXBException {
+    public AgencyListServiceBeanFactory() throws SAXException, JAXBException {
         super("net.sf.nextbus.publicxmlfeed.xjcgenerated.agencylist", "agencylist-response.xsd");
     }
 

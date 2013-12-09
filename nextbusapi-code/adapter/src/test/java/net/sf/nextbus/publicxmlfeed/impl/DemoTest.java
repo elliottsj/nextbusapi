@@ -1,8 +1,7 @@
 package net.sf.nextbus.publicxmlfeed.impl;
 
-import net.sf.nextbus.publicxmlfeed.service.INextbusService;
+import net.sf.nextbus.publicxmlfeed.service.INextBusService;
 import net.sf.nextbus.publicxmlfeed.domain.*;
-import net.sf.nextbus.publicxmlfeed.util.TestUtil;
 import org.junit.Assert;
 import org.junit.Test;
 import java.util.*;
@@ -18,12 +17,12 @@ import org.junit.Before;
  */
 public class DemoTest {
 
-    INextbusService svc;
+    INextBusService svc;
 
     /**
      * Test Harness for RMI
      */
-    public INextbusService remoteBinding() {
+    public INextBusService remoteBinding() {
         RMIClient rmicli = new RMIClient("192.168.11.2");
         System.out.println("*>*> Using RMI ");
         return rmicli.getService();
@@ -32,8 +31,8 @@ public class DemoTest {
     /**
      * Normal Ordinary Test Harness
      */
-    public INextbusService localBinding() {
-        return new SimplestNextbusServiceAdapter();
+    public INextBusService localBinding() {
+        return new SimplestNextBusServiceAdapter();
     }
     private Agency mbta;
     private Route route110, route111;

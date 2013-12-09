@@ -36,10 +36,11 @@ import net.sf.nextbus.publicxmlfeed.domain.Agency;
 import net.sf.nextbus.publicxmlfeed.domain.Route;
 import net.sf.nextbus.publicxmlfeed.domain.VehicleLocation;
 import net.sf.nextbus.publicxmlfeed.domain.RouteConfiguration;
+import net.sf.nextbus.publicxmlfeed.impl.SimplestNextBusServiceAdapter;
+import net.sf.nextbus.publicxmlfeed.service.INextBusService;
 import net.sf.nextbus.publicxmlfeed.service.INextbusServiceRemote;
-import net.sf.nextbus.publicxmlfeed.service.INextbusService;
 import net.sf.nextbus.publicxmlfeed.service.ServiceException;
-import net.sf.nextbus.publicxmlfeed.impl.SimplestNextbusServiceAdapter;
+
 import java.util.List;
 import java.util.Collection;
 import java.util.logging.Level;
@@ -56,11 +57,11 @@ import net.sf.nextbus.publicxmlfeed.domain.*;
 public class RMIServerStub extends UnicastRemoteObject implements INextbusServiceRemote {
 
     private static final Logger logger = Logger.getLogger(RMIServerStub.class.getName());
-    private INextbusService svc;
+    private INextBusService svc;
 
     public RMIServerStub() throws RemoteException {
         super();
-        svc = new SimplestNextbusServiceAdapter();
+        svc = new SimplestNextBusServiceAdapter();
         logger.log(Level.INFO, "The RMI adapter has started...");
     }
 

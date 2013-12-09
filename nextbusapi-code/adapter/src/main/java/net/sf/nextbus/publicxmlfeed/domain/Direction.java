@@ -42,7 +42,7 @@ import java.util.List;
  * </pre>
  * @author jrd
  */
-public class Direction extends NextbusValueObject implements Comparable<Direction> {
+public class Direction extends NextBusValueObject implements Comparable<Direction> {
     
     static final long serialVersionUID = -3331323894980430611L;
     

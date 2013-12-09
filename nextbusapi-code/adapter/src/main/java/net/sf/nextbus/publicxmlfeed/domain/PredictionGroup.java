@@ -49,7 +49,7 @@ import java.util.List;
  * </prediction>
  * </pre> @author jrd
  */
-public class PredictionGroup extends NextbusValueObject implements Comparable<PredictionGroup> {
+public class PredictionGroup extends NextBusValueObject implements Comparable<PredictionGroup> {
     static final long serialVersionUID = 4961855382838833913L;
     /**
      * serialization ctor.

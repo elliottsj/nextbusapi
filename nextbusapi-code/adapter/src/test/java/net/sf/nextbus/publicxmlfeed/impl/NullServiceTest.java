@@ -50,11 +50,11 @@ import java.util.*;
  */
 public class NullServiceTest {
     
-    NextbusService svc;
+    NextBusService svc;
     
     @Before
     public void setup() throws Exception {
-         svc = new NextbusService(new NullRpcImpl());
+         svc = new NextBusService(new NullRpcImpl());
     }
     
     

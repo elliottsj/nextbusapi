@@ -44,7 +44,7 @@ import java.util.Collections;
  *
  * @author jrd
  */
-public class RouteConfiguration extends NextbusValueObject {
+public class RouteConfiguration extends NextBusValueObject {
 
     static final long serialVersionUID = -4628560559639733708L;
     /** The Route for this configuration composite. */

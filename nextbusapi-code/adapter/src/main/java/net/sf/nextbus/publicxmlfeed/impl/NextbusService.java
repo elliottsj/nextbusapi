@@ -27,23 +27,18 @@
  * 
  * NextBus® is a registered trademark of Webtech Wireless Inc.
  *
- ******************************************************************************/package net.sf.nextbus.publicxmlfeed.impl;
+ ******************************************************************************/
+package net.sf.nextbus.publicxmlfeed.impl;
 
-import net.sf.nextbus.publicxmlfeed.domain.Stop;
-import net.sf.nextbus.publicxmlfeed.domain.PredictionGroup;
-import net.sf.nextbus.publicxmlfeed.domain.Agency;
-import net.sf.nextbus.publicxmlfeed.domain.Route;
-import net.sf.nextbus.publicxmlfeed.domain.VehicleLocation;
-import net.sf.nextbus.publicxmlfeed.domain.Schedule;
-import net.sf.nextbus.publicxmlfeed.domain.RouteConfiguration;
-import net.sf.nextbus.publicxmlfeed.service.INextbusService;
-import java.util.*;
+import net.sf.nextbus.publicxmlfeed.domain.*;
 import net.sf.nextbus.publicxmlfeed.service.FatalServiceException;
+import net.sf.nextbus.publicxmlfeed.service.INextBusService;
 import net.sf.nextbus.publicxmlfeed.service.ServiceException;
+
+//import javax.xml.bind.JAXBException;
+import java.util.*;
 import java.util.logging.Level;
-import java.util.logging.LogManager;
 import java.util.logging.Logger;
-import javax.xml.bind.JAXBException;
 
 /**
  * Flexible implementation of the NextBus Service adapter allowing selectable
@@ -61,17 +56,17 @@ import javax.xml.bind.JAXBException;
  *
  * @author jrd
  */
-public class NextbusService implements INextbusService {
+public class NextBusService implements INextBusService {
 
     
-    private static final Logger logger = Logger.getLogger(net.sf.nextbus.publicxmlfeed.impl.NextbusService.class.getName());
+    private static final Logger logger = Logger.getLogger(NextBusService.class.getName());
     private DomainFactory pojoMaker;
     private RPCImpl rpc;
 
     /**
      * Ctor.
      */
-    public NextbusService() {
+    public NextBusService() {
         pojoMaker = new DomainFactory();
     }
 
@@ -82,7 +77,7 @@ public class NextbusService implements INextbusService {
      *
      * @param arg
      */
-    public NextbusService(RPCImpl arg) {
+    public NextBusService(RPCImpl arg) {
         this();
         rpc = arg;
     }
@@ -97,6 +92,7 @@ public class NextbusService implements INextbusService {
             responseXml = rpc.call(rq);
             logger.log(Level.FINEST, "got XML response ", responseXml);
             // domain factory
+            // TODO: replace DomainFactory with SimpleXML
             return pojoMaker.getAgencies(responseXml);
         } catch (JAXBException jbe) {
             logger.log(Level.SEVERE, "while parsing response Xml " + responseXml, jbe);
@@ -107,7 +103,7 @@ public class NextbusService implements INextbusService {
     public Agency getAgency(String id) throws ServiceException {
         List<Agency> agencies = getAgencies();
         for (Agency a : agencies) {
-            if (a.getId().equals(id)) {
+            if (a.getTag().equals(id)) {
                 return a;
             }
         }

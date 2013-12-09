@@ -36,7 +36,7 @@ package net.sf.nextbus.publicxmlfeed.domain;
  * 
  * @author jrd
  */
-public class Vehicle extends NextbusValueObject {
+public class Vehicle extends NextBusValueObject {
     static final long serialVersionUID = 8445626499109575208L;
     
     /** Vehicle ID, Transit Agency assigned - i.e. Bus 2312 */

@@ -30,8 +30,8 @@
  ******************************************************************************/
 package net.sf.nextbus.publicxmlfeed.impl.rmiproxy;
 
+import net.sf.nextbus.publicxmlfeed.service.INextBusService;
 import net.sf.nextbus.publicxmlfeed.service.INextbusServiceRemote;
-import net.sf.nextbus.publicxmlfeed.service.INextbusService;
 import net.sf.nextbus.publicxmlfeed.service.TransientServiceException;
 import java.rmi.registry.*;
 
@@ -79,12 +79,12 @@ public class RMIClient {
      * @exception TransientServiceException wraps all underlying checked RMI
      * exception
      */
-    public INextbusService getService() {
+    public INextBusService getService() {
         try {
 
             Registry registry = LocateRegistry.getRegistry(hostName, port);
             INextbusServiceRemote stub = (INextbusServiceRemote) registry.lookup(serviceName);
-            INextbusService svc = new RMIClientProxy(stub);
+            INextBusService svc = new RMIClientProxy(stub);
             return svc;
         } catch (java.rmi.ConnectException cn) {
             throw new TransientServiceException("This happens when the RMID is not running", cn);
