@@ -35,7 +35,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.0</version>
+            <version>4.11</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -54,7 +54,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.8.1</version>
+                <version>2.9.1</version>
                 <configuration>
                     <show>private</show>
                     <nohelp>true</nohelp>
@@ -65,114 +65,107 @@
             </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3</version>
+                <version>2.5.1</version>
                 <configuration>
                     <source>1.5</source>
                     <target>1.5</target>
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.jvnet.jaxb2.maven2</groupId>
-                <artifactId>maven-jaxb2-plugin</artifactId>
-                <version>0.8.1</version>   
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
+                <version>1.5</version>
                 <executions>
                     <execution>
-                        <id>agencylist</id>
+                        <id>xjc1</id>
                         <goals>
-                            <goal>generate</goal>
+                            <goal>xjc</goal>
                         </goals>
                         <configuration>
                             <schemaDirectory>src/main/resources</schemaDirectory>
-                            <schemaIncludes>
-                                <include>agencylist-response.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc1</generateDirectory>
-                        </configuration>
-                    </execution>   
-                    <execution>
-                        <id>routeconfig</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources</schemaDirectory>
-                            <schemaIncludes>
-                                <include>routeconfig-response.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc2</generateDirectory>
-                        </configuration>
-                    </execution>    
-                    <execution>
-                        <id>routelist</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources</schemaDirectory>
-                            <schemaIncludes>
-                                <include>routelist-response.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc3</generateDirectory>
+                            <schemaFiles>agencylist-response.xsd</schemaFiles>
+                            <staleFile>${project.build.directory}/jaxb2/.schema1XjcStaleFlag</staleFile>
+                            <clearOutputDir>false</clearOutputDir>
                         </configuration>
                     </execution>
                     <execution>
-                        <id>vehiclelocations</id>
+                        <id>xjc2</id>
                         <goals>
-                            <goal>generate</goal>
+                            <goal>xjc</goal>
                         </goals>
                         <configuration>
                             <schemaDirectory>src/main/resources</schemaDirectory>
-                            <schemaIncludes>
-                                <include>vehiclelocations-response.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc4</generateDirectory>
+                            <schemaFiles>routeconfig-response.xsd</schemaFiles>
+                            <staleFile>${project.build.directory}/jaxb2/.schema2XjcStaleFlag</staleFile>
+                            <clearOutputDir>false</clearOutputDir>
                         </configuration>
                     </execution>
                     <execution>
-                        <id>predictions</id>
+                        <id>xjc3</id>
                         <goals>
-                            <goal>generate</goal>
+                            <goal>xjc</goal>
                         </goals>
                         <configuration>
                             <schemaDirectory>src/main/resources</schemaDirectory>
-                            <schemaIncludes>
-                                <include>prediction-response.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc5</generateDirectory>
+                            <schemaFiles>routelist-response.xsd</schemaFiles>
+                            <staleFile>${project.build.directory}/jaxb2/.schema3XjcStaleFlag</staleFile>
+                            <clearOutputDir>false</clearOutputDir>
                         </configuration>
                     </execution>
                     <execution>
-                        <id>schedules</id>
+                        <id>xjc4</id>
                         <goals>
-                            <goal>generate</goal>
+                            <goal>xjc</goal>
                         </goals>
                         <configuration>
                             <schemaDirectory>src/main/resources</schemaDirectory>
-                            <schemaIncludes>
-                                <include>schedule-response.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc6</generateDirectory>
+                            <schemaFiles>vehiclelocations-response.xsd</schemaFiles>
+                            <staleFile>${project.build.directory}/jaxb2/.schema4XjcStaleFlag</staleFile>
+                            <clearOutputDir>false</clearOutputDir>
                         </configuration>
                     </execution>
                     <execution>
-                        <id>alerts</id>
+                        <id>xjc5</id>
                         <goals>
-                            <goal>generate</goal>
+                            <goal>xjc</goal>
                         </goals>
                         <configuration>
                             <schemaDirectory>src/main/resources</schemaDirectory>
-                            <schemaIncludes>
-                                <include>messages-response.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc7</generateDirectory>
+                            <schemaFiles>prediction-response.xsd</schemaFiles>
+                            <staleFile>${project.build.directory}/jaxb2/.schema5XjcStaleFlag</staleFile>
+                            <clearOutputDir>false</clearOutputDir>
                         </configuration>
                     </execution>
-                </executions>
+                    <execution>
+                        <id>xjc6</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources</schemaDirectory>
+                            <schemaFiles>schedule-response.xsd</schemaFiles>
+                            <staleFile>${project.build.directory}/jaxb2/.schema6XjcStaleFlag</staleFile>
+                            <clearOutputDir>false</clearOutputDir>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>xjc7</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources</schemaDirectory>
+                            <schemaFiles>messages-response.xsd</schemaFiles>
+                            <staleFile>${project.build.directory}/jaxb2/.schema7XjcStaleFlag</staleFile>
+                            <clearOutputDir>false</clearOutputDir>
+                        </configuration>
+                    </execution>
+                </executions> 
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>rmic-maven-plugin</artifactId>
-                <version>1.1</version>
+                <version>1.2.1</version>
                 <configuration>
                     <idl>true</idl>
                     <iiop>true</iiop>
