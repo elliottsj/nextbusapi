@@ -52,7 +52,8 @@ public class SessionProxy implements Serializable, HttpSessionBindingListener {
    
   
     private ClientEventStream eventStreamQueue;
-    private Double latitude, longitude, range;
+    private Double latitude, longitude;
+    private Double range = 1.0;
     private String units = "mi";
     
     public SessionProxy() { 
@@ -66,7 +67,9 @@ public class SessionProxy implements Serializable, HttpSessionBindingListener {
 
     public void setNewSearchRadius(Double newLat, Double newLong, Double radius, String rUnits) {
         latitude=newLat; longitude=newLong; range=radius; units=rUnits;
+        log.debug("set location to (%f,%f) for %f %s", new Object[] {latitude, longitude, range, rUnits} );
     }
+    
     public Double getLatitude() {
         return latitude;
     }

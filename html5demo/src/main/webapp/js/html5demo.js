@@ -11,7 +11,9 @@ function setupServerSideEventListener(eventSrcServerUrl) {
     console.log('event source created');
     // register event listeners
     source.addEventListener('message', function(sse) {
+        $('#eventwindow').prepend('\n');
         $('#eventwindow').prepend(sse.data);
+        
     }, false);
 
     source.addEventListener('error', function(sse) {
@@ -25,12 +27,12 @@ function setupServerSideEventListener(eventSrcServerUrl) {
     }, false);
 }
 
-// Client Browser sense
+// Client Browser sense - coerce geocodes to 6 decimal places, to be compat with step attr of input field.
 function getLocation(position) {
     console.log('getLocation2()');
     if (position === null || position.coords === null) return;
-    $('#latitude').val(position.coords.latitude);
-    $('#longitude').val(position.coords.longitude);
+    $('#latitude').val(position.coords.latitude.toFixed(6));
+    $('#longitude').val(position.coords.longitude.toFixed(6));
     if (position.coords.accuracy < 1.0) {
         $('#warnings').text('Low GPS Accuracy -  ' + position.coords.accuracy + ' kilometers!');
     } else {

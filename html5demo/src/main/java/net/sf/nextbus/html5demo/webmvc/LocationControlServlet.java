@@ -64,6 +64,7 @@ public class LocationControlServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            super.log("lat = "+request.getParameter("latitude")+" lon="+request.getParameter("longitude"));
             Double latitude = Double.valueOf(request.getParameter("latitude"));
             Double longitude = Double.valueOf(request.getParameter("longitude"));
             Double range = Double.valueOf(request.getParameter("range"));
@@ -72,6 +73,7 @@ public class LocationControlServlet extends HttpServlet {
         } catch (NumberFormatException nfe) {
             super.log("error setting search params",nfe);
         }
+        super.log("Changed!");
         request.getRequestDispatcher("/eventstream/view").forward(request, response);
     }
 

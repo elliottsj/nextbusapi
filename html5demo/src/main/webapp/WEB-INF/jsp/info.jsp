@@ -34,15 +34,15 @@
                         <li><a class="ui-btn-active" data-icon="home">Info</a></li>
                     </ul>
                 </div>
-                <div id="warnings">None.</div>
+                <div id="warnings"></div>
             </header>
             <section data-role="section">
                 <h1>Architectural Proof of Concept</h1>
                 <h2>HTML 5 Geolocation / Server Side Events with Java EE 6 / ActiveMQ<h2>
                 <br>
                 &copy;2013 James R. Doyle  [mailto:rockymtnmagic@gmail.com]<br>
-                <a href="www.sourceforge.net/nextbusapi">Project Overview</a><br>
-                <a href="www.sourceforge.net/nextbusapi">SVN Source Repository</a><br>
+                <a href="https://sourceforge.net/projects/nextbusapi/">Project Overview</a><br>
+                <a href="https://sourceforge.net/p/nextbusapi/code/HEAD/tree/trunk/html5demo/">SVN Source Repository</a><br>
             </section>
             <footer data-role="footer">
             </footer>

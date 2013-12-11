@@ -64,16 +64,11 @@ public class DemoStartServlet extends HttpServlet {
             }
             // new visitor - create a new web session
             String sessId = request.getSession().getId();
-            System.out.println(sessId);
             sessionProxy.getEventStreamQueue().setId(sessId);
-            sessionProxy.getEventStreamQueue().addEvent("Test 1");
-            sessionProxy.getEventStreamQueue().addEvent("Test 2");
+            sessionProxy.getEventStreamQueue().setOwner(request.getUserPrincipal());
             sessionProxy.getEventStreamQueue().test();
             // create a new Session Proxy and associate
             log.info("created new web session {} for a client {} ", new Object[]{sessId, request.getHeader("User-Agent")});
-        
-
-        String clientType = request.getHeader("User-Agent");
         request.getRequestDispatcher("location").forward(request, response);
     }
 

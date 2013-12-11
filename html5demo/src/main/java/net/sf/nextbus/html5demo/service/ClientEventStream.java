@@ -39,6 +39,7 @@ import java.util.HashMap;
 import org.codehaus.jackson.map.ObjectMapper;
 import java.io.IOException;
 import java.util.concurrent.ThreadLocalRandom;
+import java.security.Principal;
 /**
  *
  * @author jrd
@@ -112,8 +113,9 @@ public class ClientEventStream implements Serializable {
     private int messagesRecvd;
 
     /**
-     * ctor
-     * @param type 
+     * 
+     * @param type
+     * @param pollTimeout 
      */
     public ClientEventStream(StreamType type, long pollTimeout) {
         if (type==null) {
@@ -140,10 +142,14 @@ public class ClientEventStream implements Serializable {
 
     /**
      * Set the owner (for debug trace printing purposes) of this stream (example, the Principal name)
-     * @param owner 
+     * @param arg 
      */
-    public void setOwner(String owner) {
-        this.owner = owner;
+    public void setOwner(String arg) {
+        this.owner = arg;
+    }
+    public void setOwner(Principal arg) {
+        if (owner == null) return;
+        owner = arg.getName();
     }
 
     /**
@@ -174,7 +180,7 @@ public class ClientEventStream implements Serializable {
      * @throws InterruptedException 
      */
     public synchronized EventEntry getNextEventToSend() throws InterruptedException {
-        log.info("polling and waiting on event stream for new event to send.");
+        log.debug("polling and waiting on event stream for new event to send.");
         while (ll.isEmpty()) {
             // waiting
             log.debug("about to wait {} msec for next event to arrive.", new Object[]{waitTimeout});
@@ -182,7 +188,7 @@ public class ClientEventStream implements Serializable {
             if (ll.isEmpty()) {
                 log.trace("done waiting, no event available, looping.");
             } else {
-                 log.info("done waiting, event available.");
+                 log.trace("done waiting, event available.");
             }
             // done waiting
         }
@@ -204,7 +210,7 @@ public class ClientEventStream implements Serializable {
      * @return HTML Event Stream (HTTP) message fragment to transmit.
      * @throws IOException 
      */
-    public String serializeEntry(EventEntry e) throws IOException {
+    public String toJSON(EventEntry e) throws IOException {
         String json = jsonSerializer.writeValueAsString(e.getOpaque());
        
         StringBuilder b = new StringBuilder();
@@ -222,7 +228,7 @@ public class ClientEventStream implements Serializable {
     }
     
     /**
-     * Event consumer (servlet) side method to dequeue a message once it has been sent to wire.
+     * <B>Consumer</B>  side method to dequeue a message once it has been accepted to wire (i.e. sent to output stream).
      * @param arg the message to remove, located in queue by its reference identity.
      */
     public synchronized void acknowledgeSent(EventEntry arg) {
@@ -271,7 +277,7 @@ public class ClientEventStream implements Serializable {
                     try {
                         Thread.currentThread().sleep(delay);
                     } catch (InterruptedException ie) {
-                        //swallow
+                        log.trace("thread interrupted while asleep. continuing...");
                     }
                 }
             }

@@ -46,17 +46,17 @@
                         <c:set var="rangeUnits" value="${requestScope.units}"/>
                         <fieldset class="ui-grid-a">
                             <div class="ui-block-a">
-                                <input type="number" data-mini="true" id="latitude" name="latitude" required min="-90.0" max="90.0" value="${latitude}"/>
+                                <input type="number"  data-mini="true" id="latitude" name="latitude" required min="-90.0" max="90.0" step="0.000001" value="${latitude}"/>
                                 <label for="latitude">latitude (&deg;N)</label>
                             </div><div class="ui-block-b">
-                                <input type="number" data-mini="true" id="longitude" name="longitude" required min="-180.0" max="180.0" value="${longitude}" />
+                                <input type="number" data-mini="true" id="longitude" name="longitude" required min="-180.0" max="180.0" step="0.000001" value="${longitude}" />
                                 <label for="longitude">longitude (&deg;W)</label>
                             </div>
                         </fieldset>
                         <h3 style="text-align: center;">Range of Interest</h3>
                         <fieldset class="ui-grid-a">
                             <div class="ui-block-a"> 
-                                <input type="number" data-mini="true" id="range" name="range" min="0.1" max="5.0" required value="${range}" />
+                                <input type="number" data-mini="true" id="range" name="range" min="0.1" max="5.0" step="0.1" required value="${range}" />
                             </div><div class="ui-block-b">
                                 <select name="units" data-mini="true" id="units" value="${rangeUnits}">
                                     <option value="kilometers">km</option>

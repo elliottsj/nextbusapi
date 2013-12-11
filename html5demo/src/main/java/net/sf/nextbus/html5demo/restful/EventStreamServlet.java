@@ -39,6 +39,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import net.sf.nextbus.html5demo.SessionProxy;
 import net.sf.nextbus.html5demo.service.ClientEventStream.EventEntry;
+import net.sf.nextbus.html5demo.service.ClientEventStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -80,7 +81,8 @@ public class EventStreamServlet extends HttpServlet {
             log.error("Sending HTTP 204. No Web Session present ; cannot continue.");
             return;
         }
-        log.info("got session bound feedstream " + sessionProxy.getEventStreamQueue().toString());
+        ClientEventStream evStream = sessionProxy.getEventStreamQueue();
+        log.info("got session bound feedstream {} ", new Object [] { evStream });
 
         // Identify the event service type and retry interval to the client.
         //response.setStatus(java.net.HttpURLConnection.HTTP_OK);
@@ -94,10 +96,10 @@ public class EventStreamServlet extends HttpServlet {
         try {
             while (true) {
                 try {
-                    EventEntry e = sessionProxy.getEventStreamQueue().getNextEventToSend();
-                    response.getWriter().println(sessionProxy.getEventStreamQueue().serializeEntry(e));
+                    EventEntry e = evStream.getNextEventToSend();
+                    response.getWriter().println(evStream.toJSON(e));
                     response.getWriter().println(); // Event Stream REQUIRES newline between msg blocks.
-                    sessionProxy.getEventStreamQueue().acknowledgeSent(e);
+                    evStream.acknowledgeSent(e);
                     log.debug("sent event");
                 } catch (InterruptedException waiterr) {
                     log.warn("thread wait in getNextEvent() was interrupted. Continuing. ");
@@ -107,9 +109,9 @@ public class EventStreamServlet extends HttpServlet {
                 }
             } //end-forever-while
         } catch (Exception any) {
+            log.error("Exception during network I/O. terminating connection. ");
             response.setStatus(java.net.HttpURLConnection.HTTP_INTERNAL_ERROR);
             response.flushBuffer();
-            log.error("IO Exception during network I/O. terminating connection. ");
         }
     }
 

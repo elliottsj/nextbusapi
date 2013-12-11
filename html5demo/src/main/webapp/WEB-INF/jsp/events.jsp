@@ -36,7 +36,7 @@
             <section data-role="section">
                 <div  id="eventstream-control" class="ui-grid-a">
                     <button id="clearMessageAreaButton">Clear</button>
-                    <textarea id="eventwindow" rows="8">
+                    <textarea id="eventwindow" data-role="none" rows="8" >
                     </textarea>
                 </div>
             </section>

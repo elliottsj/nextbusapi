@@ -24,4 +24,7 @@ label {
     text-align: center;
 }
 
+#eventwindow {
+    overflow-y: auto;
+}
 
