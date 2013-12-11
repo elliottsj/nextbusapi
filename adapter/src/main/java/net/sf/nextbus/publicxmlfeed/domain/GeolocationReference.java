@@ -31,18 +31,25 @@
 package net.sf.nextbus.publicxmlfeed.domain;
 import java.io.Serializable;
 /**
- *
+ * A utility domain object for storing Geocoded objects relative to some predefined reference point.
+ * This utility is useful for maintain collections of geocoded objects related to a common user point of
+ * reference with precomputed range and bearing data.
+ * 
  * @author jrd
  */
 public class GeolocationReference implements Serializable {
+    //static final long serialVersionUID = -5569276801266595860L;
+    
     private final Geolocation referencePoint;
     private final Geolocation samplePoint;
-    private final Double distance;
+    private final double range;
+    private final double bearing;
     
     public GeolocationReference(Geolocation ref, Geolocation pt) {
         referencePoint = ref;
         samplePoint = pt;
-        distance = ref.getDistanceInKm(pt);
+        range = ref.getDistanceInKm(pt);
+        bearing = ref.bearingDegrees(pt);
     }
 
     public Geolocation getReferencePoint() {
@@ -53,9 +60,23 @@ public class GeolocationReference implements Serializable {
         return samplePoint;
     }
 
-    public Double getDistance() {
-        return distance;
+    /**
+     * Get the range from the reference point, in km.
+     * @return 
+     */
+    public double getRange() {
+        return range;
     }
+
+    /**
+     * Get the bearing from the reference point, in degrees.
+     * @return 
+     */
+    public double getBearing() {
+        return bearing;
+    }
+
+    
 
     @Override
     public int hashCode() {
@@ -85,7 +106,7 @@ public class GeolocationReference implements Serializable {
 
     @Override
     public String toString() {
-        return "Ranger{" + "referencePoint=" + referencePoint + ", samplePoint=" + samplePoint + ", distance=" + distance + '}';
+        return "GeoReference{" +  ", range=" + range +  ", bearing=" + bearing + "referencePoint=" + referencePoint + ", samplePoint=" + samplePoint + '}';
     }
     
 }
