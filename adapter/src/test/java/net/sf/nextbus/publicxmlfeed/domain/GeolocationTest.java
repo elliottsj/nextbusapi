@@ -21,7 +21,7 @@ public class GeolocationTest {
 
     @Test
     public void testHaversineCalculation() {
-        // Test distance using some real world facts
+        // Test distance using some real world facts taken by hand with a GPS
         Assert.assertEquals(p1.getDistanceInMiles(p2), 0.9947951463657195, 0.0001);
         Assert.assertEquals(p2.getDistanceInMiles(p3), 1.0394705150505739, 0.0001);
     }
@@ -31,9 +31,20 @@ public class GeolocationTest {
         // equals - symmetry of distance operator
         Assert.assertNotSame(p1, p2);
         Assert.assertSame(p1, p1);
+        // distance operator is symmetric i.e. O(p1,p2) = O(p2, p1)
         Assert.assertEquals(p1.getDistanceInKm(p2), p2.getDistanceInKm(p1), 0.0001);
+        
     }
 
+    @Test
+    public void testBearing() {
+        // bearing operator is negative symmetric ie  O(p1,p2) = -O(p2, p1)
+        System.out.println("bearing: "+p1.bearingDegrees(p3));
+        // From Dallas TX toward Boston, MA
+        // from 42.358056N , -71.063611 W to 32.775833 N, -96.796667 W -- bearing should be 108.63°
+        double bearing = new Geolocation(32.775833, -96.796667).bearingDegrees( new Geolocation(42.358056, -71.063611) );
+        System.out.println(">>> "+bearing);
+    }
     /**
      * Tests the Distance Sort
      */
