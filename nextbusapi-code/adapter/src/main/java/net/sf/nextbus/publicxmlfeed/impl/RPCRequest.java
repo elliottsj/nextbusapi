@@ -187,7 +187,7 @@ public class RPCRequest {
         rq.parameters.put("a", route.getAgency().getTag());
         rq.parameters.put("command", "predictions");
         rq.parameters.put("stopId", stop.getTag());
-         rq.parameters.put("routeTag", route.getTag());
+        rq.parameters.put("routeTag", route.getTag());
         if (useShortTitles) {
             rq.parameters.put("useShortTitles", "true");
         }

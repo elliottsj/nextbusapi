@@ -56,12 +56,11 @@ public class Direction extends NextBusValueObject implements Comparable<Directio
     protected String name;
     /** Stops scheduled on this Direction - but no schedule time information ; use the Schedule API for that data.*/
     protected List<Stop> stops;
-    
-    /**
-     * serialization ctor.
-     */
-    protected Direction() { }
-    
+
+    public Direction(String tag) {
+        this.tag = tag;
+    }
+
     /**
      * Domain factory ctor.
      */

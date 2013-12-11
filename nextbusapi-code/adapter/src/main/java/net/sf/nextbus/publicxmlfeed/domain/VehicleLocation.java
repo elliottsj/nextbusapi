@@ -37,28 +37,12 @@ import java.util.Date;
  * @author jrd
  */
 public class VehicleLocation extends NextBusValueObject implements IGeocoded {
-    static final long serialVersionUID = 6693216783001986829L;
 
-    /** Vehicle identifier */
-    protected Vehicle vehicle;
-    /** The Route the vehicle is assigned to. */
-    protected Route parent;
     /** The Schedule Direction that the vehicle is currently assigned to. */
     protected String directionId;
-    /** Are NextBus Predictions currently available for this vehicle? */
-    protected boolean predictable;
-    /** Position at last time where last time is the NextbusValueObject::createTimeUtc */
-    protected Geolocation location;
-    /** Vehicle speed in km/hr */
-    protected double speed;
-    /** Vehicle head in Degrees from Magnetic North */
-    protected double heading;
 
-    /**
-     * Serialization ctor
-     */
-    protected VehicleLocation() { }
-    
+
+
     /**
      * Domain factory ctor.
      */

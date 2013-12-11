@@ -38,21 +38,30 @@ import org.simpleframework.xml.Attribute;
  */
 public class Agency extends NextBusValueObject implements Comparable<Agency> {
 
-    /** Key identifier; example: "ttc" */
+    private static final long serialVersionUID = -4008437331349648731L;
+
+    /** Key identifier */
     @Attribute
     private String tag;
 
-    /** Full display title; example: "Toronto Transit Commission" */
+    /** Full display title */
     @Attribute
     private String title;
 
-    /** Short display title (optional); example: "Toronto TTC" */
+    /** Short display title (optional) */
     @Attribute(required = false)
     private String shortTitle;
 
-    /** Region value; example: "Ontario" */
+    /** Region value */
     @Attribute
     private String regionTitle;
+
+    public Agency(String tag, String title, String shortTitle, String regionTitle) {
+        this.tag = tag;
+        this.title = title;
+        this.shortTitle = shortTitle;
+        this.regionTitle = regionTitle;
+    }
 
     /**
      * Get the unique tag.
@@ -92,25 +101,20 @@ public class Agency extends NextBusValueObject implements Comparable<Agency> {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Agency other = (Agency) obj;
-        if ((this.tag == null) ? (other.tag != null) : !this.tag.equals(other.tag)) {
-            return false;
-        }
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Agency)) return false;
+
+        Agency agency = (Agency) o;
+
+        if (!tag.equals(agency.tag)) return false;
+
         return true;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 59 * hash + (this.tag != null ? this.tag.hashCode() : 0);
-        return hash;
+        return tag.hashCode();
     }
 
     @Override
@@ -118,8 +122,15 @@ public class Agency extends NextBusValueObject implements Comparable<Agency> {
         return "Agency{" + "tag=" + tag + ", title=" + title + ", shortTitle=" + shortTitle + ", regionTitle=" + regionTitle + '}';
     }
 
-    public int compareTo(Agency o) {
-        return title.compareTo(o.title);
+    /**
+     * Compares this agency's title with the specified agency's title for alphabetical sorting by title.
+     *
+     * @param agency the agency to be compared
+     * @return a negative integer, zero, or a positive integer as this agency's title is alphabetically before,
+     * equal to, or after the specified agency's title.
+     */
+    public int compareTo(Agency agency) {
+        return title.compareTo(agency.title);
     }
     
 }

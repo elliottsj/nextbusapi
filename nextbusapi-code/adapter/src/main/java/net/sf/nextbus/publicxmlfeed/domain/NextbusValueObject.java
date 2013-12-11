@@ -38,7 +38,7 @@ import java.util.Date;
  *
  * @author jrd (modified by elliottsj)
  */
-public abstract class NextBusValueObject implements Serializable {
+public abstract class NextBusValueObject implements Serializable, TemporalValueObject {
 
     /** Timestamp to implement TemporalValueObject */
     protected final Long createTimeUtc;
@@ -61,20 +61,41 @@ public abstract class NextBusValueObject implements Serializable {
 
     /** The following is an implementation of the Temporal interface */
 
-    public final long getObjectAge() {
-        return (System.currentTimeMillis() - createTimeUtc) / 1000;
-    }
-
-    public final long getObjectTimestamp() {
+    /**
+     * Gets the creation timestamp of the object in milliSeconds since 1 January 1970 00:00:00 UTC
+     *
+     * @return birth date from the Unix epoch.
+     */
+    public long getObjectTimestamp() {
         return createTimeUtc;
     }
 
+    /**
+     * Gets the creation timestamp of the object
+     *
+     * @return the creation timestamp of the object
+     */
     public Date getTimestamp() {
         return new Date(createTimeUtc);
     }
 
-    public final boolean isObjectOlderThan(long seconds) {
+    /**
+     * Gets the current age of the object in Seconds.
+     *
+     * @return current age of the object in Seconds.
+     */
+    public long getObjectAge() {
+        return (System.currentTimeMillis() - createTimeUtc) / 1000;
+    }
+
+    /**
+     * Tests the age of object since its creation time.
+     *
+     * @param seconds a number of seconds
+     * @return true iff the object is currently older than 'seconds' given
+     */
+    public boolean isObjectOlderThan(long seconds) {
         return getObjectAge() > seconds;
-}
+    }
 
 }

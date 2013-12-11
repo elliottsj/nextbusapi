@@ -30,25 +30,71 @@
  ******************************************************************************/
 package net.sf.nextbus.publicxmlfeed.domain;
 
+import org.simpleframework.xml.Attribute;
+
 /**
  * Simple type for Vehicle ; Note that Vehicles can arbitrarily be assigned across Routes at any time by the Transit agency.
  * The identity of a Vehicle only serves to disambiguate for other vehicles concurrently deployed on the same Route and Direction.
  * 
  * @author jrd
  */
-public class Vehicle extends NextBusValueObject {
-    static final long serialVersionUID = 8445626499109575208L;
-    
-    /** Vehicle ID, Transit Agency assigned - i.e. Bus 2312 */
-    protected String id;
-    
-    public Vehicle(String _id) { 
-        this.id=_id;
+public class Vehicle extends NextBusValueObject implements IGeocoded {
+
+    /** Identifier of this vehicle. It is often but not always numeric. */
+    @Attribute
+    private final String id;
+
+    /** The route this vehicle is currently associated with. */
+    private final Route route;
+
+    /** The direction that this vehicle is currently on. */
+    private final Direction direction;
+
+    /** The location of this vehicle. */
+    protected Geolocation location;
+
+    @Attribute
+    private int secsSinceReport;
+
+    /** Are NextBus Predictions currently available for this vehicle? */
+    @Attribute
+    protected boolean predictable;
+
+    /** Vehicle head in Degrees from Magnetic North */
+    @Attribute
+    protected double heading;
+
+    /** Vehicle speed in km/hr */
+    @Attribute
+    protected double speedKmHr;
+
+    public Vehicle(@Attribute String id,
+                   @Attribute String routeTag,
+                   @Attribute String dirTag,
+                   @Attribute int secsSinceReport,
+                   @Attribute boolean predictable,
+                   @Attribute double heading,
+                   @Attribute double speedKmHr) {
+        this.id = id;
+        this.route = new Route(routeTag);
+        this.direction = new Direction(dirTag);
+        this.secsSinceReport = secsSinceReport;
+        this.predictable = predictable;
+        this.heading = heading;
+        this.speedKmHr = speedKmHr;
     }
-    protected Vehicle() { }
 
     public String getId() {
         return id;
+    }
+
+    /**
+     * Returns the GPS location of a Geocodeable object.
+     *
+     * @return
+     */
+    public Geolocation getGeolocation() {
+        return null;
     }
 
     @Override
@@ -77,5 +123,5 @@ public class Vehicle extends NextBusValueObject {
     public String toString() {
         return "Vehicle{" + "id=" + id + '}';
     }
-    
+
 }

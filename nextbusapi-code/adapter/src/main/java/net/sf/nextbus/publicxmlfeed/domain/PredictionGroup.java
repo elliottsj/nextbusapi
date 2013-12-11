@@ -50,17 +50,11 @@ import java.util.List;
  * </pre> @author jrd
  */
 public class PredictionGroup extends NextBusValueObject implements Comparable<PredictionGroup> {
-    static final long serialVersionUID = 4961855382838833913L;
-    /**
-     * serialization ctor.
-     */
-    protected PredictionGroup() { }
 
     /**
      * Domain factory ctor.
      */
     public PredictionGroup(Route _rte, Stop _stop, List<PredictionDirection> drns, String copyright, List<String> msgs) {
-        super(copyright);
         this.directions = drns;
         this.route = _rte;
         this.stop = _stop;

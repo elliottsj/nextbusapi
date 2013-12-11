@@ -67,15 +67,15 @@ public class NullServiceTest {
     
     @Test
     public void testRouteList() throws Exception {
-        Agency mbta = new Agency("mbta","","","","");
-        List<Route> routes = svc.getRoutes(mbta);
+        Agency ttc = new Agency("ttc","","","");
+        List<Route> routes = svc.getRoutes(ttc);
         System.out.println(routes);
     }
     
     @Test
     public void testRouteConfig() throws Exception {
-        Agency mbta = new Agency("mbta","","","","");
-        Route r = new Route(mbta,"a","b","c","");
+        Agency ttc = new Agency("ttc","","","");
+        Route r = new Route(ttc,"a","b","c","");
         RouteConfiguration rc = svc.getRouteConfiguration(r);
         //stops=87, directions=2, paths=20,
         Assert.assertTrue(rc.getStops().size() == 87);
