@@ -62,7 +62,7 @@ public class Geolocation implements Serializable {
     /**
      * Haversine distance metric
      *
-     * @param p1 Geolocation 1 
+     * @param p1 Geolocation 1
      * @param p2 Geolocation 2
      * @return Angular deviation (in RADIANS) on surface of a sphere betw points
      * 1 and 2
@@ -82,16 +82,24 @@ public class Geolocation implements Serializable {
     }
 
     /**
-     * Forward Azimuth from p1 to p2 (also known as bearing)
+     * Compute the Forward Azimuth from p1 to p2 (also known as bearing).
+     *
      * @param p1 Geolocation 1
      * @param p2 Geolocation 2
      * @return bearing in DEGREES from p1 heading towards p2.
      */
     private static double forwardAzimuth(Geolocation p1, Geolocation p2) {
+        // Convert to Radians and compute differentials
         double dφ = p2.longitudeRadians - p1.longitudeRadians;
-        //double θ = Math.atan2(Math.sin(dφ) * Math.cos(p2.longitudeRadians) * Math.cos(p1.longitudeRadians), Math.cos(p1.longitudeRadians * Math.cos(p2.longitudeRadians) - Math.cos(dφ) * Math.sin(p1.longitudeRadians) * Math.cos(p2.longitudeRadians)));
-        double θ = Math.atan2(Math.cos(p1.longitudeRadians * Math.cos(p2.longitudeRadians) - Math.cos(dφ) * Math.sin(p1.longitudeRadians) * Math.cos(p2.longitudeRadians)), Math.sin(dφ) * Math.cos(p2.longitudeRadians) * Math.cos(p1.longitudeRadians));
-        return θ * 180.0 / Math.PI;
+        double Θ1 = p1.latitudeRadians;
+        double Θ2 = p2.latitudeRadians;
+
+        double y = Math.sin(dφ) * Math.cos(Θ2);
+        double x = Math.cos(Θ1) * Math.sin(Θ2) - Math.sin(Θ1) * Math.cos(Θ2) * Math.cos(dφ);
+        double theta = Math.atan2(x, y)* 180.0 / Math.PI ;
+        return (theta + 360.0) % 360.0; 
+        
+        
     }
 
     /**
@@ -107,18 +115,21 @@ public class Geolocation implements Serializable {
         double distance = Re * θ;
         return Math.abs(distance);
     }
+
     /**
      * Get this distance from <i>this</i> point to a given reference point.
+     *
      * @param ref reference pt
      * @return distance to reference point in kilometers.
      */
     public double getDistanceInKm(Geolocation ref) {
         return distanceKm(ref, this);
     }
+
     /**
      * Gets the distance between two GPS points in Miles.
      *
-     * @param p1 
+     * @param p1
      * @param p2
      * @return absolute distance between points p1 and p2 in miles
      */
@@ -128,16 +139,21 @@ public class Geolocation implements Serializable {
         double distance = km2miles * Re * θ;
         return Math.abs(distance);
     }
+
     /**
-     * Get distance in miles of <i>this</i> point from a given reference location.
+     * Get distance in miles of <i>this</i> point from a given reference
+     * location.
+     *
      * @param ref reference location.
      * @return distance in miles.
      */
     public double getDistanceInMiles(Geolocation ref) {
         return distanceMiles(ref, this);
     }
+
     /**
      * Get the bearing, in degrees, from p1 headed toward p2.
+     *
      * @param p1 orig point
      * @param p2 target point
      * @return bearing in degrees.
@@ -145,15 +161,17 @@ public class Geolocation implements Serializable {
     public static double bearingDegrees(Geolocation p1, Geolocation p2) {
         return forwardAzimuth(p1, p2);
     }
+
     /**
      * Get the bearing for THIS point given a reference point.
-     * @param ref the reference (origin) 
+     *
+     * @param ref the reference (origin)
      * @return bearing in degrees.
      */
     public double bearingDegrees(Geolocation ref) {
         return forwardAzimuth(ref, this);
     }
-    
+
     /**
      * GPS Latitude in Degrees Decimal.
      */
