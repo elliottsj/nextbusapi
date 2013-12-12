@@ -33,6 +33,11 @@
     </properties>
     <dependencies>
         <dependency>
+            <groupId>net.sf.nextbus.publicxmlfeed</groupId>
+            <artifactId>nextbus-adapter</artifactId>
+            <version>1.0.2-RELEASE</version>
+        </dependency>
+        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>6.0</version>
@@ -76,7 +81,7 @@
             <artifactId>slf4j-jdk14</artifactId>
             <version>1.6.2</version>
         </dependency>
-        <!-- jboss 
+        <!-- jboss nneds jcl
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-jcl</artifactId>
