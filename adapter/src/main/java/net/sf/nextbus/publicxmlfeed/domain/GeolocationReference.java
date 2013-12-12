@@ -38,8 +38,9 @@ import java.io.Serializable;
  * @author jrd
  */
 public class GeolocationReference implements Serializable {
-    //static final long serialVersionUID = -5569276801266595860L;
     
+    static final long serialVersionUID = -6834783847222403391L;
+
     private final Geolocation referencePoint;
     private final Geolocation samplePoint;
     private final double range;
