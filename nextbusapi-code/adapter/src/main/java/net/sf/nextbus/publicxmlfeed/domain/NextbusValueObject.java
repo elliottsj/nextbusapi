@@ -40,14 +40,14 @@ import java.util.Date;
  */
 public abstract class NextBusValueObject implements Serializable, TemporalValueObject {
 
-    /** Timestamp to implement TemporalValueObject */
-    protected final Long createTimeUtc;
+    /** Object creation time in milliseconds since epoch */
+    private final long createTime;
 
     /**
      * Implicit constructor will set the birth timestamp of this instance to System.currentTime
      */
     public NextBusValueObject() {
-        createTimeUtc = System.currentTimeMillis();
+        createTime = System.currentTimeMillis();
     }
 
     /**
@@ -56,7 +56,7 @@ public abstract class NextBusValueObject implements Serializable, TemporalValueO
      * @param birthday milliseconds since the Unix epoch
      */
     protected NextBusValueObject(long birthday) {
-        createTimeUtc = birthday;
+        createTime = birthday;
     }
 
     /** The following is an implementation of the Temporal interface */
@@ -67,7 +67,7 @@ public abstract class NextBusValueObject implements Serializable, TemporalValueO
      * @return birth date from the Unix epoch.
      */
     public long getObjectTimestamp() {
-        return createTimeUtc;
+        return createTime;
     }
 
     /**
@@ -76,7 +76,7 @@ public abstract class NextBusValueObject implements Serializable, TemporalValueO
      * @return the creation timestamp of the object
      */
     public Date getTimestamp() {
-        return new Date(createTimeUtc);
+        return new Date(createTime);
     }
 
     /**
@@ -85,7 +85,7 @@ public abstract class NextBusValueObject implements Serializable, TemporalValueO
      * @return current age of the object in Seconds.
      */
     public long getObjectAge() {
-        return (System.currentTimeMillis() - createTimeUtc) / 1000;
+        return (System.currentTimeMillis() - createTime) / 1000;
     }
 
     /**

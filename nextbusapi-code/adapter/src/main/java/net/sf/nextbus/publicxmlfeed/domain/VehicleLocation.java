@@ -93,16 +93,16 @@ public class VehicleLocation extends NextBusValueObject implements IGeocoded {
      * @return Last reported time at position in milliSeconds since Jan 1, 1970 UTC.
      */
     public long getLastTimeUtc() {
-        return super.createTimeUtc;
+        return super.createTime;
     }
     /**
      * Last reported time at position since Jan 1, 1970 UTC.
      */
     public Date getLastTime() {
-        return new java.sql.Date(super.createTimeUtc);
+        return new java.sql.Date(super.createTime);
     }
     public java.sql.Timestamp getFoo() {
-        return new java.sql.Timestamp(super.createTimeUtc);
+        return new java.sql.Timestamp(super.createTime);
     }
 
     /**

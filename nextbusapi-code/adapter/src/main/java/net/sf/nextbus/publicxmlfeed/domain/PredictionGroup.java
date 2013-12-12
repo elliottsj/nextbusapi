@@ -30,150 +30,125 @@
  ******************************************************************************/
 package net.sf.nextbus.publicxmlfeed.domain;
 
+import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.ElementList;
+
 import java.util.List;
 
 /**
- * Predictions about a Stop are complex ; they involve several Directions of travel, and Multiple vehicles each with forecast arrival times.
+ * Predictions about a Stop are complex; they involve several Directions of travel, and Multiple vehicles each with forecast arrival times.
  * This domain object is essentially a nested tree of objects. Implementing it as formal Java POJOs makes it much simpler to navigate
  * by the target application programmer who will likely use it to either drive UI code, or feed a JMS event stream.
- * <bold>Seriously needs a UML Diagram</bold>
- * 
- * <pre>
- * <predictions agencyTitle="San Francisco Muni, CA" routeTag="N" routeCode="1" routeTitle="N - Judah" stopTitle="Civic Center Station Outbound">
- * <prediction>...</prediction>
- * ...
- * <prediction>...</prediction>
- * <message>..</message>
- * ..
- * <message>..</message>
- * </prediction>
- * </pre> @author jrd
  */
-public class PredictionGroup extends NextBusValueObject implements Comparable<PredictionGroup> {
+public class PredictionGroup extends NextBusValueObject {
 
-    /**
-     * Domain factory ctor.
-     */
-    public PredictionGroup(Route _rte, Stop _stop, List<PredictionDirection> drns, String copyright, List<String> msgs) {
-        this.directions = drns;
-        this.route = _rte;
-        this.stop = _stop;
-        this.messages = msgs;
-    }
-    
+    private static final long serialVersionUID = 4359081328856210694L;
+
     /** The Route for which this sequence of Predictions applies */
-    protected Route route;
-    /** The Stop for which the sequence of Predictions apply. */
-    protected Stop stop;
+    private Route route;
+
+    /** The Stop for which this sequence of Predictions applies. */
+    private Stop stop;
+
     /** The scheduled Directions currently available from this Stop */
-    protected List<PredictionDirection> directions;
+    @ElementList(inline = true, name = "direction")
+    private List<PredictionDirection> directions;
+
     /** Any Transit agency messages applicable to this prediction (i.e. lateness, outages, etc)  */
-    protected List<String> messages;
+    @ElementList(inline = true, name = "message")
+    private List<String> messages;
 
-    /**
-     * Multiple Vehicles travel in a route Direction and each of these vehicles holds an arrival prediction.
-     */
-    public static class PredictionDirection implements Comparable<PredictionDirection>, java.io.Serializable {
-        static final long serialVersionUID = -1405165652013067022L;
-        
-        public PredictionDirection(String _title, List<Prediction> pdns) {
-            this.title=_title;
-            this.predictions=pdns;
-        }
-        protected PredictionDirection() { }
-        /** Transit agency assigned name of this Travel Direction i.e.Back Bay Station via Copley Square */
-        protected String title;
-        /** Time Prediction elements for each Vehicle currently set out on this Direction. */
-        protected List<Prediction> predictions;
-        
-        public List<Prediction> getPredictions() {
-            return predictions;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public int compareTo(PredictionDirection o) {
-          return this.title.compareTo(o.title);
-        }
+    public PredictionGroup(@Attribute String routeTitle,
+                           @Attribute String routeTag,
+                           @Attribute String stopTitle,
+                           @Attribute String stopTag) {
+        this.route = new Route(routeTag, routeTitle);
+        this.stop = new Stop(stopTag, stopTitle);
     }
 
     /**
-     * 
-     * @return The available Travel directions for this prediction group.
+     * @return the available travel directions for this prediction group
      */
     public List<PredictionDirection> getDirections() {
         return directions;
     }
 
     /**
-     * 
-     * @return The total number of Prediction elements in the group (across all Directions)
+     * @return the total number of Prediction elements in the group (across all Directions)
      */
     public int getAvailablePredictions() {
         int totalPredictions = 0;
-            for (PredictionDirection d : directions) {
-                totalPredictions += d.predictions.size();
-            }
+        for (PredictionDirection d : directions)
+            totalPredictions += d.predictions.size();
         return totalPredictions;
     }
     
     /**
-     *
-     * @return Stop which these predictions apply.
+     * @return Stop for which these predictions apply
      */
     public Stop getStop() {
         return stop;
     }
 
+    /**
+     * @return Route for which these predictions apply
+     */
     public Route getRoute() {
         return route;
     }
 
     /**
-     *
-     * @return Messages connected to this Prediction set.
+     * @return messages connected to this Prediction set
      */
     public List<String> getMessages() {
         return messages;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final PredictionGroup other = (PredictionGroup) obj;
-        if (this.route != other.route && (this.route == null || !this.route.equals(other.route))) {
-            return false;
-        }
-        if (this.stop != other.stop && (this.stop == null || !this.stop.equals(other.stop))) {
-            return false;
-        }
-        return true;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PredictionGroup)) return false;
+
+        PredictionGroup that = (PredictionGroup) o;
+
+        return route.equals(that.route) && stop.equals(that.stop);
     }
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 67 * hash + (this.route != null ? this.route.hashCode() : 0);
-        hash = 67 * hash + (this.stop != null ? this.stop.hashCode() : 0);
-        return hash;
+        int result = route.hashCode();
+        result = 31 * result + stop.hashCode();
+        return result;
     }
-    
+
     @Override
     public String toString() {
-        
         return "PredictionGroup{" + "route="+route+", stop=" + stop + ", createTime=" + super.getObjectTimestamp() + ", directions=" + directions.size() + ", predictions=" + this.getAvailablePredictions() + ", messages=" + messages.size() + '}';
     }
 
-    public int compareTo(PredictionGroup o) {
-        return this.stop.compareTo(o.stop);
+    /**
+     * Multiple Vehicles travel in a route Direction and each of these vehicles holds an arrival prediction.
+     */
+    public static class PredictionDirection extends NextBusValueObject {
+
+        private static final long serialVersionUID = -3769931284954942239L;
+
+        /** Transit agency assigned name of this Travel Direction e.g. Back Bay Station via Copley Square */
+        @Attribute
+        private String title;
+
+        /** Time Prediction elements for each Vehicle currently set out on this Direction. */
+        @ElementList(inline = true)
+        private List<Prediction> predictions;
+
+        public String getTitle() {
+            return title;
+        }
+
+        public List<Prediction> getPredictions() {
+            return predictions;
+        }
+
     }
-    
-    
+
 }

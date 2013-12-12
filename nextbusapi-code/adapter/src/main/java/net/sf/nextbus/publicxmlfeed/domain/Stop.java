@@ -62,29 +62,12 @@ public class Stop extends NextBusValueObject implements IGeocoded, Comparable<St
     /** An Alternate StopID published in Schedules and used in Telephone Voiceresponder and SMS Status messages. */
     protected String alternateStopId;
 
-    /**
-     * serialization Ctor
-     */
-    protected Stop() { }
-
-    /**
-     * Domain factory ctor.
-     */
-    public Stop(Agency _agency, String id, String _tag, String _title, String _shortTitle, Geolocation gps, String copyrttext) {
-        super(copyrttext);
-        shortTitle = "";
-        if (_shortTitle != null) {
-            shortTitle = _shortTitle;
-        }
-        agency = _agency;
-        alternateStopId = id;
-        tag = _tag;
-        title = _title;
-        geolocation = gps;
+    public Stop(String tag, String title) {
+        this.tag = tag;
+        this.title = title;
     }
 
     /**
-     *
      * @return The GPS location of the Stop or Station.
      */
     public Geolocation getGeolocation() {

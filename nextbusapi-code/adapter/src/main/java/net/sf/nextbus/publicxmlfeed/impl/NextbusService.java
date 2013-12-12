@@ -44,7 +44,7 @@ import java.util.logging.Logger;
  * Flexible implementation of the NextBus Service adapter allowing selectable
  * HTTP RPC protocol provider.
  *
- * Notice how the spectrum of Communications (TCPIP) and XML Exceptions are
+ * Notice how the spectrum of Communications (TCP/IP) and XML Exceptions are
  * totally handled here. Also notice that all of the Communication activities
  * have been abstracted out of this class by delegating those activities to a
  * collaborating object (RPCImpl). This allows also of flexibility, for one,
@@ -92,22 +92,19 @@ public class NextBusService implements INextBusService {
             responseXml = rpc.call(rq);
             logger.log(Level.FINEST, "got XML response ", responseXml);
             // domain factory
-            // TODO: replace DomainFactory with SimpleXML
             return pojoMaker.getAgencies(responseXml);
-        } catch (JAXBException jbe) {
-            logger.log(Level.SEVERE, "while parsing response Xml " + responseXml, jbe);
-            throw new FatalServiceException("RPC call <agencies>", jbe);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "while parsing response Xml " + responseXml, e);
+            throw new FatalServiceException("RPC call <agencies>", e);
         }
     }
 
-    public Agency getAgency(String id) throws ServiceException {
+    public Agency getAgency(String tag) throws ServiceException {
         List<Agency> agencies = getAgencies();
-        for (Agency a : agencies) {
-            if (a.getTag().equals(id)) {
+        for (Agency a : agencies)
+            if (a.getTag().equals(tag))
                 return a;
-            }
-        }
-        throw new ServiceException("Invalid call parameter. Agency " + id + " not registered with NextBus.");
+        throw new ServiceException("Invalid call parameter. Agency " + tag + " not registered with NextBus.");
     }
 
     public List<Route> getRoutes(Agency agency) {
@@ -121,9 +118,9 @@ public class NextBusService implements INextBusService {
             logger.log(Level.FINEST, "got XML response ", responseXml);
             // domain factory
             return pojoMaker.getRoutes(agency, responseXml);
-        } catch (JAXBException jbe) {
-            logger.log(Level.SEVERE, "while parsing response Xml " + responseXml, jbe);
-            throw new FatalServiceException("RPC Call <routeList>", jbe);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "while parsing response Xml " + responseXml, e);
+            throw new FatalServiceException("RPC Call <routeList>", e);
         }
     }
 
@@ -137,9 +134,9 @@ public class NextBusService implements INextBusService {
             responseXml = rpc.call(rq);
             logger.log(Level.FINEST, "got XML response ", responseXml);
             return pojoMaker.getRouteConfiguration(parent, responseXml);
-        } catch (JAXBException jbe) {
-            logger.log(Level.SEVERE, "while parsing response Xml " + responseXml, jbe);
-            throw new FatalServiceException("RPC Call <routeConfig>", jbe);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "while parsing response Xml " + responseXml, e);
+            throw new FatalServiceException("RPC Call <routeConfig>", e);
         }
     }
 
@@ -153,9 +150,9 @@ public class NextBusService implements INextBusService {
             responseXml = rpc.call(rq);
             logger.log(Level.FINEST, "got XML response ", responseXml);
             return pojoMaker.getVehicleLocations(route, responseXml);
-        } catch (JAXBException jbe) {
-            logger.log(Level.SEVERE, "while parsing response Xml " + responseXml, jbe);
-            throw new FatalServiceException("RPC Call <vehicleLocations>", jbe);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "while parsing response Xml " + responseXml, e);
+            throw new FatalServiceException("RPC Call <vehicleLocations>", e);
         }
     }
 
@@ -170,11 +167,11 @@ public class NextBusService implements INextBusService {
             // invoke the RPC
             responseXml = rpc.call(rq);
             logger.log(Level.FINEST, "got XML response ", responseXml);
-            List<PredictionGroup> pg = pojoMaker.getPredictions(stops, responseXml);
+            List<PredictionGroup> pg = pojoMaker.getPredictions(responseXml);
             return pg;
-        } catch (JAXBException jbe) {
-            logger.log(Level.SEVERE, "while parsing response Xml " + responseXml, jbe);
-            throw new FatalServiceException("RPC Call <predictions>", jbe);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "while parsing response Xml " + responseXml, e);
+            throw new FatalServiceException("RPC Call <predictions>", e);
         }
     }
 
@@ -187,11 +184,10 @@ public class NextBusService implements INextBusService {
             // invoke the RPC
             responseXml = rpc.call(rq);
             logger.log(Level.FINEST, "got XML response ", responseXml);
-            Collection<Stop> _s = new HashSet<Stop>(); _s.add(s);
-            return pojoMaker.getPredictions(_s, responseXml).get(0);
-        } catch (JAXBException jbe) {
-            logger.log(Level.SEVERE, "while parsing response Xml " + responseXml, jbe);
-            throw new FatalServiceException("RPC Call <prediction>", jbe);
+            return pojoMaker.getPredictions(responseXml).get(0);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "while parsing response Xml " + responseXml, e);
+            throw new FatalServiceException("RPC Call <prediction>", e);
         }
     }
 
@@ -204,11 +200,10 @@ public class NextBusService implements INextBusService {
             // invoke the RPC
             responseXml = rpc.call(rq);
             logger.log(Level.FINEST, "got XML response ", responseXml);
-            
-            return pojoMaker.getPredictions(stops.values(), responseXml);
-        } catch (JAXBException jbe) {
-            logger.log(Level.SEVERE, "while parsing response Xml " + responseXml, jbe);
-            throw new FatalServiceException("RPC Call <multiStopPredictions>", jbe);
+            return pojoMaker.getPredictions(responseXml);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "while parsing response Xml " + responseXml, e);
+            throw new FatalServiceException("RPC Call <multiStopPredictions>", e);
         }
     }
 
@@ -222,10 +217,10 @@ public class NextBusService implements INextBusService {
             // invoke the RPC
             responseXml = rpc.call(rq);
             logger.log(Level.FINEST, "got XML response ", responseXml);
-            return pojoMaker.getPredictions(s, responseXml);
-        } catch (JAXBException jbe) {
-            logger.log(Level.SEVERE, "while parsing response Xml " + responseXml, jbe);
-            throw new FatalServiceException("RPC Call <multiStopPredictions>", jbe);
+            return pojoMaker.getPredictions(responseXml);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "while parsing response Xml " + responseXml, e);
+            throw new FatalServiceException("RPC Call <multiStopPredictions>", e);
         }
     }
     
@@ -239,9 +234,9 @@ public class NextBusService implements INextBusService {
             responseXml = rpc.call(rq);
             logger.log(Level.FINEST, "got XML response ", responseXml); 
             return pojoMaker.getSchedule(route, responseXml);
-        } catch (JAXBException jbe) {
-            logger.log(Level.SEVERE, "while parsing response Xml " + responseXml, jbe);
-            throw new FatalServiceException("RPC Call <schedules>", jbe);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "while parsing response Xml " + responseXml, e);
+            throw new FatalServiceException("RPC Call <schedules>", e);
         }
     }
 }

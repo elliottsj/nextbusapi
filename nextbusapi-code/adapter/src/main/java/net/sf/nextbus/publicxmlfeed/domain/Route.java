@@ -39,7 +39,7 @@ import org.simpleframework.xml.Root;
 @Root
 public class Route extends NextBusValueObject {
 
-    private static final long serialVersionUID = -2573832634856836150L;
+    private static final long serialVersionUID = -8614057596046493324L;
 
     /** Transit agency that runs this route. */
     private Agency agency;
@@ -55,6 +55,18 @@ public class Route extends NextBusValueObject {
     /** Shortened or abbreviated Route name (optional) */
     @Attribute(required = false)
     private String shortTitle;
+
+    protected Route() {
+    }
+
+    protected Route(String tag) {
+        this.tag = tag;
+    }
+
+    protected Route(String tag, String title) {
+        this(tag);
+        this.title = title;
+    }
 
     /**
      * @return the agency that owns this route

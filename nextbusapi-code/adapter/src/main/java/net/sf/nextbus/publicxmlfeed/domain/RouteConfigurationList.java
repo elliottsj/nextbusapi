@@ -6,9 +6,11 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
- *
+ * TODO: javadoc
  */
 public class RouteConfigurationList extends NextBusListObject<RouteConfiguration> {
+
+    private static final long serialVersionUID = 3991548209357245300L;
 
     @ElementList(inline = true)
     private List<RouteConfiguration> list;

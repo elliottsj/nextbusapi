@@ -42,35 +42,37 @@ public class Vehicle extends NextBusValueObject implements IGeocoded {
 
     /** Identifier of this vehicle. It is often but not always numeric. */
     @Attribute
-    private final String id;
+    private String id;
 
     /** The route this vehicle is currently associated with. */
-    private final Route route;
+    private Route route;
 
     /** The direction that this vehicle is currently on. */
-    private final Direction direction;
+    private Direction direction;
 
     /** The location of this vehicle. */
-    protected Geolocation location;
+    private GeolocationTemporal location;
 
     @Attribute
     private int secsSinceReport;
 
     /** Are NextBus Predictions currently available for this vehicle? */
     @Attribute
-    protected boolean predictable;
+    private boolean predictable;
 
     /** Vehicle head in Degrees from Magnetic North */
     @Attribute
-    protected double heading;
+    private double heading;
 
     /** Vehicle speed in km/hr */
     @Attribute
-    protected double speedKmHr;
+    private double speedKmHr;
 
     public Vehicle(@Attribute String id,
                    @Attribute String routeTag,
                    @Attribute String dirTag,
+                   @Attribute double lat,
+                   @Attribute double lon,
                    @Attribute int secsSinceReport,
                    @Attribute boolean predictable,
                    @Attribute double heading,
@@ -78,6 +80,7 @@ public class Vehicle extends NextBusValueObject implements IGeocoded {
         this.id = id;
         this.route = new Route(routeTag);
         this.direction = new Direction(dirTag);
+        this.location = new GeolocationTemporal(lat, lon, secsSinceReport);
         this.secsSinceReport = secsSinceReport;
         this.predictable = predictable;
         this.heading = heading;
@@ -93,30 +96,23 @@ public class Vehicle extends NextBusValueObject implements IGeocoded {
      *
      * @return
      */
-    public Geolocation getGeolocation() {
-        return null;
+    public GeolocationTemporal getGeolocation() {
+        return location;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Vehicle other = (Vehicle) obj;
-        if ((this.id == null) ? (other.id != null) : !this.id.equals(other.id)) {
-            return false;
-        }
-        return true;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Vehicle)) return false;
+
+        Vehicle vehicle = (Vehicle) o;
+
+        return id.equals(vehicle.id);
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 61 * hash + (this.id != null ? this.id.hashCode() : 0);
-        return hash;
+        return id.hashCode();
     }
 
     @Override

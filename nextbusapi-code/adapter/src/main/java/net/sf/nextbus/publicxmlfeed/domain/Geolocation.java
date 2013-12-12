@@ -119,12 +119,6 @@ public class Geolocation implements Serializable {
     protected double longitude, longitudeRadians;
 
     /**
-     * serialization ctor
-     */
-    protected Geolocation() {
-    }
-
-    /**
      * ctor.
      *
      * @param lat Degrees latitude. Negative values are South, Positive values
