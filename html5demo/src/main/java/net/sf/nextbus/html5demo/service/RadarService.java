@@ -1,4 +1,5 @@
-/*******************************************************************************
+/**
+ * *****************************************************************************
  * Copyright (C) 2013 by James R. Doyle
  *
  * This file is part of the NextBus® Livefeed Java Adapter (nblf4j). See the
@@ -19,27 +20,66 @@
  * along with UJMP; if not, write to the Free Software Foundation, Inc., 51
  * Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  *
- * Usage of the NextBus Web Service and its data is subject to separate
- * Terms and Conditions of Use (License) available at:
- * 
- *      http://www.nextbus.com/xmlFeedDocs/NextBusXMLFeed.pdf
- * 
- * 
+ * Usage of the NextBus Web Service and its data is subject to separate Terms
+ * and Conditions of Use (License) available at:
+ *
+ * http://www.nextbus.com/xmlFeedDocs/NextBusXMLFeed.pdf
+ *
+ *
  * NextBus® is a registered trademark of Webtech Wireless Inc.
  *
- ******************************************************************************/
+ *****************************************************************************
+ */
 package net.sf.nextbus.html5demo.service;
-
+import net.sf.nextbus.html5demo.Geoselector;
 import javax.ejb.Stateful;
-
+import javax.ejb.Remove;
+import javax.ejb.EJB;
+import javax.annotation.PostConstruct;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import java.io.Serializable;
 /**
  *
  * @author jrd
  */
 @Stateful
-public class RadarService {
+public class RadarService implements Serializable {
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+    private final Logger log = LoggerFactory.getLogger(RadarService.class);
+    
+    @EJB
+    private EventStreamDemultiplexer demux;
+
+    public ClientEventStream eventStream;
+    public Geoselector selector;
+    
+    public void registerWebSessionId(String arg) {
+        eventStream = demux.registerEventStream(arg, selector, ClientEventStream.StreamType.MessageType, 1000L);
+    }
+
+    public Geoselector getSelector() {
+        return selector;
+    }
+    
+    public ClientEventStream getEventStream() {
+        if (eventStream == null) {
+            throw new IllegalArgumentException("No event stream create. Call SFSB registerWebSessionId() method before calling this method.");
+        }
+        return eventStream;
+    }
+    
+    @PostConstruct
+    public void init() {
+        selector = new Geoselector();
+        log.info("INJECTMANIA");
+    }
+
+    @Remove
+    public void close() {
+        log.info("closing SFSB context");
+        String sessionId = eventStream.getId();
+        demux.removeEventStream(sessionId);
+    }
 
 }

@@ -37,8 +37,8 @@
                 <div id="warnings"></div>
             </header>
             <section data-role="section">
-                <h1>Architectural Proof of Concept</h1>
-                <h2>HTML 5 Geolocation / Server Side Events with Java EE 6 / ActiveMQ<h2>
+                <h2>Architectural Proof of Concept</h2>
+                <h3>HTML 5 Geolocation & Server Side Events API driven with Java EE 6 / ActiveMQ<h3>
                 <br>
                 &copy;2013 James R. Doyle  [mailto:rockymtnmagic@gmail.com]<br>
                 <a href="https://sourceforge.net/projects/nextbusapi/">Project Overview</a><br>

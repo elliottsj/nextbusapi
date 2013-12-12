@@ -46,9 +46,11 @@ import java.security.Principal;
  */
 public class ClientEventStream implements Serializable {
 
-    private static final ObjectMapper jsonSerializer = new ObjectMapper();
     private static Logger log = LoggerFactory.getLogger(ClientEventStream.class);
    
+    /** JSON serializer */
+    private static final ObjectMapper jsonSerializer = new ObjectMapper();
+    
     /**
      * Whether this event stream sends (id,data) pairs or (message, data) pairs.
      * See the HTML 5 Server Sent Events spec for more details.
@@ -62,24 +64,34 @@ public class ClientEventStream implements Serializable {
      */
     public class EventEntry implements Serializable {
 
+        /**
+         * Ctor for Sequenced messages.
+         * @param evId a monotonically increasing msg sequence id.
+         * @param payload 
+         */
         public EventEntry(int evId, Object payload) {
             eventId=evId;
-            opaque=payload;
+            opaquePayload=payload;
             enqueued = new Date();
         }
+        /**
+         * Ctor for Typed messages.
+         * @param msgTypeId a string identified the message type.
+         * @param payload
+         */
         public EventEntry(String msgTypeId, Object payload) {
             messageTypeId=msgTypeId;
-            opaque=payload;
+            opaquePayload=payload;
             enqueued = new Date();
         }
         
-        private final Object opaque;
+        private final Object opaquePayload;
         private int eventId;
         private String messageTypeId;
         private final Date enqueued;
 
-        public Object getOpaque() {
-            return opaque;
+        public Object getOpaquePayload() {
+            return opaquePayload;
         }
 
         public int getEventId() {
@@ -93,17 +105,17 @@ public class ClientEventStream implements Serializable {
         
         @Override
         public String toString() {
-            return "EventEntry{" + "opaque=" + opaque + ", eventId=" + eventId + ", enqueued=" + enqueued + '}';
+            return "EventEntry{" + "opaque=" + opaquePayload + ", eventId=" + eventId + ", enqueued=" + enqueued + '}';
         }
     }
     
-    // Stream configuration
+    // ** Stream configuration **
     private String id;
     private String owner;
     private StreamType streamType;
     private Long waitTimeout = new Long(0);
     private LinkedList<EventEntry> ll;
-    // Stream management and metrics
+    // ** Stream management and metrics **
     static private final int PASSIVATING_EVENT_ID = -1;
     private int nextEventId;
     private int lastEventIdSent;
@@ -111,11 +123,13 @@ public class ClientEventStream implements Serializable {
     private Date lastEventSentTime;
     private Date lastEventRecvdTime;
     private int messagesRecvd;
+    private int clientConnects;
+    private int storageLimit;
 
     /**
-     * 
-     * @param type
-     * @param pollTimeout 
+     * Ctor - create a event stream on behalf of a Servlet instance dedicated to HTML 5 Server Side Events.
+     * @param type stream type, message sequence v. message time
+     * @param pollTimeout the sleep time on the consumer (servlet) side of the queue - in milliseconds.
      */
     public ClientEventStream(StreamType type, long pollTimeout) {
         if (type==null) {
@@ -139,6 +153,9 @@ public class ClientEventStream implements Serializable {
     public void setId(String arg) {
         id = arg;
     }
+    public String getId() {
+        return id;
+    }
 
     /**
      * Set the owner (for debug trace printing purposes) of this stream (example, the Principal name)
@@ -151,9 +168,11 @@ public class ClientEventStream implements Serializable {
         if (owner == null) return;
         owner = arg.getName();
     }
-
+    public String getOwner() {
+        return owner;
+    }
     /**
-     * Producer-side.
+     * <i>Producer</i>-side.
      * @param arg 
      */
     public synchronized void addEvent(Object arg) {
@@ -211,7 +230,7 @@ public class ClientEventStream implements Serializable {
      * @throws IOException 
      */
     public String toJSON(EventEntry e) throws IOException {
-        String json = jsonSerializer.writeValueAsString(e.getOpaque());
+        String json = jsonSerializer.writeValueAsString(e.getOpaquePayload());
        
         StringBuilder b = new StringBuilder();
         switch (streamType) {
@@ -228,7 +247,7 @@ public class ClientEventStream implements Serializable {
     }
     
     /**
-     * <B>Consumer</B>  side method to dequeue a message once it has been accepted to wire (i.e. sent to output stream).
+     * <B>Consumer</B>-side method to dequeue a message once it has been accepted to wire (i.e. sent to output stream and flushed).
      * @param arg the message to remove, located in queue by its reference identity.
      */
     public synchronized void acknowledgeSent(EventEntry arg) {
@@ -251,7 +270,10 @@ public class ClientEventStream implements Serializable {
         ll.clear();
     }
     
-
+    public void reconnect() {
+        clientConnects++;
+    }
+    
     @Override
     public String toString() {
         return "ClientEventStream{" + "id=" + id + ", owner=" + owner + ", queue size=" + ll.size() + ", nextEventId=" + nextEventId + ", lastEventIdSent=" + lastEventIdSent + ", lastEventSentTime=" + lastEventSentTime + ", lastEventRecvdTime=" + lastEventRecvdTime + '}';
@@ -269,17 +291,22 @@ public class ClientEventStream implements Serializable {
             public void run() {
                 long delay = 1040;
                 while (true) {
+                    if (nextEventId == PASSIVATING_EVENT_ID) {
+                        break;
+                    }
                     Map value = new HashMap();
                     value.put("time",System.currentTimeMillis());
                     value.put("type","testcase");
                     value.put("val",delay);
                     addEvent(value);
+                    log.info("added test event.");
                     try {
                         Thread.currentThread().sleep(delay);
                     } catch (InterruptedException ie) {
                         log.trace("thread interrupted while asleep. continuing...");
                     }
                 }
+                log.info("test driver thread exiting.");
             }
         };
         // schedule this test driver to run.

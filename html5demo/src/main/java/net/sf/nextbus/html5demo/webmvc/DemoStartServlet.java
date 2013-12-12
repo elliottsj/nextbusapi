@@ -59,14 +59,8 @@ public class DemoStartServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-            if (sessionProxy == null) {
-                System.out.println("NO PROXY!");
-            }
-            // new visitor - create a new web session
             String sessId = request.getSession().getId();
-            sessionProxy.getEventStreamQueue().setId(sessId);
-            sessionProxy.getEventStreamQueue().setOwner(request.getUserPrincipal());
-            sessionProxy.getEventStreamQueue().test();
+            sessionProxy.init(sessId, request.getUserPrincipal());
             // create a new Session Proxy and associate
             log.info("created new web session {} for a client {} ", new Object[]{sessId, request.getHeader("User-Agent")});
         request.getRequestDispatcher("location").forward(request, response);
@@ -86,6 +80,7 @@ public class DemoStartServlet extends HttpServlet {
         if (request.getParameter("action") != null && request.getParameter("action").equalsIgnoreCase("nuke")) {
             HttpSession session = request.getSession(false);
             if (session != null) {
+                sessionProxy.close();
                 String sessionId = session.getId();
                 session.invalidate();
                 log.info("invalidated web container session.");

@@ -1,4 +1,5 @@
-/*******************************************************************************
+/**
+ * *****************************************************************************
  * Copyright (C) 2013 by James R. Doyle
  *
  * This file is part of the NextBus® Livefeed Java Adapter (nblf4j). See the
@@ -19,15 +20,16 @@
  * along with UJMP; if not, write to the Free Software Foundation, Inc., 51
  * Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  *
- * Usage of the NextBus Web Service and its data is subject to separate
- * Terms and Conditions of Use (License) available at:
- * 
- *      http://www.nextbus.com/xmlFeedDocs/NextBusXMLFeed.pdf
- * 
- * 
+ * Usage of the NextBus Web Service and its data is subject to separate Terms
+ * and Conditions of Use (License) available at:
+ *
+ * http://www.nextbus.com/xmlFeedDocs/NextBusXMLFeed.pdf
+ *
+ *
  * NextBus® is a registered trademark of Webtech Wireless Inc.
  *
- ******************************************************************************/
+ *****************************************************************************
+ */
 package net.sf.nextbus.html5demo.restful;
 
 import java.io.IOException;
@@ -42,10 +44,12 @@ import net.sf.nextbus.html5demo.service.ClientEventStream.EventEntry;
 import net.sf.nextbus.html5demo.service.ClientEventStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Random;
 
 /**
  * http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
  * http://dev.w3.org/html5/eventsource/
+ *
  * @author jrd
  *
  */
@@ -53,70 +57,97 @@ import org.slf4j.LoggerFactory;
 public class EventStreamServlet extends HttpServlet {
 
     private static final Logger log = LoggerFactory.getLogger(EventStreamServlet.class);
-    
+    Random r = new Random();
+
+    private String sseIdentifierString = "";
+    private Long retry = 1000L;
+
     @Inject
     SessionProxy sessionProxy;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Reject the request if it is not for an event stream
-        if (request.getHeader("Accept").equalsIgnoreCase("text/event-stream") == false) {
-            response.getWriter().println("HTML 5 Server Sent Events - expected text/event-stream");
+        // Reject the request if it is not compatible with HTML 5 event stream
+        String accept = request.getHeader("Accept");
+        String lastEventId = request.getHeader("Last-Event-ID");
+        if (accept.equalsIgnoreCase("text/event-stream") == false) {
+            log.warn("Invalid client request. HTML 5 SSE can only serve 'text/event-stream' , not {} Sending HTTP 204.", new Object[]{accept});
+            response.getWriter().println("Invalid client request. HTML 5 SSE can only serve 'text/event-stream' , not " + accept + ".");
             response.setStatus(java.net.HttpURLConnection.HTTP_NO_CONTENT);
+            response.flushBuffer();
             return;
         }
-        
-        // on connection open, the client may send the Last Event Id it received..
-        String lastEventId = request.getHeader("Last-Event-ID");
-        // setup the standard response
+
+        // if there is no web-container session associated with the call, terminate connection.
+        // You must send an HTTP 204 to the client to prevent it from reconnect/retry cycles.
+        // Otherwise, log the connection (or re-connection)
+        ClientEventStream evStream = null;
+        if (request.getSession(false) == null) {
+            response.setStatus(java.net.HttpURLConnection.HTTP_NO_CONTENT);
+            log.error("No web session present ; cannot continue on behalf of SSE client. Sending HTTP 204.");
+            response.flushBuffer();
+            return;
+        } else {
+            evStream = sessionProxy.getEventStreamQueue();
+            log.info("Client connection for SSE Session {} Last Event Id {} Principal {}.", new Object[]{request.getSession().getId(), lastEventId, request.getUserPrincipal()});
+            evStream.reconnect();
+        }
+
+        // The standard Server-Send Events wire protocol response prologue....
         response.setCharacterEncoding("utf-8");
         response.setContentType("text/event-stream");
         response.setHeader("connection", "keep-alive");
+        response.getWriter().format(": %s\n", sseIdentifierString);
+        response.getWriter().format("retry: %d\n", retry);
         response.getWriter().println();
-        // if there is no web-container session associated with the call, terminate connection.
-        // You must send an HTTP 204 to the client to prevent it from reconnect/retry cycles.
-        if (request.getSession(false) == null) {
-            response.setStatus(java.net.HttpURLConnection.HTTP_NO_CONTENT);
-            log.error("Sending HTTP 204. No Web Session present ; cannot continue.");
-            return;
-        }
-        ClientEventStream evStream = sessionProxy.getEventStreamQueue();
-        log.info("got session bound feedstream {} ", new Object [] { evStream });
-
-        // Identify the event service type and retry interval to the client.
-        //response.setStatus(java.net.HttpURLConnection.HTTP_OK);
-        //response.getWriter().println(": gps event source");
-        //response.getWriter().println("retry: 5000");
-        //response.getWriter().println();
-        //response.flushBuffer();
-        log.debug("Event Service returned open acknowledgement header.");
+        response.flushBuffer();
 
         // Yes - it's an infinite loop!
         try {
             while (true) {
                 try {
                     EventEntry e = evStream.getNextEventToSend();
+                    simBugs();
                     response.getWriter().println(evStream.toJSON(e));
                     response.getWriter().println(); // Event Stream REQUIRES newline between msg blocks.
+                    response.setStatus(java.net.HttpURLConnection.HTTP_OK);
+                    response.flushBuffer();
+                    // once the item has been transmitted, and flush buffer succeeds, dequeue....
                     evStream.acknowledgeSent(e);
                     log.debug("sent event");
                 } catch (InterruptedException waiterr) {
                     log.warn("thread wait in getNextEvent() was interrupted. Continuing. ");
-                } finally {
-                    response.setStatus(java.net.HttpURLConnection.HTTP_OK);
-                    response.flushBuffer();
                 }
             } //end-forever-while
-        } catch (Exception any) {
-            log.error("Exception during network I/O. terminating connection. ");
+        } catch (IOException any) {
+            log.error("IO Exception while sending SSE to client. Closing connection. ", any);
+            response.getWriter().close();
+        } catch (Exception anyOther) {
+            log.error("Exception during Event Stream polling. Sending HTTP 500 to SSE client.", anyOther);
             response.setStatus(java.net.HttpURLConnection.HTTP_INTERNAL_ERROR);
             response.flushBuffer();
         }
     }
 
+    /**
+     * This is used for testing & development to intentionally inject Exceptions
+     * to see if the HTML 5 client can respond properly to HTTP error status
+     * codes, and negotiate reconnection.
+     *
+     * @throws Exception
+     */
+    public void simBugs() throws Exception {
+        if (r.nextDouble() > 0.9) {
+            throw new IOException("Simulating Errors.");
+        }
+        if (r.nextDouble() > 0.75) {
+            throw new RuntimeException("Simulating Errors.");
+        }
+    }
+
     @Override
     public String getServletInfo() {
-        return "HTML 5 Server Side Event Servlet";
+        return "HTML 5 Server Side Event Servlet: " + sseIdentifierString;
     }
 }

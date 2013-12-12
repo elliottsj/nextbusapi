@@ -7,6 +7,7 @@
 package net.sf.nextbus.html5demo.service;
 
 import javax.annotation.Resource;
+import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
@@ -18,6 +19,7 @@ import javax.jms.MessageProducer;
 import javax.jms.Topic;
 import javax.jms.Session;
 import javax.jms.TextMessage;
+import javax.jms.ObjectMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 /**
@@ -31,19 +33,29 @@ public class EventListener implements MessageListener {
     @Resource
     private ConnectionFactory connectionFactory;
 
-    @Resource(name = "NextBusTopic")
-    private Topic answerQueue;
+    @Resource(name = "nextbus")
+    private Topic nextbus;
+    
+    @EJB
+    private EventStreamDemultiplexer demux;
 
     @Override
     public void onMessage(Message message) {
         try {
-
-            //final TextMessage textMessage = (TextMessage) message;
-            //final String question = textMessage.getText();
-            log.info("onMessage()");
+            log.info("In onMessage()");
+            if (message instanceof ObjectMessage) {
+                ObjectMessage om = (ObjectMessage) message;
+                if (om.getObject() instanceof net.sf.nextbus.publicxmlfeed.domain.VehicleLocation) {
+                   demux.distributeEvents(message);
+                   message.acknowledge();
+                   log.info(" --> acked.");
+                   return;
+                }
+            }
+            log.info("skipping message - not of type VehicleLocation");
             message.acknowledge();
-            
         } catch (JMSException e) {
+            log.error("in MDB",e);
             throw new IllegalStateException(e);
         }
     }
