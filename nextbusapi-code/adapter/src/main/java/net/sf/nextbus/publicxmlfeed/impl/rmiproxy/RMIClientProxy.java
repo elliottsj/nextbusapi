@@ -38,8 +38,8 @@ import net.sf.nextbus.publicxmlfeed.domain.Agency;
 import net.sf.nextbus.publicxmlfeed.domain.Route;
 import net.sf.nextbus.publicxmlfeed.domain.VehicleLocation;
 import net.sf.nextbus.publicxmlfeed.domain.RouteConfiguration;
-import net.sf.nextbus.publicxmlfeed.service.INextBusService;
 import net.sf.nextbus.publicxmlfeed.service.INextbusServiceRemote;
+import net.sf.nextbus.publicxmlfeed.service.INextbusService;
 import net.sf.nextbus.publicxmlfeed.service.ServiceException;
 import net.sf.nextbus.publicxmlfeed.service.FatalServiceException;
 import java.util.List;
@@ -54,7 +54,7 @@ import net.sf.nextbus.publicxmlfeed.domain.*;
  *
  * @author jrd
  */
-class RMIClientProxy implements INextBusService {
+class RMIClientProxy implements INextbusService {
 
     private INextbusServiceRemote remote;
 

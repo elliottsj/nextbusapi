@@ -30,146 +30,360 @@
  ******************************************************************************/
 package net.sf.nextbus.publicxmlfeed.impl;
 
-import net.sf.nextbus.publicxmlfeed.domain.*;
+import net.sf.nextbus.publicxmlfeed.domain.Stop;
+import net.sf.nextbus.publicxmlfeed.domain.PredictionGroup;
+import net.sf.nextbus.publicxmlfeed.domain.Prediction;
+import net.sf.nextbus.publicxmlfeed.domain.Path;
+import net.sf.nextbus.publicxmlfeed.domain.Agency;
+import net.sf.nextbus.publicxmlfeed.domain.Route;
+import net.sf.nextbus.publicxmlfeed.domain.VehicleLocation;
+import net.sf.nextbus.publicxmlfeed.domain.Schedule;
+import net.sf.nextbus.publicxmlfeed.domain.DailySchedule;
+import net.sf.nextbus.publicxmlfeed.domain.RouteConfiguration;
+import net.sf.nextbus.publicxmlfeed.domain.Direction;
+import net.sf.nextbus.publicxmlfeed.domain.Geolocation;
 import net.sf.nextbus.publicxmlfeed.service.TransientServiceException;
-import net.sf.nextbus.publicxmlfeed.service.ValueConversionException;
-import org.simpleframework.xml.Serializer;
-import org.simpleframework.xml.core.Persister;
+import net.sf.nextbus.publicxmlfeed.service.ServiceConfigurationException;
 
+import javax.xml.bind.JAXBException;
+import org.xml.sax.SAXException;
 import java.util.*;
+import java.util.logging.Level;
 import java.util.logging.Logger;
+import net.sf.nextbus.publicxmlfeed.service.ValueConversionException;
 
 /**
- * Deserializes XML into Java Domain objects (POJOs).
+ * Converts the JAXB wire protocol (XML) object stream into Java Domain objects
+ * (POJOs).
  *
  * @author jrd
  */
 public class DomainFactory {
 
-    private final Serializer serializer;
-
     private static final Logger logger = Logger.getLogger(DomainFactory.class.getName());
+    private net.sf.nextbus.publicxmlfeed.impl.jaxb.RouteConfigServiceBeanFactory routeCfgSvc;
+    private net.sf.nextbus.publicxmlfeed.impl.jaxb.RouteListServiceBeanFactory routeListSvc;
+    private net.sf.nextbus.publicxmlfeed.impl.jaxb.VehicleLocationServiceBeanFactory vehicleLocnSvc;
+    private net.sf.nextbus.publicxmlfeed.impl.jaxb.PredictionServiceBeanFactory predictionSvc;
+    private net.sf.nextbus.publicxmlfeed.impl.jaxb.AgencyListServiceBeanFactory agcySvc;
+    private net.sf.nextbus.publicxmlfeed.impl.jaxb.ServiceMessagesServiceBeanFactory msgsSvc;
+    private net.sf.nextbus.publicxmlfeed.impl.jaxb.ScheduleServiceBeanFactory schedSvc;
 
     /**
-     * Constructor
+     * Ctor
+     *
+     * @exception ServiceConfigurationException wraps JAXB and SAX exceptions
+     * indicating a misconfiguration of the JAXB environment.
      */
     public DomainFactory() {
-        serializer = new Persister();
+
+
+        try {
+            // start all the JAXB factories...
+            agcySvc = new net.sf.nextbus.publicxmlfeed.impl.jaxb.AgencyListServiceBeanFactory();
+            routeListSvc = new net.sf.nextbus.publicxmlfeed.impl.jaxb.RouteListServiceBeanFactory();
+            routeCfgSvc = new net.sf.nextbus.publicxmlfeed.impl.jaxb.RouteConfigServiceBeanFactory();
+            vehicleLocnSvc = new net.sf.nextbus.publicxmlfeed.impl.jaxb.VehicleLocationServiceBeanFactory();
+            predictionSvc = new net.sf.nextbus.publicxmlfeed.impl.jaxb.PredictionServiceBeanFactory();
+            schedSvc = new net.sf.nextbus.publicxmlfeed.impl.jaxb.ScheduleServiceBeanFactory();
+            msgsSvc = new net.sf.nextbus.publicxmlfeed.impl.jaxb.ServiceMessagesServiceBeanFactory();
+        } catch (SAXException sax) {
+            logger.log(Level.SEVERE, "JAXB Config problem during instantiation of XML Parsers in DomainFactory", sax);
+            throw new ServiceConfigurationException("JAXB Config problem during instantiation of XML Parsers in DomainFactory", sax);
+        } catch (JAXBException jaxb) {
+            logger.log(Level.SEVERE, "JAXB Config problem during instantiation of XML Parsers in DomainFactory", jaxb);
+            throw new ServiceConfigurationException("JAXB Config problem during instantiation of XML Parsers in DomainFactory", jaxb);
+        }
     }
 
     /**
-     * Deserializes the given agency list XML obtained from
-     * <a href="http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList">
-     *     http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList</a>
-     * and returns the list of agencies.
      *
      * @param xml agencyList XML
-     * @return a list of agency POJOs
-     * @throws Exception when XML cannot be deserialized
+     * @return Agency POJOs
+     * @throws JAXBException Propagates any JAXB Exceptions while attempting to
+     * parse XML.
      */
-    public List<Agency> getAgencies(String xml) throws Exception {
-        AgencyList agencyList = serializer.read(AgencyList.class, xml);
-
+    public List<Agency> getAgencies(String xml) throws JAXBException {
+        List<Agency> returnVal = new ArrayList<Agency>();
+        net.sf.nextbus.publicxmlfeed.xjcgenerated.agencylist.Body response = agcySvc.parse(xml);
         // If the remote web service has cast a defined exception
-        if (agencyList.getError() != null) {
-            throw new TransientServiceException(agencyList.getError().isShouldRetry(), agencyList.getError().getValue());
+        if (response.getError() != null) {
+            throw new TransientServiceException(response.getError().isShouldRetry(), response.getError().getValue());
+        }
+        // Get the copyright notice which has to be loaded into every domain object we create.
+        String cpyRt = response.getCopyright();
+
+        for (net.sf.nextbus.publicxmlfeed.xjcgenerated.agencylist.Agency a : response.getAgency()) {
+            returnVal.add(new Agency(a.getTag(), a.getTitle(), a.getShortTitle(), a.getRegionTitle(), cpyRt));
+        }
+        return returnVal;
+    }
+
+    /**
+     *
+     * @param rootAgency Enclosing Agency that owns the constructed Routes
+     * @param xml routeList xml
+     * @return Route POJOs
+     * @throws JAXBException Propagates any JAXB Exceptions while attempting to
+     * parse XML.
+     */
+    public List<Route> getRoutes(Agency rootAgency, String xml) throws JAXBException {
+        List<Route> returnVal = new ArrayList<Route>();
+        net.sf.nextbus.publicxmlfeed.xjcgenerated.routelist.Body response = routeListSvc.parse(xml);
+        // If the remote web service has cast a defined exception
+        if (response.getError() != null) {
+            throw new TransientServiceException(response.getError().isShouldRetry(), response.getError().getValue());
+        }
+        // Get the copyright notice which has to be loaded into every domain object we create.
+        String copyRt = response.getCopyright();
+
+        // 
+        // convert from wire representation to a native implementation
+        // 
+        for (net.sf.nextbus.publicxmlfeed.xjcgenerated.routelist.Route r : response.getRoute()) {
+            // Short title is NOT available from this API method... Actually, that should be filed as a bug with Nextbus
+            returnVal.add(new Route(rootAgency, r.getTag(), r.getTitle(), "", copyRt));
+        }
+        return returnVal;
+    }
+
+    /**
+     *
+     * @param parent Route (and nested Agency) that owns the constructed target
+     * object
+     * @param xml routeConfig xml
+     * @return RouteConfiguration composite POJO
+     * @throws JAXBException Propagates any JAXB Exceptions while attempting to
+     * parse XML.
+     */
+    public RouteConfiguration getRouteConfiguration(Route parent, String xml) throws JAXBException {
+        List<Stop> stops = new ArrayList<Stop>();
+        List<Direction> directions = new ArrayList<Direction>();
+        List<Path> paths = new ArrayList<Path>();
+
+        // parse the response XML
+        net.sf.nextbus.publicxmlfeed.xjcgenerated.routeconfig.Body response = routeCfgSvc.parse(xml);
+        // If the remote web service has cast a defined exception
+        if (response.getError() != null) {
+            throw new TransientServiceException(response.getError().isShouldRetry(), response.getError().getValue());
         }
 
-        return agencyList.getList();
+        // Get the copyright notice which has to be loaded into every domain object we create.
+        String cpyRt = response.getCopyright();
+        Map<String, Stop> stopById = new HashMap<String, Stop>();
+        // Unpack the 0..n Stops
+        for (net.sf.nextbus.publicxmlfeed.xjcgenerated.routeconfig.Stop s : response.getRoute().getStop()) {
+            Geolocation gps = new Geolocation(s.getLat().doubleValue(), s.getLon().doubleValue());
+            Stop stop = new Stop(parent.getAgency(), s.getStopId(), s.getTag(), s.getTitle(), s.getShortTitle(), gps, cpyRt);
+            stops.add(stop);
+            stopById.put(s.getStopId(), stop);
+        }
+
+        // Unpack the 0..n Paths
+        int pathId = 0;
+        for (net.sf.nextbus.publicxmlfeed.xjcgenerated.routeconfig.Path p : response.getRoute().getPath()) {
+            List<Geolocation> points = new ArrayList<Geolocation>();
+            for (net.sf.nextbus.publicxmlfeed.xjcgenerated.routeconfig.Point pt : p.getPoint()) {
+                points.add(new Geolocation(pt.getLat().doubleValue(), pt.getLon().doubleValue()));
+            }
+            paths.add(new Path(parent, Integer.toString(pathId), points));
+            pathId++;
+        }
+
+        // Unpack the 0..n Directions - reuse the map of stops we created above to build a full object tree
+        for (net.sf.nextbus.publicxmlfeed.xjcgenerated.routeconfig.Direction d : response.getRoute().getDirection()) {
+            List<Stop> directions4ThisStop = new ArrayList<Stop>();
+            for (net.sf.nextbus.publicxmlfeed.xjcgenerated.routeconfig.Direction.Stop ds : d.getStop()) {
+                directions4ThisStop.add(stopById.get(ds.getTag()));
+            }
+            List<Stop> unmod = Collections.unmodifiableList(directions4ThisStop);
+            Direction direction = new Direction(parent, d.getTag(), d.getTitle(), d.getName(), unmod, cpyRt);
+            directions.add(direction);
+        }
+
+        response.getRoute().getOppositeColor();
+        response.getRoute().getColor();
+        RouteConfiguration.ServiceArea sa = new RouteConfiguration.ServiceArea(
+                response.getRoute().getLatMin().doubleValue(),
+                response.getRoute().getLatMax().doubleValue(),
+                response.getRoute().getLonMin().doubleValue(),
+                response.getRoute().getLonMax().doubleValue());
+        RouteConfiguration.UIColor color = new RouteConfiguration.UIColor(response.getRoute().getColor());
+        RouteConfiguration.UIColor oppositeColor = new RouteConfiguration.UIColor(response.getRoute().getOppositeColor());
+
+        // Render the lists Immutable construct the final domain object.
+        return new RouteConfiguration(parent,
+                Collections.unmodifiableList(stops),
+                Collections.unmodifiableList(directions),
+                Collections.unmodifiableList(paths),
+                sa,
+                oppositeColor,
+                color,
+                cpyRt);
+
     }
 
     /**
-     * Deserializes the given route list XML obtained from
-     * <a href="http://webservices.nextbus.com/service/publicXMLFeed?command=routeList&a=">
-     *     http://webservices.nextbus.com/service/publicXMLFeed?command=routeList&a=&lt;agency_tag&gt;</a>
-     * and returns the list of routes.
      *
-     * @param agency enclosing agency that owns the constructed routes
-     * @param xml routeList XML
-     * @return a list of route POJOs
-     * @throws Exception when XML cannot be deserialized
+     * @param route Route (and nested Agency) that owns the constructed domain
+     * objects.
+     * @param xml vehicleLocations xml
+     * @return VehicleLocation POJOs
+     * @throws JAXBException Propagates any JAXB Exceptions while attempting to
+     * parse XML.
      */
-    public List<Route> getRoutes(Agency agency, String xml) throws Exception {
-        RouteList routeList = serializer.read(RouteList.class, xml);
+    public List<VehicleLocation> getVehicleLocations(Route route, String xml) throws JAXBException {
+        List<VehicleLocation> returnValue = new ArrayList<VehicleLocation>();
 
+        // parse the response XML
+        net.sf.nextbus.publicxmlfeed.xjcgenerated.vehiclelocation.Body response = vehicleLocnSvc.parse(xml);
         // If the remote web service has cast a defined exception
-        if (routeList.getError() != null)
-            throw new TransientServiceException(routeList.getError().isShouldRetry(), routeList.getError().getValue());
+        if (response.getError() != null) {
+            throw new TransientServiceException(response.getError().isShouldRetry(), response.getError().getValue());
+        }
+        // Get the copyright notice which has to be loaded into every domain object we create.
+        String cpyRt = response.getCopyright();
 
-        // Set the agency for the routes
-        routeList.setAgency(agency);
+        Map<String, Stop> stopById = new HashMap<String, Stop>();
+        // Unpack the 0..n Locations
+        for (net.sf.nextbus.publicxmlfeed.xjcgenerated.vehiclelocation.VehicleLocation v : response.getVehicle()) {
 
-        return routeList.getList();
+            Geolocation lastPosition = new Geolocation(v.getLat().doubleValue(), v.getLon().doubleValue());
+            // Adjust the last time by the 'seconds Since Last Report' attribute of the message.
+            long lastTime = System.currentTimeMillis() - v.getSecsSinceReport() * 1000;
+
+            VehicleLocation vehLcn = new VehicleLocation(route, v.getId(), v.getDirTag(),
+                    v.isPredictable().booleanValue(), lastPosition, lastTime, v.getSpeedKmHr(), v.getHeading(), cpyRt);
+            returnValue.add(vehLcn);
+        }
+        return returnValue;
     }
 
     /**
-     * Deserializes the given route config XML obtained from
-     * <a href="http://webservices.nextbus.com/service/publicXMLFeed?command=routeConfig&a=&r=">
-     *     http://webservices.nextbus.com/service/publicXMLFeed?command=routeConfig&a=&lt;agency_tag&gt;&r=&lt;route tag&gt;</a>
-     * and returns the route configuration for the given route.
      *
-     * @param route route that owns the constructed route config
-     * @param xml routeConfig xml
-     * @return the route configuration for the given route
-     * @throws Exception when XML cannot be deserialized
-     */
-    public RouteConfiguration getRouteConfiguration(Route route, String xml) throws Exception {
-        RouteConfigurationList routeConfigurationList = serializer.read(RouteConfigurationList.class, xml);
-
-        // If the remote web service has cast a defined exception
-        if (routeConfigurationList.getError() != null)
-            throw new TransientServiceException(routeConfigurationList.getError().isShouldRetry(), routeConfigurationList.getError().getValue());
-
-        // If there is more than one route configuration in the list (XML was fetched without specifying route tag)
-        if (routeConfigurationList.getList().size() > 1)
-            // Search for the correct route config
-            for (RouteConfiguration routeConfiguration : routeConfigurationList.getList())
-                if (routeConfiguration.equals(route))
-                    return routeConfiguration;
-
-        // Otherwise, return the first and only route configuration
-        return routeConfigurationList.getRouteConfiguration();
-    }
-
-    /**
-     * Deserializes the given predictions XML obtained from
-     * <a href="http://webservices.nextbus.com/service/publicXMLFeed?command=predictions&a=&stopId=">
-     *     http://webservices.nextbus.com/service/publicXMLFeed?command=predictions&a=&lt;agency_tag&gt;&stopId=&lt;stop id&gt;</a>
-     * or
-     * <a href="http://webservices.nextbus.com/service/publicXMLFeed?command=predictions&a=&r=&s=">
-     *     http://webservices.nextbus.com/service/publicXMLFeed?command=predictions&a=&lt;agency_tag&gt;&r=&lt;route tag&gt;&s=&lt;stop tag&gt;</a>
-     * or
-     * <a href="http://webservices.nextbus.com/service/publicXMLFeed?command=predictionsForMultiStops&a=&stops=&stops=&stops=">
-     *     http://webservices.nextbus.com/service/publicXMLFeed?command=predictionsForMultiStops&a=&lt;agency_tag&gt;&stops=&lt;route tag&gt;|&lt;stop tag&gt;&stops=&lt;route tag&gt;|&lt;stop tag&gt;&stops=&lt;route tag&gt;|&lt;stop tag&gt;</a>
-     * and returns the list of prediction groups.
-     *
+     * @param stops
      * @param xml predictions XML
      * @return A PredictionGroup aggregator object and multiple Prediction POJOs
-     * @throws Exception when XML cannot be deserialized
+     * @throws JAXBException Propagates any JAXB Exceptions while attempting to
+     * parse XML.
      */
-    public List<PredictionGroup> getPredictions(String xml) throws Exception {
-        PredictionGroupList predictionGroupList = serializer.read(PredictionGroupList.class, xml);
+    public List<PredictionGroup> getPredictions(Collection<Stop> stops, String xml) throws JAXBException {
 
-        // If the remote web service has cast a defined exception - propagate it as a service exception
-        if (predictionGroupList.getError() != null) {
-            throw new TransientServiceException(predictionGroupList.getError().isShouldRetry(), predictionGroupList.getError().getValue());
+        // create a lookup table by Stop tag
+        Agency a = null;
+        Map<String, Stop> stopsByTag = new HashMap<String, Stop>();
+        for (Stop stop : stops) {
+            stopsByTag.put(stop.getTag(), stop);
+            if (a==null) a=stop.getAgency();
+            assert(stop.getAgency().equals(a)); // XXX throw exception
         }
 
-        return predictionGroupList.getList();
+        // parse the response XML
+        net.sf.nextbus.publicxmlfeed.xjcgenerated.prediction.Body response = predictionSvc.parse(xml);
+
+        // Get the copyright notice which has to be loaded into every domain object we create.
+        String cpyRt = response.getCopyright();
+        // If the remote web service has cast a defined exception - propagate it as a service exception
+        if (response.getError() != null) {
+            throw new TransientServiceException(response.getError().isShouldRetry(), response.getError().getValue());
+        }
+
+        List<PredictionGroup> returnVal = new ArrayList<PredictionGroup>();
+
+        //
+        // Here we go - Recurse deep into a Nested parsed XML and converted to Nested Collections of POJOs! 
+        //
+
+        // For each of the Predictions nodes (there are multiple for the predictionsMultiStop RPC.
+        for (net.sf.nextbus.publicxmlfeed.xjcgenerated.prediction.Predictions pns : response.getPredictions()) {
+            // each <predictions> group has a Route and Stop associated with it...
+            Route r = new Route(a, pns.getRouteTag(), pns.getRouteTitle(), response.getCopyright());
+
+               
+            List<Prediction> predictions = new ArrayList<Prediction>();
+            List<String> messages = new ArrayList<String>();
+
+            // Construct an new enclosing Prediction Group.  First, gather any messages
+            List<String> msgs = new ArrayList<String>();
+            for (net.sf.nextbus.publicxmlfeed.xjcgenerated.prediction.Message m : pns.getMessage()) {
+                msgs.add(m.getText());
+            }
+
+            List<PredictionGroup.PredictionDirection> dns = new ArrayList<PredictionGroup.PredictionDirection>();
+
+            // Descend into the Direction nodes
+            for (net.sf.nextbus.publicxmlfeed.xjcgenerated.prediction.Direction d : pns.getDirection()) {
+                // back-track a Stop class by ID
+                Stop s = stopsByTag.get(pns.getStopTag());
+
+                // Descend into the Prediction elements with each Direction
+                List<Prediction> pdns4Dirn = new ArrayList<Prediction>();
+                for (net.sf.nextbus.publicxmlfeed.xjcgenerated.prediction.Direction.Prediction p : d.getPrediction()) {
+
+                    // Stupidity checks are needed - sometimes the vendor fails to send required fields, as in the
+                    // case of isAffectedByLayover which occassional is absent, turning into a NullPointerException.
+
+                    boolean layover = false;
+                    if (p.isAffectedByLayover() != null) {
+                        layover = p.isAffectedByLayover();
+                    }
+                    boolean delayed = false;
+                    if (p.isDelayed() != null) {
+                        delayed = p.isDelayed();
+                    }
+                    boolean schedBased = false;
+                    if (p.isIsScheduleBased() != null) {
+                        schedBased = p.isIsScheduleBased();
+                    }
+                            
+                    // build a new Prediction POJO
+                    Prediction pn = new Prediction(r, s,
+                            p.getVehicle(),
+                            p.getDirTag(),
+                            p.isIsDeparture().booleanValue(),
+                            layover,
+                            p.getTripTag(),
+                            p.getBlock(),
+                            p.getEpochTime(),
+                            cpyRt,
+                            delayed,
+                            schedBased
+                            );
+                    // Add the Prediction POJO to the Direction list
+                    pdns4Dirn.add(pn);
+                }
+
+                // We now have have to constuct an immutable PredictionGroup::Direction POJO, do so...
+                PredictionGroup.PredictionDirection pd = new PredictionGroup.PredictionDirection(d.getTitle(), Collections.unmodifiableList(pdns4Dirn));
+                
+                // Add the PredictionGroup::Direction POJO to the List of Directions
+                dns.add(pd);
+            }
+
+            // Done - now build the outermost enclosing POJO - the Prediction Group
+            Stop s = stopsByTag.get(pns.getStopTag());
+           
+            PredictionGroup pg = new PredictionGroup(r, s,
+                    Collections.unmodifiableList(dns),
+                    cpyRt,
+                    Collections.unmodifiableList(msgs));
+
+            // Add the PredictionGroup to the result
+            returnVal.add(pg);
+        }
+
+        return returnVal;
     }
 
     /**
-     * Deserializes the given schedule XML obtained from
-     * <a href="http://webservices.nextbus.com/service/publicXMLFeed?command=schedule&a=&r=">
-     *     http://webservices.nextbus.com/service/publicXMLFeed?command=schedule&a=&lt;agency_tag&gt;&r=&lt;route_tag&gt;</a>
-     * and returns the list of
-     *
      * @param route route
      * @param xml XML
+     * @throws JAXBException Propagates any JAXB Exceptions while attempting to
+     * parse XML.
      * @throws ValueConversionException Any additional data conversions
      * encountered AFTER XML Parsing.
      */
-    public List<Schedule> getSchedule(Route route, String xml) {
+    public List<Schedule> getSchedule(Route route, String xml) throws JAXBException {
         // parse the response XML
         net.sf.nextbus.publicxmlfeed.xjcgenerated.schedule.Body response = schedSvc.parse(xml);
         // Get the copyright notice which has to be loaded into every domain object we create.
@@ -225,28 +439,5 @@ public class DomainFactory {
         }
         return schedules;
     }
-
     // TODO Messages
-
-    /**
-     * Deserializes the given vehicle locations XML obtained from
-     * <a href="http://webservices.nextbus.com/service/publicXMLFeed?command=vehicleLocations&a=&r=&t=">
-     *     http://webservices.nextbus.com/service/publicXMLFeed?command=vehicleLocations&a=&lt;agency_tag&gt;&r=&lt;route tag&gt;&t=&lt;epoch time in msec&gt;</a>
-     * and returns the list of vehicle locations.
-     *
-     * @param xml vehicleLocations XML
-     * @return Vehicle POJOs
-     * @throws Exception when XML cannot be deserialized
-     */
-    public List<Vehicle> getVehicleLocations(String xml) throws Exception {
-        VehicleList vehicleList = serializer.read(VehicleList.class, xml);
-
-        // If the remote web service has cast a defined exception
-        if (vehicleList.getError() != null) {
-            throw new TransientServiceException(vehicleList.getError().isShouldRetry(), vehicleList.getError().getValue());
-        }
-
-        return vehicleList.getList();
-    }
-
 }

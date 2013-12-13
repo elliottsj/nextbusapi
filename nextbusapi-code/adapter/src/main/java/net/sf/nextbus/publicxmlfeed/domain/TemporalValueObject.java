@@ -46,18 +46,14 @@ import java.util.Date;
  * @author jrd
  */
 public interface TemporalValueObject {
-
      /**
       * Gets the creation timestamp of the object in milliSeconds since 1 January 1970 00:00:00 UTC
-      *
-      * @return birth date from the Unix epoch.
+      * @return birthdate from the Unix epoch.
       */
      public long getObjectTimestamp();
-
      /**
-      * Gets the creation timestamp of the object
-      *
-      * @return the creation timestamp of the object
+      * Gets the creation timestamp of the object since 1 January 1970 00:00:00 UTC
+      * @return 
       */
      public Date getTimestamp();
      
@@ -69,8 +65,8 @@ public interface TemporalValueObject {
      
      /**
       * Tests the age of object since its creation time.
-      * @param seconds a number of seconds
-      * @return true iff the object is currently older than 'seconds' given
+      * @param seconds
+      * @return true if the object is currently older than 'seconds' given
       */
      public boolean isObjectOlderThan(long seconds);
     

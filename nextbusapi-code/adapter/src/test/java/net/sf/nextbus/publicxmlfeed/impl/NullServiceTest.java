@@ -50,11 +50,11 @@ import java.util.*;
  */
 public class NullServiceTest {
     
-    NextBusService svc;
+    NextbusService svc;
     
     @Before
     public void setup() throws Exception {
-         svc = new NextBusService(new NullRpcImpl());
+         svc = new NextbusService(new NullRpcImpl());
     }
     
     
@@ -67,15 +67,15 @@ public class NullServiceTest {
     
     @Test
     public void testRouteList() throws Exception {
-        Agency ttc = new Agency("ttc","","","");
-        List<Route> routes = svc.getRoutes(ttc);
+        Agency mbta = new Agency("mbta","","","","");
+        List<Route> routes = svc.getRoutes(mbta);
         System.out.println(routes);
     }
     
     @Test
     public void testRouteConfig() throws Exception {
-        Agency ttc = new Agency("ttc","","","");
-        Route r = new Route(ttc,"a","b","c","");
+        Agency mbta = new Agency("mbta","","","","");
+        Route r = new Route(mbta,"a","b","c","");
         RouteConfiguration rc = svc.getRouteConfiguration(r);
         //stops=87, directions=2, paths=20,
         Assert.assertTrue(rc.getStops().size() == 87);

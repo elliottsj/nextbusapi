@@ -29,73 +29,83 @@
  *
  ******************************************************************************/
 package net.sf.nextbus.publicxmlfeed.domain;
-
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Base Class for NextBus Value Objects - Temporal, Serializable and must carry Copyright text.
- *
- * @author jrd (modified by elliottsj)
+ * 
+ * @author jrd
  */
-public abstract class NextBusValueObject implements Serializable, TemporalValueObject {
-
-    /** Object creation time in milliseconds since epoch */
-    private final long createTime;
-
+public abstract class NextbusValueObject implements Serializable, TemporalValueObject {
+    static final long serialVersionUID = 2379203632011394940L;
+    
+    /** Timestamp to implement TemporalValueObject */ 
+    protected final Long createTimeUtc;
+    /** Copyright notice for Value object payload - assigned by either the Transit Agency or NextBus, or both. */
+    protected String copyrightNotice;
+    
     /**
-     * Implicit constructor will set the birth timestamp of this instance to System.currentTime
+     * Implicit ctor will set the birth timestamp of this instance to System.currentTime
      */
-    public NextBusValueObject() {
-        createTime = System.currentTimeMillis();
+    public NextbusValueObject() {
+        createTimeUtc = System.currentTimeMillis();
+        copyrightNotice="";
+    }
+    /**
+     * Implicit ctor with Copyright Notice text
+     * @param cpyRtText 
+     */
+    public NextbusValueObject(String cpyRtText) {
+        this();
+        copyrightNotice = cpyRtText;
+    }
+    
+    /**
+     * VehicleLocation and Prediction all require adjustment of the birthdate to some time in the recent past.
+     * @param birthday 
+     */
+    protected NextbusValueObject(long birthday) {
+        createTimeUtc = birthday;
+    }
+    /**
+     * Set the birthday and the copyright text... ugh.
+     * @param birthday
+     * @param cpyRtText 
+     */
+    protected NextbusValueObject(long birthday, String cpyRtText) {
+        createTimeUtc = birthday;
+        copyrightNotice = cpyRtText;
+    }
+    
+    /**
+     * The license requires carrying the copyright notice along with the
+     * data. Nextbus does not own the copyright on the stream data, rather
+     * the regional transit companies that use nextbus. In cases where the
+     * data has copyright, the Service implementation must insert whatever
+     * value is included in the <body> element into each object fabricated
+     * from the response.
+     */
+    public final String getCopyrightNotice() { return copyrightNotice; }
+
+    /* The following are implementations of the Temporal interface. */
+    
+    public final long getObjectAge() {
+        return (System.currentTimeMillis()-createTimeUtc)/1000;
     }
 
-    /**
-     * VehicleLocation and Prediction all require adjustment of the birth date to some time in the recent past.
-     *
-     * @param birthday milliseconds since the Unix epoch
-     */
-    protected NextBusValueObject(long birthday) {
-        createTime = birthday;
+    public final long getObjectTimestamp() {
+        return createTimeUtc;
     }
-
-    /** The following is an implementation of the Temporal interface */
-
-    /**
-     * Gets the creation timestamp of the object in milliSeconds since 1 January 1970 00:00:00 UTC
-     *
-     * @return birth date from the Unix epoch.
-     */
-    public long getObjectTimestamp() {
-        return createTime;
-    }
-
-    /**
-     * Gets the creation timestamp of the object
-     *
-     * @return the creation timestamp of the object
-     */
+    
     public Date getTimestamp() {
-        return new Date(createTime);
+       return new Date(createTimeUtc);
     }
 
-    /**
-     * Gets the current age of the object in Seconds.
-     *
-     * @return current age of the object in Seconds.
-     */
-    public long getObjectAge() {
-        return (System.currentTimeMillis() - createTime) / 1000;
+    public final boolean isObjectOlderThan(long seconds) {
+        return getObjectAge()>seconds;
     }
-
-    /**
-     * Tests the age of object since its creation time.
-     *
-     * @param seconds a number of seconds
-     * @return true iff the object is currently older than 'seconds' given
-     */
-    public boolean isObjectOlderThan(long seconds) {
-        return getObjectAge() > seconds;
-    }
-
+   
+    
+    
 }

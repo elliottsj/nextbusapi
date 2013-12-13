@@ -30,71 +30,88 @@
  ******************************************************************************/
 package net.sf.nextbus.publicxmlfeed.domain;
 
-import org.simpleframework.xml.Attribute;
-import org.simpleframework.xml.ElementList;
-
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Collections;
 
 /**
+ * <p>
  * A configuration composite that contains the total travel configuration for a
  * Route. Notice how common Route, Stop and Direction classes common to other
  * Webservice methods were distilled out.
+ * </p><img src="doc-files/RouteConfig.png"/>
+ *
+ * @author jrd
  */
-public class RouteConfiguration extends Route {
+public class RouteConfiguration extends NextbusValueObject {
 
-    private static final long serialVersionUID = -4526846496154559381L;
-
-    /** UI color suggestion */
-    @Attribute(name = "color")
-    private UIColor uiColor;
-
-    /** UI color suggestion */
-    @Attribute(name = "oppositeColor")
-    private UIColor uiOppositeColor;
-
+    static final long serialVersionUID = -4628560559639733708L;
+    /** The Route for this configuration composite. */
+    protected Route route;
     /** The service geography. */
-    private ServiceArea serviceGeoArea;
-
+    protected ServiceArea serviceGeoArea;
+    /** UI color suggestion */
+    protected UIColor uiAdviceOppositeColor;
+    /** UI color suggestion */
+    protected UIColor uiAdviceColor;
     /** Stops on this Route */
-    @ElementList(inline = true)
-    private List<Stop> stops;
-
+    protected List<Stop> stops;
     /** Directions on this Route */
-    @ElementList(inline = true)
-    private List<Direction> directions;
-
+    protected List<Direction> directions;
     /** Map drawing points for UI */
-    @ElementList(inline = true)
-    private List<Path> paths;
+    protected List<Path> paths;
 
-    public RouteConfiguration(@Attribute(name = "color") UIColor uiColor,
-                              @Attribute(name = "oppositeColor") UIColor uiOppositeColor,
-                              @Attribute double latMin,
-                              @Attribute double latMax,
-                              @Attribute double lonMin,
-                              @Attribute double lonMax,
-                              @ElementList(inline = true) List<Stop> stops,
-                              @ElementList(inline = true) List<Direction> directions,
-                              @ElementList(inline = true) List<Path> paths) {
-        this.uiColor = uiColor;
-        this.uiOppositeColor = uiOppositeColor;
-        this.serviceGeoArea = new ServiceArea(latMin, latMax, lonMin, lonMax);
-        this.stops = stops;
-        this.directions = directions;
-        this.paths = paths;
+    
+
+    /**
+     * Serialization ctor.
+     */
+    protected RouteConfiguration() {
     }
 
     /**
-     * @return all of the Directions on this route
+     * Domain factory ctor.
+     *
+     * @param parent containing Route
+     * @param _stops
+     * @param _directions
+     * @param _paths
+     * @param _serviceGeoArea
+     * @param color
+     * @param oppositeColor
+     */
+    public RouteConfiguration(Route parent, List<Stop> _stops, List<Direction> _directions, List<Path> _paths, ServiceArea _serviceGeoArea, UIColor oppositeColor, UIColor color, String copyright) {
+        super(copyright);
+        route = parent;
+        stops = Collections.unmodifiableList(_stops);
+        directions = Collections.unmodifiableList(_directions);
+        paths = Collections.unmodifiableList(_paths);
+        serviceGeoArea = _serviceGeoArea;
+        uiAdviceColor = color;
+        uiAdviceOppositeColor = oppositeColor;
+    }
+
+    /**
+     * The Route is the identity element, or owner, for instances of this class.
+     *
+     * @return The Route that owns this configuration data.
+     */
+    public Route getRoute() {
+        return route;
+    }
+
+    /**
+     *
+     * @return All of the Route Directions on this Route.
      */
     public List<Direction> getDirections() {
         return directions;
     }
 
     /**
-     * @return the Paths for this route configuration
+     *
+     * @return the Path Elements for this route configuration.
      */
     public List<Path> getPaths() {
         return paths;
@@ -102,13 +119,14 @@ public class RouteConfiguration extends Route {
 
     /**
      *
-     * @return the Stops for this route configuration
+     * @return the Stops for this route configuration.
      */
     public List<Stop> getStops() {
         return stops;
     }
 
     /**
+     *
      * @return the Service geography rectangle
      */
     public ServiceArea getServiceGeoArea() {
@@ -116,59 +134,88 @@ public class RouteConfiguration extends Route {
     }
 
     /**
-     * @return the UI color from NextBus
-     */
-    public UIColor getUiColor() {
-        return uiColor;
-    }
-
-    /**
-     * @return the UI 'opposite color' from NextBus
-     */
-    public UIColor getUiOppositeColor() {
-        return uiOppositeColor;
-    }
-
-    /**
-     * A finder to retrieve a Direction by its tag;
-     * useful for working with Schedule, Vehicle, and Prediction service calls.
      *
-     * @param dirTag the tag for a direction
-     * @return the Direction, if found
-     * @throws IllegalArgumentException if no Direction is registered for the tag given
+     * @return the color advice from NextBus
      */
-    public Direction getDirectionById(String dirTag) {
-        for (Direction d : directions)
-            if (d.getTag().equals(dirTag))
+    public UIColor getUiAdviceColor() {
+        return uiAdviceColor;
+    }
+
+    /**
+     *
+     * @return the 'opposite color' advice from NextBus
+     */
+    public UIColor getUiAdviceOppositeColor() {
+        return uiAdviceOppositeColor;
+    }
+
+    /**
+     * A finder to retrieve a Direction by its ID ; useful for working with
+     * Schedule, VehicleLocation and Prediction service calls.
+     *
+     * @param directionId
+     * @return instance of Direction, if found.
+     * @exception IllegalArgumentException if no Direction is registered for the
+     * ID given.
+     */
+    public Direction getDirectionById(String directionId) {
+        for (Direction d : directions) {
+            if (d.getTag().equals(directionId)) {
                 return d;
-        throw new IllegalArgumentException("Direction instance for id=" + dirTag + " not found in this RouteConfiguration instance");
+            }
+        }
+        throw new IllegalArgumentException("Direction instance for id=" + directionId + " not found in this RouteConfiguration instance");
     }
 
     /**
-     * A finder to retrieve a Stop by its tag;
-     * useful for working with Schedule, Vehicle, and Prediction service calls.
+     * A finder to retrieve a Stop by its ID ; useful for working with Schedule,
+     * Vehicle Location and Prediction service calls.
      *
-     * @param stopTag the tag for a stop
-     * @return the Stop, if found
-     * @throws IllegalArgumentException if no Stop is registered for the tag given
+     * @param stopId
+     * @return Stop
      */
-    public Stop getStopById(String stopTag) {
-        for (Stop s : stops)
-            if (s.getTag().equals(stopTag))
+    public Stop getStopById(String stopId) {
+        for (Stop s : stops) {
+            if (s.getTag().equals(stopId)) {
                 return s;
-        throw new IllegalArgumentException("Stop instance for id=" + stopTag + " not found in this RouteConfiguration instance.");
+            }
+        }
+        throw new IllegalArgumentException("Stop instance for id=" + stopId + " not found in this RouteConfiguration instance.");
+
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final RouteConfiguration other = (RouteConfiguration) obj;
+        if (this.route != other.route && (this.route == null || !this.route.equals(other.route))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 59 * hash + (this.route != null ? this.route.hashCode() : 0);
+        return hash;
     }
 
     @Override
     public String toString() {
-        return "RouteConfiguration{" + "route=" + super.toString() + ", stops=" + stops.size() + ", directions=" + directions.size() + ", paths=" + paths.size() + ", serviceArea=" + serviceGeoArea + '}';
+        return "RouteConfiguration{" + "route=" + route + ", stops=" + stops.size() + ", directions=" + directions.size() + ", paths=" + paths.size() + ", serviceArea=" + serviceGeoArea + '}';
     }
-
+    
     /**
-     * NextBus sends advisory UI colors in the RouteConfig class and further
+     * Nextbus sends advisory UI colors in the RouteConfig class and further
      * these come over the wire like this: color="006600"
      * oppositeColor="ffffff". Different platforms have different Color
-     * configuration needs; While HTML styling using a simple RGB hex string,
+     * configuration needs; While html styling using a simple RGB hex string,
      * other UI such as Java Swing and Android rely on more formal classes that
      * combine Color Space with R/G/B values.
      *
@@ -181,22 +228,28 @@ public class RouteConfiguration extends Route {
      */
     public static class UIColor implements Serializable {
 
-        private static final long serialVersionUID = 4837641970386216280L;
+        public static final long serialVersionUID = -7269390870711698813L;
+        protected String hexColor = "000000";
+        protected int red, green, blue = 0;
 
-        private String hexColor;
-        private int red, green, blue;
+        protected UIColor() {
+        }
 
-        /**
-         * Defaults to the #000000 color if unspecified.
-         *
-         * @param hexColor hex color string
-         */
-        public UIColor(String hexColor) {
-            this.hexColor = (hexColor == null || hexColor.isEmpty()) ? "000000" : hexColor;
+        ;
+    /**
+     * Defaults to the #000000 color if unspecified.
+     * 
+     * @param _hexColor hex color string 
+     */
+    public UIColor(String _hexColor) {
+            if (_hexColor == null || _hexColor.isEmpty()) {
+                return;
+            }
+            this.hexColor=_hexColor;
 
-            String r = this.hexColor.substring(0, 2);
-            String g = this.hexColor.substring(2, 4);
-            String b = this.hexColor.substring(4, 6);
+            String r = hexColor.substring(0, 2);
+            String g = hexColor.substring(2, 4);
+            String b = hexColor.substring(4, 6);
 
             red = Integer.parseInt(r, 16);
             green = Integer.parseInt(g, 16);
@@ -206,13 +259,14 @@ public class RouteConfiguration extends Route {
         /**
          * Gets the color code in HTML convention.
          *
-         * @return e.g. '#00C410'
+         * @return i.e. '#00C410'
          */
         public String getHtmlColorCode() {
             return '#' + hexColor;
         }
 
         /**
+         * 
          * @return the sRGB Color Value.
          */
         public int getRGBColor() {
@@ -251,57 +305,66 @@ public class RouteConfiguration extends Route {
             return "UIColor{" + "red=" + red + ", green=" + green + ", blue=" + blue + '}';
         }
     }
+    
+    
+/**
+ * RouteConfiguration defines a geographic square for each route's service area.
+ * This class cleans that information up nicely as well.
+ *
+ * @author jrd
+ */
+public static class ServiceArea implements Serializable {
 
-    /**
-     * RouteConfiguration defines a geographic square for each route's service area.
-     * This class cleans that information up nicely as well.
-     *
-     * @author jrd
-     */
-    public static class ServiceArea implements Serializable {
+    public static final long serialVersionUID = -2726681093391741083L;
+    
+    protected double latMin, latMax, longMin, longMax;
 
-        private static final long serialVersionUID = 3910572710458275214L;
+    protected ServiceArea() {
+    }
 
-        private double latMin, latMax, lonMin, lonMax;
-
-        public ServiceArea(double latMin, double latMax, double lonMin, double lonMax) {
-            this.latMin = latMin;
-            this.latMax = latMax;
-            this.lonMin = lonMin;
-            this.lonMax = lonMax;
-        }
-
-        /**
-         * Returns the four corner geocodes of this service area square.
-         *
-         * @return an array of 4 geolocations
-         */
-        public Geolocation[] getGeosquare() {
-            Geolocation corner1, corner2, corner3, corner4;
-            corner1 = new Geolocation(latMin, lonMin);
-            corner2 = new Geolocation(latMin, lonMax);
-            corner3 = new Geolocation(latMax, lonMin);
-            corner4 = new Geolocation(latMax, lonMax);
-            return new Geolocation[]{corner1, corner2, corner3, corner4};
-        }
-
-        /**
-         * Tests to see if some give Geolocation fits inside the bounded box of this service area.
-         *
-         * @param arg a geolocation
-         * @return true iff the point is inside the box
-         */
-        public boolean isInTheBox(Geolocation arg) {
-            double argLat = arg.getLatitude();
-            double argLong = arg.getLongitude();
-            return argLat >= latMin && argLat <= latMax && argLong >= lonMin && argLong <= lonMax;
-        }
-
-        @Override
-        public String toString() {
-            return "ServiceArea{" + Arrays.asList(getGeosquare()) + '}';
-        }
+    public ServiceArea(double _latMin, double _latMax, double _longMin, double _longMax) {
+        this.latMin = _latMin;
+        this.latMax = _latMax;
+        this.longMin = _longMin;
+        this.longMax = _longMax;
 
     }
+
+    /**
+     * Returns the four corner geocodes of this service area square.
+     *
+     * @return an array of 4 geolocations
+     */
+    public Geolocation[] getGeosquare() {
+        Geolocation corner1, corner2, corner3, corner4;
+        corner1 = new Geolocation(latMin, longMin);
+        corner2 = new Geolocation(latMin, longMax);
+        corner3 = new Geolocation(latMax, longMin);
+        corner4 = new Geolocation(latMax, longMax);
+        return new Geolocation[]{corner1, corner2, corner3, corner4};
+    }
+
+    private boolean testRg(double test, double min, double max) {
+        return (test <= max && min <= min);
+    }
+
+    /**
+     * Tests to see if some give Geolocation fits inside the bounded box of this service area.
+     * 
+     * @param arg a geolocation
+     * 
+     * @return true if the point is inside the box, false if it is not
+     */
+    public boolean isInTheBox(Geolocation arg) {
+        return testRg(arg.getLatitude(), latMin, latMax) && testRg(arg.getLongitude(), longMin, longMax);
+    }
+
+    @Override
+    public String toString() {
+        return "ServiceArea{" + Arrays.asList(getGeosquare()) + '}';
+    }
+    
+    
+}
 
 }

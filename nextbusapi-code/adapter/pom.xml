@@ -43,7 +43,7 @@
     <!--
         Each of the XSDs need to be compiled separately, otherwise there will be collisions on common protocol sections
         like body or header.  You could fix this by combining all the XSD elements into a huge single schema, but that
-        I think would make it harder to maintain each service.
+        I think would make it harder to maintain each service. 
         
         Credit to this article for getting the XJC plugin to do multiple, isolated passes:
         
@@ -70,6 +70,104 @@
                     <source>1.5</source>
                     <target>1.5</target>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jvnet.jaxb2.maven2</groupId>
+                <artifactId>maven-jaxb2-plugin</artifactId>
+                <version>0.8.1</version>   
+                <executions>
+                    <execution>
+                        <id>agencylist</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources</schemaDirectory>
+                            <schemaIncludes>
+                                <include>agencylist-response.xsd</include>
+                            </schemaIncludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc1</generateDirectory>
+                        </configuration>
+                    </execution>   
+                    <execution>
+                        <id>routeconfig</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources</schemaDirectory>
+                            <schemaIncludes>
+                                <include>routeconfig-response.xsd</include>
+                            </schemaIncludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc2</generateDirectory>
+                        </configuration>
+                    </execution>    
+                    <execution>
+                        <id>routelist</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources</schemaDirectory>
+                            <schemaIncludes>
+                                <include>routelist-response.xsd</include>
+                            </schemaIncludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc3</generateDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>vehiclelocations</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources</schemaDirectory>
+                            <schemaIncludes>
+                                <include>vehiclelocations-response.xsd</include>
+                            </schemaIncludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc4</generateDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>predictions</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources</schemaDirectory>
+                            <schemaIncludes>
+                                <include>prediction-response.xsd</include>
+                            </schemaIncludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc5</generateDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>schedules</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources</schemaDirectory>
+                            <schemaIncludes>
+                                <include>schedule-response.xsd</include>
+                            </schemaIncludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc6</generateDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>alerts</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/main/resources</schemaDirectory>
+                            <schemaIncludes>
+                                <include>messages-response.xsd</include>
+                            </schemaIncludes>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc7</generateDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>

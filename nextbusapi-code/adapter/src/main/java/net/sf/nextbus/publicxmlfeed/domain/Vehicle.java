@@ -30,94 +30,52 @@
  ******************************************************************************/
 package net.sf.nextbus.publicxmlfeed.domain;
 
-import org.simpleframework.xml.Attribute;
-
 /**
  * Simple type for Vehicle ; Note that Vehicles can arbitrarily be assigned across Routes at any time by the Transit agency.
  * The identity of a Vehicle only serves to disambiguate for other vehicles concurrently deployed on the same Route and Direction.
  * 
  * @author jrd
  */
-public class Vehicle extends NextBusValueObject implements IGeocoded {
-
-    /** Identifier of this vehicle. It is often but not always numeric. */
-    @Attribute
-    private String id;
-
-    /** The route this vehicle is currently associated with. */
-    private Route route;
-
-    /** The direction that this vehicle is currently on. */
-    private Direction direction;
-
-    /** The location of this vehicle. */
-    private GeolocationTemporal location;
-
-    @Attribute
-    private int secsSinceReport;
-
-    /** Are NextBus Predictions currently available for this vehicle? */
-    @Attribute
-    private boolean predictable;
-
-    /** Vehicle head in Degrees from Magnetic North */
-    @Attribute
-    private double heading;
-
-    /** Vehicle speed in km/hr */
-    @Attribute
-    private double speedKmHr;
-
-    public Vehicle(@Attribute String id,
-                   @Attribute String routeTag,
-                   @Attribute String dirTag,
-                   @Attribute double lat,
-                   @Attribute double lon,
-                   @Attribute int secsSinceReport,
-                   @Attribute boolean predictable,
-                   @Attribute double heading,
-                   @Attribute double speedKmHr) {
-        this.id = id;
-        this.route = new Route(routeTag);
-        this.direction = new Direction(dirTag);
-        this.location = new GeolocationTemporal(lat, lon, secsSinceReport);
-        this.secsSinceReport = secsSinceReport;
-        this.predictable = predictable;
-        this.heading = heading;
-        this.speedKmHr = speedKmHr;
+public class Vehicle extends NextbusValueObject {
+    static final long serialVersionUID = 8445626499109575208L;
+    
+    /** Vehicle ID, Transit Agency assigned - i.e. Bus 2312 */
+    protected String id;
+    
+    public Vehicle(String _id) { 
+        this.id=_id;
     }
+    protected Vehicle() { }
 
     public String getId() {
         return id;
     }
 
-    /**
-     * Returns the GPS location of a Geocodeable object.
-     *
-     * @return
-     */
-    public GeolocationTemporal getGeolocation() {
-        return location;
-    }
-
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Vehicle)) return false;
-
-        Vehicle vehicle = (Vehicle) o;
-
-        return id.equals(vehicle.id);
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Vehicle other = (Vehicle) obj;
+        if ((this.id == null) ? (other.id != null) : !this.id.equals(other.id)) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        int hash = 7;
+        hash = 61 * hash + (this.id != null ? this.id.hashCode() : 0);
+        return hash;
     }
 
     @Override
     public String toString() {
         return "Vehicle{" + "id=" + id + '}';
     }
-
+    
 }

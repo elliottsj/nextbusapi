@@ -29,18 +29,16 @@
  *
  ******************************************************************************/
 package net.sf.nextbus.publicxmlfeed.impl;
-import net.sf.nextbus.publicxmlfeed.domain.Agency;
-import net.sf.nextbus.publicxmlfeed.domain.Route;
-import net.sf.nextbus.publicxmlfeed.domain.RouteConfiguration;
 import net.sf.nextbus.publicxmlfeed.domain.VehicleLocation;
-import net.sf.nextbus.publicxmlfeed.impl.rmiproxy.RMIClient;
-import net.sf.nextbus.publicxmlfeed.service.INextBusService;
+import net.sf.nextbus.publicxmlfeed.domain.Route;
+import net.sf.nextbus.publicxmlfeed.domain.Agency;
+import net.sf.nextbus.publicxmlfeed.domain.RouteConfiguration;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import net.sf.nextbus.publicxmlfeed.impl.rmiproxy.RMIClient;
+import net.sf.nextbus.publicxmlfeed.service.INextbusService;
+import org.junit.Before;
 
 /**
  *
@@ -49,17 +47,18 @@ import java.util.Random;
 public class SimpleServiceTest {
     
     Random random = new Random(System.currentTimeMillis());
-    INextBusService svc;
+    INextbusService svc;
     
     /** Test Harness for RMI */
-    public INextBusService remoteBinding() {
+    public INextbusService remoteBinding() {
         RMIClient rmicli = new RMIClient("192.168.11.2");
         return rmicli.getService();
     }
     /** Normal Ordinary Test Harness */
-    public INextBusService localBinding() {
-        return new SimplestNextBusServiceAdapter();
+    public INextbusService localBinding() {
+        return new SimplestNextbusServiceAdapter();
     }
+    
     
     @Before
     public void setup() throws Exception {
@@ -73,7 +72,7 @@ public class SimpleServiceTest {
         List<Agency> agencies = svc.getAgencies();
         Assert.assertTrue(agencies.size() != 0);
         for (Agency a : agencies) {
-            Assert.assertNotNull(a.getTag());
+            Assert.assertNotNull(a.getId());
             Assert.assertNotNull(a.getTitle());
             Assert.assertNotNull(a.getShortTitle());
             Assert.assertNotNull(a.getRegionTitle());

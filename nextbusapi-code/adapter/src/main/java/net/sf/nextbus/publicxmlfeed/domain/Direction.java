@@ -42,7 +42,7 @@ import java.util.List;
  * </pre>
  * @author jrd
  */
-public class Direction extends NextBusValueObject implements Comparable<Direction> {
+public class Direction extends NextbusValueObject implements Comparable<Direction> {
     
     static final long serialVersionUID = -3331323894980430611L;
     
@@ -56,11 +56,12 @@ public class Direction extends NextBusValueObject implements Comparable<Directio
     protected String name;
     /** Stops scheduled on this Direction - but no schedule time information ; use the Schedule API for that data.*/
     protected List<Stop> stops;
-
-    public Direction(String tag) {
-        this.tag = tag;
-    }
-
+    
+    /**
+     * serialization ctor.
+     */
+    protected Direction() { }
+    
     /**
      * Domain factory ctor.
      */

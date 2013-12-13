@@ -37,7 +37,7 @@ import java.util.List;
  * points on a map.
  * @author jrd
  */
-public class Path extends NextBusValueObject {
+public class Path extends NextbusValueObject {
     
     static final long serialVersionUID = -3827290646579333117L;
     /** The Route containing this Path. */

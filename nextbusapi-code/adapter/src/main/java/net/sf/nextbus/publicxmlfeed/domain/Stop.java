@@ -42,32 +42,44 @@ import java.util.List;
  *
  * @author jrd
  */
-public class Stop extends NextBusValueObject implements IGeocoded, Comparable<Stop> {
-
+public class Stop extends NextbusValueObject implements IGeocoded, Comparable<Stop> {
+    static final long serialVersionUID = 5552263607403529166L;
     /** Agency owning this stop*/
-    protected Agency agency;
-
+    protected Agency agency;   
     /** The Key Identifier for this Id - example, 10642*/
     protected String tag;
-
     /** Full title of the stop - example, Forest Hills Station Upper Busway */
     protected String title;
-
     /** The shortened title, if available. */
     protected String shortTitle;
-
     /** GPS location of the stop */
     protected Geolocation geolocation;
-
     /** An Alternate StopID published in Schedules and used in Telephone Voiceresponder and SMS Status messages. */
     protected String alternateStopId;
 
-    public Stop(String tag, String title) {
-        this.tag = tag;
-        this.title = title;
+    /**
+     * serialization Ctor
+     */
+    protected Stop() { }
+
+    /**
+     * Domain factory ctor.
+     */
+    public Stop(Agency _agency, String id, String _tag, String _title, String _shortTitle, Geolocation gps, String copyrttext) {
+        super(copyrttext);
+        shortTitle = "";
+        if (_shortTitle != null) {
+            shortTitle = _shortTitle;
+        }
+        agency = _agency;
+        alternateStopId = id;
+        tag = _tag;
+        title = _title;
+        geolocation = gps;
     }
 
     /**
+     *
      * @return The GPS location of the Stop or Station.
      */
     public Geolocation getGeolocation() {

@@ -33,8 +33,7 @@
 package net.sf.nextbus.jmspump.sender;
 
 import java.util.Collection;
-
-import net.sf.nextbus.publicxmlfeed.service.INextBusService;
+import net.sf.nextbus.publicxmlfeed.service.INextbusService;
 import net.sf.nextbus.publicxmlfeed.domain.Route;
 import net.sf.nextbus.publicxmlfeed.domain.Stop;
 import net.sf.nextbus.publicxmlfeed.domain.PredictionGroup;
@@ -51,11 +50,11 @@ import org.slf4j.LoggerFactory;
 public class PredictionTaskWorker extends TaskWorker {
 
     final Logger log = LoggerFactory.getLogger(PredictionTaskWorker.class);
-    private INextBusService nextbus;
+    private INextbusService nextbus;
     private Route route;
     private List<Stop> stops;
 
-    public PredictionTaskWorker(INextBusService serviceEndpoint, Route rte, List<Stop> stops, Long refresh) {
+    public PredictionTaskWorker(INextbusService serviceEndpoint, Route rte, List<Stop> stops, Long refresh) {
         super.limit = refresh;
         nextbus = serviceEndpoint;
         this.route = rte;

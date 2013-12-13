@@ -1,4 +1,5 @@
-/*******************************************************************************
+/**
+ * *****************************************************************************
  * Copyright (C) 2011,2012 by James R. Doyle
  *
  * This file is part of the NextBus® Livefeed Java Adapter (nblf4j). See the
@@ -19,110 +20,152 @@
  * along with UJMP; if not, write to the Free Software Foundation, Inc., 51
  * Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  *
- * Usage of the NextBus Web Service and its data is subject to separate
- * Terms and Conditions of Use (License) available at:
- * 
- *      http://www.nextbus.com/xmlFeedDocs/NextBusXMLFeed.pdf
- * 
- * 
+ * Usage of the NextBus Web Service and its data is subject to separate Terms
+ * and Conditions of Use (License) available at:
+ *
+ * http://www.nextbus.com/xmlFeedDocs/NextBusXMLFeed.pdf
+ *
+ *
  * NextBus® is a registered trademark of Webtech Wireless Inc.
  *
- ******************************************************************************/
+ *****************************************************************************
+ */
 package net.sf.nextbus.publicxmlfeed.domain;
+import java.math.BigDecimal;
 import java.util.Date;
+
 /**
  * Time and Position snapshot of a Vehicle on a Route and Direction.
- * <vehicle id="2094" routeTag="34" dirTag="34_1_var0" lat="42.2945228" lon="-71.1194256" secsSinceReport="52" predictable="true" heading="39" speedKmHr="0.0"/>
+ * <vehicle id="2094" routeTag="34" dirTag="34_1_var0" lat="42.2945228"
+ * lon="-71.1194256" secsSinceReport="52" predictable="true" heading="39"
+ * speedKmHr="0.0"/>
  * <lastTime time="1337181813388"/>
+ *
  * @author jrd
  */
-public class VehicleLocation extends NextBusValueObject implements IGeocoded {
+public class VehicleLocation extends NextbusValueObject implements IGeocoded {
 
-    /** The Schedule Direction that the vehicle is currently assigned to. */
+    static final long serialVersionUID = 6693216783001986829L;
+
+    /**
+     * Vehicle identifier
+     */
+    protected Vehicle vehicle;
+    /**
+     * The Route the vehicle is assigned to.
+     */
+    protected Route parent;
+    /**
+     * The Schedule Direction that the vehicle is currently assigned to.
+     */
     protected String directionId;
+    /**
+     * Are NextBus Predictions currently available for this vehicle?
+     */
+    protected boolean predictable;
+    /**
+     * Position at last time where last time is the
+     * NextbusValueObject::createTimeUtc
+     */
+    protected Geolocation location;
+    /**
+     * Vehicle speed in km/hr
+     */
+    protected double speed;
+    /**
+     * Vehicle head in Degrees from Magnetic North
+     */
+    protected double heading;
 
-
+    /**
+     * Serialization ctor
+     */
+    protected VehicleLocation() {
+    }
 
     /**
      * Domain factory ctor.
      */
-    public VehicleLocation(Route route, String _vehId, String _dirId, boolean _predictable, Geolocation position, long _lastTime, double _speed, double _hdng, String copyRight ) {
+    public VehicleLocation(Route route, String _vehId, String _dirId, boolean _predictable, Geolocation position, long _lastTime, BigDecimal _speed, BigDecimal _hdng, String copyRight) {
         super(_lastTime, copyRight);
         this.vehicle = new Vehicle(_vehId);
-        this.parent= route;
+        this.parent = route;
         this.directionId = _dirId;
         this.predictable = _predictable;
-        this.speed = _speed;
-        this.heading = _hdng;
-        this.location=position;
+        this.speed = _speed == null ? 0 : _speed.doubleValue();
+        this.heading = _hdng == null ? 0 : _hdng.doubleValue();
+        this.location = position;
     }
-    
+
     /**
-     * 
-     * @return Vehicle's ID on a given route. Note this is not unique in certain routes.
+     *
+     * @return Vehicle's ID on a given route. Note this is not unique in certain
+     * routes.
      */
-     public Vehicle getVehicle() {
+    public Vehicle getVehicle() {
         return vehicle;
     }
-     
+
     /**
-     * 
-     * @return The Direction ID.  Allows for linkage to a Direction object using RouteConfiguration.
+     *
+     * @return The Direction ID. Allows for linkage to a Direction object using
+     * RouteConfiguration.
      */
     public String getDirectionId() {
         return directionId;
     }
 
     /**
-     * 
-     * @return Heading in degrees (0-360) from Compass North. Negative valued if heading is not avail. 
+     *
+     * @return Heading in degrees (0-360) from Compass North. Negative valued if
+     * heading is not avail.
      */
     public double getHeading() {
         return heading;
     }
+
     /**
-     * 
-     * @return true if getHeading() will provide an accurate heading. 
+     *
+     * @return true if getHeading() will provide an accurate heading.
      */
     public boolean isHeadingAvailable() {
         return heading >= 0.0;
     }
 
     /**
-     * 
-     * @return Last reported time at position in milliSeconds since Jan 1, 1970 UTC.
+     *
+     * @return Last reported time at position in milliSeconds since Jan 1, 1970
+     * UTC.
      */
     public long getLastTimeUtc() {
-        return super.createTime;
+        return super.createTimeUtc;
     }
+
     /**
      * Last reported time at position since Jan 1, 1970 UTC.
      */
     public Date getLastTime() {
-        return new java.sql.Date(super.createTime);
-    }
-    public java.sql.Timestamp getFoo() {
-        return new java.sql.Timestamp(super.createTime);
+        return new java.sql.Date(super.createTimeUtc);
     }
 
     /**
-     * 
-     * @return  The GPS position of the vehicle at the last reported time.
+     *
+     * @return The GPS position of the vehicle at the last reported time.
      */
     public Geolocation getGeolocation() {
         return location;
     }
 
     /**
-     * 
-     * @return true if Prediction service data is available for this vehicle. 
+     *
+     * @return true if Prediction service data is available for this vehicle.
      */
     public boolean isPredictable() {
         return predictable;
     }
 
     /**
-     * 
+     *
      * @return The Route identifier for this vehicle.
      */
     public Route getRoute() {
@@ -130,7 +173,7 @@ public class VehicleLocation extends NextBusValueObject implements IGeocoded {
     }
 
     /**
-     * 
+     *
      * @return the vehicle speed of the vehicle in km/Hr (metric)
      */
     public double getSpeed() {
@@ -164,7 +207,7 @@ public class VehicleLocation extends NextBusValueObject implements IGeocoded {
         }
         return true;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 3;
@@ -178,6 +221,5 @@ public class VehicleLocation extends NextBusValueObject implements IGeocoded {
     public String toString() {
         return "VehicleLocation{" + "vehicle=" + vehicle + ", parent=" + parent + ", directionId=" + directionId + ", predictable=" + predictable + ", locationAtLastTime=" + location + ", speed=" + speed + ", heading=" + heading + '}';
     }
-    
-    
+
 }

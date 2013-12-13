@@ -52,9 +52,9 @@ package net.sf.nextbus.publicxmlfeed.impl;
  * 
  * @author jrd
  */
-public class SimplestNextBusServiceAdapter extends NextBusService {
+public class SimplestNextbusServiceAdapter extends NextbusService {
     
-    public SimplestNextBusServiceAdapter() {
+    public SimplestNextbusServiceAdapter() {
         super(new net.sf.nextbus.publicxmlfeed.impl.http_rpc.JavaNetRPCImpl());
     }
 }

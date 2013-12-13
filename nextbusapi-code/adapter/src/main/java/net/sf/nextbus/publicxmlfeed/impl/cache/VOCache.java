@@ -3,8 +3,8 @@
  * and open the template in the editor.
  */
 package net.sf.nextbus.publicxmlfeed.impl.cache;
-import net.sf.nextbus.publicxmlfeed.service.INextBusService;
 import net.sf.nextbus.publicxmlfeed.service.ServiceException;
+import net.sf.nextbus.publicxmlfeed.service.INextbusService;
 import net.sf.nextbus.publicxmlfeed.domain.Stop;
 import net.sf.nextbus.publicxmlfeed.domain.PredictionGroup;
 import net.sf.nextbus.publicxmlfeed.domain.Agency;
@@ -21,11 +21,11 @@ import java.util.logging.Logger;
  * 
  * @author jrd
  */
-public class VOCache implements INextBusService {
+public class VOCache implements INextbusService {
 
     
     private static final Logger log = Logger.getLogger(VOCache.class.getName());
-    private final INextBusService underlyingSvc;
+    private final INextbusService underlyingSvc;
     
     /** The default Cache ageout limit is 5 minutes */
     private static final long defaultAgeLimit5minutes = 5*60*1000;
@@ -39,7 +39,7 @@ public class VOCache implements INextBusService {
      * Stacking constructor - allows layering over existing Service Adaptor, or even RMI proxy.
      * @param backing 
      */
-    public VOCache(INextBusService backing) {
+    public VOCache(INextbusService backing) {
         underlyingSvc = backing;
     }
     

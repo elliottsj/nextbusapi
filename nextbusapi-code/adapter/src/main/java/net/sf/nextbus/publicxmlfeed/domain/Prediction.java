@@ -42,7 +42,7 @@ import java.util.Date;
  *
  * @author jrd
  */
-public class Prediction extends NextBusValueObject implements Comparable<Prediction> {
+public class Prediction extends NextbusValueObject implements Comparable<Prediction> {
     static final long serialVersionUID = 2345027968761350604L;  
   
     /**

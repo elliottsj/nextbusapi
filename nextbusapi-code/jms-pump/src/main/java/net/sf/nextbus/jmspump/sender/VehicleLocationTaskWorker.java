@@ -36,7 +36,7 @@ import java.util.Collection;
 import java.util.List;
 import net.sf.nextbus.publicxmlfeed.domain.Route;
 import net.sf.nextbus.publicxmlfeed.domain.VehicleLocation;
-import net.sf.nextbus.publicxmlfeed.service.INextBusService;
+import net.sf.nextbus.publicxmlfeed.service.INextbusService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,10 +47,10 @@ import org.slf4j.LoggerFactory;
 public class VehicleLocationTaskWorker extends TaskWorker {
 
     final Logger log = LoggerFactory.getLogger(VehicleLocationTaskWorker.class);
-    private INextBusService nextbus;
+    private INextbusService nextbus;
     private Route route;
     
-    public VehicleLocationTaskWorker(INextBusService webService, Route arg, Long refreshInterval) {
+    public VehicleLocationTaskWorker(INextbusService webService, Route arg, Long refreshInterval) {
         super.limit=refreshInterval;
         this.nextbus=webService;
         this.route=arg;

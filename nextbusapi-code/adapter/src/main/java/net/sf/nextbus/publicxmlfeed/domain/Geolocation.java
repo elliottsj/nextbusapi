@@ -36,6 +36,9 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Random;
 
 /**
  * NextBus uses GPS locations to designate station Stops as well as current
@@ -48,8 +51,7 @@ import java.util.List;
  */
 public class Geolocation implements Serializable {
 
-    private static final long serialVersionUID = 2267788254774442306L;
-
+    static final long serialVersionUID = -5569276801266595860L;
     /**
      * Constant: Mean radius of Earth in km [International Union of Geodesy and
      * Geophysics (IUGG])
@@ -117,6 +119,12 @@ public class Geolocation implements Serializable {
      * GPS Longitude in Degrees Decimal.
      */
     protected double longitude, longitudeRadians;
+
+    /**
+     * serialization ctor
+     */
+    protected Geolocation() {
+    }
 
     /**
      * ctor.
@@ -323,7 +331,7 @@ public class Geolocation implements Serializable {
         // While doing do, Enforce the limitDistance constraint while doing this, if distance limits are in place.
         boolean usingDistanceLimits = limitDistanceKm > 0.0;
         for (T e : items) {
-            if (!usingDistanceLimits) {
+            if (usingDistanceLimits == false) {
                 sorted.add(e);
                 continue;
             }
@@ -344,5 +352,4 @@ public class Geolocation implements Serializable {
             return sorted;
         }
     }
-
 }
