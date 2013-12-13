@@ -39,7 +39,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import net.sf.nextbus.html5demo.SessionProxy;
 import javax.inject.Inject;
-import javax.inject.Named;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,6 +51,8 @@ public class DemoStartServlet extends HttpServlet {
 
     @Inject
     private SessionProxy sessionProxy;
+   
+    
     
     private static final Logger log = LoggerFactory.getLogger(DemoStartServlet.class);
 

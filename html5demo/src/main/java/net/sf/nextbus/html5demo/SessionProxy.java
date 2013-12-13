@@ -34,17 +34,17 @@ package net.sf.nextbus.html5demo;
 
 import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
-import javax.enterprise.inject.Default;
+import javax.annotation.PreDestroy;
+import javax.annotation.PostConstruct;
 import javax.inject.Named;
-import javax.servlet.http.HttpSessionBindingEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import javax.servlet.http.HttpSessionBindingListener;
 import net.sf.nextbus.html5demo.service.ClientEventStream;
 import net.sf.nextbus.html5demo.service.RadarService;
 import javax.ejb.EJB;
-import net.sf.nextbus.html5demo.service.EventStreamDemultiplexer;
 import java.security.Principal;
+import javax.servlet.http.HttpSessionBindingEvent;
+import javax.servlet.http.HttpSessionBindingListener;
 
 /**
  * Web Session context for the Geofeed POC. All web session objects must be
@@ -52,10 +52,10 @@ import java.security.Principal;
  *
  * @author jrd
  */
-@SessionScoped
 @Named("sessionProxy")
-public class SessionProxy implements Serializable, HttpSessionBindingListener {
-    
+@SessionScoped
+public class SessionProxy implements HttpSessionBindingListener, Serializable {
+
     private static final Logger log = LoggerFactory.getLogger(SessionProxy.class);
     /**
      * session attribute name (used for session.setAttribute() /
@@ -63,16 +63,16 @@ public class SessionProxy implements Serializable, HttpSessionBindingListener {
      */
     @EJB
     private RadarService radar;
-    
+
     private Double latitude, longitude;
     private Double range = 1.0;
     private String units = "mi";
     private ClientEventStream eventStreamQueue;
     private Geoselector streamSelector;
-    
-    public SessionProxy() {        
+
+    public SessionProxy() {
     }
-    
+
     public void init(String sessionId, Principal owner) {
         radar.registerWebSessionId(sessionId);
         streamSelector = radar.getSelector();
@@ -80,13 +80,11 @@ public class SessionProxy implements Serializable, HttpSessionBindingListener {
         eventStreamQueue.setOwner(owner);
         eventStreamQueue.test();
     }
-    public void close() {
-         radar.close();
-    }
+
     public ClientEventStream getEventStreamQueue() {
         return eventStreamQueue;
     }
-    
+
     public void setNewSearchRadius(Double newLat, Double newLong, Double radius, String rUnits) {
         Double radiusKm = rUnits.equalsIgnoreCase("km") ? radius : radius / 2;
         eventStreamQueue.purgeAll();
@@ -97,32 +95,44 @@ public class SessionProxy implements Serializable, HttpSessionBindingListener {
         units = rUnits;
         log.debug("set location to (%f,%f) for %f %s", new Object[]{latitude, longitude, range, rUnits});
     }
-    
+
     public Double getLatitude() {
         return latitude;
     }
-    
+
     public Double getLongitude() {
         return longitude;
     }
-    
+
     public Double getRange() {
         return range;
     }
-    
+
     public String getUnits() {
         return units;
     }
-    
+
     @Override
     public void valueBound(HttpSessionBindingEvent event) {
-        log.info(" added to web session. ");  
+        // Does not work in TomEE 1.6.0 - using CDI
     }
-    
+
     @Override
     public void valueUnbound(HttpSessionBindingEvent event) {
-        log.info(" REMOVED! from web session ; passivating. ");
-       
+        // use CDI instead:  @PreDestroy
     }
-    
+
+    @PreDestroy
+    public void close() {
+        log.info("closing web session scoped bean.");
+        if (radar != null) {
+            radar.close();
+            radar = null;
+        }
+    }
+
+    @PostConstruct
+    public void create() {
+        
+    }
 }

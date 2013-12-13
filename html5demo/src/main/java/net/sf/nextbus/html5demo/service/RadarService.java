@@ -72,12 +72,12 @@ public class RadarService implements Serializable {
     @PostConstruct
     public void init() {
         selector = new Geoselector();
-        log.info("INJECTMANIA");
+        log.info("created SFSB.");
     }
 
     @Remove
     public void close() {
-        log.info("closing SFSB context");
+        log.info("closing SFSB.");
         String sessionId = eventStream.getId();
         demux.removeEventStream(sessionId);
     }

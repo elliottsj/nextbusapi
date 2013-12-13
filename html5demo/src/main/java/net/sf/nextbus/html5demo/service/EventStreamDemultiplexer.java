@@ -112,8 +112,11 @@ public class EventStreamDemultiplexer {
      */
     public synchronized void removeEventStream(String sessionId) {
       RegisteredStream s = dispatch.get(sessionId);
+      if (s==null) return;
       dispatch.remove(sessionId);
+      log.info("removed event stream for session from singleton demux.");
       s.eventStream.purgeAll();
+      log.info("purged session scoped event stream.");
     }
     /**
      *
