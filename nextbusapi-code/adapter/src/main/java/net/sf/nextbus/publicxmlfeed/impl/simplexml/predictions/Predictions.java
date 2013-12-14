@@ -27,11 +27,11 @@ public class Predictions {
     @Attribute(required = false)
     private String dirTitleBecauseNoPredictions;
 
-    @ElementList(inline = true, required = false)
+    @ElementList(inline = true, empty = false, required = false)
     private List<Direction> direction;
 
-    @ElementList(inline = true, required = false)
-    private List<Message> message;
+    @ElementList(inline = true, empty = false, required = false)
+    private List<Message> messages;
 
     public String getAgencyTitle() {
         return agencyTitle;
@@ -89,12 +89,12 @@ public class Predictions {
         this.direction = direction;
     }
 
-    public List<Message> getMessage() {
-        return message;
+    public List<Message> getMessages() {
+        return messages;
     }
 
-    public void setMessage(List<Message> message) {
-        this.message = message;
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
     }
 
 }

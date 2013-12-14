@@ -1,7 +1,7 @@
 package net.sf.nextbus.publicxmlfeed.impl.simplexml.predictions;
 
+import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Root;
-import org.simpleframework.xml.Text;
 
 /**
  * TODO: Javadoc
@@ -9,7 +9,7 @@ import org.simpleframework.xml.Text;
 @Root
 public class Message {
 
-    @Text
+    @Attribute
     private String text;
 
     public String getText() {

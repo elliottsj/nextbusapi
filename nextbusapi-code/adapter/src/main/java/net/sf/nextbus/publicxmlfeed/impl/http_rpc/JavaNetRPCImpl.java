@@ -32,17 +32,19 @@ package net.sf.nextbus.publicxmlfeed.impl.http_rpc;
 
 import net.sf.nextbus.publicxmlfeed.impl.RPCImpl;
 import net.sf.nextbus.publicxmlfeed.impl.RPCRequest;
+import net.sf.nextbus.publicxmlfeed.service.ServiceConfigurationException;
 import net.sf.nextbus.publicxmlfeed.service.ServiceException;
 import net.sf.nextbus.publicxmlfeed.service.TransientServiceException;
-import net.sf.nextbus.publicxmlfeed.service.ServiceConfigurationException;
-import java.net.URL;
-import java.net.HttpURLConnection;
-import java.util.zip.GZIPInputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.zip.GZIPInputStream;
 
 /**
  * Simplest possible HTTP RPC client with Compression support but NO Connection
@@ -136,7 +138,7 @@ public class JavaNetRPCImpl implements RPCImpl {
         } catch (java.net.MalformedURLException mfu) {
             logger.log(Level.SEVERE, "Invalid URL. Inspect: "+request.getFullHttpRequest(), mfu);
             throw new ServiceConfigurationException(mfu);
-        } catch (java.io.IOException ioe) {
+        } catch (IOException ioe) {
             logger.log(Level.WARNING, "During http rpc to nextbus ", ioe);
             throw new TransientServiceException(ioe);
         } finally {

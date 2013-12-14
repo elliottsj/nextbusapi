@@ -34,13 +34,16 @@ public class Prediction {
     private String tripTag;
 
     @Attribute(required = false)
-    private Boolean affectedByLayover;
+    private boolean affectedByLayover;
 
     @Attribute(required = false)
-    private Boolean isScheduleBased;
+    private boolean isScheduleBased;
 
     @Attribute(required = false)
-    private Boolean delayed;
+    private boolean delayed;
+
+    @Attribute(required = false)
+    private String slowness;
 
     public long getEpochTime() {
         return epochTime;
@@ -114,28 +117,36 @@ public class Prediction {
         this.tripTag = tripTag;
     }
 
-    public Boolean getAffectedByLayover() {
+    public boolean isAffectedByLayover() {
         return affectedByLayover;
     }
 
-    public void setAffectedByLayover(Boolean affectedByLayover) {
+    public void setAffectedByLayover(boolean affectedByLayover) {
         this.affectedByLayover = affectedByLayover;
     }
 
-    public Boolean getIsScheduleBased() {
+    public boolean isScheduleBased() {
         return isScheduleBased;
     }
 
-    public void setIsScheduleBased(Boolean isScheduleBased) {
+    public void setScheduleBased(boolean isScheduleBased) {
         this.isScheduleBased = isScheduleBased;
     }
 
-    public Boolean getDelayed() {
+    public boolean isDelayed() {
         return delayed;
     }
 
-    public void setDelayed(Boolean delayed) {
+    public void setDelayed(boolean delayed) {
         this.delayed = delayed;
+    }
+
+    public String getSlowness() {
+        return slowness;
+    }
+
+    public void setSlowness(String slowness) {
+        this.slowness = slowness;
     }
 
 }

@@ -14,6 +14,22 @@ public class Error {
     private boolean shouldRetry;
 
     @Text
-    private String text;
+    private String value;
+
+    public boolean isShouldRetry() {
+        return shouldRetry;
+    }
+
+    public void setShouldRetry(boolean shouldRetry) {
+        this.shouldRetry = shouldRetry;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
 
 }

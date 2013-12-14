@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * TODO: Javadoc
  */
-public class Body extends net.sf.nextbus.publicxmlfeed.impl.simplexml.Body {
+public class AgencyListBody extends net.sf.nextbus.publicxmlfeed.impl.simplexml.Body {
 
     @ElementList(inline = true)
     private List<Agency> agencies;

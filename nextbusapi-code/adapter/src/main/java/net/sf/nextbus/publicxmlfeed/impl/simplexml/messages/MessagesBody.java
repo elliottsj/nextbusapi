@@ -1,4 +1,4 @@
-package net.sf.nextbus.publicxmlfeed.impl.simplexml.servicemessages;
+package net.sf.nextbus.publicxmlfeed.impl.simplexml.messages;
 
 import org.simpleframework.xml.ElementList;
 
@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * TODO: Javadoc
  */
-public class Body {
+public class MessagesBody {
 
     @ElementList(inline = true)
     protected List<Route> routes;

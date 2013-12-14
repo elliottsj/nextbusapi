@@ -1,5 +1,6 @@
 package net.sf.nextbus.publicxmlfeed.impl.simplexml.vehiclelocations;
 
+import net.sf.nextbus.publicxmlfeed.impl.simplexml.Body;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
@@ -10,9 +11,9 @@ import java.util.List;
 /**
  * TODO: Javadoc
  */
-public class Body {
+public class VehicleLocationsBody extends Body {
 
-    @ElementList(inline = true)
+    @ElementList(inline = true, empty = false, required = false)
     private List<Vehicle> vehicles;
 
     @Element

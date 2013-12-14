@@ -21,7 +21,7 @@ public class Stop {
     @Attribute
     protected double lon;
 
-    @Attribute
+    @Attribute(required = false)
     protected String stopId;
 
     public String getTag() {

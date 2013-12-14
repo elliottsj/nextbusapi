@@ -37,13 +37,13 @@ public class RouteConfiguration {
     @Attribute
     private double lonMax;
 
-    @ElementList
+    @ElementList(inline = true)
     private List<Stop> stop;
 
-    @ElementList
+    @ElementList(inline = true)
     private List<Direction> direction;
 
-    @ElementList
+    @ElementList(inline = true)
     private List<Path> path;
 
     public String getTag() {

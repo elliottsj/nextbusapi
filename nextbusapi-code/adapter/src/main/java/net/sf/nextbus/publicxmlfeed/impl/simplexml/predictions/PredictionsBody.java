@@ -1,9 +1,12 @@
 package net.sf.nextbus.publicxmlfeed.impl.simplexml.predictions;
 
+import org.simpleframework.xml.ElementList;
+
 import java.util.List;
 
-public class Body extends net.sf.nextbus.publicxmlfeed.impl.simplexml.Body {
+public class PredictionsBody extends net.sf.nextbus.publicxmlfeed.impl.simplexml.Body {
 
+    @ElementList(inline = true)
     private List<Predictions> predictions;
 
     public List<Predictions> getPredictions() {

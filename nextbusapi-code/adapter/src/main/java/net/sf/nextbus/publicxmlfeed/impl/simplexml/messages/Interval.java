@@ -1,4 +1,4 @@
-package net.sf.nextbus.publicxmlfeed.impl.simplexml.servicemessages;
+package net.sf.nextbus.publicxmlfeed.impl.simplexml.messages;
 
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Root;

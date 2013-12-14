@@ -29,10 +29,13 @@
  *
  ******************************************************************************/
 package net.sf.nextbus.publicxmlfeed.impl.http_rpc;
-import net.sf.nextbus.publicxmlfeed.impl.http_rpc.JavaNetRPCImpl;
+
 import net.sf.nextbus.publicxmlfeed.impl.RPCRequest;
+import net.sf.nextbus.publicxmlfeed.service.TransientServiceException;
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 /**
  * Some simple tests for the HTTP RPC transport.
@@ -40,8 +43,11 @@ import org.junit.Test;
  * @author jrd
  */
 public class SimpleTransportTest {
-    
+
     JavaNetRPCImpl rpc;
+
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
     
     @Test
     public void testWithGzipCompression() {
@@ -57,7 +63,7 @@ public class SimpleTransportTest {
         
     }
     
-    @Test(expected=net.sf.nextbus.publicxmlfeed.service.TransientServiceException.class)
+    @Test
     public void testDeadConnection() {
         RPCRequest rq = RPCRequest.newAgencyListCommand();
         rq.setEndpointUrl("http://localhost:88/nothing/listening/here");
@@ -65,7 +71,8 @@ public class SimpleTransportTest {
         
         rpc = new JavaNetRPCImpl();
         rpc.setUseGzipCompression(true);
-      
+
+        exception.expect(TransientServiceException.class);
         String response = rpc.call(rq);
         // This should fail badly. 
     }
