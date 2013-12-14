@@ -47,13 +47,21 @@ public class EventStreamDemultiplexer {
 
     private final Logger log = LoggerFactory.getLogger(EventStreamDemultiplexer.class);
 
+    /**
+     * A Stream is associated with a unique Web Session and has a user-defined Selector
+     * criterion that determines if traffic is destined for a given subscriber stream.
+     * The Selector might be coded for geolocation reference, or content matching types,
+     * or any other sort of personalization/localization criteria.
+     */
     public class RegisteredStream {
-
         String webSessionId;
         IStreamSelector eventStreamSelector;
         ClientEventStream eventStream;
     }
 
+    /**
+     * The collection of subscribers
+     */
     private Map<String, RegisteredStream> dispatch;
 
     public EventStreamDemultiplexer() {
@@ -61,8 +69,9 @@ public class EventStreamDemultiplexer {
     }
 
     /**
-     * The event stream producer distributed events to its many stream
-     * subscribers here
+     * The Producer, or event source, feeds events to the demultiplexer using this method.
+     * Each Stream then applies its Selector to determine if the event of it interested.
+     * If so, the message is enqueued for that subscriber.
      */
     public void distributeEvents(Object newevent) {
         Iterator<RegisteredStream> streams = dispatch.values().iterator();
@@ -70,7 +79,7 @@ public class EventStreamDemultiplexer {
         long startTime = System.currentTimeMillis();
         while (streams.hasNext()) {
             RegisteredStream stream = streams.next();
-            streamsDistributed++;
+            streamsDistributed++; 
             if (stream.eventStreamSelector.eventStreamMatches(newevent)) {
                 stream.eventStream.addEvent(newevent);
                 log.trace("+ event {} matched stream {} ", new Object[]{newevent, stream.webSessionId});
@@ -84,14 +93,13 @@ public class EventStreamDemultiplexer {
     }
 
     /**
-     * The Event Stream client (session-scoped bean for a servlet) registers
-     * itself here.
+     * The Eventstream client registers itself to to the demux feed using this method.
      *
-     * @param sessionId
-     * @param selector
-     * @param streamType
-     * @param waitTime
-     * @return
+     * @param sessionId the web session ID of the client.
+     * @param selector the client's content selector.
+     * @param streamType the type of stream - Message Type or Message ID based.
+     * @param waitTime the polling wait time for the consumer thread.
+     * @return the stream associated with the given web session ID.
      */
     public synchronized ClientEventStream registerEventStream(String sessionId, IStreamSelector selector, ClientEventStream.StreamType streamType, Long waitTime) {
         if (dispatch.containsKey(sessionId)) {
@@ -107,21 +115,24 @@ public class EventStreamDemultiplexer {
     }
 
     /**
-     * 
-     * @param sessionId 
+     * Removes an Event Stream from the dispatcher, i.e. when the end-users web session is nuked
+     * and expunged.
+     * @param sessionId web session id.  
      */
     public synchronized void removeEventStream(String sessionId) {
       RegisteredStream s = dispatch.get(sessionId);
       if (s==null) return;
       dispatch.remove(sessionId);
       log.info("removed event stream for session from singleton demux.");
-      s.eventStream.purgeAll();
+      s.eventStream.quiesce();
       log.info("purged session scoped event stream.");
     }
+    
     /**
-     *
+     * Get the Event Stream for a given web session.
      * @param sessionId
-     * @return
+     * @return the event stream for the given web session ID, null if there is no such event 
+     * stream registered.
      */
     public synchronized ClientEventStream getEventStreamForSessionID(String sessionId) {
         RegisteredStream s = dispatch.get(sessionId);
@@ -130,4 +141,13 @@ public class EventStreamDemultiplexer {
         }
         return s.eventStream;
     }
+   
+    /**
+     * Metric - get number of web session subscribers registered in the dispatcher. 
+     * @return 
+     */
+    public int getSubscribers() {
+        return dispatch.size();
+    }
+   
 }

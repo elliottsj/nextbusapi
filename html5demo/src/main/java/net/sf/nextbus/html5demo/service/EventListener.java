@@ -23,7 +23,8 @@ import javax.jms.ObjectMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 /**
- *
+ * A JMS MDB to receive Nextbus Vehicle Location updates off an ESB.
+ * 
  * @author jrd
  */
 @MessageDriven

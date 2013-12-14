@@ -87,7 +87,7 @@ public class SessionProxy implements HttpSessionBindingListener, Serializable {
 
     public void setNewSearchRadius(Double newLat, Double newLong, Double radius, String rUnits) {
         Double radiusKm = rUnits.equalsIgnoreCase("km") ? radius : radius / 2;
-        eventStreamQueue.purgeAll();
+        eventStreamQueue.quiesce();
         streamSelector.setNewSearchRadius(newLat, newLong, radiusKm);
         latitude = newLat;
         longitude = newLong;
