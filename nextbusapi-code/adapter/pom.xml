@@ -14,6 +14,11 @@
             <name>James R. Doyle</name>
             <email>rockymtnmagic@gmail.com</email>
         </developer>
+        <developer>
+            <id>elliottsj</id>
+            <name>Spencer Elliott</name>
+            <email>me@elliottsj.com</email>
+        </developer>
     </developers>
     <licenses>
         <license>
@@ -38,6 +43,11 @@
             <version>4.0</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.simpleframework</groupId>
+            <artifactId>simple-xml</artifactId>
+            <version>2.7.1</version>
+        </dependency>
     </dependencies>
   
     <!--
@@ -58,9 +68,6 @@
                 <configuration>
                     <show>private</show>
                     <nohelp>true</nohelp>
-                    <excludePackageNames>
-                        net.sf.nextbus.publicxmlfeed.xjcgenerated.agencylist:net.sf.nextbus.publicxmlfeed.xjcgenerated.prediction:net.sf.nextbus.publicxmlfeed.xjcgenerated.routeconfig:net.sf.nextbus.publicxmlfeed.xjcgenerated.routelist:net.sf.nextbus.publicxmlfeed.xjcgenerated.schedule:net.sf.nextbus.publicxmlfeed.xjcgenerated.messages:net.sf.nextbus.publicxmlfeed.xjcgenerated.vehiclelocation:net.sf.nextbus.publicxmlfeed.xjcgenerated.servicemessages
-                    </excludePackageNames>
                 </configuration>
             </plugin>
             <plugin>
@@ -70,104 +77,6 @@
                     <source>1.5</source>
                     <target>1.5</target>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.jvnet.jaxb2.maven2</groupId>
-                <artifactId>maven-jaxb2-plugin</artifactId>
-                <version>0.8.1</version>   
-                <executions>
-                    <execution>
-                        <id>agencylist</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources</schemaDirectory>
-                            <schemaIncludes>
-                                <include>agencylist-response.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc1</generateDirectory>
-                        </configuration>
-                    </execution>   
-                    <execution>
-                        <id>routeconfig</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources</schemaDirectory>
-                            <schemaIncludes>
-                                <include>routeconfig-response.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc2</generateDirectory>
-                        </configuration>
-                    </execution>    
-                    <execution>
-                        <id>routelist</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources</schemaDirectory>
-                            <schemaIncludes>
-                                <include>routelist-response.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc3</generateDirectory>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>vehiclelocations</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources</schemaDirectory>
-                            <schemaIncludes>
-                                <include>vehiclelocations-response.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc4</generateDirectory>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>predictions</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources</schemaDirectory>
-                            <schemaIncludes>
-                                <include>prediction-response.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc5</generateDirectory>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>schedules</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources</schemaDirectory>
-                            <schemaIncludes>
-                                <include>schedule-response.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc6</generateDirectory>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>alerts</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources</schemaDirectory>
-                            <schemaIncludes>
-                                <include>messages-response.xsd</include>
-                            </schemaIncludes>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc7</generateDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
