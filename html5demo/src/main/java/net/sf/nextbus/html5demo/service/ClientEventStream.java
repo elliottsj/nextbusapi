@@ -140,29 +140,20 @@ public class ClientEventStream implements Serializable {
      * @param pollTimeout the sleep time on the consumer (servlet) side of the
      * queue - in milliseconds.
      */
-    public ClientEventStream(StreamType type, long pollTimeout) {
+    public ClientEventStream(String webSessionId, StreamType type, long pollTimeout) {
         if (type == null) {
             throw new IllegalArgumentException("StreamType argument is required.");
         }
         if (pollTimeout < 0) {
             throw new IllegalArgumentException("poll timeout cant be negative.");
         }
+        id = webSessionId;
         ll = new LinkedList<EventEntry>();
         streamType = type;
         this.waitTimeout = pollTimeout;
         streamCreated = new Date();
     }
-
-    /**
-     * Set the unique identifier for this EventStream (example, a UUID or an
-     * HTTP Session ID).
-     *
-     * @param arg unique id.
-     */
-    public void setId(String arg) {
-        id = arg;
-    }
-
+    
     public String getId() {
         return id;
     }
