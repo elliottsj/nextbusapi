@@ -51,15 +51,6 @@
         </dependency>
     </dependencies>
   
-    <!--
-        Each of the XSDs need to be compiled separately, otherwise there will be collisions on common protocol sections
-        like body or header.  You could fix this by combining all the XSD elements into a huge single schema, but that
-        I think would make it harder to maintain each service. 
-        
-        Credit to this article for getting the XJC plugin to do multiple, isolated passes:
-        
-        http://stackoverflow.com/questions/2857081/how-can-i-tell-jaxb-maven-to-genereate-multiple-schema-packages  
-    -->
     <build>
         <plugins>
             <plugin>
@@ -70,7 +61,7 @@
                     <show>private</show>
                     <nohelp>true</nohelp>
                     <excludePackageNames>
-                        net.sf.nextbus.publicxmlfeed.xjcgenerated.agencylist:net.sf.nextbus.publicxmlfeed.xjcgenerated.prediction:net.sf.nextbus.publicxmlfeed.xjcgenerated.routeconfig:net.sf.nextbus.publicxmlfeed.xjcgenerated.routelist:net.sf.nextbus.publicxmlfeed.xjcgenerated.schedule:net.sf.nextbus.publicxmlfeed.xjcgenerated.messages:net.sf.nextbus.publicxmlfeed.xjcgenerated.vehiclelocation:net.sf.nextbus.publicxmlfeed.xjcgenerated.servicemessages
+                        net.sf.nextbus.publicxmlfeed.impl.simplexml
                     </excludePackageNames>
                 </configuration>
             </plugin>
