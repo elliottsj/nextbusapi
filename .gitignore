@@ -32,4 +32,4 @@ proguard/
 .svn/
 
 # Maven target files
-nextbusapi-code/adapter/target
+adapter/target
