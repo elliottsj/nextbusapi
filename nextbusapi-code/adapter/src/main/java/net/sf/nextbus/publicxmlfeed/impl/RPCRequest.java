@@ -53,6 +53,7 @@ public class RPCRequest {
     public static final String defaultEndpointUrl = "http://webservices.nextbus.com/service/publicXMLFeed";
     private String endpointUrl;
     Map<String, String> parameters;
+
     /*
      * Turns out predictionsMultiStop HTTP parameters is what breaks an
      * otherwise clean use of Map We need this list to store additional request
@@ -74,7 +75,6 @@ public class RPCRequest {
         endpointUrl = defaultEndpointUrl;
         parameters = new java.util.HashMap<String, String>();
         multiPredictionCornerCase = new ArrayList<String>();
-
     }
 
     /**
@@ -127,7 +127,6 @@ public class RPCRequest {
     }
 
     /**
-     *
      * @param route The Route to retrieve the schudule tree for.
      * @return request params to invoke 'schedule' web services method
      */
@@ -137,7 +136,6 @@ public class RPCRequest {
         rq.parameters.put("command", "schedule");
         rq.parameters.put("r", route.getTag());
         return rq;
-
     }
 
     /**

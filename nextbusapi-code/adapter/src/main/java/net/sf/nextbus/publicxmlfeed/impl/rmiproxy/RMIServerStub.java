@@ -36,10 +36,11 @@ import net.sf.nextbus.publicxmlfeed.domain.Agency;
 import net.sf.nextbus.publicxmlfeed.domain.Route;
 import net.sf.nextbus.publicxmlfeed.domain.VehicleLocation;
 import net.sf.nextbus.publicxmlfeed.domain.RouteConfiguration;
+import net.sf.nextbus.publicxmlfeed.impl.SimplestNextbusServiceAdapter;
 import net.sf.nextbus.publicxmlfeed.service.INextbusServiceRemote;
 import net.sf.nextbus.publicxmlfeed.service.INextbusService;
 import net.sf.nextbus.publicxmlfeed.service.ServiceException;
-import net.sf.nextbus.publicxmlfeed.impl.SimplestNextbusServiceAdapter;
+
 import java.util.List;
 import java.util.Collection;
 import java.util.logging.Level;

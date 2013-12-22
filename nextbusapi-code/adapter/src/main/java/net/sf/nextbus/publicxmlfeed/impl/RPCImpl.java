@@ -50,8 +50,7 @@ public interface RPCImpl {
      * 
      * @param request the Request parameters object
      * @return the XML response stream from the RESTful web service
-     * @throws ServiceConfigurationException 
-     * @throws TransientServiceException
+     * @throws ServiceException
      */
     public String call(RPCRequest request) throws ServiceException;
     

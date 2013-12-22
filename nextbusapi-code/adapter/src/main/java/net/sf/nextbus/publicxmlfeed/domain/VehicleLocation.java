@@ -31,7 +31,6 @@
  *****************************************************************************
  */
 package net.sf.nextbus.publicxmlfeed.domain;
-import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -86,14 +85,14 @@ public class VehicleLocation extends NextbusValueObject implements IGeocoded {
     /**
      * Domain factory ctor.
      */
-    public VehicleLocation(Route route, String _vehId, String _dirId, boolean _predictable, Geolocation position, long _lastTime, BigDecimal _speed, BigDecimal _hdng, String copyRight) {
+    public VehicleLocation(Route route, String _vehId, String _dirId, boolean _predictable, Geolocation position, long _lastTime, double _speed, double _hdng, String copyRight) {
         super(_lastTime, copyRight);
         this.vehicle = new Vehicle(_vehId);
         this.parent = route;
         this.directionId = _dirId;
         this.predictable = _predictable;
-        this.speed = _speed == null ? 0 : _speed.doubleValue();
-        this.heading = _hdng == null ? 0 : _hdng.doubleValue();
+        this.speed = _speed;
+        this.heading = _hdng;
         this.location = position;
     }
 

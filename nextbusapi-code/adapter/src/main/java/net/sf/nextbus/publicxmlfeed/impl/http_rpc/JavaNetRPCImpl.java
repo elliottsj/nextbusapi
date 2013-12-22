@@ -32,17 +32,20 @@ package net.sf.nextbus.publicxmlfeed.impl.http_rpc;
 
 import net.sf.nextbus.publicxmlfeed.impl.RPCImpl;
 import net.sf.nextbus.publicxmlfeed.impl.RPCRequest;
+import net.sf.nextbus.publicxmlfeed.service.ServiceConfigurationException;
 import net.sf.nextbus.publicxmlfeed.service.ServiceException;
 import net.sf.nextbus.publicxmlfeed.service.TransientServiceException;
-import net.sf.nextbus.publicxmlfeed.service.ServiceConfigurationException;
-import java.net.URL;
-import java.net.HttpURLConnection;
-import java.util.zip.GZIPInputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.zip.GZIPInputStream;
 
 /**
  * Simplest possible HTTP RPC client with Compression support but NO Connection
@@ -60,8 +63,8 @@ public class JavaNetRPCImpl implements RPCImpl {
     private long totalRPCCalls;
     private long bytesReceived;
 
-    // Enforces advisory warnings on bandwidth use - NextBus spec says 2MB/2 mins Max
-    private long bandwidthLimitIntervalMilliseconds = 2*60*1000;  // 2 minutes
+    // Enforces advisory warnings on bandwidth use - NextBus spec says 2MB/20sec Max
+    private long bandwidthLimitIntervalMilliseconds = 20*1000;  // 20 seconds
     private long bandwidthLimitIntervalBytes = 2^21;              // 2 megabytes
     
     // State machine values for Sliding bandwidth monitor
@@ -133,17 +136,14 @@ public class JavaNetRPCImpl implements RPCImpl {
             logger.log(Level.FINEST, "RPC handler closed HTTP connection");
             lastSuccessfulCallTimeUTC = System.currentTimeMillis();
             return sb.toString();
-        } catch (java.net.MalformedURLException mfu) {
+        } catch (MalformedURLException mfu) {
             logger.log(Level.SEVERE, "Invalid URL. Inspect: "+request.getFullHttpRequest(), mfu);
             throw new ServiceConfigurationException(mfu);
-        } catch (java.io.IOException ioe) {
+        } catch (IOException ioe) {
             logger.log(Level.WARNING, "During http rpc to nextbus ", ioe);
             throw new TransientServiceException(ioe);
         } finally {
             if (c != null) c.disconnect();
-            c = null;
-            rd = null;
-            sb = null;
             totalRPCCalls++;
         }
     }
@@ -169,7 +169,7 @@ public class JavaNetRPCImpl implements RPCImpl {
      * @param arg bytes allowed per time interval
      */
     public void setBandwidthLimitIntervalBytes(long arg) {
-        if (arg<=0) return;
+        if (arg <= 0) return;
         this.bandwidthLimitIntervalBytes = arg;
     }
 
@@ -203,7 +203,7 @@ public class JavaNetRPCImpl implements RPCImpl {
             logger.warning("Bandwidth advisory limit exceeded by "+bytesRecvInLimitWindow+" bytes!");
         }
     }
-    
+
     public void activate() { }
 
     public void passivate() { }

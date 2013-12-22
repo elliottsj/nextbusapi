@@ -14,6 +14,11 @@
             <name>James R. Doyle</name>
             <email>rockymtnmagic@gmail.com</email>
         </developer>
+        <developer>
+            <id>elliottsj</id>
+            <name>Spencer Elliott</name>
+            <email>me@elliottsj.com</email>
+        </developer>
     </developers>
     <licenses>
         <license>
@@ -37,6 +42,12 @@
             <artifactId>junit</artifactId>
             <version>4.11</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.simpleframework</groupId>
+            <artifactId>simple-xml</artifactId>
+            <version>2.7.1</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
   
@@ -72,95 +83,12 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>jaxb2-maven-plugin</artifactId>
-                <version>1.5</version>
-                <executions>
-                    <execution>
-                        <id>xjc1</id>
-                        <goals>
-                            <goal>xjc</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources</schemaDirectory>
-                            <schemaFiles>agencylist-response.xsd</schemaFiles>
-                            <staleFile>${project.build.directory}/jaxb2/.schema1XjcStaleFlag</staleFile>
-                            <clearOutputDir>false</clearOutputDir>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>xjc2</id>
-                        <goals>
-                            <goal>xjc</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources</schemaDirectory>
-                            <schemaFiles>routeconfig-response.xsd</schemaFiles>
-                            <staleFile>${project.build.directory}/jaxb2/.schema2XjcStaleFlag</staleFile>
-                            <clearOutputDir>false</clearOutputDir>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>xjc3</id>
-                        <goals>
-                            <goal>xjc</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources</schemaDirectory>
-                            <schemaFiles>routelist-response.xsd</schemaFiles>
-                            <staleFile>${project.build.directory}/jaxb2/.schema3XjcStaleFlag</staleFile>
-                            <clearOutputDir>false</clearOutputDir>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>xjc4</id>
-                        <goals>
-                            <goal>xjc</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources</schemaDirectory>
-                            <schemaFiles>vehiclelocations-response.xsd</schemaFiles>
-                            <staleFile>${project.build.directory}/jaxb2/.schema4XjcStaleFlag</staleFile>
-                            <clearOutputDir>false</clearOutputDir>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>xjc5</id>
-                        <goals>
-                            <goal>xjc</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources</schemaDirectory>
-                            <schemaFiles>prediction-response.xsd</schemaFiles>
-                            <staleFile>${project.build.directory}/jaxb2/.schema5XjcStaleFlag</staleFile>
-                            <clearOutputDir>false</clearOutputDir>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>xjc6</id>
-                        <goals>
-                            <goal>xjc</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources</schemaDirectory>
-                            <schemaFiles>schedule-response.xsd</schemaFiles>
-                            <staleFile>${project.build.directory}/jaxb2/.schema6XjcStaleFlag</staleFile>
-                            <clearOutputDir>false</clearOutputDir>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>xjc7</id>
-                        <goals>
-                            <goal>xjc</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>src/main/resources</schemaDirectory>
-                            <schemaFiles>messages-response.xsd</schemaFiles>
-                            <staleFile>${project.build.directory}/jaxb2/.schema7XjcStaleFlag</staleFile>
-                            <clearOutputDir>false</clearOutputDir>
-                        </configuration>
-                    </execution>
-                </executions> 
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.16</version>
+                <configuration>
+                    <forkMode>never</forkMode>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
