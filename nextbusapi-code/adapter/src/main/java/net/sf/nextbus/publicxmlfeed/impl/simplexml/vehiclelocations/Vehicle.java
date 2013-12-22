@@ -12,10 +12,10 @@ public class Vehicle {
     @Attribute
     private String id;
 
-    @Attribute
+    @Attribute(required = false)
     private String routeTag;
 
-    @Attribute
+    @Attribute(required = false)
     private String dirTag;
 
     @Attribute

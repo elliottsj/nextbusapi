@@ -1,8 +1,8 @@
 package net.sf.nextbus.publicxmlfeed.domain;
 
-import java.util.Arrays;
 import org.junit.Assert;
 import org.junit.Test;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -22,8 +22,8 @@ public class GeolocationTest {
     @Test
     public void testHaversineCalculation() {
         // Test distance using some real world facts
-        Assert.assertEquals(p1.getDistanceInMiles(p2), 0.9947951463657195);
-        Assert.assertEquals(p2.getDistanceInMiles(p3), 1.0394705150505739);
+        Assert.assertEquals(p1.getDistanceInMiles(p2), 0.9947951463657195, 0.001);
+        Assert.assertEquals(p2.getDistanceInMiles(p3), 1.0394705150505739, 0.001);
     }
 
     @Test
@@ -31,7 +31,7 @@ public class GeolocationTest {
         // equals - symmetry of distance operator
         Assert.assertNotSame(p1, p2);
         Assert.assertSame(p1, p1);
-        Assert.assertEquals(p1.getDistanceInKm(p2), p2.getDistanceInKm(p1));
+        Assert.assertEquals(p1.getDistanceInKm(p2), p2.getDistanceInKm(p1), 0.001);
     }
 
     /**

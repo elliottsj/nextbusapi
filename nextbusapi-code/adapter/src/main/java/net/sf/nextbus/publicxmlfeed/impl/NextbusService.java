@@ -57,7 +57,7 @@ import java.util.logging.Logger;
 public class NextbusService implements INextbusService {
 
     
-    private static final Logger logger = Logger.getLogger(net.sf.nextbus.publicxmlfeed.impl.NextbusService.class.getName());
+    private static final Logger logger = Logger.getLogger(NextbusService.class.getName());
     private DomainFactory pojoMaker;
     private RPCImpl rpc;
 

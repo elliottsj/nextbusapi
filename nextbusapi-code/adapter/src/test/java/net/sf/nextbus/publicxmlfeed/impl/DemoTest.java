@@ -2,7 +2,6 @@ package net.sf.nextbus.publicxmlfeed.impl;
 
 import net.sf.nextbus.publicxmlfeed.service.INextbusService;
 import net.sf.nextbus.publicxmlfeed.domain.*;
-import net.sf.nextbus.publicxmlfeed.util.TestUtil;
 import org.junit.Assert;
 import org.junit.Test;
 import java.util.*;

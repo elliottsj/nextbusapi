@@ -33,10 +33,9 @@ package net.sf.nextbus.proxy.ejb;
 import java.util.Collection;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.ejb.TransactionManagement;
-import javax.ejb.TransactionManagementType;
 import javax.annotation.PostConstruct;
 import net.sf.nextbus.publicxmlfeed.domain.*;
+import net.sf.nextbus.publicxmlfeed.impl.SimplestNextbusServiceAdapter;
 import net.sf.nextbus.publicxmlfeed.service.INextbusService;
 import net.sf.nextbus.publicxmlfeed.service.ServiceException;
 
@@ -68,7 +67,7 @@ public class NextbusFeedService implements NextbusFeedServiceRemote, NextbusFeed
 
     @PostConstruct
     public void init() {
-        adapter = new net.sf.nextbus.publicxmlfeed.impl.SimplestNextbusServiceAdapter();
+        adapter = new SimplestNextbusServiceAdapter();
     }
     
     /** The NextBus XML adapter */

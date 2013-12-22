@@ -41,6 +41,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -62,8 +63,8 @@ public class JavaNetRPCImpl implements RPCImpl {
     private long totalRPCCalls;
     private long bytesReceived;
 
-    // Enforces advisory warnings on bandwidth use - NextBus spec says 2MB/2 mins Max
-    private long bandwidthLimitIntervalMilliseconds = 2*60*1000;  // 2 minutes
+    // Enforces advisory warnings on bandwidth use - NextBus spec says 2MB/20sec Max
+    private long bandwidthLimitIntervalMilliseconds = 20*1000;  // 20 seconds
     private long bandwidthLimitIntervalBytes = 2^21;              // 2 megabytes
     
     // State machine values for Sliding bandwidth monitor
@@ -135,7 +136,7 @@ public class JavaNetRPCImpl implements RPCImpl {
             logger.log(Level.FINEST, "RPC handler closed HTTP connection");
             lastSuccessfulCallTimeUTC = System.currentTimeMillis();
             return sb.toString();
-        } catch (java.net.MalformedURLException mfu) {
+        } catch (MalformedURLException mfu) {
             logger.log(Level.SEVERE, "Invalid URL. Inspect: "+request.getFullHttpRequest(), mfu);
             throw new ServiceConfigurationException(mfu);
         } catch (IOException ioe) {
@@ -143,9 +144,6 @@ public class JavaNetRPCImpl implements RPCImpl {
             throw new TransientServiceException(ioe);
         } finally {
             if (c != null) c.disconnect();
-            c = null;
-            rd = null;
-            sb = null;
             totalRPCCalls++;
         }
     }
@@ -171,7 +169,7 @@ public class JavaNetRPCImpl implements RPCImpl {
      * @param arg bytes allowed per time interval
      */
     public void setBandwidthLimitIntervalBytes(long arg) {
-        if (arg<=0) return;
+        if (arg <= 0) return;
         this.bandwidthLimitIntervalBytes = arg;
     }
 
@@ -205,7 +203,7 @@ public class JavaNetRPCImpl implements RPCImpl {
             logger.warning("Bandwidth advisory limit exceeded by "+bytesRecvInLimitWindow+" bytes!");
         }
     }
-    
+
     public void activate() { }
 
     public void passivate() { }
