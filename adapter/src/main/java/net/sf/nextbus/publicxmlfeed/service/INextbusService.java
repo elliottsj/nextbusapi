@@ -30,16 +30,11 @@
  ******************************************************************************/
 package net.sf.nextbus.publicxmlfeed.service;
 
-import net.sf.nextbus.publicxmlfeed.domain.Stop;
-import net.sf.nextbus.publicxmlfeed.domain.PredictionGroup;
-import net.sf.nextbus.publicxmlfeed.domain.Agency;
-import net.sf.nextbus.publicxmlfeed.domain.Route;
-import net.sf.nextbus.publicxmlfeed.domain.VehicleLocation;
-import net.sf.nextbus.publicxmlfeed.domain.RouteConfiguration;
-import java.util.List;
-import java.util.Collection;
-import java.util.Map;
 import net.sf.nextbus.publicxmlfeed.domain.*;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Adapter Interface to the NextBus Web Service using Domain classes rather than
@@ -52,7 +47,7 @@ public interface INextbusService {
     /**
      * Indicates the corresponding Document version from NextBus that this adapter was tested against.
      */
-    public final String specVersion = "1.20";
+    public final String specVersion = "1.22";
     
     /**
      * Get all Transit Agencies currently served by NextBus.

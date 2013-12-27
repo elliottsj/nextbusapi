@@ -20,31 +20,56 @@ import java.util.logging.Logger;
  * A Stackable Value Object Cache - To be Finished
  * 
  * @author jrd
+ * @author elliottsj
  */
 public class VOCache implements INextbusService {
 
-    
     private static final Logger log = Logger.getLogger(VOCache.class.getName());
-    private final INextbusService underlyingSvc;
+
+    private final INextbusService backing;
+    private final ICacheStore cacheStore;
+
+    private static final long AGE_LIMIT_5MINUTES = 5*60*1000;
+    private static final long AGE_LIMIT_24HOURS = 24*60*60*1000;
     
-    /** The default Cache ageout limit is 5 minutes */
-    private static final long defaultAgeLimit5minutes = 5*60*1000;
-    
-    /** Cache age limit for Static data (Routelists, RouteConfig, Schedule) */
-    private long staticDataAgeLimit = defaultAgeLimit5minutes;
-    /** Cache age limit for Dynamic data (Predictions, Locations) */
-    private long dynamicDataAgeLimit = defaultAgeLimit5minutes;
-    
+    /** Cache age limit for static data (Route, RouteConfig, Schedule) */
+    private long staticDataAgeLimit = AGE_LIMIT_24HOURS;
+
+    /** Cache age limit for dynamic data (Prediction, Location) */
+    private long dynamicDataAgeLimit = AGE_LIMIT_5MINUTES;
+
     /**
      * Stacking constructor - allows layering over existing Service Adaptor, or even RMI proxy.
-     * @param backing 
+     * @param backing
      */
-    public VOCache(INextbusService backing) {
-        underlyingSvc = backing;
+    public VOCache(INextbusService backing, ICacheStore cacheStore) {
+        this.backing = backing;
+        this.cacheStore = cacheStore;
     }
-    
+
+    public long getStaticDataAgeLimit() {
+        return staticDataAgeLimit;
+    }
+
+    public void setStaticDataAgeLimit(long staticDataAgeLimit) {
+        this.staticDataAgeLimit = staticDataAgeLimit;
+    }
+
+    public long getDynamicDataAgeLimit() {
+        return dynamicDataAgeLimit;
+    }
+
+    public void setDynamicDataAgeLimit(long dynamicDataAgeLimit) {
+        this.dynamicDataAgeLimit = dynamicDataAgeLimit;
+    }
+
     public List<Agency> getAgencies() throws ServiceException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if (!cacheStore.isAgenciesCached() || cacheStore.getAgenciesAge() > staticDataAgeLimit) {
+            List<Agency> backingResult = backing.getAgencies();
+            cacheStore.putAgencies(backingResult);
+            return backingResult;
+        }
+        return cacheStore.getAgencies();
     }
 
     public Agency getAgency(String id) throws ServiceException {
@@ -84,7 +109,5 @@ public class VOCache implements INextbusService {
     public List<Schedule> getSchedule(Route route) throws ServiceException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
-    
     
 }

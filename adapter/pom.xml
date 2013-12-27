@@ -4,6 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.sf.nextbus.publicxmlfeed</groupId>
     <artifactId>nextbus-adapter</artifactId>
+    <packaging>jar</packaging>
     <version>1.0.2-RELEASE</version>
     <name>NextBus XML Feed Adapter</name>
     <url>http://sourceforge.net/projects/nextbusapi/</url>
@@ -63,7 +64,16 @@
                     <excludePackageNames>
                         net.sf.nextbus.publicxmlfeed.impl.simplexml
                     </excludePackageNames>
+                    <javadocExecutable>${java.home}/../bin/javadoc</javadocExecutable>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadoc</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -80,6 +90,19 @@
                 <configuration>
                     <forkMode>never</forkMode>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
