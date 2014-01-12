@@ -100,7 +100,7 @@ public class NextbusService implements INextbusService {
     public Agency getAgency(String id) throws ServiceException {
         List<Agency> agencies = getAgencies();
         for (Agency a : agencies) {
-            if (a.getId().equals(id)) {
+            if (a.getTag().equals(id)) {
                 return a;
             }
         }

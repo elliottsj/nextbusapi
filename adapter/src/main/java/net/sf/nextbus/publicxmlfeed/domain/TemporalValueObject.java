@@ -36,8 +36,8 @@ import java.util.Date;
  * are created, their usefulness in a system begins to decay as the state they reflect may no
  * longer accurately reflect the real world. 
  * 
- * Value objects are frequently cached in memory in a mobile device for performance reasons. Cacheing
- * makes a tradeoff between the communications overhead of always having the most up-to-date state,
+ * Value objects are frequently cached in memory in a mobile device for performance reasons. Caching
+ * makes a trade-off between the communications overhead of always having the most up-to-date state,
  * versus locality which allows for more speedy user-interface.
  * 
  * Likewise, value objects may be tied up in a Message Queueing system and, by the time a recipient
@@ -46,28 +46,27 @@ import java.util.Date;
  * @author jrd
  */
 public interface TemporalValueObject {
+
      /**
-      * Gets the creation timestamp of the object in milliSeconds since 1 January 1970 00:00:00 UTC
-      * @return birthdate from the Unix epoch.
+      * @return the creation timestamp of the object in milliSeconds since 1 January 1970 00:00:00 UTC
       */
      public long getObjectTimestamp();
+
      /**
-      * Gets the creation timestamp of the object since 1 January 1970 00:00:00 UTC
-      * @return 
+      * @return the creation timestamp of the object since 1 January 1970 00:00:00 UTC
       */
      public Date getTimestamp();
      
      /**
-      * Gets the current age of the object in Seconds.
-      * @return current age of the object in Seconds.
+      * @return current age of the object in milliseconds.
       */
      public long getObjectAge();
      
      /**
       * Tests the age of object since its creation time.
-      * @param seconds
-      * @return true if the object is currently older than 'seconds' given
+      * @param milliseconds the age to test against
+      * @return true if the object is currently older than {@code milliseconds}
       */
-     public boolean isObjectOlderThan(long seconds);
+     public boolean isObjectOlderThan(long milliseconds);
     
 }

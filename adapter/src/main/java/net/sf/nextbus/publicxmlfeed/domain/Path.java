@@ -38,18 +38,39 @@ import java.util.List;
  * @author jrd
  */
 public class Path extends NextbusValueObject {
-    
-    static final long serialVersionUID = -3827290646579333117L;
+
+    private static final long serialVersionUID = -3827290646579333117L;
+
     /** The Route containing this Path. */
     protected Route route;
     /** The Path id, assigned by Nextbus, but not necessarily human readable. */
     protected String pathId;
     /** Sequence of GPS locations illustrating the path of travel. */
     protected List<Geolocation> points;
-    
-    /** ctor */
+
+//    /**
+//     * Full constructor
+//     *
+//     * @param parent route owning this path
+//     * @param pathId id of this path
+//     * @param geolocations points on this path
+//     * @param copyright text provided by NextBus
+//     * @param timestamp epoch milliseconds when this path was created
+//     */
+//    public Path(Route parent, String pathId, List<Geolocation> geolocations, String copyright, long timestamp) {
+//        super(timestamp, copyright);
+//        this.route = parent;
+//        this.pathId = pathId;
+//        this.points = geolocations;
+//    }
+
+    /**
+     * Domain factory constructor
+     */
     public Path(Route parent, String _pathId, List<Geolocation> pts) {
-        this.route = parent; this.pathId=_pathId; this.points = pts;
+        this.route = parent;
+        this.pathId = _pathId;
+        this.points = pts;
     }
 
     public Route getRoute() {
@@ -60,7 +81,7 @@ public class Path extends NextbusValueObject {
      * Because the NextBus Web Service API fails to uniquely identify a <path></path>
      * grouping, we create a synthetic identifier for them on the fly by means of an
      * incrementing integer.  We use a String rather than an int in the event that they
-     * should add this ID attribute to their wire protocol in the fututre. <jrd>
+     * should add this ID attribute to their wire protocol in the future. <jrd>
      * @return the path Id
      */
     public String getPathId() {
@@ -76,28 +97,20 @@ public class Path extends NextbusValueObject {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Path other = (Path) obj;
-        if (this.route != other.route && (this.route == null || !this.route.equals(other.route))) {
-            return false;
-        }
-        if ((this.pathId == null) ? (other.pathId != null) : !this.pathId.equals(other.pathId)) {
-            return false;
-        }
-        return true;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Path)) return false;
+
+        Path path = (Path) o;
+
+        return pathId.equals(path.pathId) && route.equals(path.route);
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 73 * hash + (this.route != null ? this.route.hashCode() : 0);
-        hash = 73 * hash + (this.pathId != null ? this.pathId.hashCode() : 0);
-        return hash;
+        int result = route.hashCode();
+        result = 31 * result + pathId.hashCode();
+        return result;
     }
+
 }

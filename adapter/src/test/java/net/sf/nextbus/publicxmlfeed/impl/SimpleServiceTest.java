@@ -72,7 +72,7 @@ public class SimpleServiceTest {
         List<Agency> agencies = svc.getAgencies();
         Assert.assertTrue(agencies.size() != 0);
         for (Agency a : agencies) {
-            Assert.assertNotNull(a.getId());
+            Assert.assertNotNull(a.getTag());
             Assert.assertNotNull(a.getTitle());
             Assert.assertNotNull(a.getShortTitle());
             Assert.assertNotNull(a.getRegionTitle());

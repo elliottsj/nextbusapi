@@ -43,9 +43,9 @@ import java.util.List;
  * @author jrd
  */
 public class Stop extends NextbusValueObject implements IGeocoded, Comparable<Stop> {
-    static final long serialVersionUID = 5552263607403529166L;
+
     /** Agency owning this stop*/
-    protected Agency agency;   
+    protected Agency agency;
     /** The Key Identifier for this Id - example, 10642*/
     protected String tag;
     /** Full title of the stop - example, Forest Hills Station Upper Busway */
@@ -55,27 +55,41 @@ public class Stop extends NextbusValueObject implements IGeocoded, Comparable<St
     /** GPS location of the stop */
     protected Geolocation geolocation;
     /** An Alternate StopID published in Schedules and used in Telephone Voiceresponder and SMS Status messages. */
-    protected String alternateStopId;
+    protected String stopId;
 
     /**
-     * serialization Ctor
+     * Full constructor
+     *
+     * @param agency the agency owning this stop
+     * @param id the id of this stop
+     * @param tag the tag of this stop
+     * @param title the title of this stop
+     * @param shortTitle the short title of this stop
+     * @param geolocation the geolocation of this stop
+     * @param copyrightText the copyright text from NextBus
+     * @param timestamp epoch milliseconds when this stop was created
      */
-    protected Stop() { }
+    public Stop(Agency agency, String id, String tag, String title, String shortTitle, Geolocation geolocation, String copyrightText, long timestamp) {
+        super(timestamp, copyrightText);
+        this.shortTitle = shortTitle;
+        this.agency = agency;
+        this.stopId = id;
+        this.tag = tag;
+        this.title = title;
+        this.geolocation = geolocation;
+    }
 
     /**
      * Domain factory ctor.
      */
-    public Stop(Agency _agency, String id, String _tag, String _title, String _shortTitle, Geolocation gps, String copyrttext) {
-        super(copyrttext);
-        shortTitle = "";
-        if (_shortTitle != null) {
-            shortTitle = _shortTitle;
-        }
-        agency = _agency;
-        alternateStopId = id;
-        tag = _tag;
-        title = _title;
-        geolocation = gps;
+    public Stop(Agency agency, String id, String tag, String title, String shortTitle, Geolocation geolocation, String copyrightText) {
+        super(copyrightText);
+        this.shortTitle = shortTitle;
+        this.agency = agency;
+        stopId = id;
+        this.tag = tag;
+        this.title = title;
+        this.geolocation = geolocation;
     }
 
     /**
@@ -107,8 +121,8 @@ public class Stop extends NextbusValueObject implements IGeocoded, Comparable<St
      * @return The optional StopID (not the same as the tag identifier!) that is
      * used to Telephone or SMS ID of this Stop.
      */
-    public String getAlternateStopId() {
-        return alternateStopId;
+    public String getStopId() {
+        return stopId;
     }
 
     /**
@@ -175,7 +189,7 @@ public class Stop extends NextbusValueObject implements IGeocoded, Comparable<St
 
     @Override
     public String toString() {
-        return "Stop{" + "tag=" + tag + ", title=" + title + ", shortTitle=" + shortTitle + ", agency=" + agency + ", geolocation=" + geolocation + ", stopId=" + alternateStopId + '}';
+        return "Stop{" + "tag=" + tag + ", title=" + title + ", shortTitle=" + shortTitle + ", agency=" + agency + ", geolocation=" + geolocation + ", stopId=" + stopId + '}';
     }
 
     public int compareTo(Stop o) {

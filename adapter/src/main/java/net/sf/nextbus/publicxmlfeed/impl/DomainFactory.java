@@ -169,9 +169,8 @@ public class DomainFactory {
         // Unpack the 0..n Directions - reuse the map of stops we created above to build a full object tree
         for (net.sf.nextbus.publicxmlfeed.impl.simplexml.routeconfig.Direction d : response.getRoutes().get(0).getDirection()) {
             List<Stop> directions4ThisStop = new ArrayList<Stop>();
-            for (net.sf.nextbus.publicxmlfeed.impl.simplexml.routeconfig.Direction.Stop ds : d.getStop()) {
+            for (net.sf.nextbus.publicxmlfeed.impl.simplexml.routeconfig.Direction.Stop ds : d.getStop())
                 directions4ThisStop.add(stopById.get(ds.getTag()));
-            }
             List<Stop> unmod = Collections.unmodifiableList(directions4ThisStop);
             Direction direction = new Direction(parent, d.getTag(), d.getTitle(), d.getName(), unmod, cpyRt);
             directions.add(direction);

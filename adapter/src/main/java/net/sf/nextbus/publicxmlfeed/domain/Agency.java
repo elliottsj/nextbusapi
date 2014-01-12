@@ -38,49 +38,62 @@ package net.sf.nextbus.publicxmlfeed.domain;
  */
 public class Agency extends NextbusValueObject implements Comparable<Agency> {
 
-    static final long serialVersionUID = -3914701507430700194L;
+    private static final long serialVersionUID = -4332318517973445125L;
+
     /**
      * Key identifier - example rutgers
      */
-    private String id;
+    private String tag;
+
     /**
      * Full display title - example Rutgers University
      */
     private String title;
+
     /**
      * Short display title - example Rutgers
      */
-    private String shortTitle = "";
+    private String shortTitle;
+
     /**
      * Region value example New Jersey
      */
-    private String regionTitle = "";
+    private String regionTitle;
 
     /**
-     * Serialization ctor.
+     * Full constructor
+     *
+     * @param tag the ID of this agency
+     * @param title the title of this agency
+     * @param shortTitle the short title of this agency
+     * @param regionTitle the region title of this agency
+     * @param copyrightText the copyright text provided by NextBus
+     * @param timestamp epoch milliseconds when this agency was created
      */
-    protected Agency() {
+    public Agency(String tag, String title, String shortTitle, String regionTitle, String copyrightText, long timestamp) {
+        super(timestamp, copyrightText);
+        this.tag = tag;
+        this.title = title;
+        this.shortTitle = shortTitle != null ? shortTitle : "";
+        this.regionTitle = regionTitle;
+    }
+
+    /**
+     * Constructor without short title
+     */
+    public Agency(String tag, String title, String regionTitle, String copyrightText) {
+        this(tag, title, null, regionTitle, copyrightText);
     }
 
     /**
      * Immutable domain class constructor.
-     *
-     * @param _id
-     * @param _title
-     * @param _shortTitle
-     * @param _regionTitle
-     * @param copyRighttext
      */
-    public Agency(String _id, String _title, String _shortTitle, String _regionTitle, String copyRighttext) {
-        super(copyRighttext);
-        id = _id;
-        title = _title;
-        if (_shortTitle != null) {
-            shortTitle = _shortTitle;
-        }
-        if (_regionTitle != null) {
-            regionTitle = _regionTitle;
-        }
+    public Agency(String tag, String title, String shortTitle, String regionTitle, String copyrightText) {
+        super(copyrightText);
+        this.tag = tag;
+        this.title = title;
+        this.shortTitle = shortTitle != null ? shortTitle : "";
+        this.regionTitle = regionTitle;
     }
 
     /**
@@ -88,8 +101,8 @@ public class Agency extends NextbusValueObject implements Comparable<Agency> {
      *
      * @return example 'mbta'
      */
-    public String getId() {
-        return id;
+    public String getTag() {
+        return tag;
     }
 
     /**
@@ -120,35 +133,31 @@ public class Agency extends NextbusValueObject implements Comparable<Agency> {
         return shortTitle;
     }
 
+    /**
+     * Agency identity is composite of only the ID.
+     */
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Agency other = (Agency) obj;
-        if ((this.id == null) ? (other.id != null) : !this.id.equals(other.id)) {
-            return false;
-        }
-        return true;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Agency)) return false;
+
+        Agency agency = (Agency) o;
+
+        return tag.equals(agency.tag);
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 59 * hash + (this.id != null ? this.id.hashCode() : 0);
-        return hash;
+        return tag.hashCode();
     }
 
     @Override
     public String toString() {
-        return "Agency{" + "id=" + id + ", title=" + title + ", shortTitle=" + shortTitle + ", regionTitle=" + regionTitle + '}';
+        return "Agency{" + "tag=" + tag + ", title=" + title + ", shortTitle=" + shortTitle + ", regionTitle=" + regionTitle + '}';
     }
 
     public int compareTo(Agency o) {
         return this.title.compareTo(o.title);
     }
-    
+
 }

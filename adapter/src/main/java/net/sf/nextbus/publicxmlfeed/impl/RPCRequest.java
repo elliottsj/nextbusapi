@@ -92,7 +92,7 @@ public class RPCRequest {
      */
     public static RPCRequest newRouteListCommand(Agency a) {
         RPCRequest rq = new RPCRequest();
-        rq.parameters.put("a", a.getId());
+        rq.parameters.put("a", a.getTag());
         rq.parameters.put("command", "routeList");
         return rq;
     }
@@ -104,7 +104,7 @@ public class RPCRequest {
      */
     public static RPCRequest newRouteConfigCommand(Route route) {
         RPCRequest rq = new RPCRequest();
-        rq.parameters.put("a", route.getAgency().getId());
+        rq.parameters.put("a", route.getAgency().getTag());
         rq.parameters.put("command", "routeConfig");
         rq.parameters.put("r", route.getTag());
         return rq;
@@ -119,7 +119,7 @@ public class RPCRequest {
      */
     public static RPCRequest newVehicleLocationsCommand(Route route, long deltaT) {
         RPCRequest rq = new RPCRequest();
-        rq.parameters.put("a", route.getAgency().getId());
+        rq.parameters.put("a", route.getAgency().getTag());
         rq.parameters.put("command", "vehicleLocations");
         rq.parameters.put("r", route.getTag());
         rq.parameters.put("t", Long.toString(deltaT));
@@ -132,7 +132,7 @@ public class RPCRequest {
      */
     public static RPCRequest newScheduleReqCommand(Route route) {
         RPCRequest rq = new RPCRequest();
-        rq.parameters.put("a", route.getAgency().getId());
+        rq.parameters.put("a", route.getAgency().getTag());
         rq.parameters.put("command", "schedule");
         rq.parameters.put("r", route.getTag());
         return rq;
@@ -147,7 +147,7 @@ public class RPCRequest {
      */
     public static RPCRequest newPredictionsCommand(Stop stop, boolean useShortTitles) {
         RPCRequest rq = new RPCRequest();
-        rq.parameters.put("a", stop.getAgency().getId());
+        rq.parameters.put("a", stop.getAgency().getTag());
         rq.parameters.put("command", "predictions");
         rq.parameters.put("stopId", stop.getTag());
         if (useShortTitles) {
@@ -165,7 +165,7 @@ public class RPCRequest {
      */
     public static RPCRequest newPredictionCommand(Agency agency, String stopId, boolean useShortTitles) {
         RPCRequest rq = new RPCRequest();
-        rq.parameters.put("a", agency.getId());
+        rq.parameters.put("a", agency.getTag());
         rq.parameters.put("command", "predictions");
         rq.parameters.put("stopId", stopId);
         if (useShortTitles) {
@@ -182,7 +182,7 @@ public class RPCRequest {
      */
     public static RPCRequest newPredictionCommand(Route route, Stop stop, boolean useShortTitles) {
         RPCRequest rq = new RPCRequest();
-        rq.parameters.put("a", route.getAgency().getId());
+        rq.parameters.put("a", route.getAgency().getTag());
         rq.parameters.put("command", "predictions");
         rq.parameters.put("stopId", stop.getTag());
          rq.parameters.put("routeTag", route.getTag());
@@ -207,7 +207,7 @@ public class RPCRequest {
         
 
         RPCRequest rq = new RPCRequest();
-        rq.parameters.put("a", route.getAgency().getId());
+        rq.parameters.put("a", route.getAgency().getTag());
         rq.parameters.put("command", "predictionsForMultiStops");
         if (useShortTitles) {
             rq.parameters.put("useShortTitles", "true");
@@ -239,7 +239,7 @@ public class RPCRequest {
         }
 
         RPCRequest rq = new RPCRequest();
-        rq.parameters.put("a", agency.getId());
+        rq.parameters.put("a", agency.getTag());
         rq.parameters.put("command", "predictionsForMultiStops");
         if (useShortTitles) {
             rq.parameters.put("useShortTitles", "true");

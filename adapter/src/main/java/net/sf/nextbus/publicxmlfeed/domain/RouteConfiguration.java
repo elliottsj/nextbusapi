@@ -50,11 +50,11 @@ public class RouteConfiguration extends NextbusValueObject {
     /** The Route for this configuration composite. */
     protected Route route;
     /** The service geography. */
-    protected ServiceArea serviceGeoArea;
+    protected ServiceArea serviceArea;
     /** UI color suggestion */
-    protected UIColor uiAdviceOppositeColor;
+    protected UIColor uiColor;
     /** UI color suggestion */
-    protected UIColor uiAdviceColor;
+    protected UIColor uiOppositeColor;
     /** Stops on this Route */
     protected List<Stop> stops;
     /** Directions on this Route */
@@ -62,24 +62,32 @@ public class RouteConfiguration extends NextbusValueObject {
     /** Map drawing points for UI */
     protected List<Path> paths;
 
-    
-
     /**
-     * Serialization ctor.
+     * Full constructor
+     *
+     * @param parent route that owns this configuration
+     * @param _stops stops on this route (stops can be shared between routes)
+     * @param _directions directions on this route
+     * @param _paths paths on this route
+     * @param _serviceGeoArea the service area this route covers
+     * @param oppositeColor the recommended opposite UI color
+     * @param color the recommended UI color
+     * @param copyright copyright text provided by NextBus
+     * @param timestamp epoch milliseconds when this route configuration was created
      */
-    protected RouteConfiguration() {
+    public RouteConfiguration(Route parent, List<Stop> _stops, List<Direction> _directions, List<Path> _paths, ServiceArea _serviceGeoArea, UIColor oppositeColor, UIColor color, String copyright, long timestamp) {
+        super(timestamp, copyright);
+        route = parent;
+        stops = Collections.unmodifiableList(_stops);
+        directions = Collections.unmodifiableList(_directions);
+        paths = Collections.unmodifiableList(_paths);
+        serviceArea = _serviceGeoArea;
+        uiColor = color;
+        uiOppositeColor = oppositeColor;
     }
 
     /**
-     * Domain factory ctor.
-     *
-     * @param parent containing Route
-     * @param _stops
-     * @param _directions
-     * @param _paths
-     * @param _serviceGeoArea
-     * @param color
-     * @param oppositeColor
+     * Domain factory constructor.
      */
     public RouteConfiguration(Route parent, List<Stop> _stops, List<Direction> _directions, List<Path> _paths, ServiceArea _serviceGeoArea, UIColor oppositeColor, UIColor color, String copyright) {
         super(copyright);
@@ -87,9 +95,9 @@ public class RouteConfiguration extends NextbusValueObject {
         stops = Collections.unmodifiableList(_stops);
         directions = Collections.unmodifiableList(_directions);
         paths = Collections.unmodifiableList(_paths);
-        serviceGeoArea = _serviceGeoArea;
-        uiAdviceColor = color;
-        uiAdviceOppositeColor = oppositeColor;
+        serviceArea = _serviceGeoArea;
+        uiColor = color;
+        uiOppositeColor = oppositeColor;
     }
 
     /**
@@ -129,24 +137,24 @@ public class RouteConfiguration extends NextbusValueObject {
      *
      * @return the Service geography rectangle
      */
-    public ServiceArea getServiceGeoArea() {
-        return serviceGeoArea;
+    public ServiceArea getServiceArea() {
+        return serviceArea;
     }
 
     /**
      *
      * @return the color advice from NextBus
      */
-    public UIColor getUiAdviceColor() {
-        return uiAdviceColor;
+    public UIColor getUiColor() {
+        return uiColor;
     }
 
     /**
      *
      * @return the 'opposite color' advice from NextBus
      */
-    public UIColor getUiAdviceOppositeColor() {
-        return uiAdviceOppositeColor;
+    public UIColor getUiOppositeColor() {
+        return uiOppositeColor;
     }
 
     /**
@@ -208,7 +216,7 @@ public class RouteConfiguration extends NextbusValueObject {
 
     @Override
     public String toString() {
-        return "RouteConfiguration{" + "route=" + route + ", stops=" + stops.size() + ", directions=" + directions.size() + ", paths=" + paths.size() + ", serviceArea=" + serviceGeoArea + '}';
+        return "RouteConfiguration{" + "route=" + route + ", stops=" + stops.size() + ", directions=" + directions.size() + ", paths=" + paths.size() + ", serviceArea=" + serviceArea + '}';
     }
     
     /**
@@ -228,20 +236,16 @@ public class RouteConfiguration extends NextbusValueObject {
      */
     public static class UIColor implements Serializable {
 
-        public static final long serialVersionUID = -7269390870711698813L;
         protected String hexColor = "000000";
         protected int red, green, blue = 0;
 
-        protected UIColor() {
-        }
 
-        ;
-    /**
-     * Defaults to the #000000 color if unspecified.
-     * 
-     * @param _hexColor hex color string 
-     */
-    public UIColor(String _hexColor) {
+        /**
+         * Defaults to the #000000 color if unspecified.
+         *
+         * @param _hexColor hex color string
+         */
+        public UIColor(String _hexColor) {
             if (_hexColor == null || _hexColor.isEmpty()) {
                 return;
             }
@@ -254,6 +258,10 @@ public class RouteConfiguration extends NextbusValueObject {
             red = Integer.parseInt(r, 16);
             green = Integer.parseInt(g, 16);
             blue = Integer.parseInt(b, 16);
+        }
+
+        public String getHexColor() {
+            return hexColor;
         }
 
         /**
@@ -305,66 +313,75 @@ public class RouteConfiguration extends NextbusValueObject {
             return "UIColor{" + "red=" + red + ", green=" + green + ", blue=" + blue + '}';
         }
     }
-    
-    
-/**
- * RouteConfiguration defines a geographic square for each route's service area.
- * This class cleans that information up nicely as well.
- *
- * @author jrd
- */
-public static class ServiceArea implements Serializable {
-
-    public static final long serialVersionUID = -2726681093391741083L;
-    
-    protected double latMin, latMax, longMin, longMax;
-
-    protected ServiceArea() {
-    }
-
-    public ServiceArea(double _latMin, double _latMax, double _longMin, double _longMax) {
-        this.latMin = _latMin;
-        this.latMax = _latMax;
-        this.longMin = _longMin;
-        this.longMax = _longMax;
-
-    }
 
     /**
-     * Returns the four corner geocodes of this service area square.
+     * RouteConfiguration defines a geographic square for each route's service area.
+     * This class cleans that information up nicely as well.
      *
-     * @return an array of 4 geolocations
+     * @author jrd
      */
-    public Geolocation[] getGeosquare() {
-        Geolocation corner1, corner2, corner3, corner4;
-        corner1 = new Geolocation(latMin, longMin);
-        corner2 = new Geolocation(latMin, longMax);
-        corner3 = new Geolocation(latMax, longMin);
-        corner4 = new Geolocation(latMax, longMax);
-        return new Geolocation[]{corner1, corner2, corner3, corner4};
-    }
+    public static class ServiceArea implements Serializable {
 
-    private boolean testRg(double test, double min, double max) {
-        return (test <= max && min <= min);
-    }
+        protected double latMin, latMax, longMin, longMax;
 
-    /**
-     * Tests to see if some give Geolocation fits inside the bounded box of this service area.
-     * 
-     * @param arg a geolocation
-     * 
-     * @return true if the point is inside the box, false if it is not
-     */
-    public boolean isInTheBox(Geolocation arg) {
-        return testRg(arg.getLatitude(), latMin, latMax) && testRg(arg.getLongitude(), longMin, longMax);
-    }
+        public ServiceArea(double _latMin, double _latMax, double _longMin, double _longMax) {
+            this.latMin = _latMin;
+            this.latMax = _latMax;
+            this.longMin = _longMin;
+            this.longMax = _longMax;
 
-    @Override
-    public String toString() {
-        return "ServiceArea{" + Arrays.asList(getGeosquare()) + '}';
+        }
+
+        public double getLatMin() {
+            return latMin;
+        }
+
+        public double getLatMax() {
+            return latMax;
+        }
+
+        public double getLongMin() {
+            return longMin;
+        }
+
+        public double getLongMax() {
+            return longMax;
+        }
+
+        /**
+         * Returns the four corner geocodes of this service area square.
+         *
+         * @return an array of 4 geolocations
+         */
+        public Geolocation[] getGeosquare() {
+            Geolocation corner1, corner2, corner3, corner4;
+            corner1 = new Geolocation(latMin, longMin);
+            corner2 = new Geolocation(latMin, longMax);
+            corner3 = new Geolocation(latMax, longMin);
+            corner4 = new Geolocation(latMax, longMax);
+            return new Geolocation[]{corner1, corner2, corner3, corner4};
+        }
+
+        private boolean testRg(double test, double min, double max) {
+            return (test <= max && min <= min);
+        }
+
+        /**
+         * Tests to see if some give Geolocation fits inside the bounded box of this service area.
+         *
+         * @param arg a geolocation
+         *
+         * @return true if the point is inside the box, false if it is not
+         */
+        public boolean isInTheBox(Geolocation arg) {
+            return testRg(arg.getLatitude(), latMin, latMax) && testRg(arg.getLongitude(), longMin, longMax);
+        }
+
+        @Override
+        public String toString() {
+            return "ServiceArea{" + Arrays.asList(getGeosquare()) + '}';
+        }
+
     }
-    
-    
-}
 
 }

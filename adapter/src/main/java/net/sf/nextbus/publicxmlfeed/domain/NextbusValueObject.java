@@ -38,44 +38,38 @@ import java.util.Date;
  * @author jrd
  */
 public abstract class NextbusValueObject implements Serializable, TemporalValueObject {
-    static final long serialVersionUID = 2379203632011394940L;
-    
-    /** Timestamp to implement TemporalValueObject */ 
+
+    private static final long serialVersionUID = 3418198752583733290L;
+
+    /** Timestamp to implement TemporalValueObject */
     protected final Long createTimeUtc;
+
     /** Copyright notice for Value object payload - assigned by either the Transit Agency or NextBus, or both. */
     protected String copyrightNotice;
     
     /**
-     * Implicit ctor will set the birth timestamp of this instance to System.currentTime
+     * Implicit constructor will set the timestamp of this instance to System.currentTime
      */
     public NextbusValueObject() {
-        createTimeUtc = System.currentTimeMillis();
-        copyrightNotice="";
+        this(System.currentTimeMillis(), "");
     }
     /**
-     * Implicit ctor with Copyright Notice text
-     * @param cpyRtText 
+     * Implicit constructor with copyright notice text
+     * @param copyrightText copyright text provided by NextBus
      */
-    public NextbusValueObject(String cpyRtText) {
-        this();
-        copyrightNotice = cpyRtText;
+    public NextbusValueObject(String copyrightText) {
+        this(System.currentTimeMillis(), copyrightText);
     }
     
     /**
-     * VehicleLocation and Prediction all require adjustment of the birthdate to some time in the recent past.
-     * @param birthday 
+     * Set the timestamp and the copyright text
+     *
+     * @param timestamp epoch milliseconds when this object was created
+     * @param copyrightText copyright text provided by NextBus
      */
-    protected NextbusValueObject(long birthday) {
-        createTimeUtc = birthday;
-    }
-    /**
-     * Set the birthday and the copyright text... ugh.
-     * @param birthday
-     * @param cpyRtText 
-     */
-    protected NextbusValueObject(long birthday, String cpyRtText) {
-        createTimeUtc = birthday;
-        copyrightNotice = cpyRtText;
+    protected NextbusValueObject(long timestamp, String copyrightText) {
+        createTimeUtc = timestamp;
+        copyrightNotice = copyrightText;
     }
     
     /**
@@ -83,29 +77,27 @@ public abstract class NextbusValueObject implements Serializable, TemporalValueO
      * data. Nextbus does not own the copyright on the stream data, rather
      * the regional transit companies that use nextbus. In cases where the
      * data has copyright, the Service implementation must insert whatever
-     * value is included in the <body> element into each object fabricated
+     * value is included in the &lt;body&gt; element into each object fabricated
      * from the response.
      */
     public final String getCopyrightNotice() { return copyrightNotice; }
 
-    /* The following are implementations of the Temporal interface. */
-    
+    /** The following are implementations of the Temporal interface. */
+
     public final long getObjectAge() {
-        return (System.currentTimeMillis()-createTimeUtc)/1000;
+        return System.currentTimeMillis() - createTimeUtc;
     }
 
     public final long getObjectTimestamp() {
         return createTimeUtc;
     }
     
-    public Date getTimestamp() {
+    public final Date getTimestamp() {
        return new Date(createTimeUtc);
     }
 
-    public final boolean isObjectOlderThan(long seconds) {
-        return getObjectAge()>seconds;
+    public final boolean isObjectOlderThan(long milliseconds) {
+        return getObjectAge() > milliseconds;
     }
-   
-    
     
 }

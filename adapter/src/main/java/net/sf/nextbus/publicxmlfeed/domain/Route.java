@@ -42,36 +42,53 @@ import java.util.List;
  * @author jrd
  */
 public class Route extends NextbusValueObject {
-    static final long serialVersionUID= 6552147390257067172L;
+
     /** Transit agency that runs this route. */
     protected Agency agency;
+
     /** Route identifier */
     public String tag;
+
     /** optional - Full schedule title of the Route */
     protected String title;
+
     /** optional - Shortened or abbreviated Route name */
     protected String shortTitle;
 
     /**
-     * serialization ctor.
+     * Full constructor
+     *
+     * @param agency the agency owning this route
+     * @param tag the tag of this route
+     * @param title the title of this route
+     * @param shortTitle the short title of this route
+     * @param copyrightText the copyright text provided by NextBus
+     * @param timestamp epoch milliseconds when this route was created
      */
-    protected Route() {
+    public Route(Agency agency, String tag, String title, String shortTitle, String copyrightText, long timestamp) {
+        super(timestamp, copyrightText);
+        this.agency = agency;
+        this.tag = tag;
+        this.title = title;
+        this.shortTitle = shortTitle != null ? shortTitle : "";
     }
 
     /**
-     * Domain factory ctor.
+     * Constructor without short title
      */
-    public Route(Agency a, String _tag, String _title, String _shortTitle, String copyrighttext) {
-        super(copyrighttext);
-        this.title = this.shortTitle = "";
-        this.agency = a;
-        this.tag = _tag;
-        if (_title != null) this.title = _title;
-        if (_shortTitle != null) this.shortTitle = _shortTitle;
+    public Route(Agency agency, String tag, String title, String copyrightText) {
+        this(agency, tag, title, null, copyrightText);
     }
-    
-    public Route(Agency a, String _tag, String _title, String copyrighttext) {
-        this(a, _tag, _title, null, copyrighttext);
+
+    /**
+     * Domain factory constructor.
+     */
+    public Route(Agency agency, String tag, String title, String shortTitle, String copyrightText) {
+        super(copyrightText);
+        this.agency = agency;
+        this.tag = tag;
+        this.title = title;
+        this.shortTitle = shortTitle != null ? shortTitle : "";
     }
 
     /**

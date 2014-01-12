@@ -7,7 +7,7 @@ import org.simpleframework.xml.Root;
  * TODO: Javadoc
  */
 @Root
-public class Agency {
+class Agency {
 
     @Attribute
     private String tag;

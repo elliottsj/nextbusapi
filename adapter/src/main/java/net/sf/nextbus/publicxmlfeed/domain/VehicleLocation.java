@@ -53,7 +53,7 @@ public class VehicleLocation extends NextbusValueObject implements IGeocoded {
     /**
      * The Route the vehicle is assigned to.
      */
-    protected Route parent;
+    protected Route route;
     /**
      * The Schedule Direction that the vehicle is currently assigned to.
      */
@@ -88,7 +88,7 @@ public class VehicleLocation extends NextbusValueObject implements IGeocoded {
     public VehicleLocation(Route route, String _vehId, String _dirId, boolean _predictable, Geolocation position, long _lastTime, double _speed, double _hdng, String copyRight) {
         super(_lastTime, copyRight);
         this.vehicle = new Vehicle(_vehId);
-        this.parent = route;
+        this.route = route;
         this.directionId = _dirId;
         this.predictable = _predictable;
         this.speed = _speed;
@@ -168,7 +168,7 @@ public class VehicleLocation extends NextbusValueObject implements IGeocoded {
      * @return The Route identifier for this vehicle.
      */
     public Route getRoute() {
-        return parent;
+        return route;
     }
 
     /**
@@ -198,7 +198,7 @@ public class VehicleLocation extends NextbusValueObject implements IGeocoded {
         if (this.vehicle != other.vehicle && (this.vehicle == null || !this.vehicle.equals(other.vehicle))) {
             return false;
         }
-        if (this.parent != other.parent && (this.parent == null || !this.parent.equals(other.parent))) {
+        if (this.route != other.route && (this.route == null || !this.route.equals(other.route))) {
             return false;
         }
         if ((this.directionId == null) ? (other.directionId != null) : !this.directionId.equals(other.directionId)) {
@@ -211,14 +211,14 @@ public class VehicleLocation extends NextbusValueObject implements IGeocoded {
     public int hashCode() {
         int hash = 3;
         hash = 43 * hash + (this.vehicle != null ? this.vehicle.hashCode() : 0);
-        hash = 43 * hash + (this.parent != null ? this.parent.hashCode() : 0);
+        hash = 43 * hash + (this.route != null ? this.route.hashCode() : 0);
         hash = 43 * hash + (this.directionId != null ? this.directionId.hashCode() : 0);
         return hash;
     }
 
     @Override
     public String toString() {
-        return "VehicleLocation{" + "vehicle=" + vehicle + ", parent=" + parent + ", directionId=" + directionId + ", predictable=" + predictable + ", locationAtLastTime=" + location + ", speed=" + speed + ", heading=" + heading + '}';
+        return "VehicleLocation{" + "vehicle=" + vehicle + ", route=" + route + ", directionId=" + directionId + ", predictable=" + predictable + ", locationAtLastTime=" + location + ", speed=" + speed + ", heading=" + heading + '}';
     }
 
 }
