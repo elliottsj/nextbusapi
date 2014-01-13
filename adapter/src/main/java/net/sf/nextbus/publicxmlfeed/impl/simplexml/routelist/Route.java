@@ -4,7 +4,8 @@ import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Root;
 
 /**
- * TODO: Javadoc
+ * A SimpleXML-annotated class used to to deserialize each &lt;route /&gt; element in
+ * the routeList XML.
  */
 @Root
 public class Route {

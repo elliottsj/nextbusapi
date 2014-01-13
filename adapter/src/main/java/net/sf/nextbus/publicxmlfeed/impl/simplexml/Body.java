@@ -5,7 +5,7 @@ import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
 /**
- * TODO: Javadoc
+ * A SimpleXML-annotated base class used to deserialize XML provided by NextBus.
  */
 @Root
 public abstract class Body {

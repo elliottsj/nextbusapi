@@ -64,7 +64,7 @@ public class VehicleLocation extends NextbusValueObject implements IGeocoded {
     protected boolean predictable;
     /**
      * Position at last time where last time is the
-     * NextbusValueObject::createTimeUtc
+     * NextbusValueObject::timestamp
      */
     protected Geolocation location;
     /**
@@ -137,14 +137,14 @@ public class VehicleLocation extends NextbusValueObject implements IGeocoded {
      * UTC.
      */
     public long getLastTimeUtc() {
-        return super.createTimeUtc;
+        return super.timestamp;
     }
 
     /**
      * Last reported time at position since Jan 1, 1970 UTC.
      */
     public Date getLastTime() {
-        return new java.sql.Date(super.createTimeUtc);
+        return new java.sql.Date(super.timestamp);
     }
 
     /**

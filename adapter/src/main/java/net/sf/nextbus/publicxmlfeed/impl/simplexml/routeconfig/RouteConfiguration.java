@@ -6,7 +6,8 @@ import org.simpleframework.xml.ElementList;
 import java.util.List;
 
 /**
- * TODO: Javadoc
+ * A SimpleXML-annotated class used to to deserialize each &lt;route /&gt; element in
+ * the routeConfig XML.
  */
 public class RouteConfiguration {
 
@@ -38,13 +39,13 @@ public class RouteConfiguration {
     private double lonMax;
 
     @ElementList(inline = true)
-    private List<Stop> stop;
+    private List<Stop> stops;
 
     @ElementList(inline = true)
-    private List<Direction> direction;
+    private List<Direction> directions;
 
     @ElementList(inline = true)
-    private List<Path> path;
+    private List<Path> paths;
 
     public String getTag() {
         return tag;
@@ -118,28 +119,28 @@ public class RouteConfiguration {
         this.lonMax = lonMax;
     }
 
-    public List<Stop> getStop() {
-        return stop;
+    public List<Stop> getStops() {
+        return stops;
     }
 
-    public void setStop(List<Stop> stop) {
-        this.stop = stop;
+    public void setStops(List<Stop> stops) {
+        this.stops = stops;
     }
 
-    public List<Direction> getDirection() {
-        return direction;
+    public List<Direction> getDirections() {
+        return directions;
     }
 
-    public void setDirection(List<Direction> direction) {
-        this.direction = direction;
+    public void setDirections(List<Direction> directions) {
+        this.directions = directions;
     }
 
-    public List<Path> getPath() {
-        return path;
+    public List<Path> getPaths() {
+        return paths;
     }
 
-    public void setPath(List<Path> path) {
-        this.path = path;
+    public void setPaths(List<Path> paths) {
+        this.paths = paths;
     }
 
 }

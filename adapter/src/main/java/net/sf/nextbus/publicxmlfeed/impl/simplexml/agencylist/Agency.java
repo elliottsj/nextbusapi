@@ -4,10 +4,11 @@ import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Root;
 
 /**
- * TODO: Javadoc
+ * A SimpleXML-annotated class used to to deserialize each &lt;agency /&gt; element in
+ * the agencyList XML.
  */
 @Root
-class Agency {
+public class Agency {
 
     @Attribute
     private String tag;

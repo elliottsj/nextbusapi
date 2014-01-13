@@ -32,27 +32,33 @@ package net.sf.nextbus.publicxmlfeed.domain;
 import java.util.List;
 
 /**
- * Routes may have multiple Directions, each which further have Stops that can
- * be either shared, or disjoint, to other Routes.
- *
- * Transit systems have routes which may further enclose Directions, Stops, have
- * assigned Vehicles and also have posted Schedules. This class reflects the
- * meta-data conveyed in the various XML Response Streams of NextBus.
+ * A route operated by a transit agency served by NextBus.
  *
  * @author jrd
+ * @author elliottsj
  */
 public class Route extends NextbusValueObject {
 
-    /** Transit agency that runs this route. */
+    private static final long serialVersionUID = 3327736979892313874L;
+
+    /**
+     * Transit agency that runs this route.
+     */
     protected Agency agency;
 
-    /** Route identifier */
-    public String tag;
+    /**
+     * Route identifier
+     */
+    protected String tag;
 
-    /** optional - Full schedule title of the Route */
+    /**
+     * Full schedule title of the route (optional)
+     */
     protected String title;
 
-    /** optional - Shortened or abbreviated Route name */
+    /**
+     * Shortened or abbreviated route name (optional)
+     */
     protected String shortTitle;
 
     /**
@@ -62,44 +68,35 @@ public class Route extends NextbusValueObject {
      * @param tag the tag of this route
      * @param title the title of this route
      * @param shortTitle the short title of this route
-     * @param copyrightText the copyright text provided by NextBus
+     * @param copyright the copyright text provided by NextBus
      * @param timestamp epoch milliseconds when this route was created
      */
-    public Route(Agency agency, String tag, String title, String shortTitle, String copyrightText, long timestamp) {
-        super(timestamp, copyrightText);
+    public Route(Agency agency, String tag, String title, String shortTitle, String copyright, Long timestamp) {
+        super(copyright, timestamp);
         this.agency = agency;
         this.tag = tag;
         this.title = title;
-        this.shortTitle = shortTitle != null ? shortTitle : "";
+        this.shortTitle = shortTitle;
     }
 
     /**
-     * Constructor without short title
-     */
-    public Route(Agency agency, String tag, String title, String copyrightText) {
-        this(agency, tag, title, null, copyrightText);
-    }
-
-    /**
-     * Domain factory constructor.
+     * Domain factory constructor
      */
     public Route(Agency agency, String tag, String title, String shortTitle, String copyrightText) {
-        super(copyrightText);
-        this.agency = agency;
-        this.tag = tag;
-        this.title = title;
-        this.shortTitle = shortTitle != null ? shortTitle : "";
+        this(agency, tag, title, shortTitle, copyrightText, null);
     }
 
     /**
+     * Gets the agency that owns this route.
      *
-     * @return The agency that owns this Route.
+     * @return the agency that owns this route
      */
     public Agency getAgency() {
         return agency;
     }
 
     /**
+     * Gets the unique tag of this route.
      *
      * @return the Identifier tag of this route.
      */
@@ -108,69 +105,62 @@ public class Route extends NextbusValueObject {
     }
 
     /**
+     * Gets the title of this route.
      *
-     * @return the human readable title of this route.
+     * @return the human-readable title of this route
      */
     public String getTitle() {
         return title;
     }
 
     /**
+     * Gets the short title of this route.
      *
-     * @return The shortened title of this route, for small device displays
+     * @return the shortened title of this route, for small device displays
      */
     public String getShortTitle() {
         return shortTitle;
     }
 
     /**
-     * The identity of this object is a Composite on Agency and tag.
+     * Route identity is composite of the agency and tag.
      */
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Route other = (Route) obj;
-        if (this.agency != other.agency && (this.agency == null || !this.agency.equals(other.agency))) {
-            return false;
-        }
-        if ((this.tag == null) ? (other.tag != null) : !this.tag.equals(other.tag)) {
-            return false;
-        }
-        return true;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Route)) return false;
+
+        Route route = (Route) o;
+
+        return agency.equals(route.agency) && tag.equals(route.tag);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = agency.hashCode();
+        result = 31 * result + tag.hashCode();
+        return result;
     }
 
     /**
-     * Utility finder to locate a Route by friendly String is
-     * @param routes List of routes
-     * @param id the route ID to find
-     * @return the Route
-     * @exception IllegalArgumentException if the route cant be found.
+     * Utility finder to locate a route by its tag.
+     *
+     * @param routes a list of routes
+     * @param tag the tag of the route to find
+     * @return the route with the given tag
+     * @exception IllegalArgumentException if the route cannot be found
      */
-    public static Route find(List<Route> routes, String id) {
-        if (routes==null || id==null || routes.isEmpty()) {
-            throw new IllegalArgumentException("Illegal arguments, List<Route> is null or empty, or id is null or empty.");
-        }
-        for (Route r : routes) {
-            if (r.getTag().equals(id)) return r;
-        }
-        throw new IllegalArgumentException("No Route object for id="+id+" in List<Route> given");
-    }
-    
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 97 * hash + (this.agency != null ? this.agency.hashCode() : 0);
-        hash = 97 * hash + (this.tag != null ? this.tag.hashCode() : 0);
-        return hash;
+    public static Route find(List<Route> routes, String tag) {
+        if (routes == null || tag == null || routes.isEmpty())
+            throw new IllegalArgumentException("Illegal arguments; List<Route> is null or empty, or tag is null or empty.");
+        for (Route route : routes)
+            if (route.getTag().equals(tag)) return route;
+        throw new IllegalArgumentException("No Route object for tag=" + tag + " in List<Route> given");
     }
 
     @Override
     public String toString() {
         return "Route{" + "agency=" + agency + ", tag=" + tag + ", title=" + title + '}';
     }
+
 }

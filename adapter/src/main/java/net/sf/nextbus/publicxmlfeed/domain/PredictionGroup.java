@@ -50,11 +50,6 @@ import java.util.List;
  * </pre> @author jrd
  */
 public class PredictionGroup extends NextbusValueObject implements Comparable<PredictionGroup> {
-    static final long serialVersionUID = 4961855382838833913L;
-    /**
-     * serialization ctor.
-     */
-    protected PredictionGroup() { }
 
     /**
      * Domain factory ctor.
@@ -80,8 +75,7 @@ public class PredictionGroup extends NextbusValueObject implements Comparable<Pr
      * Multiple Vehicles travel in a route Direction and each of these vehicles holds an arrival prediction.
      */
     public static class PredictionDirection implements Comparable<PredictionDirection>, java.io.Serializable {
-        static final long serialVersionUID = -1405165652013067022L;
-        
+
         public PredictionDirection(String _title, List<Prediction> pdns) {
             this.title=_title;
             this.predictions=pdns;
@@ -174,7 +168,7 @@ public class PredictionGroup extends NextbusValueObject implements Comparable<Pr
     @Override
     public String toString() {
         
-        return "PredictionGroup{" + "route="+route+", stop=" + stop + ", createTime=" + super.getObjectTimestamp() + ", directions=" + directions.size() + ", predictions=" + this.getAvailablePredictions() + ", messages=" + messages.size() + '}';
+        return "PredictionGroup{" + "route="+route+", stop=" + stop + ", createTime=" + super.getTimestamp() + ", directions=" + directions.size() + ", predictions=" + this.getAvailablePredictions() + ", messages=" + messages.size() + '}';
     }
 
     public int compareTo(PredictionGroup o) {

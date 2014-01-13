@@ -32,15 +32,17 @@ package net.sf.nextbus.publicxmlfeed.service;
 
 /**
  * Indicates a temporary, recoverable failure of the application either due to a
- * network connectivity issue or, when NextBus sends an <Error
- * shouldRetry='true'> condition. It is up to the consuming application to
+ * network connectivity issue or, when NextBus sends an &lt;Error
+ * shouldRetry='true'&gt; condition. It is up to the consuming application to
  * implement any wait-retry processing.
  *
  * @author jrd
  */
 public class TransientServiceException extends ServiceException {
 
-    public boolean shouldRetry = false;
+    private static final long serialVersionUID = -8583454976984466398L;
+
+    private boolean shouldRetry = false;
     
     public TransientServiceException(String reason, Throwable rootCause) {
         super(reason, rootCause);
@@ -57,15 +59,10 @@ public class TransientServiceException extends ServiceException {
     }
 
     /**
-     * In case anyone actually needs to / or wants to use this feature...
-     * @return True, if NextBus Web Service indicated in the Error tag that shouldRetry is doable. 
+     * @return true iff NextBus Web Service indicated in the Error tag that shouldRetry is doable.
      */
     public boolean isShouldRetry() {
         return shouldRetry;
     }
-    
-    
-    
-    
     
 }

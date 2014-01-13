@@ -31,21 +31,16 @@
 package net.sf.nextbus.publicxmlfeed.impl;
 
 import net.sf.nextbus.publicxmlfeed.domain.*;
-import net.sf.nextbus.publicxmlfeed.domain.Agency;
-import net.sf.nextbus.publicxmlfeed.domain.Direction;
-import net.sf.nextbus.publicxmlfeed.domain.Path;
-import net.sf.nextbus.publicxmlfeed.domain.Prediction;
-import net.sf.nextbus.publicxmlfeed.domain.Route;
-import net.sf.nextbus.publicxmlfeed.domain.RouteConfiguration;
-import net.sf.nextbus.publicxmlfeed.domain.Stop;
-import net.sf.nextbus.publicxmlfeed.impl.simplexml.agencylist.*;
-import net.sf.nextbus.publicxmlfeed.impl.simplexml.predictions.*;
+import net.sf.nextbus.publicxmlfeed.impl.simplexml.agencylist.AgencyListBody;
 import net.sf.nextbus.publicxmlfeed.impl.simplexml.predictions.Message;
-import net.sf.nextbus.publicxmlfeed.impl.simplexml.routeconfig.*;
-import net.sf.nextbus.publicxmlfeed.impl.simplexml.routelist.*;
+import net.sf.nextbus.publicxmlfeed.impl.simplexml.predictions.Predictions;
+import net.sf.nextbus.publicxmlfeed.impl.simplexml.predictions.PredictionsBody;
+import net.sf.nextbus.publicxmlfeed.impl.simplexml.routeconfig.Point;
+import net.sf.nextbus.publicxmlfeed.impl.simplexml.routeconfig.RouteConfigBody;
+import net.sf.nextbus.publicxmlfeed.impl.simplexml.routelist.RouteListBody;
 import net.sf.nextbus.publicxmlfeed.impl.simplexml.schedule.Block;
 import net.sf.nextbus.publicxmlfeed.impl.simplexml.schedule.ScheduleBody;
-import net.sf.nextbus.publicxmlfeed.impl.simplexml.vehiclelocations.*;
+import net.sf.nextbus.publicxmlfeed.impl.simplexml.vehiclelocations.VehicleLocationsBody;
 import net.sf.nextbus.publicxmlfeed.service.TransientServiceException;
 import net.sf.nextbus.publicxmlfeed.service.ValueConversionException;
 import org.simpleframework.xml.Serializer;
@@ -63,146 +58,130 @@ import java.util.logging.Logger;
 public class DomainFactory {
 
     private static final Logger logger = Logger.getLogger(DomainFactory.class.getName());
-    private Serializer serializer;
+    private Serializer mSerializer;
 
     /**
-     * Constructor
+     * Constructs this domain factory.
      */
     public DomainFactory() {
-        serializer = new Persister();
+        mSerializer = new Persister();
     }
 
     /**
+     * Builds agency domain objects from the given XML string returned by a request to
+     * <a href="http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList">
+     *     http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList
+     * </a>.
      *
-     * @param xml agencyList XML
-     * @return Agency POJOs
+     * @param xml the XML from a request to NextBus
+     * @return a list of agencies
      */
     public List<Agency> getAgencies(String xml) throws Exception {
-        List<Agency> returnVal = new ArrayList<Agency>();
+        List<Agency> agencies = new ArrayList<Agency>();
 
-        AgencyListBody response = serializer.read(AgencyListBody.class, xml);
+        AgencyListBody response = mSerializer.read(AgencyListBody.class, xml);
 
         // If the remote web service has cast a defined exception
         if (response.getError() != null)
             throw new TransientServiceException(response.getError().isShouldRetry(), response.getError().getValue());
 
-        // Get the copyright notice which has to be loaded into every domain object we create.
-        String cpyRt = response.getCopyright();
-
         for (net.sf.nextbus.publicxmlfeed.impl.simplexml.agencylist.Agency a : response.getAgencies())
-            returnVal.add(new Agency(a.getTag(), a.getTitle(), a.getShortTitle(), a.getRegionTitle(), cpyRt));
+            agencies.add(new Agency(a.getTag(), a.getTitle(), a.getShortTitle(), a.getRegionTitle(), response.getCopyright()));
 
-        return returnVal;
+        return agencies;
     }
 
     /**
+     * Builds route domain objects from the given XML string returned by a request to
+     * <a href="http://webservices.nextbus.com/service/publicXMLFeed?command=routeList&a=">
+     *     http://webservices.nextbus.com/service/publicXMLFeed?command=routeList&a=&lt;agency_tag&gt;
+     * </a>
      *
-     * @param rootAgency Enclosing Agency that owns the constructed Routes
-     * @param xml routeList xml
-     * @return Route POJOs
+     * @param agency agency that owns the constructed routes
+     * @param xml the XML from a request to NextBus
+     * @return a list of routes
      */
-    public List<Route> getRoutes(Agency rootAgency, String xml) throws Exception {
-        List<Route> returnVal = new ArrayList<Route>();
+    public List<Route> getRoutes(Agency agency, String xml) throws Exception {
+        List<Route> routes = new ArrayList<Route>();
 
-        RouteListBody response = serializer.read(RouteListBody.class, xml);
+        RouteListBody response = mSerializer.read(RouteListBody.class, xml);
 
         // If the remote web service has cast a defined exception
-        if (response.getError() != null) {
+        if (response.getError() != null)
             throw new TransientServiceException(response.getError().isShouldRetry(), response.getError().getValue());
-        }
-        // Get the copyright notice which has to be loaded into every domain object we create.
-        String copyRt = response.getCopyright();
 
-        // 
-        // convert from wire representation to a native implementation
-        // 
-        for (net.sf.nextbus.publicxmlfeed.impl.simplexml.routelist.Route r : response.getRoutes()) {
-            // Short title is NOT available from this API method... Actually, that should be filed as a bug with Nextbus
-            returnVal.add(new Route(rootAgency, r.getTag(), r.getTitle(), "", copyRt));
-        }
-        return returnVal;
+        for (net.sf.nextbus.publicxmlfeed.impl.simplexml.routelist.Route r : response.getRoutes())
+            routes.add(new Route(agency, r.getTag(), r.getTitle(), r.getShortTitle(), response.getCopyright()));
+
+        return routes;
     }
 
     /**
+     * Builds route configuration domain objects from the given XML string returned by a request to
+     * <a href="http://webservices.nextbus.com/service/publicXMLFeed?command=routeConfig&a=&r=">
+     *     http://webservices.nextbus.com/service/publicXMLFeed?command=routeConfig&a=&lt;agency_tag&gt;&r=&lt;route_tag&gt;
+     * </a>
      *
-     * @param parent Route (and nested Agency) that owns the constructed target
-     * object
+     * @param route route that owns the route configuration
      * @param xml routeConfig xml
-     * @return RouteConfiguration composite POJO
+     * @return the configuration for the given route
      */
-    public RouteConfiguration getRouteConfiguration(Route parent, String xml) throws Exception {
+    public RouteConfiguration getRouteConfiguration(Route route, String xml) throws Exception {
         List<Stop> stops = new ArrayList<Stop>();
         List<Direction> directions = new ArrayList<Direction>();
         List<Path> paths = new ArrayList<Path>();
 
-        // parse the response XML
-        RouteConfigBody response = serializer.read(RouteConfigBody.class, xml);
+        RouteConfigBody response = mSerializer.read(RouteConfigBody.class, xml);
 
         // If the remote web service has cast a defined exception
-        if (response.getError() != null) {
+        if (response.getError() != null)
             throw new TransientServiceException(response.getError().isShouldRetry(), response.getError().getValue());
-        }
 
-        // Get the copyright notice which has to be loaded into every domain object we create.
-        String cpyRt = response.getCopyright();
-        Map<String, Stop> stopById = new HashMap<String, Stop>();
+        String copyright = response.getCopyright();
+        net.sf.nextbus.publicxmlfeed.impl.simplexml.routeconfig.RouteConfiguration routeConfiguration = response.getRoutes().get(0);
 
-        // Unpack the 0..n Stops
-        for (net.sf.nextbus.publicxmlfeed.impl.simplexml.routeconfig.Stop s : response.getRoutes().get(0).getStop()) {
+        // Build a map of stops, then reuse it to build the directions
+        Map<String, Stop> stopsById = new HashMap<String, Stop>();
+
+        for (net.sf.nextbus.publicxmlfeed.impl.simplexml.routeconfig.Stop s : routeConfiguration.getStops()) {
             Geolocation gps = new Geolocation(s.getLat(), s.getLon());
-            Stop stop = new Stop(parent.getAgency(), s.getStopId(), s.getTag(), s.getTitle(), s.getShortTitle(), gps, cpyRt);
+            Stop stop = new Stop(route.getAgency(), s.getStopId(), s.getTag(), s.getTitle(), s.getShortTitle(), gps, copyright);
             stops.add(stop);
-            stopById.put(s.getStopId(), stop);
+            stopsById.put(s.getStopId(), stop);
         }
 
-        // Unpack the 0..n Paths
+        // NextBus does not provide unique identifiers for paths, so we provide out own
         int pathId = 0;
-        for (net.sf.nextbus.publicxmlfeed.impl.simplexml.routeconfig.Path p : response.getRoutes().get(0).getPath()) {
+        for (net.sf.nextbus.publicxmlfeed.impl.simplexml.routeconfig.Path p : routeConfiguration.getPaths()) {
             List<Geolocation> points = new ArrayList<Geolocation>();
-            for (Point pt : p.getPoints()) {
-                points.add(new Geolocation(pt.getLat(), pt.getLon()));
-            }
-            paths.add(new Path(parent, Integer.toString(pathId), points));
+            for (Point point : p.getPoints())
+                points.add(new Geolocation(point.getLat(), point.getLon()));
+            paths.add(new Path(route, Integer.toString(pathId), points));
             pathId++;
         }
 
-        // Unpack the 0..n Directions - reuse the map of stops we created above to build a full object tree
-        for (net.sf.nextbus.publicxmlfeed.impl.simplexml.routeconfig.Direction d : response.getRoutes().get(0).getDirection()) {
-            List<Stop> directions4ThisStop = new ArrayList<Stop>();
+        for (net.sf.nextbus.publicxmlfeed.impl.simplexml.routeconfig.Direction d : routeConfiguration.getDirections()) {
+            List<Stop> directionStops = new ArrayList<Stop>();
             for (net.sf.nextbus.publicxmlfeed.impl.simplexml.routeconfig.Direction.Stop ds : d.getStop())
-                directions4ThisStop.add(stopById.get(ds.getTag()));
-            List<Stop> unmod = Collections.unmodifiableList(directions4ThisStop);
-            Direction direction = new Direction(parent, d.getTag(), d.getTitle(), d.getName(), unmod, cpyRt);
+                directionStops.add(stopsById.get(ds.getTag()));
+            List<Stop> unmodifiableStops = Collections.unmodifiableList(directionStops);
+            Direction direction = new Direction(route, d.getTag(), d.getTitle(), d.getName(), unmodifiableStops, copyright);
             directions.add(direction);
         }
 
-        net.sf.nextbus.publicxmlfeed.impl.simplexml.routeconfig.RouteConfiguration rc = response.getRoutes().get(0);
-        rc.getOppositeColor();
-        rc.getColor();
-        RouteConfiguration.ServiceArea sa = new RouteConfiguration.ServiceArea(
-                rc.getLatMin(),
-                rc.getLatMax(),
-                rc.getLonMin(),
-                rc.getLonMax());
-        RouteConfiguration.UIColor color = new RouteConfiguration.UIColor(rc.getColor());
-        RouteConfiguration.UIColor oppositeColor = new RouteConfiguration.UIColor(rc.getOppositeColor());
+        RouteConfiguration.ServiceArea serviceArea = new RouteConfiguration.ServiceArea(routeConfiguration.getLatMin(),
+                                                                                        routeConfiguration.getLatMax(),
+                                                                                        routeConfiguration.getLonMin(),
+                                                                                        routeConfiguration.getLonMax());
+        RouteConfiguration.UIColor color = new RouteConfiguration.UIColor(routeConfiguration.getColor());
+        RouteConfiguration.UIColor oppositeColor = new RouteConfiguration.UIColor(routeConfiguration.getOppositeColor());
 
-        // Render the lists Immutable construct the final domain object.
-        return new RouteConfiguration(parent,
-                Collections.unmodifiableList(stops),
-                Collections.unmodifiableList(directions),
-                Collections.unmodifiableList(paths),
-                sa,
-                oppositeColor,
-                color,
-                cpyRt);
-
+        return new RouteConfiguration(route, stops, directions, paths, serviceArea, color, oppositeColor, copyright);
     }
 
     /**
      *
-     * @param route Route (and nested Agency) that owns the constructed domain
-     * objects.
+     * @param route route that owns the vehicles
      * @param xml vehicleLocations xml
      * @return VehicleLocation POJOs
      */
@@ -210,7 +189,7 @@ public class DomainFactory {
         List<VehicleLocation> returnValue = new ArrayList<VehicleLocation>();
 
         // parse the response XML
-        VehicleLocationsBody response = serializer.read(VehicleLocationsBody.class, xml);
+        VehicleLocationsBody response = mSerializer.read(VehicleLocationsBody.class, xml);
 
         // If the remote web service has cast a defined exception
         if (response.getError() != null) {
@@ -236,9 +215,13 @@ public class DomainFactory {
     }
 
     /**
+     * Builds prediction domain objects from the given XML string returned by a request to
+     * <a href="http://webservices.nextbus.com/service/publicXMLFeed?command=predictionsForMultiStops&a=&stops=&stops=">
+     *     http://webservices.nextbus.com/service/publicXMLFeed?command=predictionsForMultiStops&a=ttc&stops=&lt;route_tag&gt;|&lt;stop_tag&gt;&stops=&lt;route_tag&gt;|&lt;stop_tag&gt;
+     * </a>
      *
-     * @param stops
-     * @param xml predictions XML
+     * @param stops stops to find predictions for
+     * @param xml predictions or predictionsForMultiStops XML
      * @return A PredictionGroup aggregator object and multiple Prediction POJOs
      */
     public List<PredictionGroup> getPredictions(Collection<Stop> stops, String xml) throws Exception {
@@ -253,7 +236,7 @@ public class DomainFactory {
         }
 
         // parse the response XML
-        PredictionsBody response = serializer.read(PredictionsBody.class, xml);
+        PredictionsBody response = mSerializer.read(PredictionsBody.class, xml);
 
         // Get the copyright notice which has to be loaded into every domain object we create.
         String cpyRt = response.getCopyright();
@@ -349,7 +332,7 @@ public class DomainFactory {
      */
     public List<Schedule> getSchedule(Route route, String xml) throws Exception {
         // parse the response XML
-        ScheduleBody response = serializer.read(ScheduleBody.class, xml);
+        ScheduleBody response = mSerializer.read(ScheduleBody.class, xml);
 
         // Get the copyright notice which has to be loaded into every domain object we create.
         String cpyRt = response.getCopyright();

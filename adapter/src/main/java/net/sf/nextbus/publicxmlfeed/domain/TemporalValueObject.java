@@ -29,8 +29,6 @@
  *
  ******************************************************************************/
 package net.sf.nextbus.publicxmlfeed.domain;
-import java.util.Date;
-
 /**
  * In real-time systems, value objects have an additional property of a birthday. Once objects
  * are created, their usefulness in a system begins to decay as the state they reflect may no
@@ -44,26 +42,23 @@ import java.util.Date;
  * receives the message, it may no longer make sense to take further action on outdated state.
  * 
  * @author jrd
+ * @author elliottsj
  */
 public interface TemporalValueObject {
 
      /**
       * @return the creation timestamp of the object in milliSeconds since 1 January 1970 00:00:00 UTC
       */
-     public long getObjectTimestamp();
+     public long getTimestamp();
 
-     /**
-      * @return the creation timestamp of the object since 1 January 1970 00:00:00 UTC
-      */
-     public Date getTimestamp();
-     
      /**
       * @return current age of the object in milliseconds.
       */
-     public long getObjectAge();
+     public long getAge();
      
      /**
       * Tests the age of object since its creation time.
+      *
       * @param milliseconds the age to test against
       * @return true if the object is currently older than {@code milliseconds}
       */

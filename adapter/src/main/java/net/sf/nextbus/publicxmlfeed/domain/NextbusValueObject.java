@@ -30,46 +30,32 @@
  ******************************************************************************/
 package net.sf.nextbus.publicxmlfeed.domain;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
- * Base Class for NextBus Value Objects - Temporal, Serializable and must carry Copyright text.
+ * Base Class for NextBus value objects - Temporal, Serializable and must carry copyright text.
  * 
  * @author jrd
+ * @author elliottsj
  */
 public abstract class NextbusValueObject implements Serializable, TemporalValueObject {
 
-    private static final long serialVersionUID = 3418198752583733290L;
+    private static final long serialVersionUID = -4066053159634371148L;
 
     /** Timestamp to implement TemporalValueObject */
-    protected final Long createTimeUtc;
+    protected final long timestamp;
 
     /** Copyright notice for Value object payload - assigned by either the Transit Agency or NextBus, or both. */
-    protected String copyrightNotice;
-    
-    /**
-     * Implicit constructor will set the timestamp of this instance to System.currentTime
-     */
-    public NextbusValueObject() {
-        this(System.currentTimeMillis(), "");
-    }
-    /**
-     * Implicit constructor with copyright notice text
-     * @param copyrightText copyright text provided by NextBus
-     */
-    public NextbusValueObject(String copyrightText) {
-        this(System.currentTimeMillis(), copyrightText);
-    }
+    protected String copyright;
     
     /**
      * Set the timestamp and the copyright text
      *
-     * @param timestamp epoch milliseconds when this object was created
-     * @param copyrightText copyright text provided by NextBus
+     * @param copyright Copyright text provided by NextBus.
+     * @param timestamp Epoch milliseconds when this object was created. If {@code null}, then the current time will be used.
      */
-    protected NextbusValueObject(long timestamp, String copyrightText) {
-        createTimeUtc = timestamp;
-        copyrightNotice = copyrightText;
+    protected NextbusValueObject(String copyright, Long timestamp) {
+        this.timestamp = timestamp;
+        this.copyright = copyright;
     }
     
     /**
@@ -80,24 +66,21 @@ public abstract class NextbusValueObject implements Serializable, TemporalValueO
      * value is included in the &lt;body&gt; element into each object fabricated
      * from the response.
      */
-    public final String getCopyrightNotice() { return copyrightNotice; }
+    public final String getCopyright() { return copyright; }
 
-    /** The following are implementations of the Temporal interface. */
-
-    public final long getObjectAge() {
-        return System.currentTimeMillis() - createTimeUtc;
+    @Override
+    public final long getTimestamp() {
+        return timestamp;
     }
 
-    public final long getObjectTimestamp() {
-        return createTimeUtc;
-    }
-    
-    public final Date getTimestamp() {
-       return new Date(createTimeUtc);
+    @Override
+    public final long getAge() {
+        return System.currentTimeMillis() - timestamp;
     }
 
+    @Override
     public final boolean isObjectOlderThan(long milliseconds) {
-        return getObjectAge() > milliseconds;
+        return getAge() > milliseconds;
     }
-    
+
 }

@@ -6,7 +6,11 @@ import org.simpleframework.xml.ElementList;
 import java.util.List;
 
 /**
- * TODO: Javadoc
+ * A SimpleXML-annotated class used to to deserialize XML returned by a request to:
+ *
+ * <a href="http://webservices.nextbus.com/service/publicXMLFeed?command=routeList&a=">
+ *     http://webservices.nextbus.com/service/publicXMLFeed?command=routeList&a=&lt;agency_tag&gt;
+ * </a>
  */
 public class RouteListBody extends Body {
 

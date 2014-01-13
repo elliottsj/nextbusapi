@@ -31,14 +31,14 @@
 package net.sf.nextbus.publicxmlfeed.domain;
 
 /**
- * A Transit agency whom has route, schedule, vehicle location and prediction
- * data served by NextBus.
+ * A Transit agency served by NextBus.
  *
  * @author jrd
+ * @author elliottsj
  */
 public class Agency extends NextbusValueObject implements Comparable<Agency> {
 
-    private static final long serialVersionUID = -4332318517973445125L;
+    private static final long serialVersionUID = -7910786609872379992L;
 
     /**
      * Key identifier - example rutgers
@@ -67,74 +67,70 @@ public class Agency extends NextbusValueObject implements Comparable<Agency> {
      * @param title the title of this agency
      * @param shortTitle the short title of this agency
      * @param regionTitle the region title of this agency
-     * @param copyrightText the copyright text provided by NextBus
+     * @param copyright the copyright text provided by NextBus
      * @param timestamp epoch milliseconds when this agency was created
      */
-    public Agency(String tag, String title, String shortTitle, String regionTitle, String copyrightText, long timestamp) {
-        super(timestamp, copyrightText);
+    public Agency(String tag, String title, String shortTitle, String regionTitle, String copyright, Long timestamp) {
+        super(copyright, timestamp);
         this.tag = tag;
         this.title = title;
-        this.shortTitle = shortTitle != null ? shortTitle : "";
+        this.shortTitle = shortTitle;
         this.regionTitle = regionTitle;
     }
 
     /**
-     * Constructor without short title
+     * Domain factory constructor
      */
-    public Agency(String tag, String title, String regionTitle, String copyrightText) {
-        this(tag, title, null, regionTitle, copyrightText);
+    public Agency(String tag, String title, String shortTitle, String regionTitle, String copyright) {
+        this(tag, title, shortTitle, regionTitle, copyright, null);
     }
 
     /**
-     * Immutable domain class constructor.
-     */
-    public Agency(String tag, String title, String shortTitle, String regionTitle, String copyrightText) {
-        super(copyrightText);
-        this.tag = tag;
-        this.title = title;
-        this.shortTitle = shortTitle != null ? shortTitle : "";
-        this.regionTitle = regionTitle;
-    }
-
-    /**
-     * Get the unique ID (example tag value)
+     * Gets the unique tag of this route.
+     * Example: 'ttc'
      *
-     * @return example 'mbta'
+     * @return the unique tag of this agency
      */
     public String getTag() {
         return tag;
     }
 
     /**
-     * Get the full display title.
+     * Gets the full display title.
+     * Example: 'Toronto Transit Commission'
      *
-     * @return example 'Massachusetts Bay Transit Authority'
+     * @return the full display title of this agency
      */
     public String getTitle() {
         return title;
     }
 
     /**
-     * Get the region served for the transit agency.
+     * Gets the short title if it exists, otherwise {@code null}.
+     * Example: 'Toronto TTC'
+     * <br>
      *
-     * @return example Massachusetts
-     */
-    public String getRegionTitle() {
-        return regionTitle;
-    }
-
-    /**
-     * Get the short title, if any ; This attribute is often an empty string.
-     *
-     * @return The NextBus spec recommends "If no shortTitle element is
+     * The NextBus spec recommends "If no shortTitle element is
      * provided, simply use the standard title element" (page 8)
+     *
+     * @return the short title of this agency if it exists, otherwise {@code null}
      */
     public String getShortTitle() {
         return shortTitle;
     }
 
     /**
-     * Agency identity is composite of only the ID.
+     * Gets the region served by this transit agency.
+     * Example: 'Massachusetts'
+     *
+     * @return the region served by this agency
+     */
+    public String getRegionTitle() {
+        return regionTitle;
+    }
+
+    /**
+     * Agency identity is composite of only the tag.
      */
     @Override
     public boolean equals(Object o) {
@@ -156,6 +152,16 @@ public class Agency extends NextbusValueObject implements Comparable<Agency> {
         return "Agency{" + "tag=" + tag + ", title=" + title + ", shortTitle=" + shortTitle + ", regionTitle=" + regionTitle + '}';
     }
 
+    /**
+     * Compare this agency's title with another agency's title for
+     * the purpose of alphabetical sorting
+     *
+     * @param o another agency
+     * @return a negative integer if this agency precedes {@code o},
+     *         zero if their titles are equivalent,
+     *         or a positive integer if this agency succeeds {@code o}
+     */
+    @Override
     public int compareTo(Agency o) {
         return this.title.compareTo(o.title);
     }
