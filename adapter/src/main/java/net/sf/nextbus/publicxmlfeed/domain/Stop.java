@@ -33,158 +33,166 @@ package net.sf.nextbus.publicxmlfeed.domain;
 import java.util.List;
 
 /**
- * A stop has a specific name and GPS location ; Keep in mind that a Stop can
- * serve multiple Routes
- *
- * <stop tag="10642" title="Forest Hills Station Upper Busway" lat="42.3005199"
- * lon="-71.11369" stopId="10642"/>
- * </pre>
+ * A stop has a specific name and GPS location; keep in mind that a stop can
+ * serve multiple routes
  *
  * @author jrd
+ * @author elliottsj
  */
+@SuppressWarnings("UnusedDeclaration")
 public class Stop extends NextbusValueObject implements IGeocoded, Comparable<Stop> {
 
-    /** Agency owning this stop*/
+    private static final long serialVersionUID = 4758606058242302310L;
+
+    /**
+     * Agency owning this stop
+     */
     protected Agency agency;
-    /** The Key Identifier for this Id - example, 10642*/
+
+    /**
+     * The Key Identifier for this Id - example, 10642
+     */
     protected String tag;
-    /** Full title of the stop - example, Forest Hills Station Upper Busway */
+
+    /**
+     * Full title of the stop - example, Forest Hills Station Upper Busway
+     */
     protected String title;
-    /** The shortened title, if available. */
+
+    /**
+     * The shortened title, if available.
+     */
     protected String shortTitle;
-    /** GPS location of the stop */
+
+    /**
+     * GPS location of the stop
+     */
     protected Geolocation geolocation;
-    /** An Alternate StopID published in Schedules and used in Telephone Voiceresponder and SMS Status messages. */
+
+    /**
+     * An alternate stop ID published in schedules and used in telephone voice responder and SMS status messages.
+     */
     protected String stopId;
 
     /**
      * Full constructor
      *
      * @param agency the agency owning this stop
-     * @param id the id of this stop
+     * @param stopId the id of this stop
      * @param tag the tag of this stop
      * @param title the title of this stop
      * @param shortTitle the short title of this stop
      * @param geolocation the geolocation of this stop
-     * @param copyrightText the copyright text from NextBus
+     * @param copyright the copyright text from NextBus
      * @param timestamp epoch milliseconds when this stop was created
      */
-    public Stop(Agency agency, String id, String tag, String title, String shortTitle, Geolocation geolocation, String copyrightText, long timestamp) {
-        super(timestamp, copyrightText);
+    public Stop(Agency agency, String stopId, String tag, String title, String shortTitle, Geolocation geolocation, String copyright, Long timestamp) {
+        super(copyright, timestamp);
         this.shortTitle = shortTitle;
         this.agency = agency;
-        this.stopId = id;
+        this.stopId = stopId;
         this.tag = tag;
         this.title = title;
         this.geolocation = geolocation;
     }
 
     /**
-     * Domain factory ctor.
+     * Domain factory constructor.
      */
-    public Stop(Agency agency, String id, String tag, String title, String shortTitle, Geolocation geolocation, String copyrightText) {
-        super(copyrightText);
-        this.shortTitle = shortTitle;
-        this.agency = agency;
-        stopId = id;
-        this.tag = tag;
-        this.title = title;
-        this.geolocation = geolocation;
+    public Stop(Agency agency, String stopId, String tag, String title, String shortTitle, Geolocation geolocation, String copyright) {
+        this(agency, stopId, tag, title, shortTitle, geolocation, copyright, null);
     }
 
     /**
+     * Gets the location of this stop.
      *
-     * @return The GPS location of the Stop or Station.
+     * @return the GPS location of the stop
      */
     public Geolocation getGeolocation() {
         return geolocation;
     }
 
     /**
+     * Gets the agency for this stop.
      *
-     * @return The parent Route that this Stop is bound on. Note that a
-     * particular Physical stop may sit on multiple routes.
+     * @return the agency for this stop
      */
     public Agency getAgency() {
         return agency;
     }
 
     /**
-     * @return The shortened title for mobile devices, if available from
-     * Nextbus.
+     * Gets the short title for this stop.
+     *
+     * @return the shortened title for mobile devices, if available from NextBus
      */
     public String getShortTitle() {
         return shortTitle;
     }
 
     /**
-     * @return The optional StopID (not the same as the tag identifier!) that is
-     * used to Telephone or SMS ID of this Stop.
+     * Gets the ID of this stop.
+     *
+     * @return the optional stopId (not the same as the tag identifier!) that is used for telephone or SMS
      */
     public String getStopId() {
         return stopId;
     }
 
     /**
-     * @return The identifier key for this stop along a station.
+     * Gets the unique tag for this stop.
+     *
+     * @return the identifier key for this stop
      */
     public String getTag() {
         return tag;
     }
 
     /**
+     * Gets the title of this stop.
      *
-     * @return The human readable title or location name of this Stop.
+     * @return The human readable title or location name of this stop
      */
     public String getTitle() {
         return title;
     }
 
     /**
-     * Utility finder to locate a Stop by friendly String is
-     * @param stops List of stops
-     * @param id the stop ID to find
-     * @return the Stop
-     * @exception IllegalArgumentException if the stop cant be found.
+     * Utility finder to locate a stop by its tag.
+     *
+     * @param stops a list of stops
+     * @param tag the stop tag to find
+     * @return the stop with the given tag
+     * @throws IllegalArgumentException if the stop cant be found
      */
-    public static Stop find(List<Stop> stops, String id) {
-        if (stops==null || id==null || stops.isEmpty()) {
-            throw new IllegalArgumentException("Illegal arguments, List<Stop> is null or empty, or id is null or empty.");
-        }
-        for (Stop s : stops) {
-            if (s.getTag().equals(id)) return s;
-        }
-        throw new IllegalArgumentException("No Stop object for id="+id+" in List<Stop> given");
+    public static Stop find(List<Stop> stops, String tag) {
+        if (stops == null || tag == null || stops.isEmpty())
+            throw new IllegalArgumentException("Illegal arguments, List<Stop> is null or empty, or tag is null or empty.");
+        for (Stop s : stops)
+            if (s.getTag().equals(tag))
+                return s;
+        throw new IllegalArgumentException("No Stop object for tag=" + tag + " in List<Stop> given");
     }
-    
+
     /**
      * The Composite of Route and tag define the unique identity for objects of
      * this class.
      */
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Stop other = (Stop) obj;
-        if ((this.tag == null) ? (other.tag != null) : !this.tag.equals(other.tag)) {
-            return false;
-        }
-        if (this.agency != other.agency && (this.agency == null || !this.agency.equals(other.agency))) {
-            return false;
-        }
-        return true;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Stop)) return false;
+
+        Stop stop = (Stop) o;
+
+        return agency.equals(stop.agency) && tag.equals(stop.tag);
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 17 * hash + (this.tag != null ? this.tag.hashCode() : 0);
-        hash = 17 * hash + (this.agency != null ? this.agency.hashCode() : 0);
-        return hash;
+        int result = agency.hashCode();
+        result = 31 * result + tag.hashCode();
+        return result;
     }
 
     @Override

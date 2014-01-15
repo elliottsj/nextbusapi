@@ -37,6 +37,7 @@ import java.util.List;
  * @author jrd
  * @author elliottsj
  */
+@SuppressWarnings("UnusedDeclaration")
 public class Route extends NextbusValueObject {
 
     private static final long serialVersionUID = 3327736979892313874L;

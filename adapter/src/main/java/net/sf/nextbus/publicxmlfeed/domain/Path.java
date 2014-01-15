@@ -48,29 +48,27 @@ public class Path extends NextbusValueObject {
     /** Sequence of GPS locations illustrating the path of travel. */
     protected List<Geolocation> points;
 
-//    /**
-//     * Full constructor
-//     *
-//     * @param parent route owning this path
-//     * @param pathId id of this path
-//     * @param geolocations points on this path
-//     * @param copyright text provided by NextBus
-//     * @param timestamp epoch milliseconds when this path was created
-//     */
-//    public Path(Route parent, String pathId, List<Geolocation> geolocations, String copyright, long timestamp) {
-//        super(timestamp, copyright);
-//        this.route = parent;
-//        this.pathId = pathId;
-//        this.points = geolocations;
-//    }
+    /**
+     * Full constructor
+     *
+     * @param parent route owning this path
+     * @param pathId id of this path
+     * @param geolocations points on this path
+     * @param copyright text provided by NextBus
+     * @param timestamp epoch milliseconds when this path was created
+     */
+    public Path(Route parent, String pathId, List<Geolocation> geolocations, String copyright, Long timestamp) {
+        super(copyright, timestamp);
+        this.route = parent;
+        this.pathId = pathId;
+        this.points = geolocations;
+    }
 
     /**
      * Domain factory constructor
      */
-    public Path(Route parent, String _pathId, List<Geolocation> pts) {
-        this.route = parent;
-        this.pathId = _pathId;
-        this.points = pts;
+    public Path(Route parent, String pathId, List<Geolocation> geolocations, String copyright) {
+        this(parent, pathId, geolocations, copyright, null);
     }
 
     public Route getRoute() {

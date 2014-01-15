@@ -31,46 +31,40 @@
 package net.sf.nextbus.publicxmlfeed.domain;
 
 /**
- * Simple type for Vehicle ; Note that Vehicles can arbitrarily be assigned across Routes at any time by the Transit agency.
+ * Simple type for Vehicle; Note that Vehicles can arbitrarily be assigned across Routes at any time by the Transit agency.
  * The identity of a Vehicle only serves to disambiguate for other vehicles concurrently deployed on the same Route and Direction.
  * 
  * @author jrd
  */
 public class Vehicle extends NextbusValueObject {
-    static final long serialVersionUID = 8445626499109575208L;
-    
+
+    private static final long serialVersionUID = -2257058005421857243L;
+
     /** Vehicle ID, Transit Agency assigned - i.e. Bus 2312 */
     protected String id;
     
-    public Vehicle(String _id) { 
-        this.id=_id;
+    public Vehicle(String id, String copyright, Long timestamp) {
+        super(copyright, timestamp);
+        this.id = id;
     }
-    protected Vehicle() { }
 
     public String getId() {
         return id;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Vehicle other = (Vehicle) obj;
-        if ((this.id == null) ? (other.id != null) : !this.id.equals(other.id)) {
-            return false;
-        }
-        return true;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Vehicle)) return false;
+
+        Vehicle vehicle = (Vehicle) o;
+
+        return id.equals(vehicle.id);
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 61 * hash + (this.id != null ? this.id.hashCode() : 0);
-        return hash;
+        return id.hashCode();
     }
 
     @Override

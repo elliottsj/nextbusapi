@@ -54,10 +54,10 @@ public abstract class NextbusValueObject implements Serializable, TemporalValueO
      * @param timestamp Epoch milliseconds when this object was created. If {@code null}, then the current time will be used.
      */
     protected NextbusValueObject(String copyright, Long timestamp) {
-        this.timestamp = timestamp;
+        this.timestamp = timestamp != null ? timestamp : System.currentTimeMillis();
         this.copyright = copyright;
     }
-    
+
     /**
      * The license requires carrying the copyright notice along with the
      * data. Nextbus does not own the copyright on the stream data, rather

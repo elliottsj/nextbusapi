@@ -28,7 +28,7 @@ public class Predictions {
     private String dirTitleBecauseNoPredictions;
 
     @ElementList(inline = true, empty = false, required = false)
-    private List<Direction> direction;
+    private List<Direction> directions;
 
     @ElementList(inline = true, empty = false, required = false)
     private List<Message> messages;
@@ -81,12 +81,12 @@ public class Predictions {
         this.dirTitleBecauseNoPredictions = dirTitleBecauseNoPredictions;
     }
 
-    public List<Direction> getDirection() {
-        return direction;
+    public List<Direction> getDirections() {
+        return directions;
     }
 
-    public void setDirection(List<Direction> direction) {
-        this.direction = direction;
+    public void setDirections(List<Direction> directions) {
+        this.directions = directions;
     }
 
     public List<Message> getMessages() {

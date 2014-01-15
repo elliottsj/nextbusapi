@@ -38,15 +38,9 @@ import java.util.List;
  */
 public class DailySchedule extends Schedule {
  
-     static final long serialVersionUID = 4090870366793806592L;
-     
-   /** Domain factory ctor */
-   public DailySchedule(Route parent, List<String> stopIds, List<Block> _blocks, String schedClass, String svcClass, String _direction) {   
-        this.route = parent;
-        this.stopIdsServed = stopIds;
-        this.scheduleBlocks = _blocks;
-        this.direction = _direction;
-        this.serviceClass = svcClass;
-        this.scheduleClass = schedClass;
+    /** Domain factory ctor */
+    public DailySchedule(Route parent, List<String> stopIds, List<Block> _blocks, String schedClass, String svcClass, String _direction, String copyright) {
+        super(parent, stopIds, _blocks, schedClass, svcClass, _direction, copyright);
     }
+
 }

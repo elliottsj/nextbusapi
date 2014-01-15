@@ -116,7 +116,7 @@ public class SimpleServiceTest {
         
         System.out.println(rc);
         
-        System.out.println("Getting locations for route "+randomRoute.tag);
+        System.out.println("Getting locations for route "+randomRoute.getTag());
        List<VehicleLocation> vehicleLocns = svc.getVehicleLocations(randomRoute, 0);
        //Assert.assertTrue(vehicleLocns.size() > 0);
        for (VehicleLocation v : vehicleLocns) {

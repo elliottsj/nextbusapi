@@ -43,7 +43,7 @@ import java.util.Date;
  * @author jrd
  */
 public class Prediction extends NextbusValueObject implements Comparable<Prediction> {
-    static final long serialVersionUID = 2345027968761350604L;  
+
   
     /**
      * The route that owns this prediction element.
@@ -99,27 +99,21 @@ public class Prediction extends NextbusValueObject implements Comparable<Predict
     private String branch;
 
     /**
-     * Serialization ctor
-     */
-    protected Prediction() {
-    }
-
-    /**
      * Domain factory ctor.
      */
-    public Prediction(Route _route, Stop _stop, String _vehId, String _dirnId, boolean _departure, boolean _layover, String _tripTag, String _block, long predictedTime, String copyright, boolean _delayed, boolean _scheduleBased) {
-        super(copyright);
-        this.route = _route;
-        this.stop = _stop;
-        this.vehicle = new Vehicle(_vehId);
-        this.directionId = _dirnId;
-        this.block = _block;
-        this.tripTag = _tripTag;
-        this.predictionForDepartureTime = _departure;
-        this.predictionIncludesLayoverEstimate = _layover;
+    public Prediction(Route route, Stop stop, String vehicleId, String directionId, boolean departure, boolean layover, String tripTag, String block, long predictedTime, String copyright, boolean delayed, boolean scheduleBased) {
+        super(copyright, null);
+        this.route = route;
+        this.stop = stop;
+        this.vehicle = new Vehicle(vehicleId, copyright, null);
+        this.directionId = directionId;
+        this.block = block;
+        this.tripTag = tripTag;
+        this.predictionForDepartureTime = departure;
+        this.predictionIncludesLayoverEstimate = layover;
         this.predictedArrivalOrDepartureTimeUTC = new java.util.Date(predictedTime);
-        this.delayed = _delayed;
-        this.scheduleBasedPrediction = _scheduleBased;
+        this.delayed = delayed;
+        this.scheduleBasedPrediction = scheduleBased;
     }
 
     /**

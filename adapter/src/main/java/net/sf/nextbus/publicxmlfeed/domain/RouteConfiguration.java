@@ -56,7 +56,10 @@ import java.util.Collections;
  * @author jrd
  * @author elliottsj
  */
+@SuppressWarnings("UnusedDeclaration")
 public class RouteConfiguration extends NextbusValueObject {
+
+    private static final long serialVersionUID = -7501539020969440154L;
 
     /** The Route for this configuration composite. */
     protected Route route;
@@ -241,6 +244,7 @@ public class RouteConfiguration extends NextbusValueObject {
      * @author jrd
      * @author elliottsj
      */
+    @SuppressWarnings("UnusedDeclaration")
     public static class UIColor implements Serializable {
 
         private static final long serialVersionUID = -770055738749133793L;
@@ -324,7 +328,10 @@ public class RouteConfiguration extends NextbusValueObject {
      *
      * @author jrd
      */
+    @SuppressWarnings("UnusedDeclaration")
     public static class ServiceArea implements Serializable {
+
+        private static final long serialVersionUID = -2923907330197817961L;
 
         protected double latMin, latMax, lonMin, lonMax;
 
@@ -365,14 +372,10 @@ public class RouteConfiguration extends NextbusValueObject {
          * @return an array of 4 geolocations
          */
         public Geolocation[] getGeosquare() {
-            return new Geolocation[]{new Geolocation(latMin, lonMin),
-                                     new Geolocation(latMin, lonMax),
-                                     new Geolocation(latMax, lonMin),
-                                     new Geolocation(latMax, lonMax)};
-        }
-
-        private boolean testRg(double test, double min, double max) {
-            return (test <= max && min <= min);
+            return new Geolocation[] { new Geolocation(latMin, lonMin),
+                                       new Geolocation(latMin, lonMax),
+                                       new Geolocation(latMax, lonMin),
+                                       new Geolocation(latMax, lonMax) };
         }
 
         /**

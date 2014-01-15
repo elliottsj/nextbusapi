@@ -7,7 +7,8 @@ import org.simpleframework.xml.Root;
 import java.util.List;
 
 /**
- * TODO: Javadoc
+ * A SimpleXML-annotated class used to to deserialize each &lt;direction /&gt; element in
+ * in the routeConfig XML.
  */
 @Root
 public class Direction {

@@ -43,9 +43,9 @@ import java.util.List;
  * @author jrd
  */
 public class Direction extends NextbusValueObject implements Comparable<Direction> {
-    
-    static final long serialVersionUID = -3331323894980430611L;
-    
+
+    private static final long serialVersionUID = 3520874534321132581L;
+
     /** The Route that contains (owns) this Direction. */
     protected Route route;
     /** Nextbus assigned unique ID for this Direction example 34_1_var1 */
@@ -66,10 +66,10 @@ public class Direction extends NextbusValueObject implements Comparable<Directio
      * @param name name of this direction
      * @param stops stops belonging to this direction
      * @param copyright copyright text provided by NextBus
-     * @param timestamp
+     * @param timestamp epoch milliseconds when this direction was created
      */
-    public Direction(Route parent, String tag, String title, String name, List<Stop> stops, String copyright, long timestamp) {
-        super(timestamp, copyright);
+    public Direction(Route parent, String tag, String title, String name, List<Stop> stops, String copyright, Long timestamp) {
+        super(copyright, timestamp);
         this.route = parent;
         this.tag = tag;
         this.name = name;
@@ -81,12 +81,7 @@ public class Direction extends NextbusValueObject implements Comparable<Directio
      * Domain factory constructor.
      */
     public Direction(Route parent, String tag, String title, String name, List<Stop> stops, String copyright) {
-        super(copyright);
-        this.route = parent;
-        this.tag = tag;
-        this.name = name;
-        this.title = title;
-        this.stops = stops;
+        this(parent, tag, title, name, stops, copyright, null);
     }
 
     /**

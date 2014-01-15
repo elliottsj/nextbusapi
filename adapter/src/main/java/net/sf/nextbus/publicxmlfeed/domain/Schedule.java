@@ -37,16 +37,11 @@ import java.util.List;
  */
 public abstract class Schedule extends NextbusValueObject {
     
-    static final long serialVersionUID = -5039766079937299628L;
-    /**
-     * Serialization ctor.
-     */
-    protected Schedule(){ }
-    
     /**
      * Domain factory ctor.
      */
-    public Schedule(Route parent, List<String> stopIds, List<Block> _blocks, String schedClass, String svcClass, String _direction) {
+    public Schedule(Route parent, List<String> stopIds, List<Block> _blocks, String schedClass, String svcClass, String _direction, String copyright) {
+        super(copyright, null);
         this.route = parent;
         this.stopIdsServed = stopIds;
         this.scheduleBlocks = _blocks;
