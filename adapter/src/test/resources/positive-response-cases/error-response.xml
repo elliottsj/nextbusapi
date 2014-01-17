@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8" ?> 
+<?xml version="1.0" encoding="utf-8" ?>
 <body copyright="All data copyright agencies listed below and NextBus Inc 2012.">
-<Error shouldRetry="false">
-  Agency parameter a= is not valid
-</Error>
+    <Error shouldRetry="false">
+        Agency parameter a= is not valid
+    </Error>
 </body>

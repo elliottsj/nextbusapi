@@ -195,7 +195,7 @@ public class NextbusService implements INextbusService {
     public List<PredictionGroup> getPredictions(Map<Route, Stop> stops) throws ServiceException {
         String responseXml = "";
         // construct the wire protocol command
-        RPCRequest rq = RPCRequest.newPredictionsForMultistopsCommand(stops, false);
+        RPCRequest rq = RPCRequest.newPredictionsForMultiStopsCommand(stops, false);
         logger.log(Level.FINEST, "sending RPC ", rq.getFullHttpRequest());
         try {
             // invoke the RPC

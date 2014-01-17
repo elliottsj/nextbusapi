@@ -1,14 +1,14 @@
 package net.sf.nextbus.publicxmlfeed.domain;
 
-import java.util.Arrays;
 import org.junit.Assert;
 import org.junit.Test;
+
 import java.util.List;
 import java.util.UUID;
 
 /**
  * The Geolocation domain object needs tests to validate math and Sorts.
- * 
+ *
  * @author jrd
  */
 public class GeolocationTest {
@@ -33,18 +33,18 @@ public class GeolocationTest {
         Assert.assertSame(p1, p1);
         // distance operator is symmetric i.e. O(p1,p2) = O(p2, p1)
         Assert.assertEquals(p1.getDistanceInKm(p2), p2.getDistanceInKm(p1), 0.0001);
-        
     }
 
     @Test
     public void testBearing() {
         // bearing operator is negative symmetric ie  O(p1,p2) = -O(p2, p1)
-        System.out.println("bearing: "+p1.bearingDegrees(p3));
+        System.out.println("bearing: " + p1.bearingDegrees(p3));
         // From Dallas TX toward Boston, MA
         // from 42.358056N , -71.063611 W to 32.775833 N, -96.796667 W -- bearing should be 108.63°
-        double bearing = new Geolocation(32.775833, -96.796667).bearingDegrees( new Geolocation(42.358056, -71.063611) );
-        System.out.println(">>> "+bearing);
+        double bearing = new Geolocation(32.775833, -96.796667).bearingDegrees(new Geolocation(42.358056, -71.063611));
+        System.out.println(">>> " + bearing);
     }
+
     /**
      * Tests the Distance Sort
      */
@@ -56,59 +56,45 @@ public class GeolocationTest {
 
         // The reference point to sort against
         Geolocation refPoint = new Geolocation(42.370, -71.040);
-        
+
         // These points are scrambled in order of distance....
-        Geolocation [] testPoints = new Geolocation[]{
-            new Geolocation(42.371129, -71.043410),
-            new Geolocation(42.407228, -71.012429),
-            new Geolocation(42.387251, -71.042003),
-            new Geolocation(42.366312, -71.061885)
+        Geolocation[] testPoints = new Geolocation[]{
+                new Geolocation(42.371129, -71.043410),
+                new Geolocation(42.407228, -71.012429),
+                new Geolocation(42.387251, -71.042003),
+                new Geolocation(42.366312, -71.061885)
         };
 
         // Lets fabricate some fake stops using these points
         Agency mbta = new Agency("mbta", "Test Agency", "Test Agency", "Test Agency", "Test Agency");
-        Route r = new Route(mbta, "route1", "Test Route", "Test Route", "Test Route");
-        
+
         // Sort the stops by proximity from refPoint
         List<Stop> unsorted = new java.util.ArrayList<Stop>();
         for (Geolocation pt : testPoints) {
             String idVal = UUID.randomUUID().toString();
             unsorted.add(new Stop(mbta, idVal, idVal, idVal, idVal, pt, ""));
         }
-       
-        printDistances("unsorted", unsorted, refPoint);
+
         List<Stop> sorted = Geolocation.sortedByClosest(unsorted, refPoint);
-        printDistances("sorted", sorted, refPoint);
-        
+
         // Verify that the sort works....
-        Assert.assertEquals("The unsorted and sort lists must be identical length ",unsorted.size(), sorted.size());
+        Assert.assertEquals("The unsorted and sort lists must be identical length ", unsorted.size(), sorted.size());
         // Check that the distances are increasing
         assertMonotoneIncreasing(sorted, refPoint);
-        Assert.assertNotSame("The unsorted and sorted lists need to be different. Adjust the test data. ",sorted, unsorted);
+        Assert.assertNotSame("The unsorted and sorted lists need to be different. Adjust the test data. ", sorted, unsorted);
     }
 
-    public void printDistances(String m, List<? extends IGeocoded> arg, Geolocation refPt) {
-        System.out.print(m+": ");
-        for (int i = 0; i < arg.size(); i++) {
-            System.out.print(arg.get(i).getGeolocation().getDistanceInMiles(refPt) + ", ");
-        }
-        System.out.println();
-    }
-    
     /**
      * Checks the Distances in a Sort - they should be monotone increasing
-     * @param arg
-     * @param refPt 
      */
     public void assertMonotoneIncreasing(List<? extends IGeocoded> arg, Geolocation refPt) {
         double lastDistance = -1.0;
         for (int i = 0; i < arg.size(); i++) {
             double thisDist = arg.get(i).getGeolocation().getDistanceInMiles(refPt);
-            if (thisDist >= lastDistance) {
+            if (thisDist >= lastDistance)
                 lastDistance = thisDist;
-                continue;
-            }
-            Assert.fail("Distance "+i+" is not monotonic increasing; value was "+thisDist+", prior entry was "+lastDistance);
+            else
+                Assert.fail("Distance " + i + " is not monotonic increasing; value was " + thisDist + ", prior entry was " + lastDistance);
         }
     }
 }

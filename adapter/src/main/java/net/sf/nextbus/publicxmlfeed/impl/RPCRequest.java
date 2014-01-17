@@ -32,14 +32,14 @@
  */
 package net.sf.nextbus.publicxmlfeed.impl;
 
-import net.sf.nextbus.publicxmlfeed.domain.Stop;
 import net.sf.nextbus.publicxmlfeed.domain.Agency;
 import net.sf.nextbus.publicxmlfeed.domain.Route;
+import net.sf.nextbus.publicxmlfeed.domain.Stop;
 import net.sf.nextbus.publicxmlfeed.service.FatalServiceException;
 import net.sf.nextbus.publicxmlfeed.service.ServiceException;
-import java.util.*;
-import java.util.Iterator;
+
 import java.net.URLEncoder;
+import java.util.*;
 
 /**
  * Encapsulates the NextBus Web API invocation conventions. This class prepares
@@ -51,6 +51,7 @@ import java.net.URLEncoder;
 public class RPCRequest {
 
     public static final String defaultEndpointUrl = "http://webservices.nextbus.com/service/publicXMLFeed";
+
     private String endpointUrl;
     Map<String, String> parameters;
 
@@ -73,7 +74,7 @@ public class RPCRequest {
 
     public RPCRequest() {
         endpointUrl = defaultEndpointUrl;
-        parameters = new java.util.HashMap<String, String>();
+        parameters = new HashMap<String, String>();
         multiPredictionCornerCase = new ArrayList<String>();
     }
 
@@ -160,7 +161,7 @@ public class RPCRequest {
      * Generates a Predictions request for a Stop - and all Routes
      * @param agency Transit agency scope
      * @param stopId Alternate Printed Schedule Stop ID
-     * @param useShortTitles
+     * @param useShortTitles true iff short titles should be used
      * @return request params to invoke 'predictions' web service method
      */
     public static RPCRequest newPredictionCommand(Agency agency, String stopId, boolean useShortTitles) {
@@ -175,8 +176,8 @@ public class RPCRequest {
     }
     /**
      * Generates a Predictions request for a specific  Stop + Routes Pair
-     * @param agency Transit agency scope
-     * @param stopId Alternate Printed Schedule Stop ID
+     * @param route
+     * @param stop
      * @param useShortTitles
      * @return request params to invoke 'predictions' web service method
      */
@@ -184,8 +185,8 @@ public class RPCRequest {
         RPCRequest rq = new RPCRequest();
         rq.parameters.put("a", route.getAgency().getTag());
         rq.parameters.put("command", "predictions");
-        rq.parameters.put("stopId", stop.getTag());
-         rq.parameters.put("routeTag", route.getTag());
+        rq.parameters.put("r", route.getTag());
+        rq.parameters.put("s", stop.getTag());
         if (useShortTitles) {
             rq.parameters.put("useShortTitles", "true");
         }
@@ -198,13 +199,11 @@ public class RPCRequest {
      * @param useShortTitles
      * @return params to invoke 'predictionsForMultiStops' web service method
      */
-
     public static RPCRequest newPredictionsCommand(Route route, Collection<Stop> stops, boolean useShortTitles) {
         // NextBus spec document 1.19 limits the size of this request (page 6)
         if (stops.size() > 150) {
             throw new ServiceException(new IllegalArgumentException("Maximum 150 Stops allowed for a predictionsForMultiStops. "+stops.size()+" was given in call parameters."));
         }
-        
 
         RPCRequest rq = new RPCRequest();
         rq.parameters.put("a", route.getAgency().getTag());
@@ -219,42 +218,31 @@ public class RPCRequest {
         }
         return rq;
     }
-    
+
     /**
-     * Prepares a request for a predictionsForMultiStops command
-     * @param agency
-     * @param stops
-     * @param useShortTitles
-     * @return 
+     * Prepares a request for a predictionsForMultiStops command.
+     *
+     * @param stops map of routes to stops
+     * @param useShortTitles true iff short titles should be fetched instead of long titles
+     * @return an rpc request for a predictionsForMultiStops command
      */
     public static RPCRequest newPredictionsForMultistopsCommand(Map<Route, Stop> stops, boolean useShortTitles) {
-      
-        // Idiot check
-        Agency agency = null;
-        for (Route r: stops.keySet()) {
-            Stop s = stops.get(r);
-            if (agency==null) agency=r.getAgency();
-            assert (r.getAgency().equals(agency));
-            assert (s.getAgency().equals(agency));
-        }
+        if (stops.isEmpty())
+            return null;
 
         RPCRequest rq = new RPCRequest();
-        rq.parameters.put("a", agency.getTag());
+        rq.parameters.put("a", stops.keySet().iterator().next().getAgency().getTag());
         rq.parameters.put("command", "predictionsForMultiStops");
-        if (useShortTitles) {
+        if (useShortTitles)
             rq.parameters.put("useShortTitles", "true");
-        }
 
-        for (Route r : stops.keySet()) {
-            Stop s = stops.get(r);
-            String param = "stops=" + r.getTag() + '|' + s.getTag();
+        for (Map.Entry<Route, Stop> entry : stops.entrySet()) {
+            String param = "stops=" + entry.getKey().getTag() + '|' + entry.getValue().getTag();
             rq.multiPredictionCornerCase.add(param);
             rq.multiPredictionCornerCase.add("&");
         }
         return rq;
     }
-    
-    
 
     /**
      * Returns only the encoded request parameters nugget.
@@ -301,4 +289,5 @@ public class RPCRequest {
     public String getFullHttpRequest() {
         return endpointUrl + '?' + getRequestParametersString();
     }
+
 }

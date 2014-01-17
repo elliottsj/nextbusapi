@@ -29,16 +29,17 @@
  *
  ******************************************************************************/
 package net.sf.nextbus.publicxmlfeed.impl;
-import net.sf.nextbus.publicxmlfeed.domain.VehicleLocation;
-import net.sf.nextbus.publicxmlfeed.domain.Route;
 import net.sf.nextbus.publicxmlfeed.domain.Agency;
+import net.sf.nextbus.publicxmlfeed.domain.Route;
 import net.sf.nextbus.publicxmlfeed.domain.RouteConfiguration;
-import org.junit.Assert;
-import org.junit.Test;
-import java.util.*;
-import net.sf.nextbus.publicxmlfeed.impl.rmiproxy.RMIClient;
+import net.sf.nextbus.publicxmlfeed.domain.VehicleLocation;
 import net.sf.nextbus.publicxmlfeed.service.INextbusService;
+import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Test;
+
+import java.util.List;
+import java.util.Random;
 
 /**
  *
@@ -49,34 +50,19 @@ public class SimpleServiceTest {
     Random random = new Random(System.currentTimeMillis());
     INextbusService svc;
     
-    /** Test Harness for RMI */
-    public INextbusService remoteBinding() {
-        RMIClient rmicli = new RMIClient("192.168.11.2");
-        return rmicli.getService();
-    }
-    /** Normal Ordinary Test Harness */
-    public INextbusService localBinding() {
-        return new SimplestNextbusServiceAdapter();
-    }
-    
-    
     @Before
     public void setup() throws Exception {
-         //svc = remoteBinding();
-         svc=localBinding();
+         svc = new SimplestNextbusServiceAdapter();
     }
     
-    //@Test
+    @Test
     public void testAgencyList() throws Exception {
-     
         List<Agency> agencies = svc.getAgencies();
         Assert.assertTrue(agencies.size() != 0);
         for (Agency a : agencies) {
             Assert.assertNotNull(a.getTag());
             Assert.assertNotNull(a.getTitle());
-            Assert.assertNotNull(a.getShortTitle());
             Assert.assertNotNull(a.getRegionTitle());
-            System.out.println(a);
         }
     }
     
@@ -88,40 +74,27 @@ public class SimpleServiceTest {
     
     @Test
     public void testWalkMBTA() throws Exception {
-        
-        
         Agency mbta = svc.getAgency("mbta");
         Assert.assertNotNull(mbta);
         
         List<Route> routes = svc.getRoutes(mbta);
         Assert.assertNotNull(routes);
         Assert.assertTrue(routes.size() != 0);
-        for (Route r : routes) {
-            System.out.println(r);
-        }
-        System.out.println("Obtained "+routes.size()+" Routes");
-     
+
         // Randomly pick a route out and pull down its configuration
         int pick = random.nextInt(routes.size());
         
         Route randomRoute = routes.get(pick);
-        
+
         RouteConfiguration rc = svc.getRouteConfiguration(randomRoute);
         Assert.assertNotNull(rc);
         Assert.assertNotNull(rc.getDirections());
         Assert.assertNotNull(rc.getPaths());
         Assert.assertNotNull(rc.getRoute());
         Assert.assertNotNull(rc.getStops());
-       
-        
-        System.out.println(rc);
-        
-        System.out.println("Getting locations for route "+randomRoute.getTag());
-       List<VehicleLocation> vehicleLocns = svc.getVehicleLocations(randomRoute, 0);
-       //Assert.assertTrue(vehicleLocns.size() > 0);
-       for (VehicleLocation v : vehicleLocns) {
-           System.out.println("  vehicle: "+v);
-       }
-        
+
+        List<VehicleLocation> vehicleLocns = svc.getVehicleLocations(randomRoute, 0);
+        //Assert.assertTrue(vehicleLocns.size() > 0);
+
     }
 }

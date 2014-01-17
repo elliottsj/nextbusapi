@@ -33,9 +33,10 @@
 package net.sf.nextbus.publicxmlfeed.domain;
 
 import java.io.Serializable;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * NextBus uses GPS locations to designate station Stops as well as current
@@ -46,14 +47,17 @@ import java.util.Collection;
  *
  * @author jrd
  */
+@SuppressWarnings("UnusedDeclaration")
 public class Geolocation implements Serializable {
 
-    static final long serialVersionUID = -5569276801266595860L;
+    private static final long serialVersionUID = 2985652272674877188L;
+
     /**
      * Constant: Mean radius of Earth in km [International Union of Geodesy and
      * Geophysics (IUGG])
      */
     public static final double Re = 6371.009; // mean radius of earth in kilometers
+
     /**
      * Constant: Conversion of kilometers to miles
      */
@@ -74,11 +78,10 @@ public class Geolocation implements Serializable {
         double Θ1 = p1.latitudeRadians;
         double Θ2 = p2.latitudeRadians;
         // do the the angular distance magic constrained to the surface a sphere
-        double a = Math.sin(dθ / 2) * Math.sin(dθ / 2)
-                + Math.sin(dφ / 2) * Math.sin(dφ / 2) * Math.cos(Θ1) * Math.cos(Θ2);
+        double a = Math.sin(dθ / 2) * Math.sin(dθ / 2) +
+                   Math.sin(dφ / 2) * Math.sin(dφ / 2) * Math.cos(Θ1) * Math.cos(Θ2);
         // Convert back to an angle
-        double θ = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        return θ;
+        return 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     }
 
     /**
@@ -97,9 +100,7 @@ public class Geolocation implements Serializable {
         double y = Math.sin(dφ) * Math.cos(Θ2);
         double x = Math.cos(Θ1) * Math.sin(Θ2) - Math.sin(Θ1) * Math.cos(Θ2) * Math.cos(dφ);
         double theta = Math.atan2(x, y)* 180.0 / Math.PI ;
-        return (theta + 360.0) % 360.0; 
-        
-        
+        return (theta + 360.0) % 360.0;
     }
 
     /**
@@ -129,8 +130,6 @@ public class Geolocation implements Serializable {
     /**
      * Gets the distance between two GPS points in Miles.
      *
-     * @param p1
-     * @param p2
      * @return absolute distance between points p1 and p2 in miles
      */
     public static double distanceMiles(Geolocation p1, Geolocation p2) {
@@ -182,13 +181,7 @@ public class Geolocation implements Serializable {
     protected double longitude, longitudeRadians;
 
     /**
-     * serialization ctor
-     */
-    protected Geolocation() {
-    }
-
-    /**
-     * ctor.
+     * Constructor.
      *
      * @param lat Degrees latitude. Negative values are South, Positive values
      * are North.
@@ -219,29 +212,24 @@ public class Geolocation implements Serializable {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Geolocation other = (Geolocation) obj;
-        if (Double.doubleToLongBits(this.latitude) != Double.doubleToLongBits(other.latitude)) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.longitude) != Double.doubleToLongBits(other.longitude)) {
-            return false;
-        }
-        return true;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Geolocation)) return false;
+
+        Geolocation that = (Geolocation) o;
+
+        return Double.compare(that.latitude, latitude) == 0 && Double.compare(that.longitude, longitude) == 0;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 67 * hash + (int) (Double.doubleToLongBits(this.latitude) ^ (Double.doubleToLongBits(this.latitude) >>> 32));
-        hash = 67 * hash + (int) (Double.doubleToLongBits(this.longitude) ^ (Double.doubleToLongBits(this.longitude) >>> 32));
-        return hash;
+        int result;
+        long temp;
+        temp = Double.doubleToLongBits(latitude);
+        result = (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(longitude);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
     }
 
     @Override
@@ -277,7 +265,7 @@ public class Geolocation implements Serializable {
         IGeocoded closest = vi.next();
         while (vi.hasNext()) {
             IGeocoded v = vi.next();
-            double thisDistance = closest.getGeolocation().distanceKm(v.getGeolocation(), refLocation);
+            double thisDistance = v.getGeolocation().getDistanceInKm(refLocation);
             if (thisDistance < closestDistance) {
                 closest = v;
                 closestDistance = thisDistance;
@@ -292,10 +280,9 @@ public class Geolocation implements Serializable {
      *
      * @param <T> Any type that implements IGeocoded (Stop, VehicleLocation,
      * ...)
-     * @param items A Collection of IGeocoded objects to sort by closest
-     * distance to a given point.
+     * @param items A Collection of IGeocoded objects
      * @param refPoint he reference point to sort closest to.
-     * @return
+     * @return the collection of Geocoded objects sorted by closest distance to the given point
      */
     public static <T extends IGeocoded> List<T> sortedByClosest(List<T> items, final Geolocation refPoint) {
         return sortedByClosest(items, refPoint, 0, 0.0);
@@ -321,7 +308,9 @@ public class Geolocation implements Serializable {
     public static <T extends IGeocoded> List<T> sortedByClosest(List<T> items, final Geolocation refPoint, int limitItems, double limitDistanceKm) {
 
         // An Linked List is used to do the sort ; the add() method get Override with the Distance metric logic
-        List<T> sorted = new java.util.LinkedList<T>() {
+        List<T> sorted = new LinkedList<T>() {
+
+            private static final long serialVersionUID = 8227030729296044469L;
 
             @Override
             public boolean add(T e) {
@@ -376,14 +365,10 @@ public class Geolocation implements Serializable {
         // While doing do, Enforce the limitDistance constraint while doing this, if distance limits are in place.
         boolean usingDistanceLimits = limitDistanceKm > 0.0;
         for (T e : items) {
-            if (usingDistanceLimits == false) {
+            if (!usingDistanceLimits) {
                 sorted.add(e);
-                continue;
-            }
-            if (e.getGeolocation().getDistanceInKm(refPoint) <= limitDistanceKm) {
+            } else if (e.getGeolocation().getDistanceInKm(refPoint) <= limitDistanceKm) {
                 sorted.add(e);
-            } else {
-                // Skip this point - it's outside the distance radius requested.
             }
         }
 
@@ -397,4 +382,5 @@ public class Geolocation implements Serializable {
             return sorted;
         }
     }
+
 }

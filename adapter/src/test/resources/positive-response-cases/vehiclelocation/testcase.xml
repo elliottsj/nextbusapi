@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <body copyright="All data copyright MBTA 2012.">
-<vehicle id="2022" routeTag="34" dirTag="34_1_var0" lat="42.2509718" lon="-71.1700981" secsSinceReport="6" predictable="true" heading="217" speedKmHr="0.0"/>
-<vehicle id="2094" routeTag="34" dirTag="34_1_var0" lat="42.2945228" lon="-71.1194256" secsSinceReport="52" predictable="true" heading="39" speedKmHr="0.0"/>
-<lastTime time="1337181813388"/>
+    <vehicle id="2022" routeTag="34" dirTag="34_1_var0" lat="42.2509718" lon="-71.1700981" secsSinceReport="6" predictable="true" heading="217" speedKmHr="0.0"/>
+    <vehicle id="2094" routeTag="34" dirTag="34_1_var0" lat="42.2945228" lon="-71.1194256" secsSinceReport="52" predictable="true" heading="39" speedKmHr="0.0"/>
+    <lastTime time="1337181813388"/>
 </body>

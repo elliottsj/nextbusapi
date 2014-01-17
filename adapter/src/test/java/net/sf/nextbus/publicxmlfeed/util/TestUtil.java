@@ -33,39 +33,27 @@
 package net.sf.nextbus.publicxmlfeed.util;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
-import java.io.ObjectOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.FileOutputStream;
-import java.io.ByteArrayOutputStream;
 
 /**
- * Utility for our Junit tests - Load XML files from the test classpath.
+ * Utility for our JUnit tests - Load XML files from the test classpath.
  *
  * @author jrd
  */
 public class TestUtil {
 
-    public static final Random random = new Random(System.currentTimeMillis());
-
     /**
-     * Utility to load Sample XML's off the Test run classpath.
+     * Utility to load Sample XMLs off the test classpath.
      *
      * @param resourcePath filename to load
      * @return contents of the file
-     * @throws Exception
      */
     public static String loadXMLDocumentFromClasspath(String resourcePath) {
         // reads the file off the Test run classpath
         InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(resourcePath);
-        BufferedReader br = new BufferedReader(
-                new InputStreamReader(is));
+        BufferedReader br = new BufferedReader(new InputStreamReader(is));
         StringBuilder sb = new StringBuilder();
 
         try {
@@ -75,42 +63,10 @@ public class TestUtil {
             }
             br.close();
             is.close();
-        } catch (java.io.IOException io) {
+        } catch (IOException io) {
             throw new RuntimeException("Some problem retrieving a file from the classpath...");
         }
         return sb.toString();
     }
 
-    /**
-     * Picks size Items randomly from the list arg
-     */
-    public static List randomPicks(List arg, int size) {
-        int s = size;
-        if (arg.size() > size) {
-            s = arg.size();
-        }
-
-        List tmp = new ArrayList(arg);
-        Collections.shuffle(tmp, random);
-        return tmp.subList(size, size);
-    }
-
-    /**
-     * For testing Serialization
-     * @param arg
-     * @return 
-     */
-    public static boolean serializable(Object arg) {
-        try {
-            ByteArrayOutputStream d = new ByteArrayOutputStream(4096);
-            ObjectOutputStream out =
-                    new ObjectOutputStream(d);
-            out.writeObject(arg);
-            out.close();
-            return (d.size() > 0);
-        } catch (IOException i) {
-            i.printStackTrace();
-            return false;
-        }
-    }
 }

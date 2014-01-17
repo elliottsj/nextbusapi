@@ -45,25 +45,13 @@ import net.sf.nextbus.publicxmlfeed.service.ServiceException;
 public interface RPCImpl {
      
     /**
-     * It is the responsibility of the implementor to convert whichever 
+     * It is the responsibility of the implementer to convert whichever
      * underlying communications layer exceptions into a ServiceException.
      * 
      * @param request the Request parameters object
-     * @return the XML response stream from the RESTful web service
+     * @return the XML response stream from the REST-ful web service
      * @throws ServiceException
      */
     public String call(RPCRequest request) throws ServiceException;
-    
-    /**
-     * See passivate() method for reason why this is here.
-     */
-    public void activate();
-    
-    /**
-     * To support use with EJB Session Beans, we need a way to communicate to the
-     * communications tier that the owning Session beans is about to passivate state.
-     * This gives the communications tier 
-     */
-    public void passivate();
     
 }

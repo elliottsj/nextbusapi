@@ -1,14 +1,12 @@
 package net.sf.nextbus.publicxmlfeed.impl;
 
-import net.sf.nextbus.publicxmlfeed.service.INextbusService;
 import net.sf.nextbus.publicxmlfeed.domain.*;
-import net.sf.nextbus.publicxmlfeed.util.TestUtil;
+import net.sf.nextbus.publicxmlfeed.service.INextbusService;
 import org.junit.Assert;
-import org.junit.Test;
-import java.util.*;
-import net.sf.nextbus.publicxmlfeed.impl.rmiproxy.RMIClient;
-
 import org.junit.Before;
+import org.junit.Test;
+
+import java.util.*;
 
 /**
  * This simple unit test demonstrates full use of the API to retrieve bus
@@ -20,21 +18,6 @@ public class DemoTest {
 
     INextbusService svc;
 
-    /**
-     * Test Harness for RMI
-     */
-    public INextbusService remoteBinding() {
-        RMIClient rmicli = new RMIClient("192.168.11.2");
-        System.out.println("*>*> Using RMI ");
-        return rmicli.getService();
-    }
-
-    /**
-     * Normal Ordinary Test Harness
-     */
-    public INextbusService localBinding() {
-        return new SimplestNextbusServiceAdapter();
-    }
     private Agency mbta;
     private Route route110, route111;
     private List<Stop> stops110, stops111;
@@ -42,7 +25,7 @@ public class DemoTest {
     @Before
     public void setup() throws Exception {
         //svc = remoteBinding();
-        svc = localBinding();
+        svc = new SimplestNextbusServiceAdapter();
         mbta = svc.getAgency("mbta");
         List<Route> mbtaRoutes = svc.getRoutes(mbta);
         route110 = Route.find(mbtaRoutes, "110");
@@ -133,7 +116,7 @@ public class DemoTest {
     public void testRouteConfig() {
         List<Route> mbtaRoutes = svc.getRoutes(mbta);
         long start = System.currentTimeMillis();
-        Map<Route, RouteConfiguration> totalRouteConfig = new HashMap<Route, RouteConfiguration>();;
+        Map<Route, RouteConfiguration> totalRouteConfig = new HashMap<Route, RouteConfiguration>();
         Set<Stop> allstops = new HashSet<Stop>();
         for (Route route : mbtaRoutes) {
             RouteConfiguration rc = svc.getRouteConfiguration(route);

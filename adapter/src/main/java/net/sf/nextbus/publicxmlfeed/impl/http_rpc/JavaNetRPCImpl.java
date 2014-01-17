@@ -21,10 +21,10 @@
  *
  * Usage of the NextBus Web Service and its data is subject to separate
  * Terms and Conditions of Use (License) available at:
- * 
+ *
  *      http://www.nextbus.com/xmlFeedDocs/NextBusXMLFeed.pdf
- * 
- * 
+ *
+ *
  * NextBus® is a registered trademark of Webtech Wireless Inc.
  *
  ******************************************************************************/
@@ -50,7 +50,7 @@ import java.util.zip.GZIPInputStream;
 /**
  * Simplest possible HTTP RPC client with Compression support but NO Connection
  * Pooling or any fancy communications error-retry control. For that you'll have to use Apache
- * Commons HttpClient. 
+ * Commons HttpClient.
  *
  * @author jrd
  */
@@ -58,6 +58,7 @@ public class JavaNetRPCImpl implements RPCImpl {
 
     // Declare the logger this way so the IDE Refactor tool hits the Loggers when I move classes.
     private static final Logger logger = Logger.getLogger(JavaNetRPCImpl.class.getName());
+
     private boolean useGzipCompression;
     private long lastSuccessfulCallTimeUTC;
     private long totalRPCCalls;
@@ -65,12 +66,12 @@ public class JavaNetRPCImpl implements RPCImpl {
 
     // Enforces advisory warnings on bandwidth use - NextBus spec says 2MB/20sec Max
     private long bandwidthLimitIntervalMilliseconds = 20*1000;  // 20 seconds
-    private long bandwidthLimitIntervalBytes = 2^21;              // 2 megabytes
-    
+    private long bandwidthLimitIntervalBytes = (long) Math.pow(2, 21); // 2 megabytes
+
     // State machine values for Sliding bandwidth monitor
     private long bwLimitIntervalStartTime;
     private long bwLimitIntervalStartBytes;
-    
+
     public JavaNetRPCImpl() {
     }
 
@@ -90,10 +91,10 @@ public class JavaNetRPCImpl implements RPCImpl {
 
             c = (HttpURLConnection) url.openConnection();
             logger.log(Level.FINEST, "RPC handler opened HTTP connection");
-            
+
             c.setRequestMethod("GET");
             c.setDoOutput(true);
-            
+
             /* Ask for Zip compression in the HTTP Header
              * see http://www.nextbus.com/xmlFeedDocs/NextBusXMLFeed.pdf
              */
@@ -109,8 +110,8 @@ public class JavaNetRPCImpl implements RPCImpl {
                 totalRPCCalls++;
                 throw new TransientServiceException(msg);
             }
-           
-            
+
+
             /* We have to use a different InputStream type if we are using wire compression */
             if (useGzipCompression) {
                 is = new GZIPInputStream(c.getInputStream());
@@ -129,7 +130,7 @@ public class JavaNetRPCImpl implements RPCImpl {
                 logger.log(Level.FINEST, "read "+line.length()+" bytes from the HTTP input buffer");
                 checkBandwidthLimits();
             }
-            
+
             /* Done! Cleanup and return to the caller */
             is.close();
             rd.close();
@@ -137,13 +138,14 @@ public class JavaNetRPCImpl implements RPCImpl {
             lastSuccessfulCallTimeUTC = System.currentTimeMillis();
             return sb.toString();
         } catch (MalformedURLException mfu) {
-            logger.log(Level.SEVERE, "Invalid URL. Inspect: "+request.getFullHttpRequest(), mfu);
+            logger.log(Level.SEVERE, "Invalid URL. Inspect: " + request.getFullHttpRequest(), mfu);
             throw new ServiceConfigurationException(mfu);
         } catch (IOException ioe) {
-            logger.log(Level.WARNING, "During http rpc to nextbus ", ioe);
+            logger.log(Level.WARNING, "During HTTP RPC to NextBus ", ioe);
             throw new TransientServiceException(ioe);
         } finally {
-            if (c != null) c.disconnect();
+            if (c != null)
+                c.disconnect();
             totalRPCCalls++;
         }
     }
@@ -158,7 +160,7 @@ public class JavaNetRPCImpl implements RPCImpl {
 
     /**
      * Diagnostic method
-     * @return total number of RPC calls (failed and successful) made 
+     * @return total number of RPC calls (failed and successful) made
      */
     public long getTotalRPCCalls() {
         return totalRPCCalls;
@@ -175,36 +177,31 @@ public class JavaNetRPCImpl implements RPCImpl {
 
     /**
      * Sets the Bandwidth Monitor Limit Time Interval ; defaults to 2 minutes
-     * @param arg time interval of the bandwidth limit monitor 
+     * @param arg time interval of the bandwidth limit monitor
      */
     public void setBandwidthLimitIntervalMilliseconds(long arg) {
-        if (arg<=0) return;
+        if (arg <= 0) return;
         this.bandwidthLimitIntervalMilliseconds = arg;
     }
-    
-    
+
     /**
      * Implements a simple Bandwidth limit check.
      * When b/w is exceeded, a WARN Advisory is posted to the logger.
      * Tests whether more than N bytes are sent within an M second interval
      */
     private void checkBandwidthLimits() {
-        
         // Reset the observation time window if needed
-        if (bwLimitIntervalStartTime == 0 || (System.currentTimeMillis()-bwLimitIntervalStartBytes) > this.bandwidthLimitIntervalMilliseconds) {
+        if (bwLimitIntervalStartTime == 0 || (System.currentTimeMillis() - bwLimitIntervalStartBytes) > this.bandwidthLimitIntervalMilliseconds) {
             bwLimitIntervalStartTime = System.currentTimeMillis();
             bwLimitIntervalStartBytes += bytesReceived;
         }
-        
+
         // Check the total byte count inside the observation window
-        long bytesRecvInLimitWindow = bytesReceived - bwLimitIntervalStartBytes;
-        if ((bytesRecvInLimitWindow ) > this.bandwidthLimitIntervalBytes) {
+        long bytesReceivedInLimitWindow = bytesReceived - bwLimitIntervalStartBytes;
+        if ((bytesReceivedInLimitWindow ) > this.bandwidthLimitIntervalBytes) {
             // The bandwidth limit has been exceeded!
-            logger.warning("Bandwidth advisory limit exceeded by "+bytesRecvInLimitWindow+" bytes!");
+            logger.warning("Bandwidth advisory limit exceeded by " + bytesReceivedInLimitWindow + " bytes!");
         }
     }
 
-    public void activate() { }
-
-    public void passivate() { }
 }

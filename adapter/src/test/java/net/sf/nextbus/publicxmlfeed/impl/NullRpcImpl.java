@@ -30,57 +30,44 @@
  ******************************************************************************/
 package net.sf.nextbus.publicxmlfeed.impl;
 
-import net.sf.nextbus.publicxmlfeed.impl.RPCImpl;
-import net.sf.nextbus.publicxmlfeed.impl.RPCRequest;
+import net.sf.nextbus.publicxmlfeed.util.TestUtil;
 
 /**
- * A Test Harness to simulate a Network response using a local fileset of Canned XML Responses.
- * 
- * This test harness permits a test-driven development activity to reverse engineer
- * the XSD Schema for the NextBus Web API.
+ * A test harness to simulate a network response using a local fileset of Canned XML Responses.
  * 
  * @author jrd
  */
 public class NullRpcImpl implements RPCImpl {
 
-    public void setRoutelistResponse(String arg) { rlist = arg; }
-    public void setRouteConfigResponse(String arg) { rconfig = arg; }
-    
-    private String rlist, rconfig;
-    
     public String call(RPCRequest request) {
-       
+
         if (request.parameters.get("command").equals("agencyList")) {
-            return net.sf.nextbus.publicxmlfeed.util.TestUtil.loadXMLDocumentFromClasspath("positive-response-cases/agencylist/testcase.xml");
+            return TestUtil.loadXMLDocumentFromClasspath("positive-response-cases/agencylist/testcase.xml");
         }
         if (request.parameters.get("command").equals("routeConfig")) {
-            return net.sf.nextbus.publicxmlfeed.util.TestUtil.loadXMLDocumentFromClasspath("positive-response-cases/routeconfig/testcase.xml");
+            return TestUtil.loadXMLDocumentFromClasspath("positive-response-cases/routeconfig/testcase.xml");
         }
         if (request.parameters.get("command").equals("routeList")) {
-            return net.sf.nextbus.publicxmlfeed.util.TestUtil.loadXMLDocumentFromClasspath("positive-response-cases/routelist/testcase.xml");
+            return TestUtil.loadXMLDocumentFromClasspath("positive-response-cases/routelist/testcase.xml");
         }
         if (request.parameters.get("command").equals("vehicleLocation")) {
-            return net.sf.nextbus.publicxmlfeed.util.TestUtil.loadXMLDocumentFromClasspath("positive-response-cases/vehiclelocation/testcase.xml");
+            return TestUtil.loadXMLDocumentFromClasspath("positive-response-cases/vehiclelocation/testcase.xml");
         }
         if (request.parameters.get("command").equals("predictions")) {
-            return net.sf.nextbus.publicxmlfeed.util.TestUtil.loadXMLDocumentFromClasspath("positive-response-cases/prediction/testcase.xml");
+            return TestUtil.loadXMLDocumentFromClasspath("positive-response-cases/prediction/testcase.xml");
         }
         if (request.parameters.get("command").equals("predictionsForMultiStops")) {
-             return net.sf.nextbus.publicxmlfeed.util.TestUtil.loadXMLDocumentFromClasspath("positive-response-cases/prediction-multistop/testcase.xml");
+            return TestUtil.loadXMLDocumentFromClasspath("positive-response-cases/prediction-multistop/testcase.xml");
         }
         if (request.parameters.get("command").equals("predictionsForMultiStops")) {
-             return net.sf.nextbus.publicxmlfeed.util.TestUtil.loadXMLDocumentFromClasspath("positive-response-cases/prediction-multistop/testcase.xml");
+            return TestUtil.loadXMLDocumentFromClasspath("positive-response-cases/prediction-multistop/testcase.xml");
         }
-         if (request.parameters.get("command").equals("schedule")) {
-             return net.sf.nextbus.publicxmlfeed.util.TestUtil.loadXMLDocumentFromClasspath("positive-response-cases/schedule/testcase.xml");
+        if (request.parameters.get("command").equals("schedule")) {
+            return TestUtil.loadXMLDocumentFromClasspath("positive-response-cases/schedule/testcase.xml");
         }
-       
-       throw new RuntimeException("Invalid RPC command "+request.parameters.get("command"));
+
+        throw new RuntimeException("Invalid RPC command " + request.parameters.get("command"));
         
     }
 
-    public void activate() {}
-
-    public void passivate() {}
-      
 }
