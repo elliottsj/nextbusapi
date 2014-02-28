@@ -21,10 +21,10 @@
  *
  * Usage of the NextBus Web Service and its data is subject to separate
  * Terms and Conditions of Use (License) available at:
- * 
+ *
  *      http://www.nextbus.com/xmlFeedDocs/NextBusXMLFeed.pdf
- * 
- * 
+ *
+ *
  * NextBus® is a registered trademark of Webtech Wireless Inc.
  *
  ******************************************************************************/
@@ -35,5 +35,7 @@ package net.sf.nextbus.publicxmlfeed.domain;
  * @author jrd
  */
 public class Message extends NextbusValueObject {
-    protected Message() { }
+    protected Message(String copyright, Long timestamp) {
+        super(copyright, timestamp);
+    }
 }
