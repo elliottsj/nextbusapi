@@ -226,7 +226,7 @@ public class RPCRequest {
      * @param useShortTitles true iff short titles should be fetched instead of long titles
      * @return an rpc request for a predictionsForMultiStops command
      */
-    public static RPCRequest newPredictionsForMultistopsCommand(Map<Route, Stop> stops, boolean useShortTitles) {
+    public static RPCRequest newPredictionsForMultiStopsCommand(Map<Route, Stop> stops, boolean useShortTitles) {
         if (stops.isEmpty())
             return null;
 

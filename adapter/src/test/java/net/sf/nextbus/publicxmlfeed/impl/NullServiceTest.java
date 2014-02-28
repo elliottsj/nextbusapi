@@ -21,10 +21,10 @@
  *
  * Usage of the NextBus Web Service and its data is subject to separate
  * Terms and Conditions of Use (License) available at:
- * 
+ *
  *      http://www.nextbus.com/xmlFeedDocs/NextBusXMLFeed.pdf
- * 
- * 
+ *
+ *
  * NextBus® is a registered trademark of Webtech Wireless Inc.
  *
  ******************************************************************************/
@@ -44,34 +44,34 @@ import java.util.*;
 /**
  * Tests the DomainFactory. Once XSD Mappings work, the next step is the
  * procedure of mapping attributes to the more narrower Domain classes.
- * 
- * 
+ *
+ *
  * @author jrd
  */
 public class NullServiceTest {
-    
+
     NextbusService svc;
-    
+
     @Before
     public void setup() throws Exception {
          svc = new NextbusService(new NullRpcImpl());
     }
-    
-    
+
+
     @Test
     public void testAgencies() throws Exception {
         List<Agency> agencies = svc.getAgencies();
         Assert.assertNotNull(agencies);
         Assert.assertTrue(agencies.size()>0);
     }
-    
+
     @Test
     public void testRouteList() throws Exception {
         Agency mbta = new Agency("mbta","","","","");
         List<Route> routes = svc.getRoutes(mbta);
         System.out.println(routes);
     }
-    
+
     @Test
     public void testRouteConfig() throws Exception {
         Agency mbta = new Agency("mbta","","","","");
@@ -83,19 +83,19 @@ public class NullServiceTest {
         Assert.assertTrue(rc.getPaths().size() == 20);
         System.out.println(rc);
     }
-    
+
     @Test
     public void testPrediction() throws Exception {
         Agency mbta = new Agency("mbta", "Test Agency", "Test Agency", "Test Agency", "Test Agency");
         Route r = new Route(mbta, "route1", "Test Route", "Test Route", "Test Route");
         Stop s = new Stop(mbta, "1936", "1936", "1936", "1936", new Geolocation(0.0, 0.0), "");
         List<PredictionGroup> pg = svc.getPredictions(s);
-      
+
         Assert.assertTrue(pg.get(0).getDirections().size() == 1);
         Assert.assertTrue(pg.get(0).getAvailablePredictions() == 5);
         System.out.println(pg);
     }
-    
+
     @Test
     public void testMultiPrediction() throws Exception {
         Agency mbta = new Agency("mbta", "Test Agency", "Test Agency", "Test Agency", "Test Agency");
@@ -104,12 +104,12 @@ public class NullServiceTest {
          Stop s2 = new Stop(mbta, "5271", "5271", "5271", "5271", new Geolocation(0.0, 0.0), "");
          Stop s3 = new Stop(mbta, "5271_ar", "5271_ar", "5271_ar", "5271_ar", new Geolocation(0.0, 0.0), "");
          List<Stop> stops =    Arrays.asList(new Stop[] { s1, s2, s3});
-               
+
         List<PredictionGroup> pgs = svc.getPredictions(r, stops);
         Assert.assertTrue(pgs.size() == stops.size()); // should be a predictions block for each request parameter
-        
+
         boolean gotStop1 = false, gotStop2 = false, gotStop3 = false;
-        
+
         for (PredictionGroup pg : pgs) {
             if (pg.getStop().equals(s1)) {
                 // Stop 8310 should have Two Directions and Two Messages
@@ -131,10 +131,10 @@ public class NullServiceTest {
                 Assert.assertTrue(pg.getMessages().isEmpty());
                 gotStop3=true;
                  System.out.println(">>>> passed prediction group 3");
-            }  
+            }
         }
     }
-    
+
     @Test
     public void testSchedules() {
         Agency mbta = new Agency("mbta", "Test Agency", "Test Agency", "Test Agency", "Test Agency");
@@ -143,6 +143,6 @@ public class NullServiceTest {
         Assert.assertNotNull(s);
         Assert.assertTrue(s.size()>0);
     }
-    
-    
+
+
 }

@@ -21,10 +21,10 @@
  *
  * Usage of the NextBus Web Service and its data is subject to separate
  * Terms and Conditions of Use (License) available at:
- * 
+ *
  *      http://www.nextbus.com/xmlFeedDocs/NextBusXMLFeed.pdf
- * 
- * 
+ *
+ *
  * NextBus® is a registered trademark of Webtech Wireless Inc.
  *
  ******************************************************************************/
@@ -78,29 +78,29 @@ public class Stop extends NextbusValueObject implements IGeocoded, Comparable<St
      * Full constructor
      *
      * @param agency the agency owning this stop
-     * @param stopId the id of this stop
      * @param tag the tag of this stop
      * @param title the title of this stop
      * @param shortTitle the short title of this stop
+     * @param stopId the id of this stop
      * @param geolocation the geolocation of this stop
      * @param copyright the copyright text from NextBus
      * @param timestamp epoch milliseconds when this stop was created
      */
-    public Stop(Agency agency, String stopId, String tag, String title, String shortTitle, Geolocation geolocation, String copyright, Long timestamp) {
+    public Stop(Agency agency, String tag, String title, String shortTitle, String stopId, Geolocation geolocation, String copyright, Long timestamp) {
         super(copyright, timestamp);
-        this.shortTitle = shortTitle;
         this.agency = agency;
-        this.stopId = stopId;
         this.tag = tag;
         this.title = title;
+        this.shortTitle = shortTitle;
         this.geolocation = geolocation;
+        this.stopId = stopId;
     }
 
     /**
      * Domain factory constructor.
      */
-    public Stop(Agency agency, String stopId, String tag, String title, String shortTitle, Geolocation geolocation, String copyright) {
-        this(agency, stopId, tag, title, shortTitle, geolocation, copyright, null);
+    public Stop(Agency agency, String tag, String title, String shortTitle, String stopId, Geolocation geolocation, String copyright) {
+        this(agency, tag, title, shortTitle, stopId, geolocation, copyright, null);
     }
 
     /**
@@ -203,6 +203,6 @@ public class Stop extends NextbusValueObject implements IGeocoded, Comparable<St
     public int compareTo(Stop o) {
         return this.title.compareTo(o.title);
     }
-    
-    
+
+
 }

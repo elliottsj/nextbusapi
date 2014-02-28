@@ -21,10 +21,10 @@
  *
  * Usage of the NextBus Web Service and its data is subject to separate
  * Terms and Conditions of Use (License) available at:
- * 
+ *
  *      http://www.nextbus.com/xmlFeedDocs/NextBusXMLFeed.pdf
- * 
- * 
+ *
+ *
  * NextBus® is a registered trademark of Webtech Wireless Inc.
  *
  ******************************************************************************/package net.sf.nextbus.publicxmlfeed.impl;
@@ -56,13 +56,13 @@ import java.util.logging.Logger;
  */
 public class NextbusService implements INextbusService {
 
-    
+
     private static final Logger logger = Logger.getLogger(NextbusService.class.getName());
     private DomainFactory pojoMaker;
     private RPCImpl rpc;
 
     /**
-     * Ctor.
+     * Constructor.
      */
     public NextbusService() {
         pojoMaker = new DomainFactory();
@@ -201,7 +201,7 @@ public class NextbusService implements INextbusService {
             // invoke the RPC
             responseXml = rpc.call(rq);
             logger.log(Level.FINEST, "got XML response ", responseXml);
-            
+
             return pojoMaker.getPredictions(stops.values(), responseXml);
         } catch (Exception e) {
             logger.log(Level.SEVERE, "while parsing response Xml " + responseXml, e);
@@ -209,7 +209,7 @@ public class NextbusService implements INextbusService {
         }
     }
 
-    
+
     public List<PredictionGroup> getPredictions(Route route, Collection<Stop> s) throws ServiceException {
         String responseXml = "";
         // construct the wire protocol command
@@ -225,7 +225,7 @@ public class NextbusService implements INextbusService {
             throw new FatalServiceException("RPC Call <multiStopPredictions>", e);
         }
     }
-    
+
     public List<Schedule> getSchedule(Route route) throws ServiceException {
          String responseXml = "";
         // construct the wire protocol command
@@ -234,7 +234,7 @@ public class NextbusService implements INextbusService {
         try {
            // invoke the RPC
             responseXml = rpc.call(rq);
-            logger.log(Level.FINEST, "got XML response ", responseXml); 
+            logger.log(Level.FINEST, "got XML response ", responseXml);
             return pojoMaker.getSchedule(route, responseXml);
         } catch (Exception e) {
             logger.log(Level.SEVERE, "while parsing response Xml " + responseXml, e);

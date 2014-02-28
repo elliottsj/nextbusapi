@@ -21,35 +21,29 @@
  *
  * Usage of the NextBus Web Service and its data is subject to separate
  * Terms and Conditions of Use (License) available at:
- * 
+ *
  *      http://www.nextbus.com/xmlFeedDocs/NextBusXMLFeed.pdf
- * 
- * 
+ *
+ *
  * NextBus® is a registered trademark of Webtech Wireless Inc.
  *
  ******************************************************************************/
 package net.sf.nextbus.publicxmlfeed.impl.http_rpc;
 
-import net.sf.nextbus.publicxmlfeed.service.ServiceException;
 import net.sf.nextbus.publicxmlfeed.impl.RPCImpl;
 import net.sf.nextbus.publicxmlfeed.impl.RPCRequest;
+import net.sf.nextbus.publicxmlfeed.service.ServiceException;
 
 /**
- * Unimplemented at present but very doable.
- * @author jrd
+ * HTTP RPC client using Apache Commons {@link org.apache.http.nio.client.HttpAsyncClient}
+ *
+ * @author elliottsj
  */
 public class CommonsHttpClientRPCImpl implements RPCImpl {
 
+    @Override
     public String call(RPCRequest request) throws ServiceException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public void activate() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public void passivate() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-    
 }

@@ -21,10 +21,10 @@
  *
  * Usage of the NextBus Web Service and its data is subject to separate
  * Terms and Conditions of Use (License) available at:
- * 
+ *
  *      http://www.nextbus.com/xmlFeedDocs/NextBusXMLFeed.pdf
- * 
- * 
+ *
+ *
  * NextBus® is a registered trademark of Webtech Wireless Inc.
  *
  ******************************************************************************/
@@ -145,7 +145,7 @@ public class DomainFactory {
 
         for (net.sf.nextbus.publicxmlfeed.impl.simplexml.routeconfig.Stop s : wireRouteConfiguration.getStops()) {
             Geolocation gps = new Geolocation(s.getLat(), s.getLon());
-            Stop stop = new Stop(route.getAgency(), s.getStopId(), s.getTag(), s.getTitle(), s.getShortTitle(), gps, copyright);
+            Stop stop = new Stop(route.getAgency(), s.getTag(), s.getTitle(), s.getShortTitle(), s.getStopId(), gps, copyright);
             stops.add(stop);
             stopsByTag.put(s.getTag(), stop);
         }
