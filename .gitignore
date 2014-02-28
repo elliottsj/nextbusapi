@@ -33,3 +33,4 @@ proguard/
 
 # Maven target files
 adapter/target
+.DS_Store
