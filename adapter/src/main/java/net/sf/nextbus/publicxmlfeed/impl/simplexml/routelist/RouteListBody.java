@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class RouteListBody extends Body {
 
-    @ElementList(inline = true)
+    @ElementList(inline = true, required = false)
     private List<Route> routes;
 
     public List<Route> getRoutes() {

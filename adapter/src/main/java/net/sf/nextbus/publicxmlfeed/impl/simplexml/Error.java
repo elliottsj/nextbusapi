@@ -7,7 +7,7 @@ import org.simpleframework.xml.Text;
 /**
  *
  */
-@Root
+@Root(name = "Error")
 public class Error {
 
     @Attribute

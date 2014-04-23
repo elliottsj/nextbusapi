@@ -33,6 +33,7 @@ import net.sf.nextbus.publicxmlfeed.domain.*;
 import net.sf.nextbus.publicxmlfeed.service.FatalServiceException;
 import net.sf.nextbus.publicxmlfeed.service.INextbusService;
 import net.sf.nextbus.publicxmlfeed.service.ServiceException;
+import net.sf.nextbus.publicxmlfeed.service.TransientServiceException;
 
 import java.util.*;
 import java.util.logging.Level;
@@ -118,6 +119,9 @@ public class NextbusService implements INextbusService {
             logger.log(Level.FINEST, "got XML response ", responseXml);
             // domain factory
             return pojoMaker.getRoutes(agency, responseXml);
+        } catch (TransientServiceException e) {
+            logger.log(Level.WARNING, "<Error> in XML", e);
+            throw e;
         } catch (Exception e) {
             logger.log(Level.SEVERE, "while parsing response Xml " + responseXml, e);
             throw new FatalServiceException("RPC Call <routeList>", e);

@@ -32,6 +32,9 @@
  */
 package net.sf.nextbus.publicxmlfeed.domain;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Iterator;
@@ -47,10 +50,14 @@ import java.util.List;
  *
  * @author jrd
  */
-@SuppressWarnings("UnusedDeclaration")
+@DatabaseTable(tableName = "geolocations")
 public class Geolocation implements Serializable {
 
     private static final long serialVersionUID = 2985652272674877188L;
+
+    public static final String FIELD_ID = "_id";
+    public static final String FIELD_LATITUDE = "latitude";
+    public static final String FIELD_LONGITUDE = "longitude";
 
     /**
      * Constant: Mean radius of Earth in km [International Union of Geodesy and
@@ -62,6 +69,151 @@ public class Geolocation implements Serializable {
      * Constant: Conversion of kilometers to miles
      */
     public static final double km2miles = 0.621371192;
+
+    @DatabaseField(columnName = FIELD_ID, generatedId = true)
+    private int _id;
+
+    /**
+     * GPS Latitude in Degrees Decimal.
+     */
+    @DatabaseField(columnName = FIELD_LATITUDE, canBeNull = false)
+    protected double latitude;
+
+    protected double latitudeRadians;
+
+    /**
+     * GPS Longitude in Degrees Decimal.
+     */
+    @DatabaseField(columnName = FIELD_LONGITUDE, canBeNull = false)
+    protected double longitude;
+
+    protected double longitudeRadians;
+
+    /**
+     * Empty constructor for OrmLite
+     */
+    Geolocation() {
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param lat Degrees latitude. Negative values are South, Positive values
+     * are North.
+     * @param lon Degrees longitude. Negative values are West, Positive values
+     * are East.
+     */
+    public Geolocation(double lat, double lon) {
+        this.latitude = lat;
+        this.longitude = lon;
+        this.latitudeRadians = Math.toRadians(lat);
+        this.longitudeRadians = Math.toRadians(lon);
+    }
+
+    /**
+     * Get this distance from <i>this</i> point to a given reference point.
+     *
+     * @param ref reference pt
+     * @return distance to reference point in kilometers.
+     */
+    public double getDistanceInKm(Geolocation ref) {
+        return distanceKm(ref, this);
+    }
+
+    /**
+     * Get distance in miles of <i>this</i> point from a given reference
+     * location.
+     *
+     * @param ref reference location.
+     * @return distance in miles.
+     */
+    public double getDistanceInMiles(Geolocation ref) {
+        return distanceMiles(ref, this);
+    }
+
+    /**
+     * Get the bearing for THIS point given a reference point.
+     *
+     * @param ref the reference (origin)
+     * @return bearing in degrees.
+     */
+    public double bearingDegrees(Geolocation ref) {
+        return forwardAzimuth(ref, this);
+    }
+
+    /**
+     * @return Negative values are South, Positive values are North.
+     */
+    public double getLatitude() {
+        return latitude;
+    }
+
+    /**
+     *
+     * @return Degrees longitude. Negative values are West, Positive values are
+     * East.
+     */
+    public double getLongitude() {
+        return longitude;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Geolocation)) return false;
+
+        Geolocation that = (Geolocation) o;
+
+        return Double.compare(that.latitude, latitude) == 0 && Double.compare(that.longitude, longitude) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        temp = Double.doubleToLongBits(latitude);
+        result = (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(longitude);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        String lat = "N";
+        String lon = "E";
+
+        if (latitude < 0.0) {
+            lat = "S";
+        }
+        if (longitude < 0.0) {
+            lon = "W";
+        }
+        return "Geolocation{" + "latitude=" + latitude + " " + lat + ", longitude=" + longitude + " " + lon + '}';
+    }
+
+    /**
+     * Gets the distance between two GPS points in Miles.
+     *
+     * @return absolute distance between points p1 and p2 in miles
+     */
+    public static double distanceMiles(Geolocation p1, Geolocation p2) {
+        double θ = haversine(p1, p2);
+        // compute the arc-length ; s = rθ
+        double distance = km2miles * Re * θ;
+        return Math.abs(distance);
+    }
+
+    /**
+     * Get the bearing, in degrees, from p1 headed toward p2.
+     *
+     * @param p1 orig point
+     * @param p2 target point
+     * @return bearing in degrees.
+     */
+    public static double bearingDegrees(Geolocation p1, Geolocation p2) {
+        return forwardAzimuth(p1, p2);
+    }
 
     /**
      * Haversine distance metric
@@ -118,135 +270,6 @@ public class Geolocation implements Serializable {
     }
 
     /**
-     * Get this distance from <i>this</i> point to a given reference point.
-     *
-     * @param ref reference pt
-     * @return distance to reference point in kilometers.
-     */
-    public double getDistanceInKm(Geolocation ref) {
-        return distanceKm(ref, this);
-    }
-
-    /**
-     * Gets the distance between two GPS points in Miles.
-     *
-     * @return absolute distance between points p1 and p2 in miles
-     */
-    public static double distanceMiles(Geolocation p1, Geolocation p2) {
-        double θ = haversine(p1, p2);
-        // compute the arc-length ; s = rθ
-        double distance = km2miles * Re * θ;
-        return Math.abs(distance);
-    }
-
-    /**
-     * Get distance in miles of <i>this</i> point from a given reference
-     * location.
-     *
-     * @param ref reference location.
-     * @return distance in miles.
-     */
-    public double getDistanceInMiles(Geolocation ref) {
-        return distanceMiles(ref, this);
-    }
-
-    /**
-     * Get the bearing, in degrees, from p1 headed toward p2.
-     *
-     * @param p1 orig point
-     * @param p2 target point
-     * @return bearing in degrees.
-     */
-    public static double bearingDegrees(Geolocation p1, Geolocation p2) {
-        return forwardAzimuth(p1, p2);
-    }
-
-    /**
-     * Get the bearing for THIS point given a reference point.
-     *
-     * @param ref the reference (origin)
-     * @return bearing in degrees.
-     */
-    public double bearingDegrees(Geolocation ref) {
-        return forwardAzimuth(ref, this);
-    }
-
-    /**
-     * GPS Latitude in Degrees Decimal.
-     */
-    protected double latitude, latitudeRadians;
-    /**
-     * GPS Longitude in Degrees Decimal.
-     */
-    protected double longitude, longitudeRadians;
-
-    /**
-     * Constructor.
-     *
-     * @param lat Degrees latitude. Negative values are South, Positive values
-     * are North.
-     * @param lon Degrees longitude. Negative values are West, Positive values
-     * are East.
-     */
-    public Geolocation(double lat, double lon) {
-        this.latitude = lat;
-        this.longitude = lon;
-        this.latitudeRadians = Math.toRadians(lat);
-        this.longitudeRadians = Math.toRadians(lon);
-    }
-
-    /**
-     * @return Negative values are South, Positive values are North.
-     */
-    public double getLatitude() {
-        return latitude;
-    }
-
-    /**
-     *
-     * @return Degrees longitude. Negative values are West, Positive values are
-     * East.
-     */
-    public double getLongitude() {
-        return longitude;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Geolocation)) return false;
-
-        Geolocation that = (Geolocation) o;
-
-        return Double.compare(that.latitude, latitude) == 0 && Double.compare(that.longitude, longitude) == 0;
-    }
-
-    @Override
-    public int hashCode() {
-        int result;
-        long temp;
-        temp = Double.doubleToLongBits(latitude);
-        result = (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(longitude);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        String lat = "N";
-        String lon = "E";
-
-        if (latitude < 0.0) {
-            lat = "S";
-        }
-        if (longitude < 0.0) {
-            lon = "W";
-        }
-        return "Geolocation{" + "latitude=" + latitude + " " + lat + ", longitude=" + longitude + " " + lon + '}';
-    }
-
-    /**
      * Utility finder to get the closest IGeocoded object from any given
      * Geolocation.
      *
@@ -260,7 +283,7 @@ public class Geolocation implements Serializable {
         }
         Iterator<IGeocoded> vi = items.iterator();
 
-        // super-simple sort to find the Min(distance) 
+        // super-simple sort to find the Min(distance)
         double closestDistance = Double.MAX_VALUE;
         IGeocoded closest = vi.next();
         while (vi.hasNext()) {

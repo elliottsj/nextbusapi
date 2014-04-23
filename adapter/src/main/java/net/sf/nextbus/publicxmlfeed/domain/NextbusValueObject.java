@@ -21,19 +21,21 @@
  *
  * Usage of the NextBus Web Service and its data is subject to separate
  * Terms and Conditions of Use (License) available at:
- * 
+ *
  *      http://www.nextbus.com/xmlFeedDocs/NextBusXMLFeed.pdf
- * 
- * 
+ *
+ *
  * NextBus® is a registered trademark of Webtech Wireless Inc.
  *
  ******************************************************************************/
 package net.sf.nextbus.publicxmlfeed.domain;
+import com.j256.ormlite.field.DatabaseField;
+
 import java.io.Serializable;
 
 /**
  * Base Class for NextBus value objects - Temporal, Serializable and must carry copyright text.
- * 
+ *
  * @author jrd
  * @author elliottsj
  */
@@ -41,12 +43,24 @@ public abstract class NextbusValueObject implements Serializable, TemporalValueO
 
     private static final long serialVersionUID = -4066053159634371148L;
 
+    public static final String FIELD_ID = "_id";
+    public static final String FIELD_TIMESTAMP = "timestamp";
+    public static final String FIELD_COPYRIGHT = "copyright";
+
+    @DatabaseField(columnName = FIELD_ID, generatedId = true)
+    private int _id;
+
     /** Timestamp to implement TemporalValueObject */
-    protected final long timestamp;
+    @DatabaseField(columnName = FIELD_TIMESTAMP, canBeNull = false)
+    protected long timestamp;
 
     /** Copyright notice for Value object payload - assigned by either the Transit Agency or NextBus, or both. */
+    @DatabaseField(columnName = FIELD_COPYRIGHT, canBeNull = false)
     protected String copyright;
-    
+
+    protected NextbusValueObject() {
+    }
+
     /**
      * Set the timestamp and the copyright text
      *

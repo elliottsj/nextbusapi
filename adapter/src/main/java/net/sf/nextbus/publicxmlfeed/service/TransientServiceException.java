@@ -21,10 +21,10 @@
  *
  * Usage of the NextBus Web Service and its data is subject to separate
  * Terms and Conditions of Use (License) available at:
- * 
+ *
  *      http://www.nextbus.com/xmlFeedDocs/NextBusXMLFeed.pdf
- * 
- * 
+ *
+ *
  * NextBus® is a registered trademark of Webtech Wireless Inc.
  *
  ******************************************************************************/
@@ -43,11 +43,11 @@ public class TransientServiceException extends ServiceException {
     private static final long serialVersionUID = -8583454976984466398L;
 
     private boolean shouldRetry = false;
-    
+
     public TransientServiceException(String reason, Throwable rootCause) {
         super(reason, rootCause);
     }
-    public TransientServiceException(Throwable rootCause) { 
+    public TransientServiceException(Throwable rootCause) {
         super(rootCause);
     }
     public TransientServiceException(String reason) {
@@ -64,5 +64,5 @@ public class TransientServiceException extends ServiceException {
     public boolean isShouldRetry() {
         return shouldRetry;
     }
-    
+
 }

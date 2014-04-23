@@ -63,6 +63,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>com.j256.ormlite</groupId>
+            <artifactId>ormlite-core</artifactId>
+            <version>4.47</version>
+        </dependency>
     </dependencies>
 
     <build>

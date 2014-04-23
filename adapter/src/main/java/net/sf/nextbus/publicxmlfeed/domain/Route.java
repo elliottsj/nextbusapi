@@ -21,14 +21,17 @@
  *
  * Usage of the NextBus Web Service and its data is subject to separate
  * Terms and Conditions of Use (License) available at:
- * 
+ *
  *      http://www.nextbus.com/xmlFeedDocs/NextBusXMLFeed.pdf
- * 
- * 
+ *
+ *
  * NextBus® is a registered trademark of Webtech Wireless Inc.
  *
  ******************************************************************************/
 package net.sf.nextbus.publicxmlfeed.domain;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 import java.util.List;
 
 /**
@@ -37,30 +40,45 @@ import java.util.List;
  * @author jrd
  * @author elliottsj
  */
-@SuppressWarnings("UnusedDeclaration")
+@DatabaseTable(tableName = "routes")
 public class Route extends NextbusValueObject {
 
     private static final long serialVersionUID = 3327736979892313874L;
 
+    public static final String FIELD_AGENCY_ID = "agency_id";
+    public static final String FIELD_TAG ="tag";
+    public static final String FIELD_TITLE = "title";
+    public static final String FIELD_SHORT_TITLE = "short_title";
+
     /**
      * Transit agency that runs this route.
      */
+    @DatabaseField(columnName = FIELD_AGENCY_ID, canBeNull = false, foreign = true)
     protected Agency agency;
 
     /**
      * Route identifier
      */
+    @DatabaseField(columnName = FIELD_TAG, canBeNull = false)
     protected String tag;
 
     /**
      * Full schedule title of the route (optional)
      */
+    @DatabaseField(columnName = FIELD_TITLE, canBeNull = false)
     protected String title;
 
     /**
      * Shortened or abbreviated route name (optional)
      */
+    @DatabaseField(columnName = FIELD_SHORT_TITLE)
     protected String shortTitle;
+
+    /**
+     * Empty constructor for OrmLite
+     */
+    Route() {
+    }
 
     /**
      * Full constructor
@@ -94,6 +112,10 @@ public class Route extends NextbusValueObject {
      */
     public Agency getAgency() {
         return agency;
+    }
+
+    public void setAgency(Agency agency) {
+        this.agency = agency;
     }
 
     /**

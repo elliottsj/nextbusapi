@@ -21,14 +21,17 @@
  *
  * Usage of the NextBus Web Service and its data is subject to separate
  * Terms and Conditions of Use (License) available at:
- * 
+ *
  *      http://www.nextbus.com/xmlFeedDocs/NextBusXMLFeed.pdf
- * 
- * 
+ *
+ *
  * NextBus® is a registered trademark of Webtech Wireless Inc.
  *
  ******************************************************************************/
 package net.sf.nextbus.publicxmlfeed.domain;
+
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
 /**
  * A Transit agency served by NextBus.
@@ -36,29 +39,47 @@ package net.sf.nextbus.publicxmlfeed.domain;
  * @author jrd
  * @author elliottsj
  */
+@SuppressWarnings("UnusedDeclaration")
+@DatabaseTable(tableName = "agencies")
 public class Agency extends NextbusValueObject implements Comparable<Agency> {
 
     private static final long serialVersionUID = -7910786609872379992L;
 
+
+    public static final String FIELD_TAG = "tag";
+    public static final String FIELD_TITLE = "title";
+    public static final String FIELD_SHORT_TITLE = "short_title";
+    public static final String FIELD_REGION_TITLE = "region_title";
+
     /**
      * Key identifier - example rutgers
      */
+    @DatabaseField(columnName = FIELD_TAG, canBeNull = false)
     private String tag;
 
     /**
      * Full display title - example Rutgers University
      */
+    @DatabaseField(columnName = FIELD_TITLE, canBeNull = false)
     private String title;
 
     /**
      * Short display title - example Rutgers
      */
+    @DatabaseField(columnName = FIELD_SHORT_TITLE)
     private String shortTitle;
 
     /**
      * Region value example New Jersey
      */
+    @DatabaseField(columnName = FIELD_REGION_TITLE, canBeNull = false)
     private String regionTitle;
+
+    /**
+     * Empty constructor for OrmLite
+     */
+    Agency() {
+    }
 
     /**
      * Full constructor
@@ -149,7 +170,8 @@ public class Agency extends NextbusValueObject implements Comparable<Agency> {
 
     @Override
     public String toString() {
-        return "Agency{" + "tag=" + tag + ", title=" + title + ", shortTitle=" + shortTitle + ", regionTitle=" + regionTitle + '}';
+        return String.format("Agency{tag=%s, title=%s, shortTitle=%s, regionTitle=%s}",
+                             tag, title, shortTitle, regionTitle);
     }
 
     /**

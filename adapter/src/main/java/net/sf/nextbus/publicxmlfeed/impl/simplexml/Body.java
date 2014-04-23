@@ -13,7 +13,7 @@ public abstract class Body {
     @Attribute
     private String copyright;
 
-    @Element(required = false)
+    @Element(name = "Error", required = false)
     private Error error;
 
     public String getCopyright() {

@@ -31,10 +31,9 @@
 package net.sf.nextbus.publicxmlfeed.impl;
 
 import net.sf.nextbus.publicxmlfeed.domain.*;
-import net.sf.nextbus.publicxmlfeed.domain.Direction;
-import net.sf.nextbus.publicxmlfeed.domain.Prediction;
 import net.sf.nextbus.publicxmlfeed.impl.simplexml.agencylist.AgencyListBody;
-import net.sf.nextbus.publicxmlfeed.impl.simplexml.predictions.*;
+import net.sf.nextbus.publicxmlfeed.impl.simplexml.predictions.Predictions;
+import net.sf.nextbus.publicxmlfeed.impl.simplexml.predictions.PredictionsBody;
 import net.sf.nextbus.publicxmlfeed.impl.simplexml.routeconfig.Point;
 import net.sf.nextbus.publicxmlfeed.impl.simplexml.routeconfig.RouteConfigBody;
 import net.sf.nextbus.publicxmlfeed.impl.simplexml.routelist.RouteListBody;
@@ -162,7 +161,7 @@ public class DomainFactory {
 
         for (net.sf.nextbus.publicxmlfeed.impl.simplexml.routeconfig.Direction d : wireRouteConfiguration.getDirections()) {
             List<Stop> directionStops = new ArrayList<Stop>();
-            for (net.sf.nextbus.publicxmlfeed.impl.simplexml.routeconfig.Direction.Stop ds : d.getStop())
+            for (net.sf.nextbus.publicxmlfeed.impl.simplexml.routeconfig.Direction.Stop ds : d.getStops())
                 directionStops.add(stopsByTag.get(ds.getTag()));
             List<Stop> unmodifiableStops = Collections.unmodifiableList(directionStops);
             Direction direction = new Direction(route, d.getTag(), d.getTitle(), d.getName(), unmodifiableStops, copyright);

@@ -30,6 +30,9 @@
  ******************************************************************************/
 package net.sf.nextbus.publicxmlfeed.domain;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 import java.util.List;
 
 /**
@@ -39,40 +42,59 @@ import java.util.List;
  * @author jrd
  * @author elliottsj
  */
-@SuppressWarnings("UnusedDeclaration")
+@DatabaseTable(tableName = "stops")
 public class Stop extends NextbusValueObject implements IGeocoded, Comparable<Stop> {
 
     private static final long serialVersionUID = 4758606058242302310L;
 
+    public static final String FIELD_AGENCY_ID = "agency_id";
+    public static final String FIELD_TAG = "tag";
+    public static final String FIELD_TITLE = "title";
+    public static final String FIELD_SHORT_TITLE = "short_title";
+    public static final String FIELD_GEOLOCATION_ID = "geolocation_id";
+    public static final String FIELD_STOPID = "stopid";
+
     /**
      * Agency owning this stop
      */
+    @DatabaseField(columnName = FIELD_AGENCY_ID, canBeNull = false, foreign = true)
     protected Agency agency;
 
     /**
      * The Key Identifier for this Id - example, 10642
      */
+    @DatabaseField(columnName = FIELD_TAG, canBeNull = false)
     protected String tag;
 
     /**
      * Full title of the stop - example, Forest Hills Station Upper Busway
      */
+    @DatabaseField(columnName = FIELD_TITLE, canBeNull = false)
     protected String title;
 
     /**
      * The shortened title, if available.
      */
+    @DatabaseField(columnName = FIELD_SHORT_TITLE)
     protected String shortTitle;
 
     /**
      * GPS location of the stop
      */
+    @DatabaseField(columnName = FIELD_GEOLOCATION_ID, canBeNull = false, foreign = true)
     protected Geolocation geolocation;
 
     /**
      * An alternate stop ID published in schedules and used in telephone voice responder and SMS status messages.
      */
+    @DatabaseField(columnName = FIELD_STOPID)
     protected String stopId;
+
+    /**
+     * Empty constructor for OrmLite
+     */
+    Stop() {
+    }
 
     /**
      * Full constructor
@@ -119,6 +141,10 @@ public class Stop extends NextbusValueObject implements IGeocoded, Comparable<St
      */
     public Agency getAgency() {
         return agency;
+    }
+
+    public void setAgency(Agency agency) {
+        this.agency = agency;
     }
 
     /**

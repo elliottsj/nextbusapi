@@ -29,7 +29,7 @@ public class Direction {
     private String branch;
 
     @ElementList(inline = true)
-    private List<Stop> stop;
+    private List<Stop> stops;
 
     public String getTag() {
         return tag;
@@ -71,12 +71,12 @@ public class Direction {
         this.branch = branch;
     }
 
-    public List<Stop> getStop() {
-        return stop;
+    public List<Stop> getStops() {
+        return stops;
     }
 
-    public void setStop(List<Stop> stop) {
-        this.stop = stop;
+    public void setStops(List<Stop> stops) {
+        this.stops = stops;
     }
 
     @Root
