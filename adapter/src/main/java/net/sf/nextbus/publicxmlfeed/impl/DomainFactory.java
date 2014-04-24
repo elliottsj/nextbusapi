@@ -235,6 +235,7 @@ public class DomainFactory {
                                                             wirePrediction.getTripTag(),
                                                             wirePrediction.getBlock(),
                                                             wirePrediction.getEpochTime(),
+                                                            wirePrediction.getMinutes(),
                                                             copyright,
                                                             wirePrediction.isDelayed(),
                                                             wirePrediction.isScheduleBased()));

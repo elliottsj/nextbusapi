@@ -226,7 +226,7 @@ public class RPCRequest {
      * @param useShortTitles true iff short titles should be fetched instead of long titles
      * @return an rpc request for a predictionsForMultiStops command
      */
-    public static RPCRequest newPredictionsForMultiStopsCommand(Map<Route, Stop> stops, boolean useShortTitles) {
+    public static RPCRequest newPredictionsForMultiStopsCommand(Map<Route, List<Stop>> stops, boolean useShortTitles) {
         if (stops.isEmpty())
             return null;
 
@@ -236,10 +236,13 @@ public class RPCRequest {
         if (useShortTitles)
             rq.parameters.put("useShortTitles", "true");
 
-        for (Map.Entry<Route, Stop> entry : stops.entrySet()) {
-            String param = "stops=" + entry.getKey().getTag() + '|' + entry.getValue().getTag();
-            rq.multiPredictionCornerCase.add(param);
-            rq.multiPredictionCornerCase.add("&");
+        for (Map.Entry<Route, List<Stop>> entry : stops.entrySet()) {
+            Route route = entry.getKey();
+            for (Stop stop : entry.getValue()) {
+                String param = "stops=" + route.getTag() + '|' + stop.getTag();
+                rq.multiPredictionCornerCase.add(param);
+                rq.multiPredictionCornerCase.add("&");
+            }
         }
         return rq;
     }

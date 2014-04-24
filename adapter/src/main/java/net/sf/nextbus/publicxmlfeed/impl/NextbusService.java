@@ -196,7 +196,7 @@ public class NextbusService implements INextbusService {
         }
     }
 
-    public List<PredictionGroup> getPredictions(Map<Route, Stop> stops) throws ServiceException {
+    public List<PredictionGroup> getPredictions(Map<Route, List<Stop>> stops) throws ServiceException {
         String responseXml = "";
         // construct the wire protocol command
         RPCRequest rq = RPCRequest.newPredictionsForMultiStopsCommand(stops, false);
@@ -206,7 +206,12 @@ public class NextbusService implements INextbusService {
             responseXml = rpc.call(rq);
             logger.log(Level.FINEST, "got XML response ", responseXml);
 
-            return pojoMaker.getPredictions(stops.values(), responseXml);
+            // Collect all stops in the map
+            Set<Stop> stopSet = new HashSet<Stop>();
+            for (List<Stop> stopList : stops.values())
+                stopSet.addAll(stopList);
+
+            return pojoMaker.getPredictions(stopSet, responseXml);
         } catch (Exception e) {
             logger.log(Level.SEVERE, "while parsing response Xml " + responseXml, e);
             throw new FatalServiceException("RPC Call <multiStopPredictions>", e);

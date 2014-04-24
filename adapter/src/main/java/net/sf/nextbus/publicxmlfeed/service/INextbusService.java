@@ -21,10 +21,10 @@
  *
  * Usage of the NextBus Web Service and its data is subject to separate
  * Terms and Conditions of Use (License) available at:
- * 
+ *
  *      http://www.nextbus.com/xmlFeedDocs/NextBusXMLFeed.pdf
- * 
- * 
+ *
+ *
  * NextBus® is a registered trademark of Webtech Wireless Inc.
  *
  ******************************************************************************/
@@ -43,12 +43,12 @@ import java.util.Map;
  * @author jrd
  */
 public interface INextbusService {
-    
+
     /**
      * Indicates the corresponding Document version from NextBus that this adapter was tested against.
      */
     public final String specVersion = "1.22";
-    
+
     /**
      * Get all Transit Agencies currently served by NextBus.
      * @return agencies
@@ -102,12 +102,12 @@ public interface INextbusService {
      * @param r
      * @param s
      * @return
-     * @throws ServiceException 
+     * @throws ServiceException
      */
     public PredictionGroup getPredictions(Route r, Stop s) throws ServiceException;
-    
+
     /**
-     * Get Arrival and Departure Predictions for a set of Stops on a fixed route. This is a 
+     * Get Arrival and Departure Predictions for a set of Stops on a fixed route. This is a
      * specific bulk-fetch utility method to support ESB adapters that need an efficient way to source updates.
      * @param route
      * @param stops
@@ -115,14 +115,14 @@ public interface INextbusService {
      * @throws ServiceException Wraps all XML parse, I/O and data conversion faults detected from implementation classes.
      */
     public List<PredictionGroup> getPredictions(Route route, Collection<Stop> stops) throws ServiceException;
-    
+
     /**
      * Get Arrival and Departure Predicted Future time for a specific Route Stop Pairs.
      * @param stops
      * @return
-     * @throws ServiceException 
+     * @throws ServiceException
      */
-    public List<PredictionGroup> getPredictions(Map<Route, Stop> stops) throws ServiceException;
+    public List<PredictionGroup> getPredictions(Map<Route, List<Stop>> stops) throws ServiceException;
     /**
      * Get the nested Schedule elements for a given Route
      * @param route
@@ -130,7 +130,7 @@ public interface INextbusService {
      * @throws ServiceException  Wraps all XML parse, I/O and data conversion faults detected from implementation classes.
      */
     public List<Schedule> getSchedule(Route route) throws ServiceException;
-     
-    
+
+
     /* TODO - Implement Support for Nextbus Messages RPC once the attributes are better understood. */
 }

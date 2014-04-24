@@ -44,7 +44,7 @@ import java.util.Date;
  */
 public class Prediction extends NextbusValueObject implements Comparable<Prediction> {
 
-  
+
     /**
      * The route that owns this prediction element.
      */
@@ -61,12 +61,18 @@ public class Prediction extends NextbusValueObject implements Comparable<Predict
     /**
      * The ID of the Direction element this Vehicle is traveling
      */
-    private String directionId;
+    private String directionTag;
     /**
      * The Arrival of Departure time in UTC (Zulu) time - NOT the Local
      * Timezone!
      */
     private Date predictedArrivalOrDepartureTimeUTC;
+
+    /**
+     * Minutes until arrival or departure
+     */
+    private int minutes;
+
     /**
      * Is the predicted time for a bus Departure (true) or an Arrival (false)?
      */
@@ -101,17 +107,18 @@ public class Prediction extends NextbusValueObject implements Comparable<Predict
     /**
      * Domain factory ctor.
      */
-    public Prediction(Route route, Stop stop, String vehicleId, String directionId, boolean departure, boolean layover, String tripTag, String block, long predictedTime, String copyright, boolean delayed, boolean scheduleBased) {
+    public Prediction(Route route, Stop stop, String vehicleId, String directionTag, boolean departure, boolean layover, String tripTag, String block, long predictedTime, int minutes, String copyright, boolean delayed, boolean scheduleBased) {
         super(copyright, null);
         this.route = route;
         this.stop = stop;
         this.vehicle = new Vehicle(vehicleId, copyright, null);
-        this.directionId = directionId;
+        this.directionTag = directionTag;
         this.block = block;
         this.tripTag = tripTag;
         this.predictionForDepartureTime = departure;
         this.predictionIncludesLayoverEstimate = layover;
         this.predictedArrivalOrDepartureTimeUTC = new java.util.Date(predictedTime);
+        this.minutes = minutes;
         this.delayed = delayed;
         this.scheduleBasedPrediction = scheduleBased;
     }
@@ -168,13 +175,13 @@ public class Prediction extends NextbusValueObject implements Comparable<Predict
     public boolean isScheduleBasedPrediction() {
         return this.scheduleBasedPrediction;
     }
-    
+
     /**
      * Indicates the prediction is determined by a NextBus proprietary heuristic based on GPS telemetry.
-     * @return 
+     * @return
      */
     public boolean isHeuristicBasedPrediction() {
-        return ! scheduleBasedPrediction;
+        return !scheduleBasedPrediction;
     }
 
     /**
@@ -189,12 +196,16 @@ public class Prediction extends NextbusValueObject implements Comparable<Predict
     /**
      * @return The predicted Arrival or Depature time in milliseconds since 1
      * Jan 1970 00:00 UTC.
-     * @return 
+     * @return
      */
     public Long getPredictedArrivalOrDepartureTimeUTCMilliseconds() {
         return predictedArrivalOrDepartureTimeUTC.getTime();
     }
-    
+
+    public int getMinutes() {
+        return minutes;
+    }
+
     /**
      * Derived value:
      *
@@ -225,8 +236,8 @@ public class Prediction extends NextbusValueObject implements Comparable<Predict
      *
      * @return The direction ID.
      */
-    public String getDirectionId() {
-        return directionId;
+    public String getDirectionTag() {
+        return directionTag;
     }
 
     /**
@@ -236,9 +247,9 @@ public class Prediction extends NextbusValueObject implements Comparable<Predict
     public Stop getStop() {
         return stop;
     }
-    
+
     /**
-     * 
+     *
      * @return The Route to which this estimate belongs
      */
     public Route getRoute() {
@@ -287,7 +298,7 @@ public class Prediction extends NextbusValueObject implements Comparable<Predict
         if (this.vehicle != other.vehicle && (this.vehicle == null || !this.vehicle.equals(other.vehicle))) {
             return false;
         }
-        if ((this.directionId == null) ? (other.directionId != null) : !this.directionId.equals(other.directionId)) {
+        if ((this.directionTag == null) ? (other.directionTag != null) : !this.directionTag.equals(other.directionTag)) {
             return false;
         }
         return true;
@@ -299,15 +310,15 @@ public class Prediction extends NextbusValueObject implements Comparable<Predict
         hash = 97 * hash + (this.route != null ? this.route.hashCode() : 0);
         hash = 97 * hash + (this.stop != null ? this.stop.hashCode() : 0);
         hash = 97 * hash + (this.vehicle != null ? this.vehicle.hashCode() : 0);
-        hash = 97 * hash + (this.directionId != null ? this.directionId.hashCode() : 0);
+        hash = 97 * hash + (this.directionTag != null ? this.directionTag.hashCode() : 0);
         return hash;
     }
 
-    
+
 
     @Override
     public String toString() {
-        return "Prediction{ route=" + route + ",stop=" + stop + ", vehicle=" + vehicle + ", directionId=" + directionId + ", predictedArrivalOrDepartureTimeUTC=" + predictedArrivalOrDepartureTimeUTC + ", predictionForDepartureTime=" + predictionForDepartureTime + ", predictionIncludesLayoverEstimate=" + predictionIncludesLayoverEstimate + ", block=" + block + ", tripTag=" + tripTag + ", branch=" + branch + ",delayed=" + delayed + " ,scheduleBased=" + scheduleBasedPrediction + "'}";
+        return "Prediction{ route=" + route + ",stop=" + stop + ", vehicle=" + vehicle + ", directionTag=" + directionTag + ", predictedArrivalOrDepartureTimeUTC=" + predictedArrivalOrDepartureTimeUTC + ", predictionForDepartureTime=" + predictionForDepartureTime + ", predictionIncludesLayoverEstimate=" + predictionIncludesLayoverEstimate + ", block=" + block + ", tripTag=" + tripTag + ", branch=" + branch + ",delayed=" + delayed + " ,scheduleBased=" + scheduleBasedPrediction + "'}";
     }
 
     /**
