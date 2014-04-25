@@ -44,6 +44,7 @@ import java.util.Date;
  */
 public class Prediction extends NextbusValueObject implements Comparable<Prediction> {
 
+    private static final long serialVersionUID = -6003685702798672827L;
 
     /**
      * The route that owns this prediction element.

@@ -46,7 +46,7 @@ public class Message {
     @Element
     private String smsText;
 
-    @Element
+    @Element(required = false)
     private int priority;
 
     @ElementList(inline = true, required = false)

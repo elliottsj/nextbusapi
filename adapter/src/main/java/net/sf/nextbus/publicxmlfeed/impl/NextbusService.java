@@ -200,6 +200,8 @@ public class NextbusService implements INextbusService {
         String responseXml = "";
         // construct the wire protocol command
         RPCRequest rq = RPCRequest.newPredictionsForMultiStopsCommand(stops, false);
+        if (rq == null)
+            return null;
         logger.log(Level.FINEST, "sending RPC ", rq.getFullHttpRequest());
         try {
             // invoke the RPC
