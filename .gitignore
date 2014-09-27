@@ -32,5 +32,7 @@ proguard/
 .svn/
 
 # Maven target files
-nextbus-adapter/target
+/target
+
+# OS files
 .DS_Store
