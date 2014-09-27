@@ -1,6 +1,8 @@
 nextbusapi
 ==========
 
+[![Travis CI](https://img.shields.io/travis/elliottsj/nextbusapi.svg?style=flat)](https://travis-ci.org/elliottsj/nextbusapi)
+
 A RESTful web service adapter for the NextBus prediction and transit network reporting service, compatible with Android.
 
 This project is a fork of the [NextBus Public Feed Adapter for Java](http://sourceforge.net/projects/nextbusapi/) by [Jim Doyle](http://jim_doyle.users.sourceforge.net/).
