@@ -12,6 +12,9 @@ public class Message {
     @Attribute
     private String text;
 
+    @Attribute(required = false)
+    private String priority;
+
     public String getText() {
         return text;
     }

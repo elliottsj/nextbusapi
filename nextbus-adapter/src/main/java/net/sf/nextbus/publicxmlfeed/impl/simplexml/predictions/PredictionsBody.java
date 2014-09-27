@@ -6,7 +6,7 @@ import java.util.List;
 
 public class PredictionsBody extends net.sf.nextbus.publicxmlfeed.impl.simplexml.Body {
 
-    @ElementList(inline = true)
+    @ElementList(inline = true, required = false)
     private List<Predictions> predictions;
 
     public List<Predictions> getPredictions() {
