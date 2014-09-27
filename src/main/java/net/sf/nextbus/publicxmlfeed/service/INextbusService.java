@@ -123,6 +123,7 @@ public interface INextbusService {
      * @throws ServiceException
      */
     public List<PredictionGroup> getPredictions(Map<Route, List<Stop>> stops) throws ServiceException;
+
     /**
      * Get the nested Schedule elements for a given Route
      * @param route

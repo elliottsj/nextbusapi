@@ -86,11 +86,11 @@ public class VOCache implements INextbusService {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public PredictionGroup getPredictions(Route r, Stop s) throws ServiceException {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public List<PredictionGroup> getPredictions(Map<Route, List<Stop>> stops) throws ServiceException {
+        return null;
     }
 
-    public List<PredictionGroup> getPredictions(Map<Route, Stop> stops) throws ServiceException {
+    public PredictionGroup getPredictions(Route r, Stop s) throws ServiceException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
