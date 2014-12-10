@@ -191,5 +191,4 @@ public class Direction extends NextbusValueObject implements Comparable<Directio
         return o.name.compareTo(o.name);
     }
 
-
 }
