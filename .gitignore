@@ -1,5 +1,6 @@
 # gradle files
 .gradle
+gradle.properties
 
 # Java class files
 *.class
