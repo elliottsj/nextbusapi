@@ -9,9 +9,12 @@ buildscript {
 }
 
 apply plugin: 'java'
+apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.bintray'
 
 sourceCompatibility = 1.6
+
+group = 'com.elliottsj'
 version = '1.1.0'
 
 repositories {
@@ -24,11 +27,19 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
 }
 
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}
+
 bintray {
     user = bintrayUser
     key = bintrayKey
 
-    configurations = ['archives']
+    publications = ['mavenJava']
     pkg {
         repo = 'maven'
         name = 'nextbusapi'
