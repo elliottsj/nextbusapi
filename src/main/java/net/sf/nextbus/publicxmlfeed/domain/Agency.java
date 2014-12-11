@@ -44,8 +44,7 @@ import com.j256.ormlite.table.DatabaseTable;
 public class Agency extends NextbusValueObject implements Comparable<Agency> {
 
     private static final long serialVersionUID = -7910786609872379992L;
-
-
+    
     public static final String FIELD_TAG = "tag";
     public static final String FIELD_TITLE = "title";
     public static final String FIELD_SHORT_TITLE = "short_title";
