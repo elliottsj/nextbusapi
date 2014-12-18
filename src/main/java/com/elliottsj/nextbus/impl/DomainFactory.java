@@ -40,6 +40,8 @@ import com.elliottsj.nextbus.impl.simplexml.vehiclelocations.Vehicle;
 import com.elliottsj.nextbus.impl.simplexml.agencylist.AgencyListBody;
 import com.elliottsj.nextbus.impl.simplexml.predictions.Predictions;
 import com.elliottsj.nextbus.impl.simplexml.predictions.PredictionsBody;
+import com.elliottsj.nextbus.impl.simplexml.routeconfig.Direction;
+import com.elliottsj.nextbus.impl.simplexml.routeconfig.Stop;
 import com.elliottsj.nextbus.impl.simplexml.routeconfig.Point;
 import com.elliottsj.nextbus.impl.simplexml.routeconfig.RouteConfigBody;
 import com.elliottsj.nextbus.impl.simplexml.routelist.RouteListBody;
