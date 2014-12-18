@@ -22,7 +22,12 @@ repositories {
 }
 
 dependencies {
-    compile 'org.simpleframework:simple-xml:2.7.1'
+    compile('org.simpleframework:simple-xml:2.7.1') {
+        // Excluding stax-api since it's Android-incompatible
+        exclude group: 'stax', module: 'stax-api'
+        // Excluding xpp3 since Android provides its own implementation
+        exclude group: 'xpp3', module: 'xpp3'
+    }
     compile 'com.j256.ormlite:ormlite-core:4.48'
     testCompile group: 'junit', name: 'junit', version: '4.11'
 }
@@ -38,6 +43,26 @@ publishing {
 
             artifact sourceJar {
                 classifier 'sources'
+            }
+
+            // Dependency exclusion workaround
+            // See <http://forums.gradle.org/gradle/topics/exclude_not_set_in_generated_pom_maven_publish>
+            configurations[JavaPlugin.RUNTIME_CONFIGURATION_NAME].allDependencies.findAll {
+                it instanceof ModuleDependency && !it.excludeRules.isEmpty()
+            }.each { ModuleDependency dep ->
+                pom.withXml {
+                    def xmlDep = asNode().dependencies.dependency.find {
+                        it.groupId[0].text() == dep.group && it.artifactId[0].text() == dep.name
+                    }
+                    def xmlExclusions = xmlDep.exclusions[0]
+                    if (!xmlExclusions) xmlExclusions = xmlDep.appendNode('exclusions')
+
+                    dep.excludeRules.each { ExcludeRule rule ->
+                        def xmlExclusion = xmlExclusions.appendNode('exclusion')
+                        xmlExclusion.appendNode('groupId', rule.group)
+                        xmlExclusion.appendNode('artifactId', rule.module)
+                    }
+                }
             }
         }
     }
